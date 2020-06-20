@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">HiLotto</string>
+
+    <string name="home">홈</string>
+    <string name="statistics">통계</string>
+    <string name="recommend">추천 번호</string>
+    <string name="my">내 번호</string>
 </resources>

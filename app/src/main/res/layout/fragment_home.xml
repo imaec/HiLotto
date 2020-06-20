@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.imaec.hilotto.viewmodel.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/text_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:text="0000-00-00"
+                    android:textColor="@color/gray"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/text_round"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:text="000회 당첨 번호"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_date"/>
+
+                <TextView
+                    style="@style/AppTheme.TextNumber"
+                    android:id="@+id/text_number_1"
+                    android:layout_marginLeft="12dp"
+                    android:text="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/text_number_2"
+                    app:layout_constraintTop_toBottomOf="@id/text_round"
+                    app:layout_constraintDimensionRatio="1"/>
+
+                <TextView
+                    style="@style/AppTheme.TextNumber"
+                    android:id="@+id/text_number_2"
+                    android:text="2"
+                    app:layout_constraintLeft_toRightOf="@id/text_number_1"
+                    app:layout_constraintRight_toLeftOf="@id/text_number_3"
+                    app:layout_constraintTop_toBottomOf="@id/text_round"
+                    app:layout_constraintDimensionRatio="1"/>
+
+                <TextView
+                    style="@style/AppTheme.TextNumber"
+                    android:id="@+id/text_number_3"
+                    android:text="3"
+                    app:layout_constraintLeft_toRightOf="@id/text_number_2"
+                    app:layout_constraintRight_toLeftOf="@id/text_number_4"
+                    app:layout_constraintTop_toBottomOf="@id/text_round"
+                    app:layout_constraintDimensionRatio="1"/>
+
+                <TextView
+                    style="@style/AppTheme.TextNumber"
+                    android:id="@+id/text_number_4"
+                    android:text="4"
+                    app:layout_constraintLeft_toRightOf="@id/text_number_3"
+                    app:layout_constraintRight_toLeftOf="@id/text_number_5"
+                    app:layout_constraintTop_toBottomOf="@id/text_round"
+                    app:layout_constraintDimensionRatio="1"/>
+
+                <TextView
+                    style="@style/AppTheme.TextNumber"
+                    android:id="@+id/text_number_5"
+                    android:text="5"
+                    app:layout_constraintLeft_toRightOf="@id/text_number_4"
+                    app:layout_constraintRight_toLeftOf="@id/text_number_6"
+                    app:layout_constraintTop_toBottomOf="@id/text_round"
+                    app:layout_constraintDimensionRatio="1"/>
+
+                <TextView
+                    style="@style/AppTheme.TextNumber"
+                    android:id="@+id/text_number_6"
+                    android:layout_marginRight="12dp"
+                    android:text="6"
+                    app:layout_constraintLeft_toRightOf="@id/text_number_5"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_round"
+                    app:layout_constraintDimensionRatio="1"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="12dp"
+                    android:gravity="end|center_vertical"
+                    android:text="BONUS"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorAccent"
+                    app:layout_constraintLeft_toLeftOf="@id/text_number_5"
+                    app:layout_constraintRight_toRightOf="@id/text_number_5"
+                    app:layout_constraintTop_toBottomOf="@id/text_number_5"
+                    app:layout_constraintDimensionRatio="1"/>
+
+                <TextView
+                    style="@style/AppTheme.TextNumber"
+                    android:id="@+id/text_number_bonus"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginTop="12dp"
+                    android:text="45"
+                    app:layout_constraintLeft_toLeftOf="@id/text_number_6"
+                    app:layout_constraintRight_toRightOf="@id/text_number_6"
+                    app:layout_constraintTop_toBottomOf="@id/text_number_6"
+                    app:layout_constraintDimensionRatio="1"/>
+
+                <View
+                    style="@style/AppTheme.ViewDivider"
+                    android:id="@+id/view_divider_1"
+                    android:layout_margin="16dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_number_bonus"/>
+
+                <TextView
+                    android:id="@+id/text_win_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="1등 당첨자 수 0명"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider_1"/>
+
+                <LinearLayout
+                    android:layout_width="240dp"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/bg_rounded_gray_stroke"
+                    app:layout_constraintRight_toLeftOf="@id/text_won"
+                    app:layout_constraintTop_toBottomOf="@id/text_win_count">
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_left_rounded_primary"
+                        android:gravity="center"
+                        android:text="1등"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/text_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_won"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="4dp"
+                    android:text="원"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_win_count"/>
+
+                <View
+                    style="@style/AppTheme.ViewDivider"
+                    android:id="@+id/view_divider_2"
+                    android:layout_margin="16dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_won"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

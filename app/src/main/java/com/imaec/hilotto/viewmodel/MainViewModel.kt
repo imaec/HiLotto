@@ -1,4 +1,4 @@
-package com.imaec.hilotto.model
+package com.imaec.hilotto.viewmodel
 
 import com.imaec.hilotto.base.BaseViewModel
 
