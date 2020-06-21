@@ -38,7 +38,7 @@
                     android:layout_marginTop="12dp"
                     android:gravity="center"
                     android:text="000회 당첨 번호"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -127,6 +127,18 @@
                     app:layout_constraintDimensionRatio="1"/>
 
                 <View
+                    android:id="@+id/view_round"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground"
+                    app:layout_constraintLeft_toLeftOf="@id/text_number_1"
+                    app:layout_constraintRight_toRightOf="@id/text_number_6"
+                    app:layout_constraintTop_toTopOf="@id/text_round"
+                    app:layout_constraintBottom_toBottomOf="@id/text_number_bonus"/>
+
+                <View
                     style="@style/AppTheme.ViewDivider"
                     android:id="@+id/view_divider_1"
                     android:layout_margin="16dp"
@@ -146,7 +158,7 @@
                     app:layout_constraintTop_toBottomOf="@id/view_divider_1"/>
 
                 <LinearLayout
-                    android:layout_width="240dp"
+                    android:layout_width="200dp"
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:layout_margin="4dp"
@@ -167,7 +179,11 @@
                     <TextView
                         android:id="@+id/text_price"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:padding="4dp"
+                        android:gravity="center_vertical|end"
+                        android:text="0"
+                        android:textSize="15sp"/>
                 </LinearLayout>
 
                 <TextView
@@ -190,6 +206,47 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_won"/>
+
+                <TextView
+                    android:id="@+id/text_lately_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="최근 회차 결과"
+                    android:textSize="16sp"
+                    android:textColor="@color/darkGray"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider_2"/>
+
+                <TextView
+                    android:id="@+id/text_lately_result_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="더보기"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/text_lately_result"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_lately_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_lately_result"/>
+
+                <TextView
+                    style="@style/AppTheme.TextPrimaryButton"
+                    android:id="@+id/text_store"
+                    android:layout_margin="16dp"
+                    android:text="당첨 판매점"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recycler_lately_result"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

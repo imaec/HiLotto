@@ -33,9 +33,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
         binding.apply {
             lifecycleOwner = this@MainActivity
             viewModel = this@MainActivity.viewModel
+            bottomNavigation.setOnNavigationItemSelectedListener(this@MainActivity)
         }
-
-        setFragment(fragmentHome)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
