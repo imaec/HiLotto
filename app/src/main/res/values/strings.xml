@@ -5,4 +5,11 @@
     <string name="statistics">통계</string>
     <string name="recommend">추천 번호</string>
     <string name="my">내 번호</string>
+    
+    <!-- 통계 탭 이름 -->
+    <string name="sum">합계</string>
+    <string name="pick">출현/미출현</string>
+    <string name="continues">연속번호</string>
+    <string name="odd_even">홀/짝</string>
+    <string name="win">당첨</string>
 </resources>

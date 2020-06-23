@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,10 +9,65 @@
             type="com.imaec.hilotto.viewmodel.StatisticsViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_statistics"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@color/darkGray"
+                app:tabMinWidth="0dp"
+                app:tabMode="auto"
+                app:tabBackground="@color/darkGray"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorColor="@color/white"
+                app:tabRippleColor="@color/lightGray2"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextAppearance="@style/TabTextAppearance">
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab_item_sum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sum"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab_item_pick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pick"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab_item_continues"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/continues"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab_item_odd_even"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/odd_even"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab_item_win"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/win"/>
+            </com.google.android.material.tabs.TabLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager_statistics"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

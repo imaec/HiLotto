@@ -38,14 +38,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val fragment = when (item.itemId) {
+        setFragment(when (item.itemId) {
             R.id.navigation_home -> fragmentHome
             R.id.navigation_statistics -> fragmentStatistics
             R.id.navigation_recommend -> fragmentRecommend
             R.id.navigation_my-> fragmentMy
             else -> fragmentHome
-        }
-        setFragment(fragment)
+        })
         return true
     }
 
