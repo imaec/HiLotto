@@ -28,7 +28,7 @@
                 app:tabBackground="@color/darkGray"
                 app:tabIndicatorFullWidth="false"
                 app:tabIndicatorColor="@color/white"
-                app:tabRippleColor="@color/lightGray2"
+                app:tabRippleColor="@color/lightGray3"
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextAppearance="@style/TabTextAppearance">
 

@@ -2,6 +2,7 @@ package com.imaec.hilotto.ui.view.activity
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.imaec.hilotto.R
@@ -55,6 +56,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
             }
             else -> super.onBackPressed()
         }
+    }
+
+    fun onClick(view: View) {
+
     }
 
     private fun init() {

@@ -243,7 +243,8 @@
                     style="@style/AppTheme.TextPrimaryButton"
                     android:id="@+id/text_store"
                     android:layout_margin="16dp"
-                    android:text="당첨 판매점"
+                    android:onClick="onClick"
+                    android:text="@string/store"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/recycler_lately_result"/>

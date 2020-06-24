@@ -12,4 +12,7 @@
     <string name="continues">연속번호</string>
     <string name="odd_even">홀/짝</string>
     <string name="win">당첨</string>
+
+    <string name="store">당첨 판매점</string>
+    <string name="create_numbers">번호 생성</string>
 </resources>
