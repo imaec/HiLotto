@@ -14,10 +14,23 @@
         <item name="android:layout_marginLeft">6dp</item>
         <item name="android:layout_marginRight">6dp</item>
         <item name="android:layout_marginTop">16dp</item>
-        <item name="android:background">@color/colorAccent</item>
+        <item name="android:background">@drawable/bg_rounded_accent</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="AppTheme.EditNumber">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:background">@drawable/bg_rounded_input</item>
+        <item name="android:gravity">center</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">2</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/darkGray</item>
     </style>
 
     <style name="AppTheme.ViewDivider">

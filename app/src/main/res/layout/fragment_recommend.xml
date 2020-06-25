@@ -13,6 +13,57 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <EditText
+            style="@style/AppTheme.EditNumber"
+            android:id="@+id/edit_number1"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/edit_number2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="1"/>
+
+        <EditText
+            style="@style/AppTheme.EditNumber"
+            android:id="@+id/edit_number2"
+            app:layout_constraintLeft_toRightOf="@id/edit_number1"
+            app:layout_constraintRight_toLeftOf="@id/edit_number3"
+            app:layout_constraintTop_toTopOf="@id/edit_number1"
+            app:layout_constraintDimensionRatio="1"/>
+
+        <EditText
+            style="@style/AppTheme.EditNumber"
+            android:id="@+id/edit_number3"
+            app:layout_constraintLeft_toRightOf="@id/edit_number2"
+            app:layout_constraintRight_toLeftOf="@id/edit_number4"
+            app:layout_constraintTop_toTopOf="@id/edit_number1"
+            app:layout_constraintDimensionRatio="1"/>
+
+        <EditText
+            style="@style/AppTheme.EditNumber"
+            android:id="@+id/edit_number4"
+            app:layout_constraintLeft_toRightOf="@id/edit_number3"
+            app:layout_constraintRight_toLeftOf="@id/edit_number5"
+            app:layout_constraintTop_toTopOf="@id/edit_number1"
+            app:layout_constraintDimensionRatio="1"/>
+
+        <EditText
+            style="@style/AppTheme.EditNumber"
+            android:id="@+id/edit_number5"
+            app:layout_constraintLeft_toRightOf="@id/edit_number4"
+            app:layout_constraintRight_toLeftOf="@id/edit_number6"
+            app:layout_constraintTop_toTopOf="@id/edit_number1"
+            app:layout_constraintDimensionRatio="1"/>
+
+        <EditText
+            style="@style/AppTheme.EditNumber"
+            android:id="@+id/edit_number6"
+            android:layout_marginRight="12dp"
+            app:layout_constraintLeft_toRightOf="@id/edit_number5"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edit_number1"
+            app:layout_constraintDimensionRatio="1"/>
+
         <TextView
             style="@style/AppTheme.TextPrimaryButton"
             android:id="@+id/button_create_numbers"
