@@ -13,6 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            style="@style/AppTheme.Toolbar"
+            android:id="@+id/text_title"
+            android:text="@string/recommend"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <EditText
             style="@style/AppTheme.EditNumber"
             android:id="@+id/edit_number1"
@@ -20,7 +28,7 @@
             android:layout_marginTop="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/edit_number2"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_title"
             app:layout_constraintDimensionRatio="1"/>
 
         <EditText
