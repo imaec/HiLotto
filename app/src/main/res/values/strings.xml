@@ -15,4 +15,15 @@
 
     <string name="store">당첨 판매점</string>
     <string name="create_numbers">번호 생성</string>
+    <string name="bonus">BONUS</string>
+
+    <string name="date_empty">0000–00–00</string>
+    <string name="title_round_empty">000회 당첨 번호</string>
+    <string name="number1">1</string>
+    <string name="number2">2</string>
+    <string name="number3">3</string>
+    <string name="number4">4</string>
+    <string name="number5">5</string>
+    <string name="number6">6</string>
+    <string name="number_bonus">45</string>
 </resources>
