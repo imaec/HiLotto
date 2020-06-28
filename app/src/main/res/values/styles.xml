@@ -17,19 +17,19 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="AppTheme.TextNumber">
+    <style name="AppTheme.TextNumberAccent">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_marginLeft">6dp</item>
         <item name="android:layout_marginRight">6dp</item>
         <item name="android:layout_marginTop">16dp</item>
-        <item name="android:background">@drawable/bg_rounded_accent</item>
+        <item name="android:background">@drawable/bg_circle_accent</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="AppTheme.EditNumber">
+    <style name="AppTheme.TextNumberInput">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_marginLeft">6dp</item>
@@ -38,6 +38,10 @@
         <item name="android:gravity">center</item>
         <item name="android:inputType">number</item>
         <item name="android:maxLength">2</item>
+        <item name="android:onClick">onClick</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/darkGray</item>
     </style>
@@ -51,14 +55,31 @@
     <style name="AppTheme.TextPrimaryButton">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:background">@drawable/bg_rounded_primary_button</item>
-        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:background">@drawable/ripple_primary</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:gravity">center</item>
+        <item name="android:onClick">onClick</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.ConditionTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/darkGray</item>
+    </style>
+
+    <style name="AppTheme.ConditionSwitch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
     </style>
 
     <style name="TabTextAppearance" parent="Widget.MaterialComponents.TabLayout">

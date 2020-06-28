@@ -21,50 +21,188 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <EditText
-            style="@style/AppTheme.EditNumber"
+        <TextView
+            style="@style/AppTheme.ConditionTitle"
+            android:id="@+id/text_condition1"
+            android:text="@string/condition_sum"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_title"/>
+
+        <Switch
+            style="@style/AppTheme.ConditionSwitch"
+            android:id="@+id/checkbox_condition1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_title"/>
+
+        <TextView
+            style="@style/AppTheme.ConditionTitle"
+            android:id="@+id/text_condition2"
+            android:text="@string/condition_pick"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_condition1"/>
+
+        <Switch
+            style="@style/AppTheme.ConditionSwitch"
+            android:id="@+id/checkbox_condition2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_condition1"/>
+
+        <TextView
+            style="@style/AppTheme.ConditionTitle"
+            android:id="@+id/text_condition3"
+            android:text="@string/condition_continues"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_condition2"/>
+
+        <Switch
+            style="@style/AppTheme.ConditionSwitch"
+            android:id="@+id/checkbox_condition3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_condition2"/>
+
+        <TextView
+            style="@style/AppTheme.ConditionTitle"
+            android:id="@+id/text_condition4"
+            android:text="@string/condition_odd_even"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_condition3"/>
+
+        <Switch
+            style="@style/AppTheme.ConditionSwitch"
+            android:id="@+id/checkbox_condition4"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_condition3"/>
+
+        <View
+            style="@style/AppTheme.ViewDivider"
+            android:id="@+id/view_divider"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkbox_condition4"/>
+
+        <TextView
+            style="@style/AppTheme.ConditionTitle"
+            android:id="@+id/text_condition5"
+            android:text="@string/condition_all"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_divider"/>
+
+        <Switch
+            style="@style/AppTheme.ConditionSwitch"
+            android:id="@+id/checkbox_condition5"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_divider"/>
+
+        <TextView
+            style="@style/AppTheme.ConditionTitle"
+            android:id="@+id/text_included"
+            android:layout_width="0dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/included_numbers"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/recycler_included"
+            app:layout_constraintTop_toBottomOf="@id/text_condition5"
+            app:layout_constraintWidth_percent="0.25"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_included"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toRightOf="@id/text_included"
+            app:layout_constraintRight_toLeftOf="@id/image_included_add"
+            app:layout_constraintTop_toTopOf="@id/text_included"
+            app:layout_constraintWidth_percent="0.65"/>
+
+        <ImageView
+            android:id="@+id/image_included_add"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:paddingRight="16dp"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="centerInside"
+            app:layout_constraintLeft_toRightOf="@id/recycler_included"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_included"
+            app:layout_constraintWidth_percent="0.1"/>
+
+        <TextView
+            style="@style/AppTheme.ConditionTitle"
+            android:id="@+id/text_not_included"
+            android:layout_width="0dp"
+            android:text="@string/not_included_numbers"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/recycler_not_included"
+            app:layout_constraintTop_toBottomOf="@id/text_included"
+            app:layout_constraintWidth_percent="0.25"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_not_included"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toRightOf="@id/text_not_included"
+            app:layout_constraintRight_toLeftOf="@id/image_not_included_add"
+            app:layout_constraintTop_toTopOf="@id/text_not_included"
+            app:layout_constraintWidth_percent="0.65"/>
+
+        <ImageView
+            android:id="@+id/image_not_included_add"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:paddingRight="16dp"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="centerInside"
+            app:layout_constraintLeft_toRightOf="@id/recycler_not_included"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_not_included"
+            app:layout_constraintWidth_percent="0.1"/>
+
+        <TextView
+            style="@style/AppTheme.TextNumberInput"
             android:id="@+id/edit_number1"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="36dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/edit_number2"
-            app:layout_constraintTop_toBottomOf="@id/text_title"
+            app:layout_constraintTop_toBottomOf="@id/text_not_included"
             app:layout_constraintDimensionRatio="1"/>
 
-        <EditText
-            style="@style/AppTheme.EditNumber"
+        <TextView
+            style="@style/AppTheme.TextNumberInput"
             android:id="@+id/edit_number2"
             app:layout_constraintLeft_toRightOf="@id/edit_number1"
             app:layout_constraintRight_toLeftOf="@id/edit_number3"
             app:layout_constraintTop_toTopOf="@id/edit_number1"
             app:layout_constraintDimensionRatio="1"/>
 
-        <EditText
-            style="@style/AppTheme.EditNumber"
+        <TextView
+            style="@style/AppTheme.TextNumberInput"
             android:id="@+id/edit_number3"
             app:layout_constraintLeft_toRightOf="@id/edit_number2"
             app:layout_constraintRight_toLeftOf="@id/edit_number4"
             app:layout_constraintTop_toTopOf="@id/edit_number1"
             app:layout_constraintDimensionRatio="1"/>
 
-        <EditText
-            style="@style/AppTheme.EditNumber"
+        <TextView
+            style="@style/AppTheme.TextNumberInput"
             android:id="@+id/edit_number4"
             app:layout_constraintLeft_toRightOf="@id/edit_number3"
             app:layout_constraintRight_toLeftOf="@id/edit_number5"
             app:layout_constraintTop_toTopOf="@id/edit_number1"
             app:layout_constraintDimensionRatio="1"/>
 
-        <EditText
-            style="@style/AppTheme.EditNumber"
+        <TextView
+            style="@style/AppTheme.TextNumberInput"
             android:id="@+id/edit_number5"
             app:layout_constraintLeft_toRightOf="@id/edit_number4"
             app:layout_constraintRight_toLeftOf="@id/edit_number6"
             app:layout_constraintTop_toTopOf="@id/edit_number1"
             app:layout_constraintDimensionRatio="1"/>
 
-        <EditText
-            style="@style/AppTheme.EditNumber"
+        <TextView
+            style="@style/AppTheme.TextNumberInput"
             android:id="@+id/edit_number6"
             android:layout_marginRight="12dp"
             app:layout_constraintLeft_toRightOf="@id/edit_number5"
@@ -74,11 +212,25 @@
 
         <TextView
             style="@style/AppTheme.TextPrimaryButton"
-            android:id="@+id/button_create_numbers"
-            android:layout_margin="16dp"
-            android:onClick="onClick"
+            android:id="@+id/button_create"
+            android:layout_width="0dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/create_numbers"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/button_save"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            style="@style/AppTheme.TextPrimaryButton"
+            android:id="@+id/button_save"
+            android:layout_width="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/save_numbers"
+            app:layout_constraintLeft_toRightOf="@id/button_create"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
