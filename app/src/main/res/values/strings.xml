@@ -7,6 +7,13 @@
     <string name="my">내 번호</string>
     
     <!-- 통계 탭 이름 -->
+    <string-array name="tabs_statistics">
+        <item>합계</item>
+        <item>출현/미출현</item>
+        <item>연속번호</item>
+        <item>홀/짝</item>
+        <item>당첨</item>
+    </string-array>
     <string name="sum">합계</string>
     <string name="pick">출현/미출현</string>
     <string name="continues">연속번호</string>

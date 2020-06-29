@@ -28,46 +28,17 @@
                 app:tabBackground="@color/darkGray"
                 app:tabIndicatorFullWidth="false"
                 app:tabIndicatorColor="@color/white"
-                app:tabRippleColor="@color/lightGray3"
+                app:tabRippleColor="@color/gray"
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextAppearance="@style/TabTextAppearance">
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_item_sum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sum"/>
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_item_pick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pick"/>
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_item_continues"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/continues"/>
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_item_odd_even"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/odd_even"/>
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_item_win"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/win"/>
             </com.google.android.material.tabs.TabLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager_statistics"
+            android:id="@+id/pager_statistics"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="horizontal"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
