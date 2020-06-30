@@ -30,7 +30,7 @@
 
         <Switch
             style="@style/AppTheme.ConditionSwitch"
-            android:id="@+id/checkbox_condition1"
+            android:id="@+id/switch_condition1"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_title"/>
 
@@ -43,7 +43,7 @@
 
         <Switch
             style="@style/AppTheme.ConditionSwitch"
-            android:id="@+id/checkbox_condition2"
+            android:id="@+id/switch_condition2"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_condition1"/>
 
@@ -56,7 +56,7 @@
 
         <Switch
             style="@style/AppTheme.ConditionSwitch"
-            android:id="@+id/checkbox_condition3"
+            android:id="@+id/switch_condition3"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_condition2"/>
 
@@ -69,7 +69,7 @@
 
         <Switch
             style="@style/AppTheme.ConditionSwitch"
-            android:id="@+id/checkbox_condition4"
+            android:id="@+id/switch_condition4"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_condition3"/>
 
@@ -81,7 +81,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/checkbox_condition4"/>
+            app:layout_constraintTop_toBottomOf="@id/switch_condition4"/>
 
         <TextView
             style="@style/AppTheme.ConditionTitle"
@@ -92,7 +92,7 @@
 
         <Switch
             style="@style/AppTheme.ConditionSwitch"
-            android:id="@+id/checkbox_condition5"
+            android:id="@+id/switch_condition5"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_divider"/>
 
