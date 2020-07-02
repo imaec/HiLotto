@@ -45,4 +45,11 @@
     <string name="sum_min">21</string>
     <string name="sum_max">255</string>
     <string name="sum_empty">134</string>
+    <string name="pick_count_title">구간별 출현횟수</string>
+    <string name="no_pick_count_title">미출현번호</string>
+    <string name="pick_range1">1~10번</string>
+    <string name="pick_range2">11~20번</string>
+    <string name="pick_range3">21~30번</string>
+    <string name="pick_range4">31~40번</string>
+    <string name="pick_range5">41~45번</string>
 </resources>
