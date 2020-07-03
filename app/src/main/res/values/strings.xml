@@ -45,8 +45,8 @@
     <string name="sum_min">21</string>
     <string name="sum_max">255</string>
     <string name="sum_empty">134</string>
-    <string name="pick_count_title">구간별 출현횟수</string>
-    <string name="no_pick_count_title">미출현번호</string>
+    <string name="title_pick_count">구간별 출현횟수</string>
+    <string name="title_nopick_num">미출현번호</string>
     <string name="pick_range1">1~10번</string>
     <string name="pick_range2">11~20번</string>
     <string name="pick_range3">21~30번</string>
@@ -54,4 +54,20 @@
     <string name="pick_range5">41~45번</string>
     <string name="round_empty">000회</string>
     <string name="continues_empty">연속번호 없음</string>
+    <string name="odd_even_same">3:3</string>
+    <string name="title_win_avg">1등 당첨 평균(5회)</string>
+    <string name="title_prize_total">총 당첨금</string>
+    <string name="title_prize_by_one">1게임 당첨금</string>
+    <string name="title_win_count">당첨자 수</string>
+    <string name="prize_total_empty">0원 (약 0원)</string>
+    <string name="prize_by_one_empty">0원 (약 0원)</string>
+    <string name="win_count_empty">0명</string>
+    <string name="title_win_prize_max">1게임 최고 당첨금</string>
+    <string name="title_win_prize_min">1게임 최저 당첨금</string>
+    <string name="title_win_count_max">최대 당첨자 수</string>
+    <string name="title_win_count_min">최소 당첨자 수</string>
+    <string name="win_prize_max">000회 : 0원 (약 0원)</string>
+    <string name="win_prize_min">000회 : 0원 (약 0원)</string>
+    <string name="win_count_max">000회 : 0명</string>
+    <string name="win_count_min">000회 : 0명</string>
 </resources>
