@@ -52,4 +52,6 @@
     <string name="pick_range3">21~30번</string>
     <string name="pick_range4">31~40번</string>
     <string name="pick_range5">41~45번</string>
+    <string name="round_empty">000회</string>
+    <string name="continues_empty">연속번호 없음</string>
 </resources>

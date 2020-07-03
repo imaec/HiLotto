@@ -60,7 +60,7 @@
             app:layout_constraintTop_toBottomOf="@id/view_divider"/>
 
         <TextView
-            android:id="@+id/text_round1"
+            android:id="@+id/text_range1"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -77,10 +77,10 @@
             android:id="@+id/progress1"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintLeft_toRightOf="@id/text_round1"
+            app:layout_constraintLeft_toRightOf="@id/text_range1"
             app:layout_constraintRight_toLeftOf="@id/text_sum1"
-            app:layout_constraintTop_toTopOf="@id/text_round1"
-            app:layout_constraintBottom_toBottomOf="@id/text_round1"/>
+            app:layout_constraintTop_toTopOf="@id/text_range1"
+            app:layout_constraintBottom_toBottomOf="@id/text_range1"/>
 
         <TextView
             android:id="@+id/text_sum1"
@@ -90,11 +90,11 @@
             android:paddingRight="16dp"
             android:text="@string/sum_empty"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_round1"
-            app:layout_constraintBottom_toBottomOf="@id/text_round1"/>
+            app:layout_constraintTop_toTopOf="@id/text_range1"
+            app:layout_constraintBottom_toBottomOf="@id/text_range1"/>
 
         <TextView
-            android:id="@+id/text_round2"
+            android:id="@+id/text_range2"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -104,17 +104,17 @@
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_round1"/>
+            app:layout_constraintTop_toBottomOf="@id/text_range1"/>
 
         <ProgressBar
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:id="@+id/progress2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintLeft_toRightOf="@id/text_round2"
+            app:layout_constraintLeft_toRightOf="@id/text_range2"
             app:layout_constraintRight_toLeftOf="@id/text_sum2"
-            app:layout_constraintTop_toTopOf="@id/text_round2"
-            app:layout_constraintBottom_toBottomOf="@id/text_round2"/>
+            app:layout_constraintTop_toTopOf="@id/text_range2"
+            app:layout_constraintBottom_toBottomOf="@id/text_range2"/>
 
         <TextView
             android:id="@+id/text_sum2"
@@ -124,11 +124,11 @@
             android:paddingRight="16dp"
             android:text="@string/sum_empty"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_round2"
-            app:layout_constraintBottom_toBottomOf="@id/text_round2"/>
+            app:layout_constraintTop_toTopOf="@id/text_range2"
+            app:layout_constraintBottom_toBottomOf="@id/text_range2"/>
 
         <TextView
-            android:id="@+id/text_round3"
+            android:id="@+id/text_range3"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -138,17 +138,17 @@
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_round2"/>
+            app:layout_constraintTop_toBottomOf="@id/text_range2"/>
 
         <ProgressBar
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:id="@+id/progress3"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintLeft_toRightOf="@id/text_round3"
+            app:layout_constraintLeft_toRightOf="@id/text_range3"
             app:layout_constraintRight_toLeftOf="@id/text_sum3"
-            app:layout_constraintTop_toTopOf="@id/text_round3"
-            app:layout_constraintBottom_toBottomOf="@id/text_round3"/>
+            app:layout_constraintTop_toTopOf="@id/text_range3"
+            app:layout_constraintBottom_toBottomOf="@id/text_range3"/>
 
         <TextView
             android:id="@+id/text_sum3"
@@ -158,11 +158,11 @@
             android:paddingRight="16dp"
             android:text="@string/sum_empty"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_round3"
-            app:layout_constraintBottom_toBottomOf="@id/text_round3"/>
+            app:layout_constraintTop_toTopOf="@id/text_range3"
+            app:layout_constraintBottom_toBottomOf="@id/text_range3"/>
 
         <TextView
-            android:id="@+id/text_round4"
+            android:id="@+id/text_range4"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -172,17 +172,17 @@
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_round3"/>
+            app:layout_constraintTop_toBottomOf="@id/text_range3"/>
 
         <ProgressBar
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:id="@+id/progress4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintLeft_toRightOf="@id/text_round4"
+            app:layout_constraintLeft_toRightOf="@id/text_range4"
             app:layout_constraintRight_toLeftOf="@id/text_sum4"
-            app:layout_constraintTop_toTopOf="@id/text_round4"
-            app:layout_constraintBottom_toBottomOf="@id/text_round4"/>
+            app:layout_constraintTop_toTopOf="@id/text_range4"
+            app:layout_constraintBottom_toBottomOf="@id/text_range4"/>
 
         <TextView
             android:id="@+id/text_sum4"
@@ -192,11 +192,11 @@
             android:paddingRight="16dp"
             android:text="@string/sum_empty"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_round4"
-            app:layout_constraintBottom_toBottomOf="@id/text_round4"/>
+            app:layout_constraintTop_toTopOf="@id/text_range4"
+            app:layout_constraintBottom_toBottomOf="@id/text_range4"/>
 
         <TextView
-            android:id="@+id/text_round5"
+            android:id="@+id/text_range5"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -206,17 +206,17 @@
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_round4"/>
+            app:layout_constraintTop_toBottomOf="@id/text_range4"/>
 
         <ProgressBar
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:id="@+id/progress5"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintLeft_toRightOf="@id/text_round5"
+            app:layout_constraintLeft_toRightOf="@id/text_range5"
             app:layout_constraintRight_toLeftOf="@id/text_sum5"
-            app:layout_constraintTop_toTopOf="@id/text_round5"
-            app:layout_constraintBottom_toBottomOf="@id/text_round5"/>
+            app:layout_constraintTop_toTopOf="@id/text_range5"
+            app:layout_constraintBottom_toBottomOf="@id/text_range5"/>
 
         <TextView
             android:id="@+id/text_sum5"
@@ -226,8 +226,8 @@
             android:paddingRight="16dp"
             android:text="@string/sum_empty"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_round5"
-            app:layout_constraintBottom_toBottomOf="@id/text_round5"/>
+            app:layout_constraintTop_toTopOf="@id/text_range5"
+            app:layout_constraintBottom_toBottomOf="@id/text_range5"/>
 
         <TextView
             android:id="@+id/text_unpick_num"
@@ -241,10 +241,10 @@
             android:textSize="16sp"
             android:textColor="@color/darkGray"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/text_round5"/>
+            app:layout_constraintTop_toBottomOf="@id/text_range5"/>
 
         <TextView
-            android:id="@+id/text_unpick_round1"
+            android:id="@+id/text_unpick_range1"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -260,13 +260,13 @@
             android:id="@+id/recycler_unpick1"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintLeft_toRightOf="@id/text_unpick_round1"
+            app:layout_constraintLeft_toRightOf="@id/text_unpick_range1"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_unpick_round1"
-            app:layout_constraintBottom_toBottomOf="@id/text_unpick_round1"/>
+            app:layout_constraintTop_toTopOf="@id/text_unpick_range1"
+            app:layout_constraintBottom_toBottomOf="@id/text_unpick_range1"/>
 
         <TextView
-            android:id="@+id/text_unpick_round2"
+            android:id="@+id/text_unpick_range2"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -276,19 +276,19 @@
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_unpick_round1"/>
+            app:layout_constraintTop_toBottomOf="@id/text_unpick_range1"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_unpick2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintLeft_toRightOf="@id/text_unpick_round2"
+            app:layout_constraintLeft_toRightOf="@id/text_unpick_range2"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_unpick_round2"
-            app:layout_constraintBottom_toBottomOf="@id/text_unpick_round2"/>
+            app:layout_constraintTop_toTopOf="@id/text_unpick_range2"
+            app:layout_constraintBottom_toBottomOf="@id/text_unpick_range2"/>
 
         <TextView
-            android:id="@+id/text_unpick_round3"
+            android:id="@+id/text_unpick_range3"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -298,19 +298,19 @@
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_unpick_round2"/>
+            app:layout_constraintTop_toBottomOf="@id/text_unpick_range2"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_unpick3"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintLeft_toRightOf="@id/text_unpick_round3"
+            app:layout_constraintLeft_toRightOf="@id/text_unpick_range3"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_unpick_round3"
-            app:layout_constraintBottom_toBottomOf="@id/text_unpick_round3"/>
+            app:layout_constraintTop_toTopOf="@id/text_unpick_range3"
+            app:layout_constraintBottom_toBottomOf="@id/text_unpick_range3"/>
 
         <TextView
-            android:id="@+id/text_unpick_round4"
+            android:id="@+id/text_unpick_range4"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -320,19 +320,19 @@
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_unpick_round3"/>
+            app:layout_constraintTop_toBottomOf="@id/text_unpick_range3"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_unpick4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintLeft_toRightOf="@id/text_unpick_round4"
+            app:layout_constraintLeft_toRightOf="@id/text_unpick_range4"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_unpick_round4"
-            app:layout_constraintBottom_toBottomOf="@id/text_unpick_round4"/>
+            app:layout_constraintTop_toTopOf="@id/text_unpick_range4"
+            app:layout_constraintBottom_toBottomOf="@id/text_unpick_range4"/>
 
         <TextView
-            android:id="@+id/text_unpick_round5"
+            android:id="@+id/text_unpick_range5"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -342,15 +342,15 @@
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_unpick_round4"/>
+            app:layout_constraintTop_toBottomOf="@id/text_unpick_range4"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_unpick5"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintLeft_toRightOf="@id/text_unpick_round5"
+            app:layout_constraintLeft_toRightOf="@id/text_unpick_range5"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_unpick_round5"
-            app:layout_constraintBottom_toBottomOf="@id/text_unpick_round5"/>
+            app:layout_constraintTop_toTopOf="@id/text_unpick_range5"
+            app:layout_constraintBottom_toBottomOf="@id/text_unpick_range5"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
