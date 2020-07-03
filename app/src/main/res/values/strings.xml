@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">HiLotto</string>
 
     <string name="home">홈</string>
@@ -20,7 +20,7 @@
     <string name="odd_even">홀/짝</string>
     <string name="win">당첨</string>
 
-    <string name="date_empty">0000–00–00</string>
+    <string name="date_empty" tools:ignore="TypographyDashes">0000-00-00</string>
     <string name="title_round_empty">000회 당첨 번호</string>
     <string name="number1">1</string>
     <string name="number2">2</string>
