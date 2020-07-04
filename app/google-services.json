@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "188958619825",
+    "firebase_url": "https://hilotto-737c8.firebaseio.com",
+    "project_id": "hilotto-737c8",
+    "storage_bucket": "hilotto-737c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188958619825:android:5e122a1939abab65234a90",
+        "android_client_info": {
+          "package_name": "com.imaec.hilotto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188958619825-55rmqeapa47nbe0oorg8am4elo8s0bd5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOn7P1X4oVR4y8nnvAGSjqCil5HPsIFYk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "188958619825-55rmqeapa47nbe0oorg8am4elo8s0bd5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

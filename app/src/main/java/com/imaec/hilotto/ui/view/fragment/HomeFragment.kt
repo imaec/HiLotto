@@ -5,6 +5,7 @@ import android.view.View
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentHomeBinding
+import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.viewmodel.HomeViewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
@@ -20,5 +21,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             lifecycleOwner = this@HomeFragment
             viewModel = this@HomeFragment.viewModel
         }
+
+        showProgress()
+        viewModel.checkLotto(SharedPreferenceUtil.getInt(context!!, SharedPreferenceUtil.KEY.PREF_WEEK, 1))
     }
 }
