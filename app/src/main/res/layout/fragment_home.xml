@@ -26,7 +26,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
-                    android:text="@string/date_empty"
+                    android:text="@{viewModel.drwDate}"
                     android:textColor="@color/gray"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:gravity="center"
-                    android:text="@string/title_round_empty"
+                    android:text="@{viewModel.curDrwNo.toString().concat(@string/title_round_empty)}"
                     android:textSize="20sp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textStyle="bold"
@@ -49,7 +49,7 @@
                     style="@style/AppTheme.TextNumberAccent"
                     android:id="@+id/text_number_1"
                     android:layout_marginLeft="12dp"
-                    android:text="@string/number1"
+                    android:text="@{viewModel.curNum1.toString()}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/text_number_2"
                     app:layout_constraintTop_toBottomOf="@id/text_round"
@@ -58,7 +58,7 @@
                 <TextView
                     style="@style/AppTheme.TextNumberAccent"
                     android:id="@+id/text_number_2"
-                    android:text="@string/number2"
+                    android:text="@{viewModel.curNum2.toString()}"
                     app:layout_constraintLeft_toRightOf="@id/text_number_1"
                     app:layout_constraintRight_toLeftOf="@id/text_number_3"
                     app:layout_constraintTop_toBottomOf="@id/text_round"
@@ -67,7 +67,7 @@
                 <TextView
                     style="@style/AppTheme.TextNumberAccent"
                     android:id="@+id/text_number_3"
-                    android:text="@string/number3"
+                    android:text="@{viewModel.curNum3.toString()}"
                     app:layout_constraintLeft_toRightOf="@id/text_number_2"
                     app:layout_constraintRight_toLeftOf="@id/text_number_4"
                     app:layout_constraintTop_toBottomOf="@id/text_round"
@@ -76,7 +76,7 @@
                 <TextView
                     style="@style/AppTheme.TextNumberAccent"
                     android:id="@+id/text_number_4"
-                    android:text="@string/number4"
+                    android:text="@{viewModel.curNum4.toString()}"
                     app:layout_constraintLeft_toRightOf="@id/text_number_3"
                     app:layout_constraintRight_toLeftOf="@id/text_number_5"
                     app:layout_constraintTop_toBottomOf="@id/text_round"
@@ -85,7 +85,7 @@
                 <TextView
                     style="@style/AppTheme.TextNumberAccent"
                     android:id="@+id/text_number_5"
-                    android:text="@string/number5"
+                    android:text="@{viewModel.curNum5.toString()}"
                     app:layout_constraintLeft_toRightOf="@id/text_number_4"
                     app:layout_constraintRight_toLeftOf="@id/text_number_6"
                     app:layout_constraintTop_toBottomOf="@id/text_round"
@@ -95,7 +95,7 @@
                     style="@style/AppTheme.TextNumberAccent"
                     android:id="@+id/text_number_6"
                     android:layout_marginRight="12dp"
-                    android:text="@string/number6"
+                    android:text="@{viewModel.curNum6.toString()}"
                     app:layout_constraintLeft_toRightOf="@id/text_number_5"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_round"
@@ -120,7 +120,7 @@
                     android:layout_marginLeft="0dp"
                     android:layout_marginRight="0dp"
                     android:layout_marginTop="12dp"
-                    android:text="@string/number_bonus"
+                    android:text="@{viewModel.curNumBonus.toString()}"
                     app:layout_constraintLeft_toLeftOf="@id/text_number_6"
                     app:layout_constraintRight_toRightOf="@id/text_number_6"
                     app:layout_constraintTop_toBottomOf="@id/text_number_6"
@@ -147,24 +147,38 @@
                     app:layout_constraintTop_toBottomOf="@id/text_number_bonus"/>
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:text="@string/win_count_desc"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    app:layout_constraintRight_toLeftOf="@id/text_win_count"
+                    app:layout_constraintTop_toTopOf="@id/text_win_count"
+                    app:layout_constraintBottom_toBottomOf="@id/text_win_count"/>
+
+                <TextView
                     android:id="@+id/text_win_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:text="1등 당첨자 수 0명"
-                    android:textSize="14sp"
+                    android:text="@{viewModel.winCount.toString().concat(@string/win_count_empty)}"
+                    android:textSize="15sp"
                     android:textColor="@color/darkGray"
+                    android:textStyle="bold"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_divider_1"/>
 
                 <LinearLayout
-                    android:layout_width="200dp"
+                    android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:layout_margin="4dp"
                     android:background="@drawable/bg_rounded_gray_stroke"
                     app:layout_constraintRight_toLeftOf="@id/text_won"
-                    app:layout_constraintTop_toBottomOf="@id/text_win_count">
+                    app:layout_constraintTop_toBottomOf="@id/text_win_count"
+                    app:layout_constraintWidth_percent="0.7">
 
                     <TextView
                         android:layout_width="40dp"
@@ -180,10 +194,11 @@
                         android:id="@+id/text_price"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="4dp"
+                        android:padding="6dp"
                         android:gravity="center_vertical|end"
-                        android:text="0"
-                        android:textSize="15sp"/>
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:decimalAndUnit="@{viewModel.price}"/>
                 </LinearLayout>
 
                 <TextView
@@ -212,7 +227,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:text="최근 회차 결과"
+                    android:text="@string/current_result"
                     android:textSize="16sp"
                     android:textColor="@color/darkGray"
                     android:textStyle="bold"
@@ -227,7 +242,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="더보기"
+                    android:text="@string/more"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintBottom_toBottomOf="@id/text_lately_result"/>
 

@@ -1,6 +1,7 @@
 package com.imaec.hilotto.ui.view.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
@@ -25,7 +26,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             viewModel = this@HomeFragment.viewModel
         }
 
-//        showProgress()
-        viewModel.checkLotto()
+        showProgress()
+        val curDrwNo = SharedPreferenceUtil.getInt(context!!, SharedPreferenceUtil.KEY.PREF_WEEK, 1)
+        viewModel.checkLotto(curDrwNo) {
+            hideProgress()
+        }
     }
 }

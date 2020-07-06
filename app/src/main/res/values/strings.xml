@@ -21,14 +21,11 @@
     <string name="win">당첨</string>
 
     <string name="date_empty" tools:ignore="TypographyDashes">0000-00-00</string>
-    <string name="title_round_empty">000회 당첨 번호</string>
-    <string name="number1">1</string>
-    <string name="number2">2</string>
-    <string name="number3">3</string>
-    <string name="number4">4</string>
-    <string name="number5">5</string>
-    <string name="number6">6</string>
-    <string name="number_bonus">45</string>
+    <string name="title_round_empty">회 당첨 번호</string>
+    <string name="win_count_desc">1등 당첨자 수 </string>
+    <string name="win_count_empty">명</string>
+    <string name="current_result">최근 회차 결과</string>
+    <string name="more">더보기</string>
     <string name="store">당첨 판매점</string>
     <string name="condition_sum">합계 적용</string>
     <string name="condition_pick">출현/미출현 적용</string>
@@ -61,7 +58,6 @@
     <string name="title_win_count">당첨자 수</string>
     <string name="prize_total_empty">0원 (약 0원)</string>
     <string name="prize_by_one_empty">0원 (약 0원)</string>
-    <string name="win_count_empty">0명</string>
     <string name="title_win_prize_max">1게임 최고 당첨금</string>
     <string name="title_win_prize_min">1게임 최저 당첨금</string>
     <string name="title_win_count_max">최대 당첨자 수</string>
