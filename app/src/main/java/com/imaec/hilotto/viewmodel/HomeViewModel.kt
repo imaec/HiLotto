@@ -1,14 +1,11 @@
 package com.imaec.hilotto.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.firestore.FirebaseFirestore
 import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.utils.DateUtil
-import com.imaec.hilotto.utils.SharedPreferenceUtil
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -63,42 +60,26 @@ class HomeViewModel(
     val price: LiveData<Long>
         get() = _price
 
-
-    private fun getLottoHtml(curDrwNo: Int) {
-
-
-//        val runnable = Runnable {
-//            getCurDrwNo(parsingUrl, curDrwNo)
-//        }
-//
-//        val thread = Thread(runnable)
-//        try {
-//            thread.start()
-//            thread.join()
-//        } catch (e: Exception) {
-////            ref.child("error").child(Utils.getCurDate()).child("getLottoHtml()").setValue(e.localizedMessage)
-////            getLotto()
-//        }
-    }
-
-    private fun initData(curDrwNo: Int, callback: (List<LottoDTO>?) -> Unit) {
+    private fun initData(curDrwNoApp: Int, curDrwNoReal: Int, callback: (List<LottoDTO>?) -> Unit) {
+        val gap = curDrwNoReal - curDrwNoApp + 1
         // 최신 회차 DB에 저장
-        addDataOnFireStore("lotto_data", "week", hashMapOf("cur_week" to curDrwNo))
+        addDataOnFireStore("lotto_data", "week", hashMapOf("cur_week" to curDrwNoReal))
         val listTemp = ArrayList<LottoDTO>()
-        for (drwNo in 1..curDrwNo) {
+        for (drwNo in curDrwNoApp..curDrwNoReal) {
             repository.getData(drwNo, {
                 // onResponse
                 listTemp.add(it)
                 // 마지막 아이템이 담겨짐
-                if (listTemp.size == curDrwNo) {
+                if (listTemp.size == gap) {
                     // 모든 리스트 DB에 저장
+                    // Todo FireStore List에 추가하는 방법 찾아보기
                     listTemp.sortBy { dto ->
                         dto.drwNo
                     }
                     addDataOnFireStore("lotto_data", "result", hashMapOf("list_result" to listTemp), {
-                        _curDrwNo.value = curDrwNo
+                        _curDrwNo.value = curDrwNoReal
                         _listResult.value = listTemp
-                        setCurData(listTemp[curDrwNo-1])
+                        setCurData(listTemp[gap-1])
 
                         callback(listTemp)
                     })
@@ -129,13 +110,11 @@ class HomeViewModel(
         val parsingUrl = "https://www.dhlottery.co.kr/common.do?method=main&mainMode=default"
         viewModelScope.launch {
             repository.getCurDrwNo(parsingUrl) {
-                if (curDrwNo == 1) {
-                    // 초기 데이터 세팅
-                    initData(it) { list ->
-                        callback(list)
-                    }
+                if (curDrwNo == it) {
+                    // DB에 저장된 데이터 가져오기
                 } else {
-                    // 최신 회차 결과 가져오기
+                    // 최신 데이터 DB에 저장
+                    initData(curDrwNo, it, callback)
                 }
             }
         }
