@@ -66,4 +66,6 @@
     <string name="win_prize_min">000회 : 0원 (약 0원)</string>
     <string name="win_count_max">000회 : 0명</string>
     <string name="win_count_min">000회 : 0명</string>
+    
+    <string name="msg_data_fail">데이터를 가져오는데 실패했습니다.\n잠시 후 다시 이용해주세요.</string>
 </resources>

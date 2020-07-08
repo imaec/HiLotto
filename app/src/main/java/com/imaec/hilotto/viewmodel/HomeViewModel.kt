@@ -1,5 +1,6 @@
 package com.imaec.hilotto.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.base.BaseViewModel
@@ -60,23 +61,23 @@ class HomeViewModel(
     val price: LiveData<Long>
         get() = _price
 
+    @Suppress("UNCHECKED_CAST")
     private fun initData(curDrwNoApp: Int, curDrwNoReal: Int, callback: (List<LottoDTO>?) -> Unit) {
-        val gap = curDrwNoReal - curDrwNoApp + 1
+        val gap = curDrwNoReal - curDrwNoApp
         // 최신 회차 DB에 저장
         addDataOnFireStore("lotto_data", "week", hashMapOf("cur_week" to curDrwNoReal))
         val listTemp = ArrayList<LottoDTO>()
-        for (drwNo in curDrwNoApp..curDrwNoReal) {
+        for (drwNo in curDrwNoApp+1..curDrwNoReal) {
             repository.getData(drwNo, {
                 // onResponse
                 listTemp.add(it)
                 // 마지막 아이템이 담겨짐
                 if (listTemp.size == gap) {
                     // 모든 리스트 DB에 저장
-                    // Todo FireStore List에 추가하는 방법 찾아보기
                     listTemp.sortBy { dto ->
                         dto.drwNo
                     }
-                    addDataOnFireStore("lotto_data", "result", hashMapOf("list_result" to listTemp), {
+                    updateDataOnFireStore("lotto_data", "result", listTemp as ArrayList<Any>, {
                         _curDrwNo.value = curDrwNoReal
                         _listResult.value = listTemp
                         setCurData(listTemp[gap-1])
@@ -106,15 +107,19 @@ class HomeViewModel(
         }
     }
 
-    fun checkLotto(curDrwNo: Int, callback: (List<LottoDTO>?) -> Unit) {
+    fun checkLotto(curDrwNo: Int, callback: (Boolean, Int) -> Unit) {
         val parsingUrl = "https://www.dhlottery.co.kr/common.do?method=main&mainMode=default"
         viewModelScope.launch {
             repository.getCurDrwNo(parsingUrl) {
+                Log.d(TAG, "    ## curDrwNo : $curDrwNo / $it")
                 if (curDrwNo == it) {
                     // DB에 저장된 데이터 가져오기
+                    callback(true, it)
                 } else {
                     // 최신 데이터 DB에 저장
-                    initData(curDrwNo, it, callback)
+                    initData(curDrwNo, it) { list ->
+                        callback(list != null, it)
+                    }
                 }
             }
         }

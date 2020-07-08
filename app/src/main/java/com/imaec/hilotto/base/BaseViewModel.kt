@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -44,6 +46,16 @@ abstract class BaseViewModel : ViewModel() {
 
     fun addDataOnFireStore(collectionPath: String, documentPath: String, data: Any, onSuccess: () -> Unit = {}, onFailure: () -> Unit = {}) {
         db.collection(collectionPath).document(documentPath).set(data)
+            .addOnSuccessListener {
+                onSuccess()
+            }
+            .addOnFailureListener {
+                onFailure()
+            }
+    }
+
+    fun updateDataOnFireStore(collectionPath: String, documentPath: String, data: ArrayList<Any>, onSuccess: () -> Unit = {}, onFailure: () -> Unit = {}) {
+        db.collection(collectionPath).document(documentPath).update("list_result", FieldValue.arrayUnion(*data.toTypedArray()))
             .addOnSuccessListener {
                 onSuccess()
             }

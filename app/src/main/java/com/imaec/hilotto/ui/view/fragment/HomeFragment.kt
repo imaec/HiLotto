@@ -3,6 +3,7 @@ package com.imaec.hilotto.ui.view.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentHomeBinding
@@ -27,9 +28,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
 
         showProgress()
-        val curDrwNo = SharedPreferenceUtil.getInt(context!!, SharedPreferenceUtil.KEY.PREF_WEEK, 1)
-        viewModel.checkLotto(curDrwNo) {
+        val curDrwNo = SharedPreferenceUtil.getInt(context!!, SharedPreferenceUtil.KEY.PREF_WEEK, 0)
+        viewModel.checkLotto(curDrwNo) { isSuccess, curDrwNoReal ->
+            Log.d(TAG, "    ## curDrwNo : $curDrwNo / $curDrwNoReal")
             hideProgress()
+            SharedPreferenceUtil.putValue(context!!, SharedPreferenceUtil.KEY.PREF_WEEK, curDrwNoReal)
+            if (isSuccess) {
+                // Toast.makeText(context, R.string.msg_data_fail, Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, R.string.msg_data_fail, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
