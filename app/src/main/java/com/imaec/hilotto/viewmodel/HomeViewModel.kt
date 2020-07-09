@@ -3,14 +3,19 @@ package com.imaec.hilotto.viewmodel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
 import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.model.LottoDTO
+import com.imaec.hilotto.repository.FireStoreRepository
 import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.utils.DateUtil
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeViewModel(
-    private val repository: LottoRepository
+    private val lottoRepository: LottoRepository,
+    private val fireStoreRepository: FireStoreRepository
 ) : BaseViewModel() {
 
     private val _curDrwNo = MutableLiveData<Int>().set(1)
@@ -61,34 +66,83 @@ class HomeViewModel(
     val price: LiveData<Long>
         get() = _price
 
-    @Suppress("UNCHECKED_CAST")
-    private fun initData(curDrwNoApp: Int, curDrwNoReal: Int, callback: (List<LottoDTO>?) -> Unit) {
-        val gap = curDrwNoReal - curDrwNoApp
-        // 최신 회차 DB에 저장
-        addDataOnFireStore("lotto_data", "week", hashMapOf("cur_week" to curDrwNoReal))
-        val listTemp = ArrayList<LottoDTO>()
-        for (drwNo in curDrwNoApp+1..curDrwNoReal) {
-            repository.getData(drwNo, {
-                // onResponse
-                listTemp.add(it)
-                // 마지막 아이템이 담겨짐
-                if (listTemp.size == gap) {
-                    // 모든 리스트 DB에 저장
-                    listTemp.sortBy { dto ->
-                        dto.drwNo
-                    }
-                    updateDataOnFireStore("lotto_data", "result", listTemp as ArrayList<Any>, {
-                        _curDrwNo.value = curDrwNoReal
-                        _listResult.value = listTemp
-                        setCurData(listTemp[gap-1])
+    private fun getCurDrwNoReal(callback: (Boolean) -> Unit) {
+        val parsingUrl = "https://www.dhlottery.co.kr/common.do?method=main&mainMode=default"
+        viewModelScope.launch {
+            lottoRepository.getCurDrwNo(parsingUrl) { curDrwNoReal ->
+                if (curDrwNoReal > 0) {
+                    getCurDrwNoDB(curDrwNoReal, callback)
+                } else {
+                    callback(false)
+                }
+            }
+        }
+    }
 
-                        callback(listTemp)
+    private fun getCurDrwNoDB(curDrwNoReal: Int, callback: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            fireStoreRepository.getWeek("lotto_data", "week", { curDrwNoDB ->
+                // onSuccess
+                if (curDrwNoDB == curDrwNoReal) {
+                    // 데이터 가져오기
+                    _curDrwNo.value = curDrwNoReal
+                    callback(true)
+                    return@getWeek
+                }
+                initData(curDrwNoDB, curDrwNoReal) { list ->
+                    callback(list != null)
+                }
+            }, { errMsg ->
+                // onFailure
+                if (errMsg.isEmpty()) {
+                    // 로또번호 가져오기
+                    initData(0, curDrwNoReal) { list ->
+                        callback(list != null)
+                    }
+                } else {
+                    // 에러
+                    callback(false)
+                }
+            })
+        }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun initData(curDrwNoDB: Int, curDrwNoReal: Int, callback: (List<LottoDTO>?) -> Unit) {
+        val gap = curDrwNoReal - curDrwNoDB
+        val listTemp = ArrayList<LottoDTO>()
+        viewModelScope.launch {
+            // 최신 회차 DB에 저장
+            (curDrwNoDB+1..curDrwNoReal).map { drwNo ->
+                withContext(Dispatchers.IO) {
+                    lottoRepository.getData(drwNo, {
+                        // onResponse
+                        listTemp.add(it)
+
+                        Log.d(TAG, "    ## size : ${listTemp.size} / $gap")
+                        // 마지막 아이템이 담겨짐
+                        if (listTemp.size == gap) {
+                            fireStoreRepository.addData("lotto_data", "week", hashMapOf("cur_week" to curDrwNoReal))
+                            // 모든 리스트 DB에 저장
+                            listTemp.sortBy { dto ->
+                                dto.drwNo
+                            }
+                            fireStoreRepository.updateData("lotto_data", "result", listTemp as ArrayList<Any>, {
+                                _curDrwNo.value = curDrwNoReal
+                                _listResult.value = listTemp
+                                setCurData(listTemp[gap-1])
+
+                                callback(listTemp)
+                            }, {
+                                callback(null)
+                            })
+                        }
+                    }, {
+                        // onFailure
+                        callback(null)
                     })
                 }
-            }, {
-                // onFailure
-                callback(null)
-            })
+            }
         }
     }
 
@@ -107,20 +161,31 @@ class HomeViewModel(
         }
     }
 
-    fun checkLotto(curDrwNo: Int, callback: (Boolean, Int) -> Unit) {
-        val parsingUrl = "https://www.dhlottery.co.kr/common.do?method=main&mainMode=default"
+    private fun getData(callback: (Boolean) -> Unit) {
         viewModelScope.launch {
-            repository.getCurDrwNo(parsingUrl) {
-                Log.d(TAG, "    ## curDrwNo : $curDrwNo / $it")
-                if (curDrwNo == it) {
-                    // DB에 저장된 데이터 가져오기
-                    callback(true, it)
-                } else {
-                    // 최신 데이터 DB에 저장
-                    initData(curDrwNo, it) { list ->
-                        callback(list != null, it)
+            fireStoreRepository.getData("lotto_data", "result", "list_result", {
+                it?.let { list ->
+                    val listTemp = ArrayList<LottoDTO>()
+                    (list as List<*>).map { lotto ->
+                        listTemp.add(Gson().fromJson(lotto.toString(), LottoDTO::class.java))
                     }
+
+                    _listResult.value = listTemp
+                    setCurData(listTemp[listTemp.size-1])
                 }
+                callback(true)
+            }, {
+                callback(false)
+            })
+        }
+    }
+
+    fun getLotto(callback: (Boolean) -> Unit) {
+        getCurDrwNoReal {
+            if (it) {
+                getData(callback)
+            } else {
+                callback(it)
             }
         }
     }

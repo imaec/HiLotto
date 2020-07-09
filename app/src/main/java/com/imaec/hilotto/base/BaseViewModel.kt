@@ -19,10 +19,7 @@ abstract class BaseViewModel : ViewModel() {
     private val job = Job()
     protected val viewModelScope = CoroutineScope(Dispatchers.Main + job)
 
-    protected val db = FirebaseFirestore.getInstance()
     protected lateinit var adapter: BaseAdapter
-
-
 
     override fun onCleared() {
         viewModelScope.cancel()
@@ -32,35 +29,5 @@ abstract class BaseViewModel : ViewModel() {
     fun <T : Any> MutableLiveData<T>.set(value: T) : MutableLiveData<T> {
         this.value = value
         return this
-    }
-
-    fun addDataOnFireStore(collectionPath: String, data: Any) {
-        db.collection(collectionPath).add(data)
-            .addOnSuccessListener {
-
-            }
-            .addOnFailureListener {
-
-            }
-    }
-
-    fun addDataOnFireStore(collectionPath: String, documentPath: String, data: Any, onSuccess: () -> Unit = {}, onFailure: () -> Unit = {}) {
-        db.collection(collectionPath).document(documentPath).set(data)
-            .addOnSuccessListener {
-                onSuccess()
-            }
-            .addOnFailureListener {
-                onFailure()
-            }
-    }
-
-    fun updateDataOnFireStore(collectionPath: String, documentPath: String, data: ArrayList<Any>, onSuccess: () -> Unit = {}, onFailure: () -> Unit = {}) {
-        db.collection(collectionPath).document(documentPath).update("list_result", FieldValue.arrayUnion(*data.toTypedArray()))
-            .addOnSuccessListener {
-                onSuccess()
-            }
-            .addOnFailureListener {
-                onFailure()
-            }
     }
 }
