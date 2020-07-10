@@ -6,8 +6,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentStatisticsBinding
-import com.imaec.hilotto.ui.view.activity.MainActivity
-import com.imaec.hilotto.ui.view.adapter.StatisticsPagerAdapter
+import com.imaec.hilotto.ui.adapter.StatisticsPagerAdapter
 import com.imaec.hilotto.viewmodel.StatisticsViewModel
 
 class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>(R.layout.fragment_statistics) {

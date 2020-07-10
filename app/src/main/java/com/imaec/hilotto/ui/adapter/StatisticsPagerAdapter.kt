@@ -1,4 +1,4 @@
-package com.imaec.hilotto.ui.view.adapter
+package com.imaec.hilotto.ui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

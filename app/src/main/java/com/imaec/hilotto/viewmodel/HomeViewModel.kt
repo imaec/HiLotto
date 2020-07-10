@@ -8,6 +8,7 @@ import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.repository.FireStoreRepository
 import com.imaec.hilotto.repository.LottoRepository
+import com.imaec.hilotto.ui.adapter.LatelyResultAdapter
 import com.imaec.hilotto.utils.DateUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,53 +19,48 @@ class HomeViewModel(
     private val fireStoreRepository: FireStoreRepository
 ) : BaseViewModel() {
 
+    init {
+        adapter = LatelyResultAdapter()
+    }
+
     private val _curDrwNo = MutableLiveData<Int>().set(1)
-    val curDrwNo: LiveData<Int>
-        get() = _curDrwNo
+    val curDrwNo: LiveData<Int> get() = _curDrwNo
 
     private val _listResult = MutableLiveData<List<LottoDTO>>().set(ArrayList())
-    val listResult: LiveData<List<LottoDTO>>
-        get() = _listResult
+    val listResult: LiveData<List<LottoDTO>> get() = _listResult
+
+    private val _listLatelyResult = MutableLiveData<List<LottoDTO>>().set(ArrayList())
+    val listLatelyResult: LiveData<List<LottoDTO>> get() = _listLatelyResult
 
     private val _curNum1 = MutableLiveData<Int>().set(1)
-    val curNum1: LiveData<Int>
-        get() = _curNum1
+    val curNum1: LiveData<Int> get() = _curNum1
 
     private val _curNum2 = MutableLiveData<Int>().set(2)
-    val curNum2: LiveData<Int>
-        get() = _curNum2
+    val curNum2: LiveData<Int> get() = _curNum2
 
     private val _curNum3 = MutableLiveData<Int>().set(3)
-    val curNum3: LiveData<Int>
-        get() = _curNum3
+    val curNum3: LiveData<Int> get() = _curNum3
 
     private val _curNum4 = MutableLiveData<Int>().set(4)
-    val curNum4: LiveData<Int>
-        get() = _curNum4
+    val curNum4: LiveData<Int> get() = _curNum4
 
     private val _curNum5 = MutableLiveData<Int>().set(5)
-    val curNum5: LiveData<Int>
-        get() = _curNum5
+    val curNum5: LiveData<Int> get() = _curNum5
 
     private val _curNum6 = MutableLiveData<Int>().set(6)
-    val curNum6: LiveData<Int>
-        get() = _curNum6
+    val curNum6: LiveData<Int> get() = _curNum6
 
     private val _curNumBonus = MutableLiveData<Int>().set(45)
-    val curNumBonus: LiveData<Int>
-        get() = _curNumBonus
+    val curNumBonus: LiveData<Int> get() = _curNumBonus
 
     private val _drwDate = MutableLiveData<String>().set(DateUtil.getDate("yyyy-MM-dd"))
-    val drwDate: LiveData<String>
-        get() = _drwDate
+    val drwDate: LiveData<String> get() = _drwDate
 
     private val _winCount = MutableLiveData<Int>().set(0)
-    val winCount: LiveData<Int>
-        get() = _winCount
+    val winCount: LiveData<Int> get() = _winCount
 
     private val _price = MutableLiveData<Long>().set(0)
-    val price: LiveData<Long>
-        get() = _price
+    val price: LiveData<Long> get() = _price
 
     private fun getCurDrwNoReal(callback: (Boolean) -> Unit) {
         val parsingUrl = "https://www.dhlottery.co.kr/common.do?method=main&mainMode=default"
@@ -119,7 +115,6 @@ class HomeViewModel(
                         // onResponse
                         listTemp.add(it)
 
-                        Log.d(TAG, "    ## size : ${listTemp.size} / $gap")
                         // 마지막 아이템이 담겨짐
                         if (listTemp.size == gap) {
                             fireStoreRepository.addData("lotto_data", "week", hashMapOf("cur_week" to curDrwNoReal))
@@ -130,6 +125,7 @@ class HomeViewModel(
                             fireStoreRepository.updateData("lotto_data", "result", listTemp as ArrayList<Any>, {
                                 _curDrwNo.value = curDrwNoReal
                                 _listResult.value = listTemp
+                                _listLatelyResult.value = listTemp.subList(listTemp.size-10, listTemp.size-1).reversed() as List<LottoDTO>
                                 setCurData(listTemp[gap-1])
 
                                 callback(listTemp)
@@ -171,6 +167,7 @@ class HomeViewModel(
                     }
 
                     _listResult.value = listTemp
+                    _listLatelyResult.value = listTemp.subList(listTemp.size-10, listTemp.size-1).reversed()
                     setCurData(listTemp[listTemp.size-1])
                 }
                 callback(true)

@@ -250,6 +250,8 @@
                     android:id="@+id/recycler_lately_result"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
+                    app:adapter="@{viewModel.adapter}"
+                    app:items="@{viewModel.listLatelyResult}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_lately_result"/>

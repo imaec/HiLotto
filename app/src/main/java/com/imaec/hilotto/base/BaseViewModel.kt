@@ -19,7 +19,7 @@ abstract class BaseViewModel : ViewModel() {
     private val job = Job()
     protected val viewModelScope = CoroutineScope(Dispatchers.Main + job)
 
-    protected lateinit var adapter: BaseAdapter
+    lateinit var adapter: BaseAdapter
 
     override fun onCleared() {
         viewModelScope.cancel()

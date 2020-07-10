@@ -10,6 +10,12 @@ import kotlin.math.roundToLong
 
 object BindingAdapters {
 
+    @JvmStatic
+    @BindingAdapter("textByInt")
+    fun setTextByInt(textView: TextView, value: Int) {
+        textView.text = value.toString()
+    }
+
     @SuppressLint("SetTextI18n")
     @JvmStatic
     @BindingAdapter("decimalAndUnit")
@@ -23,6 +29,19 @@ object BindingAdapters {
         }
     }
 
+    @SuppressLint("SetTextI18n")
+    @JvmStatic
+    @BindingAdapter("decimalAndUnitPerOne")
+    fun setDecimalPerOne(textView: TextView, value: Long) {
+        val decimal = DecimalFormat("###,###").format(value)
+        if (value > 100000000) {
+            val unitValue = (value / 100000000.0).roundToLong()
+            textView.text = "1인당 약 ${unitValue}억 원"
+        } else {
+            textView.text = "1인당 약 $decimal 원"
+        }
+    }
+
     @JvmStatic
     @BindingAdapter("adapter")
     fun setAdapter(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
@@ -31,7 +50,7 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("items")
-    fun setItems(recyclerView: RecyclerView, items: ArrayList<Any>) {
+    fun setItems(recyclerView: RecyclerView, items: List<Any>) {
         (recyclerView.adapter as BaseAdapter).apply {
             clearItem()
             addItems(items)

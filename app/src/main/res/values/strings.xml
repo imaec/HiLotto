@@ -49,7 +49,7 @@
     <string name="pick_range3">21~30번</string>
     <string name="pick_range4">31~40번</string>
     <string name="pick_range5">41~45번</string>
-    <string name="round_empty">000회</string>
+    <string name="round_empty">회</string>
     <string name="continues_empty">연속번호 없음</string>
     <string name="odd_even_same">3:3</string>
     <string name="title_win_avg">1등 당첨 평균(5회)</string>
