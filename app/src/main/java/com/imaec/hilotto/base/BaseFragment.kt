@@ -10,7 +10,9 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.imaec.hilotto.ui.view.dialog.ProgressDialog
+
 
 abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutResId: Int) : Fragment() {
 
@@ -31,6 +33,10 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRe
 
     protected fun <T : ViewModel> getViewModel(modelClass: Class<T>, vararg repository: Any) : T {
         return ViewModelProvider(this, BaseViewModelFactory(*repository)).get(modelClass)
+    }
+
+    protected fun <T : ViewModel> getSharedViewModel(modelClass: Class<T>, vararg repository: Any) : T {
+        return ViewModelProvider(activity!!, BaseViewModelFactory(*repository)).get(modelClass)
     }
 
     protected fun showProgress() {

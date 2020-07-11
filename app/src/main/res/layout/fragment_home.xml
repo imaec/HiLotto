@@ -5,7 +5,11 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="sharedViewModel"
+            type="com.imaec.hilotto.viewmodel.LottoSharedViewModel" />
+
+        <variable
+            name="homeViewModel"
             type="com.imaec.hilotto.viewmodel.HomeViewModel" />
     </data>
 
@@ -26,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
-                    android:text="@{viewModel.drwDate}"
+                    android:text="@{sharedViewModel.drwDate}"
                     android:textColor="@color/gray"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
@@ -37,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:gravity="center"
-                    android:text="@{viewModel.curDrwNo.toString().concat(@string/title_round_empty)}"
+                    android:text="@{sharedViewModel.curDrwNo.toString().concat(@string/title_round_empty)}"
                     android:textSize="20sp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textStyle="bold"
@@ -49,7 +53,7 @@
                     style="@style/AppTheme.TextNumberAccent"
                     android:id="@+id/text_number_1"
                     android:layout_marginLeft="12dp"
-                    android:text="@{viewModel.curNum1.toString()}"
+                    android:text="@{sharedViewModel.curNum1.toString()}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/text_number_2"
                     app:layout_constraintTop_toBottomOf="@id/text_round"
@@ -58,7 +62,7 @@
                 <TextView
                     style="@style/AppTheme.TextNumberAccent"
                     android:id="@+id/text_number_2"
-                    android:text="@{viewModel.curNum2.toString()}"
+                    android:text="@{sharedViewModel.curNum2.toString()}"
                     app:layout_constraintLeft_toRightOf="@id/text_number_1"
                     app:layout_constraintRight_toLeftOf="@id/text_number_3"
                     app:layout_constraintTop_toBottomOf="@id/text_round"
@@ -67,7 +71,7 @@
                 <TextView
                     style="@style/AppTheme.TextNumberAccent"
                     android:id="@+id/text_number_3"
-                    android:text="@{viewModel.curNum3.toString()}"
+                    android:text="@{sharedViewModel.curNum3.toString()}"
                     app:layout_constraintLeft_toRightOf="@id/text_number_2"
                     app:layout_constraintRight_toLeftOf="@id/text_number_4"
                     app:layout_constraintTop_toBottomOf="@id/text_round"
@@ -76,7 +80,7 @@
                 <TextView
                     style="@style/AppTheme.TextNumberAccent"
                     android:id="@+id/text_number_4"
-                    android:text="@{viewModel.curNum4.toString()}"
+                    android:text="@{sharedViewModel.curNum4.toString()}"
                     app:layout_constraintLeft_toRightOf="@id/text_number_3"
                     app:layout_constraintRight_toLeftOf="@id/text_number_5"
                     app:layout_constraintTop_toBottomOf="@id/text_round"
@@ -85,7 +89,7 @@
                 <TextView
                     style="@style/AppTheme.TextNumberAccent"
                     android:id="@+id/text_number_5"
-                    android:text="@{viewModel.curNum5.toString()}"
+                    android:text="@{sharedViewModel.curNum5.toString()}"
                     app:layout_constraintLeft_toRightOf="@id/text_number_4"
                     app:layout_constraintRight_toLeftOf="@id/text_number_6"
                     app:layout_constraintTop_toBottomOf="@id/text_round"
@@ -95,7 +99,7 @@
                     style="@style/AppTheme.TextNumberAccent"
                     android:id="@+id/text_number_6"
                     android:layout_marginRight="12dp"
-                    android:text="@{viewModel.curNum6.toString()}"
+                    android:text="@{sharedViewModel.curNum6.toString()}"
                     app:layout_constraintLeft_toRightOf="@id/text_number_5"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_round"
@@ -120,7 +124,7 @@
                     android:layout_marginLeft="0dp"
                     android:layout_marginRight="0dp"
                     android:layout_marginTop="12dp"
-                    android:text="@{viewModel.curNumBonus.toString()}"
+                    android:text="@{sharedViewModel.curNumBonus.toString()}"
                     app:layout_constraintLeft_toLeftOf="@id/text_number_6"
                     app:layout_constraintRight_toRightOf="@id/text_number_6"
                     app:layout_constraintTop_toBottomOf="@id/text_number_6"
@@ -163,7 +167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:text="@{viewModel.winCount.toString().concat(@string/win_count_empty)}"
+                    android:text="@{sharedViewModel.winCount.toString().concat(@string/win_count_empty)}"
                     android:textSize="15sp"
                     android:textColor="@color/darkGray"
                     android:textStyle="bold"
@@ -198,7 +202,7 @@
                         android:gravity="center_vertical|end"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        app:decimalAndUnit="@{viewModel.price}"/>
+                        app:decimalAndUnit="@{sharedViewModel.price}"/>
                 </LinearLayout>
 
                 <TextView
@@ -250,8 +254,8 @@
                     android:id="@+id/recycler_lately_result"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    app:adapter="@{viewModel.adapter}"
-                    app:items="@{viewModel.listLatelyResult}"
+                    app:adapter="@{homeViewModel.adapter}"
+                    app:items="@{sharedViewModel.listLatelyResult}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_lately_result"/>

@@ -17,8 +17,9 @@ class BaseViewModelFactory(private vararg val repository: Any) : ViewModelProvid
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {
+            modelClass.isAssignableFrom(LottoSharedViewModel::class.java) -> LottoSharedViewModel(repository[0] as LottoRepository, repository[1] as FireStoreRepository) as T
             modelClass.isAssignableFrom(MainViewModel::class.java) -> MainViewModel() as T
-            modelClass.isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(repository[0] as LottoRepository, repository[1] as FireStoreRepository) as T
+            modelClass.isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel() as T
             modelClass.isAssignableFrom(StatisticsViewModel::class.java) -> StatisticsViewModel() as T
             modelClass.isAssignableFrom(RecommendViewModel::class.java) -> RecommendViewModel() as T
             modelClass.isAssignableFrom(MyViewModel::class.java) -> MyViewModel() as T

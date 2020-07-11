@@ -3,22 +3,29 @@ package com.imaec.hilotto.ui.view.activity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
 import com.imaec.hilotto.databinding.ActivityMainBinding
+import com.imaec.hilotto.repository.FireStoreRepository
+import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.ui.view.fragment.HomeFragment
 import com.imaec.hilotto.ui.view.fragment.MyFragment
 import com.imaec.hilotto.ui.view.fragment.RecommendFragment
 import com.imaec.hilotto.ui.view.fragment.StatisticsFragment
+import com.imaec.hilotto.viewmodel.LottoSharedViewModel
 import com.imaec.hilotto.viewmodel.MainViewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var mainViewModel: MainViewModel
+    private lateinit var sharedViewModel: LottoSharedViewModel
     private lateinit var activeFragment: Fragment
 
+    private val lottoRepository: LottoRepository by lazy { LottoRepository() }
+    private val firestoreRepository: FireStoreRepository by lazy { FireStoreRepository() }
     private val fragmentHome = HomeFragment()
     private val fragmentStatistics = StatisticsFragment()
     private val fragmentRecommend = RecommendFragment()
@@ -27,14 +34,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        init()
-
-        viewModel = getViewModel(MainViewModel::class.java)
+        mainViewModel = getViewModel(MainViewModel::class.java)
+        sharedViewModel = getViewModel(LottoSharedViewModel::class.java, lottoRepository, firestoreRepository)
 
         binding.apply {
             lifecycleOwner = this@MainActivity
-            viewModel = this@MainActivity.viewModel
+            viewModel = this@MainActivity.mainViewModel
             bottomNavigation.setOnNavigationItemSelectedListener(this@MainActivity)
+        }
+
+        showProgress()
+        sharedViewModel.getLotto { isSuccess ->
+            hideProgress()
+            if (isSuccess) {
+                init()
+            } else {
+                Toast.makeText(this, R.string.msg_data_fail, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
