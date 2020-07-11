@@ -2,6 +2,7 @@ package com.imaec.hilotto.ui.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imaec.hilotto.R
@@ -37,6 +38,9 @@ class SumFragment : BaseFragment<FragmentSumBinding>(R.layout.fragment_sum) {
 
         sharedViewModel.listResult.observe(activity!!, Observer {
             sumViewModel.setListSum(it)
+            binding.checkIncludeBonus.setOnCheckedChangeListener { compoundButton, b ->
+                sumViewModel.setListSum(it, b)
+            }
         })
     }
 }
