@@ -81,7 +81,6 @@ class HomeViewModel(
                 // onSuccess
                 if (curDrwNoDB == curDrwNoReal) {
                     // 데이터 가져오기
-                    _curDrwNo.value = curDrwNoReal
                     callback(true)
                     return@getWeek
                 }
@@ -117,17 +116,11 @@ class HomeViewModel(
 
                         // 마지막 아이템이 담겨짐
                         if (listTemp.size == gap) {
-                            fireStoreRepository.addData("lotto_data", "week", hashMapOf("cur_week" to curDrwNoReal))
                             // 모든 리스트 DB에 저장
                             listTemp.sortBy { dto ->
                                 dto.drwNo
                             }
                             fireStoreRepository.updateData("lotto_data", "result", listTemp as ArrayList<Any>, {
-                                _curDrwNo.value = curDrwNoReal
-                                _listResult.value = listTemp
-                                _listLatelyResult.value = listTemp.subList(listTemp.size-10, listTemp.size-1).reversed() as List<LottoDTO>
-                                setCurData(listTemp[gap-1])
-
                                 callback(listTemp)
                             }, {
                                 callback(null)
@@ -144,6 +137,7 @@ class HomeViewModel(
 
     private fun setCurData(dto: LottoDTO) {
         dto.apply {
+            _curDrwNo.value = drwNo
             _curNum1.value = drwtNo1
             _curNum2.value = drwtNo2
             _curNum3.value = drwtNo3
@@ -154,6 +148,8 @@ class HomeViewModel(
             _drwDate.value = drwNoDate
             _winCount.value = firstPrzwnerCo
             _price.value = firstWinamnt
+
+            if (firstWinamnt > 0L) fireStoreRepository.addData("lotto_data", "week", hashMapOf("cur_week" to drwNo))
         }
     }
 
@@ -167,7 +163,7 @@ class HomeViewModel(
                     }
 
                     _listResult.value = listTemp
-                    _listLatelyResult.value = listTemp.subList(listTemp.size-10, listTemp.size-1).reversed()
+                    _listLatelyResult.value = listTemp.subList(listTemp.size-11, listTemp.size-2).reversed()
                     setCurData(listTemp[listTemp.size-1])
                 }
                 callback(true)

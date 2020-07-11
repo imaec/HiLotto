@@ -11,6 +11,7 @@ import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentHomeBinding
 import com.imaec.hilotto.repository.FireStoreRepository
 import com.imaec.hilotto.repository.LottoRepository
+import com.imaec.hilotto.ui.util.LatelyResultDecoration
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.viewmodel.HomeViewModel
 
@@ -30,6 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             lifecycleOwner = this@HomeFragment
             viewModel = this@HomeFragment.viewModel
             recyclerLatelyResult.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            recyclerLatelyResult.addItemDecoration(LatelyResultDecoration(context!!))
         }
 
         showProgress()
