@@ -15,17 +15,17 @@ import com.imaec.hilotto.ui.view.fragment.HomeFragment
 import com.imaec.hilotto.ui.view.fragment.MyFragment
 import com.imaec.hilotto.ui.view.fragment.RecommendFragment
 import com.imaec.hilotto.ui.view.fragment.StatisticsFragment
-import com.imaec.hilotto.viewmodel.LottoSharedViewModel
+import com.imaec.hilotto.viewmodel.LottoViewModel
 import com.imaec.hilotto.viewmodel.MainViewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), BottomNavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var mainViewModel: MainViewModel
-    private lateinit var sharedViewModel: LottoSharedViewModel
+    private lateinit var sharedViewModel: LottoViewModel
     private lateinit var activeFragment: Fragment
 
-    private val lottoRepository: LottoRepository by lazy { LottoRepository() }
-    private val firestoreRepository: FireStoreRepository by lazy { FireStoreRepository() }
+    private val lottoRepository = LottoRepository()
+    private val firestoreRepository = FireStoreRepository()
     private val fragmentHome = HomeFragment()
     private val fragmentStatistics = StatisticsFragment()
     private val fragmentRecommend = RecommendFragment()
@@ -35,7 +35,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
         super.onCreate(savedInstanceState)
 
         mainViewModel = getViewModel(MainViewModel::class.java)
-        sharedViewModel = getViewModel(LottoSharedViewModel::class.java, lottoRepository, firestoreRepository)
+        sharedViewModel = getViewModel(LottoViewModel::class.java, lottoRepository, firestoreRepository)
 
         binding.apply {
             lifecycleOwner = this@MainActivity

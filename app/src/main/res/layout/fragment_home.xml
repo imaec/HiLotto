@@ -6,7 +6,7 @@
 
         <variable
             name="sharedViewModel"
-            type="com.imaec.hilotto.viewmodel.LottoSharedViewModel" />
+            type="com.imaec.hilotto.viewmodel.LottoViewModel" />
 
         <variable
             name="homeViewModel"
@@ -255,7 +255,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     app:adapter="@{homeViewModel.adapter}"
-                    app:items="@{sharedViewModel.listLatelyResult}"
+                    app:items="@{homeViewModel.listLatelyResult}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_lately_result"/>

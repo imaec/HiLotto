@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class LottoSharedViewModel(
+class LottoViewModel(
     private val lottoRepository: LottoRepository,
     private val fireStoreRepository: FireStoreRepository
 ) : BaseViewModel() {
@@ -22,9 +22,6 @@ class LottoSharedViewModel(
 
     private val _listResult = MutableLiveData<List<LottoDTO>>().set(ArrayList())
     val listResult: LiveData<List<LottoDTO>> get() = _listResult
-
-    private val _listLatelyResult = MutableLiveData<List<LottoDTO>>().set(ArrayList())
-    val listLatelyResult: LiveData<List<LottoDTO>> get() = _listLatelyResult
 
     private val _curNum1 = MutableLiveData<Int>().set(1)
     val curNum1: LiveData<Int> get() = _curNum1
@@ -157,7 +154,6 @@ class LottoSharedViewModel(
                     }
 
                     _listResult.value = listTemp
-                    _listLatelyResult.value = listTemp.subList(listTemp.size-11, listTemp.size-2).reversed()
                     setCurData(listTemp[listTemp.size-1])
                 }
                 callback(true)

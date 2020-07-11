@@ -38,7 +38,7 @@
     <string name="save_numbers">번호 저장</string>
     <string name="bonus">BONUS</string>
     <string name="include_bonus">보너스 번호 포함</string>
-    <string name="sum_avg_empty">0회 합계 평균 : 0</string>
+    <string name="sum_avg_empty">0회 합계 평균 : </string>
     <string name="sum_min">21</string>
     <string name="sum_max">255</string>
     <string name="sum_empty">134</string>
