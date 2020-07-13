@@ -5,8 +5,12 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="pickViewModel"
             type="com.imaec.hilotto.viewmodel.PickViewModel" />
+
+        <variable
+            name="sharedViewModel"
+            type="com.imaec.hilotto.viewmodel.LottoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -74,6 +78,8 @@
             android:id="@+id/progress1"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:progress="@{pickViewModel.pickedRange1}"
+            android:max="@{pickViewModel.pickMax}"
             app:layout_constraintLeft_toRightOf="@id/text_range1"
             app:layout_constraintRight_toLeftOf="@id/text_sum1"
             app:layout_constraintTop_toTopOf="@id/text_range1"
@@ -86,6 +92,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:text="@string/sum_empty"
+            app:textByInt="@{pickViewModel.pickedRange1}"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_range1"
             app:layout_constraintBottom_toBottomOf="@id/text_range1"/>
@@ -108,6 +115,8 @@
             android:id="@+id/progress2"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:progress="@{pickViewModel.pickedRange2}"
+            android:max="@{pickViewModel.pickMax}"
             app:layout_constraintLeft_toRightOf="@id/text_range2"
             app:layout_constraintRight_toLeftOf="@id/text_sum2"
             app:layout_constraintTop_toTopOf="@id/text_range2"
@@ -120,6 +129,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:text="@string/sum_empty"
+            app:textByInt="@{pickViewModel.pickedRange2}"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_range2"
             app:layout_constraintBottom_toBottomOf="@id/text_range2"/>
@@ -142,6 +152,8 @@
             android:id="@+id/progress3"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:progress="@{pickViewModel.pickedRange3}"
+            android:max="@{pickViewModel.pickMax}"
             app:layout_constraintLeft_toRightOf="@id/text_range3"
             app:layout_constraintRight_toLeftOf="@id/text_sum3"
             app:layout_constraintTop_toTopOf="@id/text_range3"
@@ -154,6 +166,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:text="@string/sum_empty"
+            app:textByInt="@{pickViewModel.pickedRange3}"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_range3"
             app:layout_constraintBottom_toBottomOf="@id/text_range3"/>
@@ -176,6 +189,8 @@
             android:id="@+id/progress4"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:progress="@{pickViewModel.pickedRange4}"
+            android:max="@{pickViewModel.pickMax}"
             app:layout_constraintLeft_toRightOf="@id/text_range4"
             app:layout_constraintRight_toLeftOf="@id/text_sum4"
             app:layout_constraintTop_toTopOf="@id/text_range4"
@@ -188,6 +203,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:text="@string/sum_empty"
+            app:textByInt="@{pickViewModel.pickedRange4}"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_range4"
             app:layout_constraintBottom_toBottomOf="@id/text_range4"/>
@@ -210,6 +226,8 @@
             android:id="@+id/progress5"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:progress="@{pickViewModel.pickedRange5}"
+            android:max="@{pickViewModel.pickMax}"
             app:layout_constraintLeft_toRightOf="@id/text_range5"
             app:layout_constraintRight_toLeftOf="@id/text_sum5"
             app:layout_constraintTop_toTopOf="@id/text_range5"
@@ -222,6 +240,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:text="@string/sum_empty"
+            app:textByInt="@{pickViewModel.pickedRange5}"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_range5"
             app:layout_constraintBottom_toBottomOf="@id/text_range5"/>
