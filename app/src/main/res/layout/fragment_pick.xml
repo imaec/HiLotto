@@ -257,18 +257,18 @@
 
         <TextView
             style="@style/AppTheme.StatisticsTitle"
-            android:id="@+id/text_unpick_num"
+            android:id="@+id/text_nopick_num"
             android:layout_marginTop="12dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
-            android:text="@string/title_pick_count"
+            android:text="@string/title_nopick_num"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_divider2"/>
 
         <TextView
-            android:id="@+id/text_unpick_range1"
+            android:id="@+id/text_nopick_range1"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -278,19 +278,21 @@
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_unpick_num"/>
+            app:layout_constraintTop_toBottomOf="@id/text_nopick_num"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_unpick1"
+            android:id="@+id/recycler_nopick1"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintLeft_toRightOf="@id/text_unpick_range1"
+            app:adapter="@{pickViewModel.noPickAdapter1}"
+            app:items="@{pickViewModel.listNoPick1}"
+            app:layout_constraintLeft_toRightOf="@id/text_nopick_range1"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_unpick_range1"
-            app:layout_constraintBottom_toBottomOf="@id/text_unpick_range1"/>
+            app:layout_constraintTop_toTopOf="@id/text_nopick_range1"
+            app:layout_constraintBottom_toBottomOf="@id/text_nopick_range1"/>
 
         <TextView
-            android:id="@+id/text_unpick_range2"
+            android:id="@+id/text_nopick_range2"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -300,19 +302,21 @@
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_unpick_range1"/>
+            app:layout_constraintTop_toBottomOf="@id/text_nopick_range1"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_unpick2"
+            android:id="@+id/recycler_nopick2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintLeft_toRightOf="@id/text_unpick_range2"
+            app:adapter="@{pickViewModel.noPickAdapter2}"
+            app:items="@{pickViewModel.listNoPick2}"
+            app:layout_constraintLeft_toRightOf="@id/text_nopick_range2"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_unpick_range2"
-            app:layout_constraintBottom_toBottomOf="@id/text_unpick_range2"/>
+            app:layout_constraintTop_toTopOf="@id/text_nopick_range2"
+            app:layout_constraintBottom_toBottomOf="@id/text_nopick_range2"/>
 
         <TextView
-            android:id="@+id/text_unpick_range3"
+            android:id="@+id/text_nopick_range3"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -322,19 +326,21 @@
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_unpick_range2"/>
+            app:layout_constraintTop_toBottomOf="@id/text_nopick_range2"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_unpick3"
+            android:id="@+id/recycler_nopick3"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintLeft_toRightOf="@id/text_unpick_range3"
+            app:adapter="@{pickViewModel.noPickAdapter3}"
+            app:items="@{pickViewModel.listNoPick3}"
+            app:layout_constraintLeft_toRightOf="@id/text_nopick_range3"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_unpick_range3"
-            app:layout_constraintBottom_toBottomOf="@id/text_unpick_range3"/>
+            app:layout_constraintTop_toTopOf="@id/text_nopick_range3"
+            app:layout_constraintBottom_toBottomOf="@id/text_nopick_range3"/>
 
         <TextView
-            android:id="@+id/text_unpick_range4"
+            android:id="@+id/text_nopick_range4"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -344,19 +350,21 @@
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_unpick_range3"/>
+            app:layout_constraintTop_toBottomOf="@id/text_nopick_range3"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_unpick4"
+            android:id="@+id/recycler_nopick4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintLeft_toRightOf="@id/text_unpick_range4"
+            app:adapter="@{pickViewModel.noPickAdapter4}"
+            app:items="@{pickViewModel.listNoPick4}"
+            app:layout_constraintLeft_toRightOf="@id/text_nopick_range4"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_unpick_range4"
-            app:layout_constraintBottom_toBottomOf="@id/text_unpick_range4"/>
+            app:layout_constraintTop_toTopOf="@id/text_nopick_range4"
+            app:layout_constraintBottom_toBottomOf="@id/text_nopick_range4"/>
 
         <TextView
-            android:id="@+id/text_unpick_range5"
+            android:id="@+id/text_nopick_range5"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -366,15 +374,17 @@
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_unpick_range4"/>
+            app:layout_constraintTop_toBottomOf="@id/text_nopick_range4"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_unpick5"
+            android:id="@+id/recycler_nopick5"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintLeft_toRightOf="@id/text_unpick_range5"
+            app:adapter="@{pickViewModel.noPickAdapter5}"
+            app:items="@{pickViewModel.listNoPick5}"
+            app:layout_constraintLeft_toRightOf="@id/text_nopick_range5"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_unpick_range5"
-            app:layout_constraintBottom_toBottomOf="@id/text_unpick_range5"/>
+            app:layout_constraintTop_toTopOf="@id/text_nopick_range5"
+            app:layout_constraintBottom_toBottomOf="@id/text_nopick_range5"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

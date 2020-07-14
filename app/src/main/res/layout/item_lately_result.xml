@@ -34,6 +34,7 @@
                 android:gravity="center"
                 android:background="@drawable/bg_left_top_rounded_primary"
                 android:tag="OutlineTextView"
+                android:includeFontPadding="false"
                 android:textSize="13sp"
                 android:textColor="@color/white"
                 app:textByInt="@{item.drwtNo1}"/>
@@ -45,6 +46,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:background="@color/colorPrimary"
+                android:includeFontPadding="false"
                 android:textSize="13sp"
                 android:textColor="@color/white"
                 app:textByInt="@{item.drwtNo2}"/>
@@ -56,6 +58,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:background="@color/colorPrimary"
+                android:includeFontPadding="false"
                 android:textSize="13sp"
                 android:textColor="@color/white"
                 app:textByInt="@{item.drwtNo3}"/>
@@ -67,6 +70,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:background="@color/colorPrimary"
+                android:includeFontPadding="false"
                 android:textSize="13sp"
                 android:textColor="@color/white"
                 app:textByInt="@{item.drwtNo4}"/>
@@ -78,6 +82,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:background="@color/colorPrimary"
+                android:includeFontPadding="false"
                 android:textSize="13sp"
                 android:textColor="@color/white"
                 app:textByInt="@{item.drwtNo5}"/>
@@ -89,6 +94,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:background="@drawable/bg_right_top_rounded_primary"
+                android:includeFontPadding="false"
                 android:textSize="13sp"
                 android:textColor="@color/white"
                 app:textByInt="@{item.drwtNo6}"/>
@@ -109,6 +115,7 @@
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:includeFontPadding="false"
                 android:text="@string/bonus"
                 android:textSize="8sp"
                 android:textColor="@android:color/black"
@@ -122,6 +129,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:background="@color/colorAccent"
+                android:includeFontPadding="false"
                 android:textSize="13sp"
                 android:textColor="@color/white"
                 app:textByInt="@{item.bnusNo}"/>
