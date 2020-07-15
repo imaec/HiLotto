@@ -16,6 +16,10 @@ abstract class BaseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemCount(): Int = listItem.size
 
+    fun addItem(item: Any) {
+        listItem.add(item)
+    }
+
     fun addItems(list: List<Any>) {
         listItem.addAll(list)
     }

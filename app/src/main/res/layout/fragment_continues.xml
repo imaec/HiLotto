@@ -5,8 +5,12 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="continuesViewModel"
             type="com.imaec.hilotto.viewmodel.ContinuesViewModel" />
+
+        <variable
+            name="sharedViewModel"
+            type="com.imaec.hilotto.viewmodel.LottoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,6 +20,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_continues"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            app:adapter="@{continuesViewModel.adapter}"
+            app:items="@{continuesViewModel.listContinues}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
