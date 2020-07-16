@@ -352,7 +352,7 @@ class ContinuesViewModel : BaseViewModel() {
 
             val dto = ContinueDTO(
                 "${it.drwNo}회",
-                arrayListOf(it.drwtNo1, it.drwtNo2, it.drwtNo3, it.drwtNo4, it.drwtNo5, it.drwtNo6),
+                arrayListOf("${it.drwtNo1}", "${it.drwtNo2}", "${it.drwtNo3}", "${it.drwtNo4}", "${it.drwtNo5}", "${it.drwtNo6}"),
                 continueString,
                 continueNum
             )

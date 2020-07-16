@@ -8,7 +8,7 @@ import com.imaec.hilotto.databinding.ItemContinuesBinding
 import com.imaec.hilotto.databinding.ItemNumberBinding
 import com.imaec.hilotto.model.ContinueDTO
 
-class ContinuesSubAdapter : BaseAdapter() {
+class NumberAdapter : BaseAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         binding = ItemNumberBinding.inflate(LayoutInflater.from(parent.context))
@@ -17,13 +17,13 @@ class ContinuesSubAdapter : BaseAdapter() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ItemViewHolder) {
-            holder.onBind(listItem[position] as Int)
+            holder.onBind(listItem[position] as String)
         }
     }
 
     inner class ItemViewHolder(val binding: ItemNumberBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(item: Int) {
+        fun onBind(item: String) {
             binding.apply {
                 this.item = item
             }

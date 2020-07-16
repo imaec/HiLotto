@@ -5,8 +5,12 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="oddEvenViewModel"
             type="com.imaec.hilotto.viewmodel.OddEvenViewModel" />
+
+        <variable
+            name="sharedViewModel"
+            type="com.imaec.hilotto.viewmodel.LottoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,6 +20,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_odd_even"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            app:adapter="@{oddEvenViewModel.adapter}"
+            app:items="@{oddEvenViewModel.listOddEven}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
