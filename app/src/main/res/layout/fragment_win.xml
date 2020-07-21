@@ -5,8 +5,12 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="winViewModel"
             type="com.imaec.hilotto.viewmodel.WinViewModel" />
+
+        <variable
+            name="sharedViewModel"
+            type="com.imaec.hilotto.viewmodel.LottoViewModel" />
     </data>
 
     <ScrollView
