@@ -27,7 +27,7 @@ class WinFragment : BaseFragment<FragmentWinBinding>(R.layout.fragment_win) {
         }
 
         sharedViewModel.listResult.observe(activity!!, Observer {
-            // winViewModel.setOddEven(it)
+            winViewModel.setWinInfo(it)
         })
     }
 }
