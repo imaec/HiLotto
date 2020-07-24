@@ -16,28 +16,34 @@ class WinViewModel : BaseViewModel() {
     private val _winCount = MutableLiveData<String>().set("0명")
     val winCount: LiveData<String> get() = _winCount
 
-    private fun getPriceAvg(list: List<LottoDTO>): Long {
-        var sum: Long = 0
-        list.forEach {
-            sum += it.firstWinamnt
-        }
-        return sum / list.size
-    }
+    private val _priceMax = MutableLiveData<String>().set("000회 : 0원")
+    val priceMax: LiveData<String> get() = _priceMax
 
-    private fun getPriceTotalAvg(list: List<LottoDTO>): Long {
-        var sum: Long = 0
-        list.forEach {
-            sum += it.firstAccumamnt
-        }
-        return sum / list.size
-    }
+    private val _priceMin = MutableLiveData<String>().set("000회 : 0원")
+    val priceMin: LiveData<String> get() = _priceMin
 
-    private fun getWinCount(list: List<LottoDTO>): String {
-        var sum = 0
+    private val _winCountMax = MutableLiveData<String>().set("000회 : 0명")
+    val winCountMax: LiveData<String> get() = _winCountMax
+
+    private val _winCountMin = MutableLiveData<String>().set("000회 : 0명")
+    val winCountMin: LiveData<String> get() = _winCountMin
+
+    private fun getWinInfo(list: List<LottoDTO>) {
+        var sumPrice: Long = 0
+        var sumPriceTotal: Long = 0
+        var sumCount = 0
         list.forEach {
-            sum += it.firstPrzwnerCo
+            sumPrice += it.firstAccumamnt
+            sumPriceTotal += it.firstWinamnt
+            sumCount += it.firstPrzwnerCo
         }
-        return "${sum / list.size}명"
+        _price.value = sumPrice / list.size
+        _priceTotal.value = sumPriceTotal / list.size
+        _winCount.value = "${sumCount / list.size}명"
+        _priceMax.value = "${list.sortedByDescending { it.firstAccumamnt }[0].firstAccumamnt}"
+        _priceMin.value = "${list.sortedBy { it.firstAccumamnt }[0].firstAccumamnt}"
+        _winCountMax.value = "${list.sortedByDescending { it.firstPrzwnerCo }[0].firstPrzwnerCo}"
+        _winCountMin.value = "${list.sortedBy { it.firstPrzwnerCo }[0].firstPrzwnerCo}"
     }
 
     fun setWinInfo(listResult: List<LottoDTO>) {
@@ -46,8 +52,6 @@ class WinViewModel : BaseViewModel() {
             listTemp.add(it)
         }
 
-        _price.value = getPriceAvg(listTemp)
-        _priceTotal.value = getPriceTotalAvg(listTemp)
-        _winCount.value = getWinCount(listTemp)
+        getWinInfo(listTemp)
     }
 }
