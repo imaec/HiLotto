@@ -12,7 +12,7 @@ class FireStoreRepository {
         db.collection(collectionPath).document(documentPath).get()
             .addOnSuccessListener { documentSnapshot ->
                 documentSnapshot.data?.let {
-                    onSuccess(it["cur_week"].toString().toInt())
+                    onSuccess(if(it["cur_week"] != null) it["cur_week"].toString().toInt() else 0)
                 } ?: run {
                     onFailure("")
                 }
