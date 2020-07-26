@@ -345,7 +345,7 @@ class ContinuesViewModel : BaseViewModel() {
 
     fun setPickedNum(listResult: List<LottoDTO>) {
         val listTemp = ArrayList<ContinueDTO>()
-        listResult.subList(listResult.size - 21, listResult.size - 1).reversed().forEach {
+        listResult.subList(listResult.size - 20, listResult.size).reversed().forEach {
             val continues = getContinues(it.drwtNo1, it.drwtNo2, it.drwtNo3, it.drwtNo4, it.drwtNo5, it.drwtNo6)
             val continueString = getSequenceString(continues)
             val continueNum = getSequenceNumber(it.drwtNo1, it.drwtNo2, it.drwtNo3, it.drwtNo4, it.drwtNo5, it.drwtNo6)

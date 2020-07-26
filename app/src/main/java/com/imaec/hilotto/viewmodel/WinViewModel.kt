@@ -39,7 +39,6 @@ class WinViewModel : BaseViewModel() {
             sumPriceTotal += it.firstAccumamnt
             sumPrice += it.firstWinamnt
             sumCount += it.firstPrzwnerCo
-            Log.d(TAG, "    ## sum : $sumPriceTotal / $sumPrice / $sumCount")
         }
         _priceTotal.value = sumPriceTotal / list.size
         _price.value = sumPrice / list.size
