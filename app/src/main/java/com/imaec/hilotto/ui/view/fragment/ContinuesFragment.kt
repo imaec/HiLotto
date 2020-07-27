@@ -9,6 +9,7 @@ import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentContinuesBinding
 import com.imaec.hilotto.repository.FireStoreRepository
 import com.imaec.hilotto.repository.LottoRepository
+import com.imaec.hilotto.ui.util.NumbersDecoration
 import com.imaec.hilotto.viewmodel.ContinuesViewModel
 import com.imaec.hilotto.viewmodel.LottoViewModel
 
@@ -31,6 +32,7 @@ class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragme
             continuesViewModel = this@ContinuesFragment.continuesViewModel
             sharedViewModel = this@ContinuesFragment.sharedViewModel
             recyclerContinues.layoutManager = LinearLayoutManager(context)
+            recyclerContinues.addItemDecoration(NumbersDecoration(context!!))
         }
 
         sharedViewModel.listResult.observe(activity!!, Observer {
