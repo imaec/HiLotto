@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.imaec.hilotto.base.BaseAdapter
 import com.imaec.hilotto.databinding.ItemContinuesBinding
 import com.imaec.hilotto.model.ContinueDTO
+import com.imaec.hilotto.ui.util.NumberDecoration
 
 class ContinuesAdapter : BaseAdapter() {
 
@@ -27,6 +28,7 @@ class ContinuesAdapter : BaseAdapter() {
             binding.apply {
                 recyclerItemNum.adapter = NumberAdapter()
                 recyclerItemNum.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+                recyclerItemNum.addItemDecoration(NumberDecoration(binding.root.context))
                 this.item = item
             }
         }
