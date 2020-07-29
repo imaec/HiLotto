@@ -9,229 +9,259 @@
             type="com.imaec.hilotto.viewmodel.RecommendViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            style="@style/AppTheme.Toolbar"
-            android:id="@+id/text_title"
-            android:text="@string/recommend"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            style="@style/AppTheme.ConditionTitle"
-            android:id="@+id/text_condition1"
-            android:text="@string/condition_sum"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_title"/>
+            <TextView
+                android:id="@+id/text_title"
+                style="@style/AppTheme.Toolbar"
+                android:text="@string/recommend"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <Switch
-            style="@style/AppTheme.ConditionSwitch"
-            android:id="@+id/switch_condition1"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_title"/>
+            <TextView
+                android:id="@+id/text_condition1"
+                style="@style/AppTheme.ConditionTitle"
+                android:text="@string/condition_sum"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_title" />
 
-        <TextView
-            style="@style/AppTheme.ConditionTitle"
-            android:id="@+id/text_condition2"
-            android:text="@string/condition_pick"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_condition1"/>
+            <Switch
+                android:id="@+id/switch_condition1"
+                style="@style/AppTheme.ConditionSwitch"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_title" />
 
-        <Switch
-            style="@style/AppTheme.ConditionSwitch"
-            android:id="@+id/switch_condition2"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_condition1"/>
+            <TextView
+                android:id="@+id/text_condition2"
+                style="@style/AppTheme.ConditionTitle"
+                android:text="@string/condition_pick"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_condition1" />
 
-        <TextView
-            style="@style/AppTheme.ConditionTitle"
-            android:id="@+id/text_condition3"
-            android:text="@string/condition_continues"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_condition2"/>
+            <Switch
+                android:id="@+id/switch_condition2"
+                style="@style/AppTheme.ConditionSwitch"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_condition1" />
 
-        <Switch
-            style="@style/AppTheme.ConditionSwitch"
-            android:id="@+id/switch_condition3"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_condition2"/>
+            <TextView
+                android:id="@+id/text_condition3"
+                style="@style/AppTheme.ConditionTitle"
+                android:text="@string/condition_continues"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_condition2" />
 
-        <TextView
-            style="@style/AppTheme.ConditionTitle"
-            android:id="@+id/text_condition4"
-            android:text="@string/condition_odd_even"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_condition3"/>
+            <Switch
+                android:id="@+id/switch_condition3"
+                style="@style/AppTheme.ConditionSwitch"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_condition2" />
 
-        <Switch
-            style="@style/AppTheme.ConditionSwitch"
-            android:id="@+id/switch_condition4"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_condition3"/>
+            <TextView
+                android:id="@+id/text_condition4"
+                style="@style/AppTheme.ConditionTitle"
+                android:text="@string/condition_odd_even"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_condition3" />
+
+            <Switch
+                android:id="@+id/switch_condition4"
+                style="@style/AppTheme.ConditionSwitch"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_condition3" />
+
+            <View
+                android:id="@+id/view_divider"
+                style="@style/AppTheme.ViewDivider"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/switch_condition4" />
+
+            <TextView
+                android:id="@+id/text_condition5"
+                style="@style/AppTheme.ConditionTitle"
+                android:text="@string/condition_all"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_divider" />
+
+            <Switch
+                android:id="@+id/switch_condition5"
+                style="@style/AppTheme.ConditionSwitch"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_divider" />
+
+            <TextView
+                android:id="@+id/text_included"
+                style="@style/AppTheme.ConditionTitle"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/included_numbers"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/recycler_included"
+                app:layout_constraintTop_toBottomOf="@id/text_condition5"
+                app:layout_constraintWidth_percent="0.25" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_included"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintLeft_toRightOf="@id/text_included"
+                app:layout_constraintRight_toLeftOf="@id/image_included_add"
+                app:layout_constraintTop_toTopOf="@id/text_included"
+                app:layout_constraintWidth_percent="0.65" />
+
+            <ImageView
+                android:id="@+id/image_included_add"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:paddingRight="16dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintLeft_toRightOf="@id/recycler_included"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/text_included"
+                app:layout_constraintWidth_percent="0.1" />
+
+            <TextView
+                android:id="@+id/text_not_included"
+                style="@style/AppTheme.ConditionTitle"
+                android:layout_width="0dp"
+                android:text="@string/not_included_numbers"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/recycler_not_included"
+                app:layout_constraintTop_toBottomOf="@id/text_included"
+                app:layout_constraintWidth_percent="0.25" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_not_included"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintLeft_toRightOf="@id/text_not_included"
+                app:layout_constraintRight_toLeftOf="@id/image_not_included_add"
+                app:layout_constraintTop_toTopOf="@id/text_not_included"
+                app:layout_constraintWidth_percent="0.65" />
+
+            <ImageView
+                android:id="@+id/image_not_included_add"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:paddingRight="16dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintLeft_toRightOf="@id/recycler_not_included"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/text_not_included"
+                app:layout_constraintWidth_percent="0.1" />
+
+            <TextView
+                android:id="@+id/text_number1"
+                style="@style/AppTheme.TextNumberInput"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="36dp"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/text_number2"
+                app:layout_constraintTop_toBottomOf="@id/text_not_included" />
+
+            <TextView
+                android:id="@+id/text_number2"
+                style="@style/AppTheme.TextNumberInput"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintLeft_toRightOf="@id/text_number1"
+                app:layout_constraintRight_toLeftOf="@id/text_number3"
+                app:layout_constraintTop_toTopOf="@id/text_number1" />
+
+            <TextView
+                android:id="@+id/text_number3"
+                style="@style/AppTheme.TextNumberInput"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintLeft_toRightOf="@id/text_number2"
+                app:layout_constraintRight_toLeftOf="@id/text_number4"
+                app:layout_constraintTop_toTopOf="@id/text_number1" />
+
+            <TextView
+                android:id="@+id/text_number4"
+                style="@style/AppTheme.TextNumberInput"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintLeft_toRightOf="@id/text_number3"
+                app:layout_constraintRight_toLeftOf="@id/text_number5"
+                app:layout_constraintTop_toTopOf="@id/text_number1" />
+
+            <TextView
+                android:id="@+id/text_number5"
+                style="@style/AppTheme.TextNumberInput"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintLeft_toRightOf="@id/text_number4"
+                app:layout_constraintRight_toLeftOf="@id/text_number6"
+                app:layout_constraintTop_toTopOf="@id/text_number1" />
+
+            <TextView
+                android:id="@+id/text_number6"
+                style="@style/AppTheme.TextNumberInput"
+                android:layout_marginRight="12dp"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintLeft_toRightOf="@id/text_number5"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/text_number1" />
+
+            <TextView
+                android:id="@+id/button_create"
+                style="@style/AppTheme.TextPrimaryButton"
+                android:layout_width="0dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/create_numbers"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/button_save" />
+
+            <TextView
+                android:id="@+id/button_save"
+                style="@style/AppTheme.TextPrimaryButton"
+                android:layout_width="0dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/save_numbers"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/button_create"
+                app:layout_constraintRight_toRightOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            style="@style/AppTheme.ViewDivider"
-            android:id="@+id/view_divider"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/switch_condition4"/>
+            android:id="@+id/view_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bgAlpha"
+            android:onClick="onClick"
+            app:isVisible="@{viewModel.isVisible}" />
 
-        <TextView
-            style="@style/AppTheme.ConditionTitle"
-            android:id="@+id/text_condition5"
-            android:text="@string/condition_all"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_divider"/>
+        <LinearLayout
+            android:id="@+id/linear_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            app:behavior_hideable="true"
+            app:layout_behavior="@string/bottom_sheet_behavior">
 
-        <Switch
-            style="@style/AppTheme.ConditionSwitch"
-            android:id="@+id/switch_condition5"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_divider"/>
-
-        <TextView
-            style="@style/AppTheme.ConditionTitle"
-            android:id="@+id/text_included"
-            android:layout_width="0dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/included_numbers"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/recycler_included"
-            app:layout_constraintTop_toBottomOf="@id/text_condition5"
-            app:layout_constraintWidth_percent="0.25"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_included"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toRightOf="@id/text_included"
-            app:layout_constraintRight_toLeftOf="@id/image_included_add"
-            app:layout_constraintTop_toTopOf="@id/text_included"
-            app:layout_constraintWidth_percent="0.65"/>
-
-        <ImageView
-            android:id="@+id/image_included_add"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:paddingRight="16dp"
-            android:src="@mipmap/ic_launcher"
-            android:scaleType="centerInside"
-            app:layout_constraintLeft_toRightOf="@id/recycler_included"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_included"
-            app:layout_constraintWidth_percent="0.1"/>
-
-        <TextView
-            style="@style/AppTheme.ConditionTitle"
-            android:id="@+id/text_not_included"
-            android:layout_width="0dp"
-            android:text="@string/not_included_numbers"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/recycler_not_included"
-            app:layout_constraintTop_toBottomOf="@id/text_included"
-            app:layout_constraintWidth_percent="0.25"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_not_included"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toRightOf="@id/text_not_included"
-            app:layout_constraintRight_toLeftOf="@id/image_not_included_add"
-            app:layout_constraintTop_toTopOf="@id/text_not_included"
-            app:layout_constraintWidth_percent="0.65"/>
-
-        <ImageView
-            android:id="@+id/image_not_included_add"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:paddingRight="16dp"
-            android:src="@mipmap/ic_launcher"
-            android:scaleType="centerInside"
-            app:layout_constraintLeft_toRightOf="@id/recycler_not_included"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_not_included"
-            app:layout_constraintWidth_percent="0.1"/>
-
-        <TextView
-            style="@style/AppTheme.TextNumberInput"
-            android:id="@+id/edit_number1"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="36dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/edit_number2"
-            app:layout_constraintTop_toBottomOf="@id/text_not_included"
-            app:layout_constraintDimensionRatio="1"/>
-
-        <TextView
-            style="@style/AppTheme.TextNumberInput"
-            android:id="@+id/edit_number2"
-            app:layout_constraintLeft_toRightOf="@id/edit_number1"
-            app:layout_constraintRight_toLeftOf="@id/edit_number3"
-            app:layout_constraintTop_toTopOf="@id/edit_number1"
-            app:layout_constraintDimensionRatio="1"/>
-
-        <TextView
-            style="@style/AppTheme.TextNumberInput"
-            android:id="@+id/edit_number3"
-            app:layout_constraintLeft_toRightOf="@id/edit_number2"
-            app:layout_constraintRight_toLeftOf="@id/edit_number4"
-            app:layout_constraintTop_toTopOf="@id/edit_number1"
-            app:layout_constraintDimensionRatio="1"/>
-
-        <TextView
-            style="@style/AppTheme.TextNumberInput"
-            android:id="@+id/edit_number4"
-            app:layout_constraintLeft_toRightOf="@id/edit_number3"
-            app:layout_constraintRight_toLeftOf="@id/edit_number5"
-            app:layout_constraintTop_toTopOf="@id/edit_number1"
-            app:layout_constraintDimensionRatio="1"/>
-
-        <TextView
-            style="@style/AppTheme.TextNumberInput"
-            android:id="@+id/edit_number5"
-            app:layout_constraintLeft_toRightOf="@id/edit_number4"
-            app:layout_constraintRight_toLeftOf="@id/edit_number6"
-            app:layout_constraintTop_toTopOf="@id/edit_number1"
-            app:layout_constraintDimensionRatio="1"/>
-
-        <TextView
-            style="@style/AppTheme.TextNumberInput"
-            android:id="@+id/edit_number6"
-            android:layout_marginRight="12dp"
-            app:layout_constraintLeft_toRightOf="@id/edit_number5"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/edit_number1"
-            app:layout_constraintDimensionRatio="1"/>
-
-        <TextView
-            style="@style/AppTheme.TextPrimaryButton"
-            android:id="@+id/button_create"
-            android:layout_width="0dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/create_numbers"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/button_save"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <TextView
-            style="@style/AppTheme.TextPrimaryButton"
-            android:id="@+id/button_save"
-            android:layout_width="0dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/save_numbers"
-            app:layout_constraintLeft_toRightOf="@id/button_create"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <NumberPicker
+                android:id="@+id/picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="100dp"
+                android:paddingRight="100dp" />
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

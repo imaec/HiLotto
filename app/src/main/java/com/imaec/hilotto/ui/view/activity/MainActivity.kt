@@ -1,6 +1,7 @@
 package com.imaec.hilotto.ui.view.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -75,7 +76,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
     }
 
     fun onClick(view: View) {
-
+        Log.d(TAG, "    ## onClick($view)")
+        if (activeFragment is RecommendFragment) {
+            fragmentRecommend.onClick(view)
+        }
     }
 
     private fun init() {
