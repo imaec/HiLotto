@@ -11,6 +11,8 @@ import com.imaec.hilotto.ui.util.NumberDecoration
 
 class OddEvenAdapter : BaseAdapter() {
 
+    private val itemDecoration: NumberDecoration by lazy { NumberDecoration(binding.root.context) }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         binding = ItemOddEvenBinding.inflate(LayoutInflater.from(parent.context))
         return ItemViewHolder(binding as ItemOddEvenBinding)
@@ -28,7 +30,8 @@ class OddEvenAdapter : BaseAdapter() {
             binding.apply {
                 recyclerItemNum.adapter = NumberAdapter()
                 recyclerItemNum.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
-                recyclerItemNum.addItemDecoration(NumberDecoration(binding.root.context))
+                recyclerItemNum.removeItemDecoration(itemDecoration)
+                recyclerItemNum.addItemDecoration(itemDecoration)
                 this.item = item
             }
         }

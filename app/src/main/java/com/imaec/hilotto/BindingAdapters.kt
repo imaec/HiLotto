@@ -44,6 +44,20 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("backgroundNumber")
+    fun setBackgroundNumber(textView: TextView, value: String) {
+        textView.apply {
+            if (value != ":") {
+                background = textView.context.resources.getDrawable(R.drawable.bg_circle_accent)
+                setTextColor(textView.context.resources.getColor(R.color.white))
+            } else {
+                background = null
+                setTextColor(textView.context.resources.getColor(R.color.darkGray))
+            }
+        }
+    }
+
+    @JvmStatic
     @BindingAdapter("adapter")
     fun setAdapter(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
         recyclerView.adapter = adapter

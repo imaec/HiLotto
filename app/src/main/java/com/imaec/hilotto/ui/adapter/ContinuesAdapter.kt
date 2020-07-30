@@ -11,6 +11,8 @@ import com.imaec.hilotto.ui.util.NumberDecoration
 
 class ContinuesAdapter : BaseAdapter() {
 
+    private val itemDecoration: NumberDecoration by lazy { NumberDecoration(binding.root.context) }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         binding = ItemContinuesBinding.inflate(LayoutInflater.from(parent.context))
         return ItemViewHolder(binding as ItemContinuesBinding)
@@ -28,7 +30,8 @@ class ContinuesAdapter : BaseAdapter() {
             binding.apply {
                 recyclerItemNum.adapter = NumberAdapter()
                 recyclerItemNum.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
-                recyclerItemNum.addItemDecoration(NumberDecoration(binding.root.context))
+                recyclerItemNum.removeItemDecoration(itemDecoration)
+                recyclerItemNum.addItemDecoration(itemDecoration)
                 this.item = item
             }
         }

@@ -45,7 +45,7 @@ class OddEvenViewModel : BaseViewModel() {
             val listEven = getEven(it.drwtNo1, it.drwtNo2, it.drwtNo3, it.drwtNo4, it.drwtNo5, it.drwtNo6)
             val listOddEven = ArrayList<String>().apply {
                 addAll(listOdd)
-                add(" : ")
+                add(":")
                 addAll(listEven)
             }
 

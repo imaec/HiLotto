@@ -4,9 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.imaec.hilotto.base.BaseAdapter
-import com.imaec.hilotto.databinding.ItemContinuesBinding
 import com.imaec.hilotto.databinding.ItemNumberBinding
-import com.imaec.hilotto.model.ContinueDTO
 
 class NumberAdapter : BaseAdapter() {
 
