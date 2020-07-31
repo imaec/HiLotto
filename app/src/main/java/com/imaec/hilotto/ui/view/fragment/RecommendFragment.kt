@@ -55,10 +55,16 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             R.id.text_number4,
             R.id.text_number5,
             R.id.text_number6 -> {
-                showPicker(view as TextView)
+
             }
             R.id.view_bg -> {
                 bottomSheetBehavior.hide()
+            }
+            R.id.image_included_add -> {
+                showPicker()
+            }
+            R.id.image_not_included_add -> {
+
             }
         }
     }
@@ -78,9 +84,11 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
         }
     }
 
-    private fun showPicker(textView: TextView) {
-        val arr = Array(45) {""}.apply {
-            for (i in indices) { this[i] = "${i+1}" }
+    private fun showPicker() {
+        val arr = Array(46) {""}.apply {
+            for (i in indices) {
+                this[i] = "${i+1}"
+            }
         }
         binding.picker.apply {
             minValue = 1
@@ -88,10 +96,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             value = 1
             displayedValues = arr
             setOnValueChangedListener { _, _, newVal ->
-//                data.value = if (type == 0) "${newVal}일" else {
-//                    if (newVal == 12) "오후 ${newVal}시" else if (newVal < 12) "오전 ${newVal}시" else "오후 ${newVal-12}시"
-//                }
-                textView.text = newVal.toString()
+                binding.textNumber1.text = newVal.toString()
             }
         }
 
