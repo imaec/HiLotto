@@ -87,20 +87,45 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     private fun showPicker() {
         val arr = Array(46) {""}.apply {
             for (i in indices) {
-                this[i] = "${i+1}"
+                this[i] = if (i == 0) "삭제" else "$i"
             }
         }
         binding.picker.apply {
             minValue = 1
-            maxValue = 45
-            value = 1
+            maxValue = 46
+            value = 2
             displayedValues = arr
             setOnValueChangedListener { _, _, newVal ->
-                binding.textNumber1.text = newVal.toString()
+                setNumber(newVal)
             }
         }
 
         bottomSheetBehavior.expand()
+    }
+
+    private fun setNumber(number: Int) {
+        binding.apply {
+            when {
+                textNumber1.text.isEmpty() -> {
+                    textNumber1.text = if (number == 1) "" else "${number-1}"
+                }
+                textNumber2.text.isEmpty() -> {
+                    textNumber2.text = if (number == 1) "" else "${number-1}"
+                }
+                textNumber3.text.isEmpty() -> {
+                    textNumber3.text = if (number == 1) "" else "${number-1}"
+                }
+                textNumber4.text.isEmpty() -> {
+                    textNumber4.text = if (number == 1) "" else "${number-1}"
+                }
+                textNumber5.text.isEmpty() -> {
+                    textNumber5.text = if (number == 1) "" else "${number-1}"
+                }
+                textNumber6.text.isEmpty() -> {
+                    textNumber6.text = if (number == 1) "" else "${number-1}"
+                }
+            }
+        }
     }
 
     private fun <V : View> BottomSheetBehavior<V>.expand() : BottomSheetBehavior<V> {
