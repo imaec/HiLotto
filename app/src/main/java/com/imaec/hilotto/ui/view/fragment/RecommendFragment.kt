@@ -17,6 +17,8 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     private lateinit var viewModel: RecommendViewModel
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
+    private var includeNumber = 1
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -66,6 +68,15 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             R.id.image_not_included_add -> {
 
             }
+            R.id.text_include_cancel -> {
+                includeNumber = 0
+                bottomSheetBehavior.hide()
+            }
+            R.id.text_include_confirm -> {
+                if (includeNumber == 0) removeNumber()
+                else setNumber()
+                bottomSheetBehavior.hide()
+            }
         }
     }
 
@@ -96,33 +107,58 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             value = 2
             displayedValues = arr
             setOnValueChangedListener { _, _, newVal ->
-                setNumber(newVal)
+                includeNumber = newVal-1
             }
         }
 
         bottomSheetBehavior.expand()
     }
 
-    private fun setNumber(number: Int) {
+    private fun setNumber() {
         binding.apply {
             when {
                 textNumber1.text.isEmpty() -> {
-                    textNumber1.text = if (number == 1) "" else "${number-1}"
+                    textNumber1.text = "$includeNumber"
                 }
                 textNumber2.text.isEmpty() -> {
-                    textNumber2.text = if (number == 1) "" else "${number-1}"
+                    textNumber2.text = "$includeNumber"
                 }
                 textNumber3.text.isEmpty() -> {
-                    textNumber3.text = if (number == 1) "" else "${number-1}"
+                    textNumber3.text = "$includeNumber"
                 }
                 textNumber4.text.isEmpty() -> {
-                    textNumber4.text = if (number == 1) "" else "${number-1}"
+                    textNumber4.text = "$includeNumber"
                 }
                 textNumber5.text.isEmpty() -> {
-                    textNumber5.text = if (number == 1) "" else "${number-1}"
+                    textNumber5.text = "$includeNumber"
                 }
                 textNumber6.text.isEmpty() -> {
-                    textNumber6.text = if (number == 1) "" else "${number-1}"
+                    textNumber6.text = "$includeNumber"
+                }
+            }
+        }
+    }
+
+    private fun removeNumber() {
+        binding.apply {
+            when {
+                textNumber6.text.isNotEmpty() -> {
+                    textNumber6.text = ""
+                }
+                textNumber5.text.isNotEmpty() -> {
+                    textNumber5.text = ""
+                }
+                textNumber4.text.isNotEmpty() -> {
+                    textNumber4.text = ""
+                }
+                textNumber3.text.isNotEmpty() -> {
+                    textNumber3.text = ""
+                }
+                textNumber2.text.isNotEmpty() -> {
+                    textNumber2.text = ""
+                }
+                textNumber1.text.isNotEmpty() -> {
+                    textNumber1.text = ""
                 }
             }
         }
