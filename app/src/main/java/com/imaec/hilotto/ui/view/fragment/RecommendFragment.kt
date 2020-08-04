@@ -96,18 +96,18 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     }
 
     private fun showPicker() {
-        val arr = Array(46) {""}.apply {
+        val arr = Array(45) {""}.apply {
             for (i in indices) {
-                this[i] = if (i == 0) "삭제" else "$i"
+                this[i] = "${i+1}"
             }
         }
         binding.picker.apply {
             minValue = 1
-            maxValue = 46
-            value = 2
+            maxValue = 45
+            value = 1
             displayedValues = arr
             setOnValueChangedListener { _, _, newVal ->
-                includeNumber = newVal-1
+                includeNumber = newVal
             }
         }
 
