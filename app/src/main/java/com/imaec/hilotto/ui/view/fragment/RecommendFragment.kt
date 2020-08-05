@@ -10,6 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentRecommendBinding
+import com.imaec.hilotto.ui.view.dialog.CommonDialog
 import com.imaec.hilotto.viewmodel.RecommendViewModel
 
 class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragment_recommend) {
@@ -57,7 +58,12 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             R.id.text_number4,
             R.id.text_number5,
             R.id.text_number6 -> {
-
+                CommonDialog(context!!, "번호를 삭제 하시겠습니까?").apply {
+                    setOnOkClickListener(View.OnClickListener {
+                        dismiss()
+                    })
+                    show()
+                }
             }
             R.id.view_bg -> {
                 bottomSheetBehavior.hide()
