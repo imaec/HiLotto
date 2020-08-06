@@ -58,6 +58,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             R.id.text_number4,
             R.id.text_number5,
             R.id.text_number6 -> {
+                if ((view as TextView).text.isEmpty()) return
                 CommonDialog(context!!, "번호를 삭제 하시겠습니까?").apply {
                     setOnOkClickListener(View.OnClickListener {
                         dismiss()
