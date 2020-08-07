@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.NumberPicker
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
@@ -128,19 +129,39 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                     textNumber1.text = "$includeNumber"
                 }
                 textNumber2.text.isEmpty() -> {
-                    textNumber2.text = "$includeNumber"
+                    if (checkNumber("$includeNumber", textNumber1)) {
+                        textNumber2.text = "$includeNumber"
+                    } else {
+                        Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 textNumber3.text.isEmpty() -> {
-                    textNumber3.text = "$includeNumber"
+                    if (checkNumber("$includeNumber", textNumber1, textNumber2)) {
+                        textNumber3.text = "$includeNumber"
+                    } else {
+                        Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 textNumber4.text.isEmpty() -> {
-                    textNumber4.text = "$includeNumber"
+                    if (checkNumber("$includeNumber", textNumber1, textNumber2, textNumber3)) {
+                        textNumber4.text = "$includeNumber"
+                    } else {
+                        Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 textNumber5.text.isEmpty() -> {
-                    textNumber5.text = "$includeNumber"
+                    if (checkNumber("$includeNumber", textNumber1, textNumber2, textNumber3, textNumber4)) {
+                        textNumber5.text = "$includeNumber"
+                    } else {
+                        Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 textNumber6.text.isEmpty() -> {
-                    textNumber6.text = "$includeNumber"
+                    if (checkNumber("$includeNumber", textNumber1, textNumber2, textNumber3, textNumber4, textNumber5)) {
+                        textNumber6.text = "$includeNumber"
+                    } else {
+                        Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
@@ -169,6 +190,13 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                 }
             }
         }
+    }
+
+    private fun checkNumber(number: String, vararg textViews: TextView): Boolean {
+        textViews.forEach {
+            if (it.text.toString() == number) return false
+        }
+        return true
     }
 
     private fun <V : View> BottomSheetBehavior<V>.expand() : BottomSheetBehavior<V> {
