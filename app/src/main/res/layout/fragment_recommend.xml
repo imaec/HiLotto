@@ -148,6 +148,7 @@
                 style="@style/AppTheme.TextNumberInput"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="36dp"
+                android:text="@{viewModel.listIncludeNumber[0]}"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/text_number2"
@@ -156,6 +157,7 @@
             <TextView
                 android:id="@+id/text_number2"
                 style="@style/AppTheme.TextNumberInput"
+                android:text="@{viewModel.listIncludeNumber[1]}"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintLeft_toRightOf="@id/text_number1"
                 app:layout_constraintRight_toLeftOf="@id/text_number3"
@@ -164,6 +166,7 @@
             <TextView
                 android:id="@+id/text_number3"
                 style="@style/AppTheme.TextNumberInput"
+                android:text="@{viewModel.listIncludeNumber[2]}"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintLeft_toRightOf="@id/text_number2"
                 app:layout_constraintRight_toLeftOf="@id/text_number4"
@@ -172,6 +175,7 @@
             <TextView
                 android:id="@+id/text_number4"
                 style="@style/AppTheme.TextNumberInput"
+                android:text="@{viewModel.listIncludeNumber[3]}"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintLeft_toRightOf="@id/text_number3"
                 app:layout_constraintRight_toLeftOf="@id/text_number5"
@@ -180,6 +184,7 @@
             <TextView
                 android:id="@+id/text_number5"
                 style="@style/AppTheme.TextNumberInput"
+                android:text="@{viewModel.listIncludeNumber[4]}"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintLeft_toRightOf="@id/text_number4"
                 app:layout_constraintRight_toLeftOf="@id/text_number6"
@@ -189,6 +194,7 @@
                 android:id="@+id/text_number6"
                 style="@style/AppTheme.TextNumberInput"
                 android:layout_marginRight="12dp"
+                android:text="@{viewModel.listIncludeNumber[5]}"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintLeft_toRightOf="@id/text_number5"
                 app:layout_constraintRight_toRightOf="parent"

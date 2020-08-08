@@ -12,6 +12,11 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
+        val listTemp = arrayListOf("0", "1", "2", "3", "4", "5")
+        listTemp.removeAt(0)
+        listTemp.add("")
+
+        println(listTemp)
         assertEquals(4, 2 + 2)
     }
 }

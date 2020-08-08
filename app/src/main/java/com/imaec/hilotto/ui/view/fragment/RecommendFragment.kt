@@ -62,6 +62,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                 if ((view as TextView).text.isEmpty()) return
                 CommonDialog(context!!, "번호를 삭제 하시겠습니까?").apply {
                     setOnOkClickListener(View.OnClickListener {
+                        removeNumber(view)
                         dismiss()
                     })
                     show()
@@ -77,12 +78,11 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
 
             }
             R.id.text_include_cancel -> {
-                includeNumber = 0
+                includeNumber = 1
                 bottomSheetBehavior.hide()
             }
             R.id.text_include_confirm -> {
-                if (includeNumber == 0) removeNumber()
-                else setNumber()
+                setNumber()
                 bottomSheetBehavior.hide()
             }
         }
@@ -126,39 +126,39 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
         binding.apply {
             when {
                 textNumber1.text.isEmpty() -> {
-                    textNumber1.text = "$includeNumber"
+                    this@RecommendFragment.viewModel.setIncludeNumber(0, "$includeNumber")
                 }
                 textNumber2.text.isEmpty() -> {
                     if (checkNumber("$includeNumber", textNumber1)) {
-                        textNumber2.text = "$includeNumber"
+                        this@RecommendFragment.viewModel.setIncludeNumber(1, "$includeNumber")
                     } else {
                         Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 textNumber3.text.isEmpty() -> {
                     if (checkNumber("$includeNumber", textNumber1, textNumber2)) {
-                        textNumber3.text = "$includeNumber"
+                        this@RecommendFragment.viewModel.setIncludeNumber(2, "$includeNumber")
                     } else {
                         Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 textNumber4.text.isEmpty() -> {
                     if (checkNumber("$includeNumber", textNumber1, textNumber2, textNumber3)) {
-                        textNumber4.text = "$includeNumber"
+                        this@RecommendFragment.viewModel.setIncludeNumber(3, "$includeNumber")
                     } else {
                         Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 textNumber5.text.isEmpty() -> {
                     if (checkNumber("$includeNumber", textNumber1, textNumber2, textNumber3, textNumber4)) {
-                        textNumber5.text = "$includeNumber"
+                        this@RecommendFragment.viewModel.setIncludeNumber(4, "$includeNumber")
                     } else {
                         Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 textNumber6.text.isEmpty() -> {
                     if (checkNumber("$includeNumber", textNumber1, textNumber2, textNumber3, textNumber4, textNumber5)) {
-                        textNumber6.text = "$includeNumber"
+                        this@RecommendFragment.viewModel.setIncludeNumber(5, "$includeNumber")
                     } else {
                         Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
                     }
@@ -167,29 +167,18 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
         }
     }
 
-    private fun removeNumber() {
-        binding.apply {
-            when {
-                textNumber6.text.isNotEmpty() -> {
-                    textNumber6.text = ""
-                }
-                textNumber5.text.isNotEmpty() -> {
-                    textNumber5.text = ""
-                }
-                textNumber4.text.isNotEmpty() -> {
-                    textNumber4.text = ""
-                }
-                textNumber3.text.isNotEmpty() -> {
-                    textNumber3.text = ""
-                }
-                textNumber2.text.isNotEmpty() -> {
-                    textNumber2.text = ""
-                }
-                textNumber1.text.isNotEmpty() -> {
-                    textNumber1.text = ""
-                }
+    private fun removeNumber(textView: TextView) {
+        viewModel.removeNumber(
+            when (textView.id) {
+                R.id.text_number1 -> 0
+                R.id.text_number2 -> 1
+                R.id.text_number3 -> 2
+                R.id.text_number4 -> 3
+                R.id.text_number5 -> 4
+                R.id.text_number6 -> 5
+                else -> throw IllegalArgumentException("Incorrect TextView")
             }
-        }
+        )
     }
 
     private fun checkNumber(number: String, vararg textViews: TextView): Boolean {
