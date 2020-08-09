@@ -2,11 +2,9 @@ package com.imaec.hilotto.ui.view.fragment
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.NumberPicker
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
@@ -14,7 +12,7 @@ import com.imaec.hilotto.databinding.FragmentRecommendBinding
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
 import com.imaec.hilotto.viewmodel.RecommendViewModel
 
-class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragment_recommend) {
+class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragment_recommend), CompoundButton.OnCheckedChangeListener {
 
     private lateinit var viewModel: RecommendViewModel
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
@@ -29,21 +27,17 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
         binding.apply {
             lifecycleOwner = this@RecommendFragment
             viewModel = this@RecommendFragment.viewModel
+            switchCondition1.setOnCheckedChangeListener(this@RecommendFragment)
+            switchCondition2.setOnCheckedChangeListener(this@RecommendFragment)
+            switchCondition3.setOnCheckedChangeListener(this@RecommendFragment)
+            switchCondition4.setOnCheckedChangeListener(this@RecommendFragment)
+            switchConditionAll.setOnCheckedChangeListener(this@RecommendFragment)
             bottomSheetBehavior = BottomSheetBehavior.from(linearBottomSheet).hide()
             bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
 
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
-//                    viewModel.isVisible.value = newState != BottomSheetBehavior.STATE_HIDDEN
-                    binding.viewBg.visibility = if (newState != BottomSheetBehavior.STATE_HIDDEN) {
-                        View.VISIBLE
-                    } else {
-                        View.GONE
-                    }
-
-//                    if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-//                        KeyboardUtil.hideKeyboardFrom(this@InputActivity)
-//                    }
+                    this@RecommendFragment.viewModel.setVisible(newState != BottomSheetBehavior.STATE_HIDDEN)
                 }
             })
         }
@@ -51,8 +45,37 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
         setDividerColor()
     }
 
+    override fun onCheckedChanged(cp: CompoundButton, b: Boolean) {
+        Log.d(TAG, "    ## $cp / $b")
+        when(cp.id) {
+            R.id.switch_condition1 -> {
+                setCheck(b && binding.switchCondition2.isChecked
+                        && binding.switchCondition3.isChecked
+                        && binding.switchCondition4.isChecked, b, cp as Switch)
+            }
+            R.id.switch_condition2 -> {
+                setCheck(b && binding.switchCondition1.isChecked
+                        && binding.switchCondition3.isChecked
+                        && binding.switchCondition4.isChecked, b, cp as Switch)
+            }
+            R.id.switch_condition3 -> {
+                setCheck(b && binding.switchCondition1.isChecked
+                        && binding.switchCondition2.isChecked
+                        && binding.switchCondition4.isChecked, b, cp as Switch)
+            }
+            R.id.switch_condition4 -> {
+                setCheck(b && binding.switchCondition1.isChecked
+                        && binding.switchCondition2.isChecked
+                        && binding.switchCondition3.isChecked, b, cp as Switch)
+            }
+            R.id.switch_condition_all -> {
+                setCheck(true, b, cp as Switch)
+            }
+        }
+    }
+
     fun onClick(view: View) {
-        when (view.id) {
+        when(view.id) {
             R.id.text_number1,
             R.id.text_number2,
             R.id.text_number3,
@@ -84,6 +107,39 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             R.id.text_include_confirm -> {
                 setNumber()
                 bottomSheetBehavior.hide()
+            }
+        }
+    }
+
+    private fun setCheck(all: Boolean, isChecked: Boolean, switch: Switch) {
+        Log.d(TAG, "    ## $all / $isChecked / $switch")
+        if (all) {
+            if (switch.id == R.id.switch_condition_all) {
+                if (!isChecked) {
+                    binding.apply {
+                        switchCondition1.isChecked = false
+                        switchCondition2.isChecked = false
+                        switchCondition3.isChecked = false
+                        switchCondition4.isChecked = false
+                        switchConditionAll.isChecked = false
+                    }
+                    return
+                }
+            }
+            binding.apply {
+                switchCondition1.isChecked = true
+                switchCondition2.isChecked = true
+                switchCondition3.isChecked = true
+                switchCondition4.isChecked = true
+                switchConditionAll.isChecked = true
+            }
+        } else {
+            binding.switchConditionAll.apply {
+                if (this.isChecked) {
+                    setOnCheckedChangeListener(null)
+                    this.isChecked = false
+                    setOnCheckedChangeListener(this@RecommendFragment)
+                }
             }
         }
     }

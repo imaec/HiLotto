@@ -96,7 +96,7 @@
                 app:layout_constraintTop_toBottomOf="@id/view_divider" />
 
             <Switch
-                android:id="@+id/switch_condition5"
+                android:id="@+id/switch_condition_all"
                 style="@style/AppTheme.ConditionSwitch"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_divider" />

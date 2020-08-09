@@ -12,6 +12,10 @@ class RecommendViewModel : BaseViewModel() {
     private val _listIncludeNumber = MutableLiveData<ArrayList<String>>(arrayListOf("", "", "", "", "", ""))
     val listIncludeNumber: LiveData<ArrayList<String>> get() = _listIncludeNumber
 
+    fun setVisible(visible: Boolean) {
+        _isVisible.value = visible
+    }
+
     fun setIncludeNumber(index: Int, number: String) {
         val listTemp = _listIncludeNumber.value!!
         listTemp[index] = number
