@@ -131,6 +131,15 @@
                 app:layout_constraintTop_toBottomOf="@id/text_included"
                 app:layout_constraintWidth_percent="0.25" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_not_included"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:items="@{viewModel.listNotIncludeNumber}"
+                app:layout_constraintLeft_toRightOf="@id/text_not_included"
+                app:layout_constraintRight_toLeftOf="@id/image_not_included_add"
+                app:layout_constraintTop_toTopOf="@id/text_not_included"/>
+
             <ImageView
                 android:id="@+id/image_not_included_add"
                 android:layout_width="0dp"

@@ -5,10 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentRecommendBinding
+import com.imaec.hilotto.ui.adapter.NumberAdapter
+import com.imaec.hilotto.ui.util.NumberDecoration
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
 import com.imaec.hilotto.viewmodel.RecommendViewModel
 
@@ -17,7 +20,8 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     private lateinit var viewModel: RecommendViewModel
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
-    private var includeNumber = 1
+    private var pickedNumber = 1
+    private var pickerFlag = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,6 +36,11 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             switchCondition3.setOnCheckedChangeListener(this@RecommendFragment)
             switchCondition4.setOnCheckedChangeListener(this@RecommendFragment)
             switchConditionAll.setOnCheckedChangeListener(this@RecommendFragment)
+            recyclerNotIncluded.apply {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                adapter = NumberAdapter()
+                addItemDecoration(NumberDecoration(context))
+            }
             bottomSheetBehavior = BottomSheetBehavior.from(linearBottomSheet).hide()
             bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
@@ -95,17 +104,27 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                 bottomSheetBehavior.hide()
             }
             R.id.image_included_add -> {
+                pickerFlag = 0
                 showPicker()
             }
             R.id.image_not_included_add -> {
-
+                if (viewModel.listNotIncludeNumber.value!!.size == 6) {
+                    Toast.makeText(context, context?.getString(R.string.msg_not_include_number_max), Toast.LENGTH_SHORT).show()
+                    return
+                }
+                pickerFlag = 1
+                showPicker()
             }
             R.id.text_include_cancel -> {
-                includeNumber = 1
+                pickedNumber = 1
                 bottomSheetBehavior.hide()
             }
             R.id.text_include_confirm -> {
-                setNumber()
+                if (pickerFlag == 0) {
+                    setNumber()
+                } else {
+                    viewModel.addNotIncludeNumber("$pickedNumber")
+                }
                 bottomSheetBehavior.hide()
             }
         }
@@ -171,7 +190,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             value = 1
             displayedValues = arr
             setOnValueChangedListener { _, _, newVal ->
-                includeNumber = newVal
+                pickedNumber = newVal
             }
         }
 
@@ -182,39 +201,39 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
         binding.apply {
             when {
                 textNumber1.text.isEmpty() -> {
-                    this@RecommendFragment.viewModel.setIncludeNumber(0, "$includeNumber")
+                    this@RecommendFragment.viewModel.setIncludeNumber(0, "$pickedNumber")
                 }
                 textNumber2.text.isEmpty() -> {
-                    if (checkNumber("$includeNumber", textNumber1)) {
-                        this@RecommendFragment.viewModel.setIncludeNumber(1, "$includeNumber")
+                    if (checkNumber("$pickedNumber", textNumber1)) {
+                        this@RecommendFragment.viewModel.setIncludeNumber(1, "$pickedNumber")
                     } else {
                         Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 textNumber3.text.isEmpty() -> {
-                    if (checkNumber("$includeNumber", textNumber1, textNumber2)) {
-                        this@RecommendFragment.viewModel.setIncludeNumber(2, "$includeNumber")
+                    if (checkNumber("$pickedNumber", textNumber1, textNumber2)) {
+                        this@RecommendFragment.viewModel.setIncludeNumber(2, "$pickedNumber")
                     } else {
                         Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 textNumber4.text.isEmpty() -> {
-                    if (checkNumber("$includeNumber", textNumber1, textNumber2, textNumber3)) {
-                        this@RecommendFragment.viewModel.setIncludeNumber(3, "$includeNumber")
+                    if (checkNumber("$pickedNumber", textNumber1, textNumber2, textNumber3)) {
+                        this@RecommendFragment.viewModel.setIncludeNumber(3, "$pickedNumber")
                     } else {
                         Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 textNumber5.text.isEmpty() -> {
-                    if (checkNumber("$includeNumber", textNumber1, textNumber2, textNumber3, textNumber4)) {
-                        this@RecommendFragment.viewModel.setIncludeNumber(4, "$includeNumber")
+                    if (checkNumber("$pickedNumber", textNumber1, textNumber2, textNumber3, textNumber4)) {
+                        this@RecommendFragment.viewModel.setIncludeNumber(4, "$pickedNumber")
                     } else {
                         Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 textNumber6.text.isEmpty() -> {
-                    if (checkNumber("$includeNumber", textNumber1, textNumber2, textNumber3, textNumber4, textNumber5)) {
-                        this@RecommendFragment.viewModel.setIncludeNumber(5, "$includeNumber")
+                    if (checkNumber("$pickedNumber", textNumber1, textNumber2, textNumber3, textNumber4, textNumber5)) {
+                        this@RecommendFragment.viewModel.setIncludeNumber(5, "$pickedNumber")
                     } else {
                         Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
                     }
@@ -224,7 +243,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     }
 
     private fun removeNumber(textView: TextView) {
-        viewModel.removeNumber(
+        viewModel.removeIncludeNumber(
             when (textView.id) {
                 R.id.text_number1 -> 0
                 R.id.text_number2 -> 1
