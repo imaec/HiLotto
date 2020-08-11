@@ -38,7 +38,19 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             switchConditionAll.setOnCheckedChangeListener(this@RecommendFragment)
             recyclerNotIncluded.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = NumberAdapter()
+                adapter = NumberAdapter().apply {
+                    addOnClickListener {  number ->
+                        if (number is String) {
+                            CommonDialog(context!!, context!!.getString(R.string.msg_remove_number)).apply {
+                                setOnOkClickListener(View.OnClickListener {
+                                    this@RecommendFragment.viewModel.removeNotIncludeNumber(number)
+                                    dismiss()
+                                })
+                                show()
+                            }
+                        }
+                    }
+                }
                 addItemDecoration(NumberDecoration(context))
             }
             bottomSheetBehavior = BottomSheetBehavior.from(linearBottomSheet).hide()
@@ -92,7 +104,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             R.id.text_number5,
             R.id.text_number6 -> {
                 if ((view as TextView).text.isEmpty()) return
-                CommonDialog(context!!, "번호를 삭제 하시겠습니까?").apply {
+                CommonDialog(context!!, context!!.getString(R.string.msg_remove_number)).apply {
                     setOnOkClickListener(View.OnClickListener {
                         removeNumber(view)
                         dismiss()

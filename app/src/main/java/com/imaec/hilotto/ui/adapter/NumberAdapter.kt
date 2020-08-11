@@ -24,6 +24,9 @@ class NumberAdapter : BaseAdapter() {
         fun onBind(item: String) {
             binding.apply {
                 this.item = item
+                root.setOnClickListener {
+                    onClick(item)
+                }
             }
         }
     }

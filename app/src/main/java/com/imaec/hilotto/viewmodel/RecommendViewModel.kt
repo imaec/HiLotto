@@ -40,4 +40,12 @@ class RecommendViewModel : BaseViewModel() {
         listTemp.add(number)
         _listNotIncludeNumber.value = listTemp
     }
+
+    fun removeNotIncludeNumber(number: String) {
+        val listTemp = _listNotIncludeNumber.value!!
+        if (listTemp.contains(number)) {
+            listTemp.remove(number)
+        }
+        _listNotIncludeNumber.value = listTemp
+    }
 }
