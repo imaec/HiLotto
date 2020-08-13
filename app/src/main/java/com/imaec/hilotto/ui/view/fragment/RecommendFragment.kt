@@ -34,7 +34,6 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             switchCondition1.setOnCheckedChangeListener(this@RecommendFragment)
             switchCondition2.setOnCheckedChangeListener(this@RecommendFragment)
             switchCondition3.setOnCheckedChangeListener(this@RecommendFragment)
-            switchCondition4.setOnCheckedChangeListener(this@RecommendFragment)
             switchConditionAll.setOnCheckedChangeListener(this@RecommendFragment)
             recyclerNotIncluded.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -71,23 +70,15 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
         when(cp.id) {
             R.id.switch_condition1 -> {
                 setCheck(b && binding.switchCondition2.isChecked
-                        && binding.switchCondition3.isChecked
-                        && binding.switchCondition4.isChecked, b, cp as Switch)
+                        && binding.switchCondition3.isChecked, b, cp as Switch)
             }
             R.id.switch_condition2 -> {
                 setCheck(b && binding.switchCondition1.isChecked
-                        && binding.switchCondition3.isChecked
-                        && binding.switchCondition4.isChecked, b, cp as Switch)
+                        && binding.switchCondition3.isChecked, b, cp as Switch)
             }
             R.id.switch_condition3 -> {
                 setCheck(b && binding.switchCondition1.isChecked
-                        && binding.switchCondition2.isChecked
-                        && binding.switchCondition4.isChecked, b, cp as Switch)
-            }
-            R.id.switch_condition4 -> {
-                setCheck(b && binding.switchCondition1.isChecked
-                        && binding.switchCondition2.isChecked
-                        && binding.switchCondition3.isChecked, b, cp as Switch)
+                        && binding.switchCondition2.isChecked, b, cp as Switch)
             }
             R.id.switch_condition_all -> {
                 setCheck(true, b, cp as Switch)
@@ -151,7 +142,6 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                         switchCondition1.isChecked = false
                         switchCondition2.isChecked = false
                         switchCondition3.isChecked = false
-                        switchCondition4.isChecked = false
                         switchConditionAll.isChecked = false
                     }
                     return
@@ -161,7 +151,6 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                 switchCondition1.isChecked = true
                 switchCondition2.isChecked = true
                 switchCondition3.isChecked = true
-                switchCondition4.isChecked = true
                 switchConditionAll.isChecked = true
             }
         } else {
