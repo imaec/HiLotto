@@ -55,7 +55,7 @@
             <TextView
                 android:id="@+id/text_condition3"
                 style="@style/AppTheme.ConditionTitle"
-                android:text="@string/condition_continues"
+                android:text="@string/condition_odd_even"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_condition2" />
 
