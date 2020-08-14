@@ -58,6 +58,19 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("textCreateToggle")
+    fun setTextCreateToggle(textView: TextView, listInclude: List<String>) {
+        var str = textView.context.getString(R.string.remove_numbers)
+        listInclude.forEach {
+            if (it.isEmpty()) {
+                str = textView.context.getString(R.string.create_numbers)
+                return@forEach
+            }
+        }
+        textView.text = str
+    }
+
+    @JvmStatic
     @BindingAdapter("adapter")
     fun setAdapter(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
         recyclerView.adapter = adapter

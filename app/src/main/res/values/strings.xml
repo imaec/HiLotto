@@ -35,6 +35,7 @@
     <string name="included_numbers">포함 수</string>
     <string name="not_included_numbers">미포함 수</string>
     <string name="create_numbers">번호 생성</string>
+    <string name="remove_numbers">번호 삭제</string>
     <string name="save_numbers">번호 저장</string>
     <string name="bonus">BONUS</string>
     <string name="include_bonus">보너스 번호 포함</string>

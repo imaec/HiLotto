@@ -3,6 +3,7 @@ package com.imaec.hilotto.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.base.BaseViewModel
+import com.imaec.hilotto.model.LottoDTO
 
 class RecommendViewModel : BaseViewModel() {
 
@@ -14,6 +15,9 @@ class RecommendViewModel : BaseViewModel() {
 
     private val _listNotIncludeNumber = MutableLiveData<ArrayList<String>>(arrayListOf())
     val listNotIncludeNumber: LiveData<ArrayList<String>> get() = _listNotIncludeNumber
+
+    private val _listResult = MutableLiveData<List<LottoDTO>>().set(ArrayList())
+    val listResult: LiveData<List<LottoDTO>> get() = _listResult
 
     fun setVisible(visible: Boolean) {
         _isVisible.value = visible
@@ -47,5 +51,9 @@ class RecommendViewModel : BaseViewModel() {
             listTemp.remove(number)
         }
         _listNotIncludeNumber.value = listTemp
+    }
+
+    fun setListResult(list: List<LottoDTO>) {
+        _listResult.value = list
     }
 }

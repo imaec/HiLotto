@@ -13,15 +13,15 @@ object Lotto {
     private var maxRange = 25
     private var count = 6
 
-    private fun getSumMin(list: ArrayList<LottoDTO>): Int {
+    private fun getSumMin(list: List<LottoDTO>): Int {
         return getSumAvg(list) - minRange
     }
 
-    private fun getSumMax(list: ArrayList<LottoDTO>): Int {
+    private fun getSumMax(list: List<LottoDTO>): Int {
         return getSumAvg(list) + maxRange
     }
 
-    private fun getWeight(list: ArrayList<LottoDTO>): HashMap<Int, Int> {
+    private fun getWeight(list: List<LottoDTO>): HashMap<Int, Int> {
         val w = HashMap<Int, Int>()
         val countSum = ArrayList<Int>().apply {
             (0..44).forEach { _ ->
@@ -55,7 +55,7 @@ object Lotto {
         return w
     }
 
-    private fun getWeightedRandom(list: ArrayList<LottoDTO>): Int {
+    private fun getWeightedRandom(list: List<LottoDTO>): Int {
         val map = getWeight(list)
         val listNumber = Array(45) { 0 }
         val listWeight = Array(45) { 0 }
@@ -91,7 +91,7 @@ object Lotto {
         return selection
     }
 
-    private fun getRanNumbers(list: ArrayList<LottoDTO>): ArrayList<Int> {
+    private fun getRanNumbers(list: List<LottoDTO>): ArrayList<Int> {
         val result = arrayListOf<Int>()
         var isContinue = true
         while (isContinue) {
@@ -111,7 +111,7 @@ object Lotto {
         return result
     }
 
-    private fun getSumAvg(list: ArrayList<LottoDTO>): Int {
+    private fun getSumAvg(list: List<LottoDTO>): Int {
         var sum = 0
         list.map {
             it.drwtNo1 + it.drwtNo2 + it.drwtNo3 + it.drwtNo4 + it.drwtNo5 + it.drwtNo6
@@ -137,7 +137,7 @@ object Lotto {
         return listEven
     }
 
-    fun getNumbers(list: ArrayList<LottoDTO>): ArrayList<Int> {
+    fun getNumbers(list: List<LottoDTO>, listInclude: List<String>): List<Int> {
         var result = ArrayList<Int>()
         val sumMin = getSumMin(list)
         val sumMax = getSumMax(list)
@@ -146,6 +146,9 @@ object Lotto {
         while (isContinue) {
             var sum = 0
             result = getRanNumbers(list)
+            listInclude.forEach {
+                if (it.isNotEmpty()) result.add(it.toInt())
+            }
             // 생성된 번호의 합이 지정된 범위안에 들어오는지 확인
             result.forEach {
                 sum += it

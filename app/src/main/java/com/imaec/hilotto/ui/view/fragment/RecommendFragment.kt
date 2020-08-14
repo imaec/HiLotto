@@ -5,20 +5,29 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.imaec.hilotto.Lotto
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentRecommendBinding
+import com.imaec.hilotto.repository.FireStoreRepository
+import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.ui.adapter.NumberAdapter
 import com.imaec.hilotto.ui.util.NumberDecoration
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
+import com.imaec.hilotto.viewmodel.LottoViewModel
 import com.imaec.hilotto.viewmodel.RecommendViewModel
 
 class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragment_recommend), CompoundButton.OnCheckedChangeListener {
 
-    private lateinit var viewModel: RecommendViewModel
+    private lateinit var recommendViewModel: RecommendViewModel
+    private lateinit var sharedViewModel: LottoViewModel
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
+
+    private val lottoRepository = LottoRepository()
+    private val firestoreRepository = FireStoreRepository()
 
     private var pickedNumber = 1
     private var pickerFlag = 0
@@ -26,11 +35,12 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = getViewModel(RecommendViewModel::class.java)
+        recommendViewModel = getViewModel(RecommendViewModel::class.java)
+        sharedViewModel = getViewModel(LottoViewModel::class.java, activity!!, lottoRepository, firestoreRepository)
 
         binding.apply {
             lifecycleOwner = this@RecommendFragment
-            viewModel = this@RecommendFragment.viewModel
+            recommendViewModel = this@RecommendFragment.recommendViewModel
             switchCondition1.setOnCheckedChangeListener(this@RecommendFragment)
             switchCondition2.setOnCheckedChangeListener(this@RecommendFragment)
             switchCondition3.setOnCheckedChangeListener(this@RecommendFragment)
@@ -42,7 +52,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                         if (number is String) {
                             CommonDialog(context!!, context!!.getString(R.string.msg_remove_number)).apply {
                                 setOnOkClickListener(View.OnClickListener {
-                                    this@RecommendFragment.viewModel.removeNotIncludeNumber(number)
+                                    this@RecommendFragment.recommendViewModel.removeNotIncludeNumber(number)
                                     dismiss()
                                 })
                                 show()
@@ -57,16 +67,19 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
 
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    this@RecommendFragment.viewModel.setVisible(newState != BottomSheetBehavior.STATE_HIDDEN)
+                    this@RecommendFragment.recommendViewModel.setVisible(newState != BottomSheetBehavior.STATE_HIDDEN)
                 }
             })
         }
+
+        sharedViewModel.listResult.observe(activity!!, Observer {
+            recommendViewModel.setListResult(it)
+        })
 
         setDividerColor()
     }
 
     override fun onCheckedChanged(cp: CompoundButton, b: Boolean) {
-        Log.d(TAG, "    ## $cp / $b")
         when(cp.id) {
             R.id.switch_condition1 -> {
                 setCheck(b && binding.switchCondition2.isChecked
@@ -111,7 +124,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                 showPicker()
             }
             R.id.image_not_included_add -> {
-                if (viewModel.listNotIncludeNumber.value!!.size == 6) {
+                if (recommendViewModel.listNotIncludeNumber.value!!.size == 6) {
                     Toast.makeText(context, context?.getString(R.string.msg_not_include_number_max), Toast.LENGTH_SHORT).show()
                     return
                 }
@@ -126,9 +139,34 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                 if (pickerFlag == 0) {
                     setNumber()
                 } else {
-                    viewModel.addNotIncludeNumber("$pickedNumber")
+                    recommendViewModel.addNotIncludeNumber("$pickedNumber")
                 }
                 bottomSheetBehavior.hide()
+            }
+            R.id.text_create -> {
+                if (binding.textCreate.text == getString(R.string.create_numbers)) {
+                    var index = 0
+                    recommendViewModel.listResult.value?.let {
+                        Lotto.setCount(getEmptyCount())
+                        Lotto.getNumbers(it, recommendViewModel.listIncludeNumber.value!!).forEach { number ->
+                            recommendViewModel.setIncludeNumber(index, "$number")
+                            index++
+                        }
+                    }
+                } else {
+                    CommonDialog(context!!, context!!.getString(R.string.msg_remove_number)).apply {
+                        setOnOkClickListener(View.OnClickListener {
+                            (0..5).forEach {
+                                recommendViewModel.setIncludeNumber(it, "")
+                            }
+                            dismiss()
+                        })
+                        show()
+                    }
+                }
+            }
+            R.id.text_save -> {
+
             }
         }
     }
@@ -202,39 +240,39 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
         binding.apply {
             when {
                 textNumber1.text.isEmpty() -> {
-                    this@RecommendFragment.viewModel.setIncludeNumber(0, "$pickedNumber")
+                    this@RecommendFragment.recommendViewModel.setIncludeNumber(0, "$pickedNumber")
                 }
                 textNumber2.text.isEmpty() -> {
                     if (checkNumber("$pickedNumber", textNumber1)) {
-                        this@RecommendFragment.viewModel.setIncludeNumber(1, "$pickedNumber")
+                        this@RecommendFragment.recommendViewModel.setIncludeNumber(1, "$pickedNumber")
                     } else {
                         Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 textNumber3.text.isEmpty() -> {
                     if (checkNumber("$pickedNumber", textNumber1, textNumber2)) {
-                        this@RecommendFragment.viewModel.setIncludeNumber(2, "$pickedNumber")
+                        this@RecommendFragment.recommendViewModel.setIncludeNumber(2, "$pickedNumber")
                     } else {
                         Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 textNumber4.text.isEmpty() -> {
                     if (checkNumber("$pickedNumber", textNumber1, textNumber2, textNumber3)) {
-                        this@RecommendFragment.viewModel.setIncludeNumber(3, "$pickedNumber")
+                        this@RecommendFragment.recommendViewModel.setIncludeNumber(3, "$pickedNumber")
                     } else {
                         Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 textNumber5.text.isEmpty() -> {
                     if (checkNumber("$pickedNumber", textNumber1, textNumber2, textNumber3, textNumber4)) {
-                        this@RecommendFragment.viewModel.setIncludeNumber(4, "$pickedNumber")
+                        this@RecommendFragment.recommendViewModel.setIncludeNumber(4, "$pickedNumber")
                     } else {
                         Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 textNumber6.text.isEmpty() -> {
                     if (checkNumber("$pickedNumber", textNumber1, textNumber2, textNumber3, textNumber4, textNumber5)) {
-                        this@RecommendFragment.viewModel.setIncludeNumber(5, "$pickedNumber")
+                        this@RecommendFragment.recommendViewModel.setIncludeNumber(5, "$pickedNumber")
                     } else {
                         Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
                     }
@@ -244,7 +282,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     }
 
     private fun removeNumber(textView: TextView) {
-        viewModel.removeIncludeNumber(
+        recommendViewModel.removeIncludeNumber(
             when (textView.id) {
                 R.id.text_number1 -> 0
                 R.id.text_number2 -> 1
@@ -262,6 +300,19 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             if (it.text.toString() == number) return false
         }
         return true
+    }
+
+    private fun getEmptyCount(): Int {
+        var count = 0
+        binding.apply {
+            if (textNumber1.text.isEmpty()) count++
+            if (textNumber2.text.isEmpty()) count++
+            if (textNumber3.text.isEmpty()) count++
+            if (textNumber4.text.isEmpty()) count++
+            if (textNumber5.text.isEmpty()) count++
+            if (textNumber6.text.isEmpty()) count++
+        }
+        return count
     }
 
     private fun <V : View> BottomSheetBehavior<V>.expand() : BottomSheetBehavior<V> {
