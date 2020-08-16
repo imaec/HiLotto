@@ -140,14 +140,15 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                 showPicker()
             }
             R.id.text_include_cancel -> {
-                pickedNumber = 1
                 bottomSheetBehavior.hide()
             }
             R.id.text_include_confirm -> {
                 if (pickerFlag == 0) {
-                    setNumber()
+                    if (recommendViewModel.checkNotIncludeNumber("$pickedNumber")) setNumber()
+                    else Toast.makeText(context, R.string.msg_exist_not_include_number, Toast.LENGTH_SHORT).show()
                 } else {
-                    recommendViewModel.addNotIncludeNumber("$pickedNumber")
+                    if (recommendViewModel.checkIncludeNumber("$pickedNumber")) recommendViewModel.addNotIncludeNumber("$pickedNumber")
+                    else Toast.makeText(context, R.string.msg_exist_include_number, Toast.LENGTH_SHORT).show()
                 }
                 bottomSheetBehavior.hide()
             }
@@ -156,7 +157,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                     var index = 0
                     recommendViewModel.listResult.value?.let {
                         Lotto.setCount(getEmptyCount())
-                        Lotto.getNumbers(it, recommendViewModel.listIncludeNumber.value!!).forEach { number ->
+                        Lotto.getNumbers(it, recommendViewModel.listIncludeNumber.value!!, recommendViewModel.listNotIncludeNumber.value!!).forEach { number ->
                             recommendViewModel.setIncludeNumber(index, "$number")
                             index++
                         }
@@ -180,7 +181,14 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                 }
                 recommendViewModel.apply {
                     listIncludeNumber.value?.let {
-                        saveNumber(NumberEntity(it[0].toInt(), it[1].toInt(), it[2].toInt(), it[3].toInt(), it[4].toInt(), it[5].toInt())) { isSuccess ->
+                        saveNumber(NumberEntity(
+                            number1 = it[0].toInt(),
+                            number2 = it[1].toInt(),
+                            number3 = it[2].toInt(),
+                            number4 = it[3].toInt(),
+                            number5 = it[4].toInt(),
+                            number6 = it[5].toInt())
+                        ) { isSuccess ->
                             if (isSuccess) Toast.makeText(context, R.string.msg_success_save_number, Toast.LENGTH_SHORT).show()
                             else Toast.makeText(context, R.string.msg_numbers_is_exist, Toast.LENGTH_SHORT).show()
                         }
@@ -241,6 +249,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     }
 
     private fun showPicker() {
+        pickedNumber = 1
         val arr = Array(45) {""}.apply {
             for (i in indices) {
                 this[i] = "${i+1}"

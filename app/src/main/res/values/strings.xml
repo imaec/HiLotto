@@ -75,6 +75,8 @@
     <string name="msg_data_fail">데이터를 가져오는데 실패했습니다.\n잠시 후 다시 이용해주세요.</string>
     <string name="msg_not_include_number_max">미포함 수는 최대 6개 까지만 추가할 수 있습니다.</string>
     <string name="msg_remove_number">번호를 삭제 하시겠습니까?</string>
+    <string name="msg_exist_include_number">포함수에 추가된 수는 미포함 시킬 수 없습니다.</string>
+    <string name="msg_exist_not_include_number">미포함수에 추가된 수는 포함 시킬 수 없습니다.</string>
     <string name="msg_number_not_created">번호를 생성하거나 모두 입력해주세요.</string>
     <string name="msg_success_save_number">번호를 저장하였습니다!</string>
     <string name="msg_numbers_is_exist">번호가 이미 저장되어 있습니다.</string>

@@ -137,7 +137,7 @@ object Lotto {
         return listEven
     }
 
-    fun getNumbers(list: List<LottoDTO>, listInclude: List<String>): List<Int> {
+    fun getNumbers(list: List<LottoDTO>, listInclude: List<String>, listNotInclude: List<String>): List<Int> {
         var result = ArrayList<Int>()
         val sumMin = getSumMin(list)
         val sumMax = getSumMax(list)
@@ -145,17 +145,23 @@ object Lotto {
 
         while (isContinue) {
             var sum = 0
+            var checkNotIncludeNumber = true
             result = getRanNumbers(list)
             listInclude.forEach {
                 if (it.isNotEmpty()) result.add(it.toInt())
             }
             // 생성된 번호의 합이 지정된 범위안에 들어오는지 확인
             result.forEach {
+                if (listNotInclude.contains("$it")) {
+                    checkNotIncludeNumber = false
+                    return@forEach
+                }
                 sum += it
             }
             if (sum in sumMin..sumMax &&
                 getOdd(result[0], result[1], result[2], result[3], result[4], result[5]).size in 2..4 &&
-                getEven(result[0], result[1], result[2], result[3], result[4], result[5]).size in 2..4) {
+                getEven(result[0], result[1], result[2], result[3], result[4], result[5]).size in 2..4 &&
+                checkNotIncludeNumber) {
                 isContinue = false
             }
         }

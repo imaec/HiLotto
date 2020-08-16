@@ -28,6 +28,24 @@ class RecommendViewModel(
         _isVisible.value = visible
     }
 
+    fun checkIncludeNumber(number: String): Boolean {
+        _listIncludeNumber.value?.let {
+            it.forEach { includeNumber ->
+                if (includeNumber == number) return false
+            }
+        }
+        return true
+    }
+
+    fun checkNotIncludeNumber(number: String): Boolean {
+        _listNotIncludeNumber.value?.let {
+            it.forEach { notIncludeNumber ->
+                if (notIncludeNumber == number) return false
+            }
+        }
+        return true
+    }
+
     fun setIncludeNumber(index: Int, number: String) {
         val listTemp = _listIncludeNumber.value!!
         listTemp[index] = number
