@@ -9,6 +9,14 @@ class NumberRepository(
     private val dao: NumberDao
 ) {
 
+    suspend fun selectByNumbers(entity: NumberEntity): Int {
+        var count = 0
+        withContext(Dispatchers.IO) {
+            count = dao.selectByNumbers(entity.number1, entity.number2, entity.number3, entity.number4, entity.number5, entity.number6)
+        }
+        return count
+    }
+
     suspend fun insert(entity: NumberEntity) {
         withContext(Dispatchers.IO) {
             dao.insert(entity)

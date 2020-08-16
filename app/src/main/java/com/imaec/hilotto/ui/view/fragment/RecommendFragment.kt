@@ -180,8 +180,10 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                 }
                 recommendViewModel.apply {
                     listIncludeNumber.value?.let {
-                        saveNumber(NumberEntity(it[0].toInt(), it[1].toInt(), it[2].toInt(), it[3].toInt(), it[4].toInt(), it[5].toInt()))
-                        Toast.makeText(context, R.string.msg_success_save_number, Toast.LENGTH_SHORT).show()
+                        saveNumber(NumberEntity(it[0].toInt(), it[1].toInt(), it[2].toInt(), it[3].toInt(), it[4].toInt(), it[5].toInt())) { isSuccess ->
+                            if (isSuccess) Toast.makeText(context, R.string.msg_success_save_number, Toast.LENGTH_SHORT).show()
+                            else Toast.makeText(context, R.string.msg_numbers_is_exist, Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
@@ -194,7 +196,6 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     }
 
     private fun setCheck(all: Boolean, isChecked: Boolean, switch: Switch) {
-        Log.d(TAG, "    ## $all / $isChecked / $switch")
         if (all) {
             if (switch.id == R.id.switch_condition_all) {
                 if (!isChecked) {

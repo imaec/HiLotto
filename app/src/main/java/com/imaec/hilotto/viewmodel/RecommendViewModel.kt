@@ -62,9 +62,15 @@ class RecommendViewModel(
         _listResult.value = list
     }
 
-    fun saveNumber(entity: NumberEntity) {
+    fun saveNumber(entity: NumberEntity, callback: (Boolean) -> Unit) {
         viewModelScope.launch {
+            if (repository.selectByNumbers(entity) > 0) {
+                // ALREADY EXIST
+                callback(false)
+                return@launch
+            }
             repository.insert(entity)
+            callback(true)
         }
     }
 }

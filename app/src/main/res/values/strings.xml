@@ -77,4 +77,5 @@
     <string name="msg_remove_number">번호를 삭제 하시겠습니까?</string>
     <string name="msg_number_not_created">번호를 생성하거나 모두 입력해주세요.</string>
     <string name="msg_success_save_number">번호를 저장하였습니다!</string>
+    <string name="msg_numbers_is_exist">번호가 이미 저장되어 있습니다.</string>
 </resources>
