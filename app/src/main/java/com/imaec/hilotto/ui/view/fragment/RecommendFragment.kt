@@ -14,6 +14,10 @@ import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentRecommendBinding
 import com.imaec.hilotto.repository.FireStoreRepository
 import com.imaec.hilotto.repository.LottoRepository
+import com.imaec.hilotto.repository.NumberRepository
+import com.imaec.hilotto.room.AppDatabase
+import com.imaec.hilotto.room.dao.NumberDao
+import com.imaec.hilotto.room.entity.NumberEntity
 import com.imaec.hilotto.ui.adapter.NumberAdapter
 import com.imaec.hilotto.ui.util.NumberDecoration
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
@@ -25,6 +29,8 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     private lateinit var recommendViewModel: RecommendViewModel
     private lateinit var sharedViewModel: LottoViewModel
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
+    private lateinit var numberDao: NumberDao
+    private lateinit var numberRepository: NumberRepository
 
     private val lottoRepository = LottoRepository()
     private val firestoreRepository = FireStoreRepository()
@@ -35,7 +41,9 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recommendViewModel = getViewModel(RecommendViewModel::class.java)
+        init()
+
+        recommendViewModel = getViewModel(RecommendViewModel::class.java, numberRepository)
         sharedViewModel = getViewModel(LottoViewModel::class.java, activity!!, lottoRepository, firestoreRepository)
 
         binding.apply {
@@ -166,9 +174,23 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                 }
             }
             R.id.text_save -> {
-
+                if (getEmptyCount() > 0) {
+                    Toast.makeText(context, R.string.msg_number_not_created, Toast.LENGTH_SHORT).show()
+                    return
+                }
+                recommendViewModel.apply {
+                    listIncludeNumber.value?.let {
+                        saveNumber(NumberEntity(it[0].toInt(), it[1].toInt(), it[2].toInt(), it[3].toInt(), it[4].toInt(), it[5].toInt()))
+                        Toast.makeText(context, R.string.msg_success_save_number, Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
+    }
+
+    private fun init() {
+        numberDao = AppDatabase.getInstance(context!!).numberDao()
+        numberRepository = NumberRepository(numberDao)
     }
 
     private fun setCheck(all: Boolean, isChecked: Boolean, switch: Switch) {

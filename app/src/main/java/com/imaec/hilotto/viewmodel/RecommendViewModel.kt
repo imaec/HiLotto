@@ -4,8 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.model.LottoDTO
+import com.imaec.hilotto.repository.NumberRepository
+import com.imaec.hilotto.room.entity.NumberEntity
+import kotlinx.coroutines.launch
 
-class RecommendViewModel : BaseViewModel() {
+class RecommendViewModel(
+    private val repository: NumberRepository
+) : BaseViewModel() {
 
     private val _isVisible = MutableLiveData<Boolean>().set(false)
     val isVisible: LiveData<Boolean> get() = _isVisible
@@ -55,5 +60,11 @@ class RecommendViewModel : BaseViewModel() {
 
     fun setListResult(list: List<LottoDTO>) {
         _listResult.value = list
+    }
+
+    fun saveNumber(entity: NumberEntity) {
+        viewModelScope.launch {
+            repository.insert(entity)
+        }
     }
 }
