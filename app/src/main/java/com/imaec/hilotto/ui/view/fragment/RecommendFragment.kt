@@ -154,12 +154,21 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             }
             R.id.text_create -> {
                 if (binding.textCreate.text == getString(R.string.create_numbers)) {
-                    var index = 0
-                    recommendViewModel.listResult.value?.let {
-                        Lotto.setCount(getEmptyCount())
-                        Lotto.getNumbers(it, recommendViewModel.listIncludeNumber.value!!, recommendViewModel.listNotIncludeNumber.value!!).forEach { number ->
-                            recommendViewModel.setIncludeNumber(index, "$number")
-                            index++
+                    recommendViewModel.apply {
+                        var index = 0
+                        listResult.value?.let { listResult ->
+                            Lotto.setCount(getEmptyCount())
+                            Lotto.getNumbers(
+                                listResult,
+                                listIncludeNumber.value!!,
+                                listNotIncludeNumber.value!!,
+                                binding.switchCondition1.isChecked,
+                                binding.switchCondition2.isChecked,
+                                binding.switchCondition3.isChecked
+                            ).forEach { number ->
+                                setIncludeNumber(index, "$number")
+                                index++
+                            }
                         }
                     }
                 } else {

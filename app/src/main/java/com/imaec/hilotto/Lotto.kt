@@ -21,8 +21,14 @@ object Lotto {
         return getSumAvg(list) + maxRange
     }
 
-    private fun getWeight(list: List<LottoDTO>): HashMap<Int, Int> {
+    private fun getWeight(list: List<LottoDTO>, condPick: Boolean): HashMap<Int, Int> {
         val w = HashMap<Int, Int>()
+        if (!condPick) {
+            (0..5).forEach {
+                w[it] = 1
+            }
+            return w
+        }
         val countSum = ArrayList<Int>().apply {
             (0..44).forEach { _ ->
                 add(0)
@@ -55,8 +61,8 @@ object Lotto {
         return w
     }
 
-    private fun getWeightedRandom(list: List<LottoDTO>): Int {
-        val map = getWeight(list)
+    private fun getWeightedRandom(list: List<LottoDTO>, condPick: Boolean): Int {
+        val map = getWeight(list, condPick)
         val listNumber = Array(45) { 0 }
         val listWeight = Array(45) { 0 }
         for (key in map.keys) {
@@ -91,12 +97,12 @@ object Lotto {
         return selection
     }
 
-    private fun getRanNumbers(list: List<LottoDTO>): ArrayList<Int> {
+    private fun getRanNumbers(list: List<LottoDTO>, condPick: Boolean): ArrayList<Int> {
         val result = arrayListOf<Int>()
         var isContinue = true
         while (isContinue) {
             var isExist = false
-            val number = getWeightedRandom(list)
+            val number = getWeightedRandom(list, condPick)
 
             result.forEach {
                 if (it == number) {
@@ -137,7 +143,14 @@ object Lotto {
         return listEven
     }
 
-    fun getNumbers(list: List<LottoDTO>, listInclude: List<String>, listNotInclude: List<String>): List<Int> {
+    fun getNumbers(
+        list: List<LottoDTO>,
+        listInclude: List<String>,
+        listNotInclude: List<String>,
+        condSum: Boolean = true,
+        condPick: Boolean = true,
+        condOddEven: Boolean = true
+    ): List<Int> {
         var result = ArrayList<Int>()
         val sumMin = getSumMin(list)
         val sumMax = getSumMax(list)
@@ -146,7 +159,7 @@ object Lotto {
         while (isContinue) {
             var sum = 0
             var checkNotIncludeNumber = true
-            result = getRanNumbers(list)
+            result = getRanNumbers(list, condPick)
             listInclude.forEach {
                 if (it.isNotEmpty()) result.add(it.toInt())
             }
@@ -158,10 +171,14 @@ object Lotto {
                 }
                 sum += it
             }
-            if (sum in sumMin..sumMax &&
+            val isSum = if (condSum) sum in sumMin..sumMax else true
+            val isOddEven = if (condOddEven) {
                 getOdd(result[0], result[1], result[2], result[3], result[4], result[5]).size in 2..4 &&
-                getEven(result[0], result[1], result[2], result[3], result[4], result[5]).size in 2..4 &&
-                checkNotIncludeNumber) {
+                getEven(result[0], result[1], result[2], result[3], result[4], result[5]).size in 2..4
+            } else true
+
+
+            if (isSum && isOddEven && checkNotIncludeNumber) {
                 isContinue = false
             }
         }
