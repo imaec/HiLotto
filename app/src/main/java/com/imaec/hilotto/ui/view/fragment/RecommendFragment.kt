@@ -21,6 +21,7 @@ import com.imaec.hilotto.room.entity.NumberEntity
 import com.imaec.hilotto.ui.adapter.NumberAdapter
 import com.imaec.hilotto.ui.util.NumberDecoration
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
+import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.viewmodel.LottoViewModel
 import com.imaec.hilotto.viewmodel.RecommendViewModel
 
@@ -49,9 +50,13 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
         binding.apply {
             lifecycleOwner = this@RecommendFragment
             recommendViewModel = this@RecommendFragment.recommendViewModel
+            switchCondition1.isChecked = SharedPreferenceUtil.getBool(context!!, SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_SUM, true)
             switchCondition1.setOnCheckedChangeListener(this@RecommendFragment)
+            switchCondition2.isChecked = SharedPreferenceUtil.getBool(context!!, SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_PICK, true)
             switchCondition2.setOnCheckedChangeListener(this@RecommendFragment)
+            switchCondition3.isChecked = SharedPreferenceUtil.getBool(context!!, SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_ODD_EVEN, true)
             switchCondition3.setOnCheckedChangeListener(this@RecommendFragment)
+            switchConditionAll.isChecked = SharedPreferenceUtil.getBool(context!!, SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_ALL, true)
             switchConditionAll.setOnCheckedChangeListener(this@RecommendFragment)
             recyclerNotIncluded.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -90,14 +95,17 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     override fun onCheckedChanged(cp: CompoundButton, b: Boolean) {
         when(cp.id) {
             R.id.switch_condition1 -> {
+                SharedPreferenceUtil.putValue(context!!, SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_SUM, b)
                 setCheck(b && binding.switchCondition2.isChecked
                         && binding.switchCondition3.isChecked, b, cp as Switch)
             }
             R.id.switch_condition2 -> {
+                SharedPreferenceUtil.putValue(context!!, SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_PICK, b)
                 setCheck(b && binding.switchCondition1.isChecked
                         && binding.switchCondition3.isChecked, b, cp as Switch)
             }
             R.id.switch_condition3 -> {
+                SharedPreferenceUtil.putValue(context!!, SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_ODD_EVEN, b)
                 setCheck(b && binding.switchCondition1.isChecked
                         && binding.switchCondition2.isChecked, b, cp as Switch)
             }
@@ -213,6 +221,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     }
 
     private fun setCheck(all: Boolean, isChecked: Boolean, switch: Switch) {
+        SharedPreferenceUtil.putValue(context!!, SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_ALL, all)
         if (all) {
             if (switch.id == R.id.switch_condition_all) {
                 if (!isChecked) {

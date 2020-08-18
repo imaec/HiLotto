@@ -5,12 +5,15 @@ import android.content.Context
 class SharedPreferenceUtil {
 
     enum class KEY {
-        PREF_WEEK,
+        PREF_RECOMMEND_CONDITION_SUM,
+        PREF_RECOMMEND_CONDITION_PICK,
+        PREF_RECOMMEND_CONDITION_ODD_EVEN,
+        PREF_RECOMMEND_CONDITION_ALL,
     }
 
     companion object {
 
-        private const val NAME = "WishPlace"
+        private const val NAME = "HiLotto"
 
         fun getString(context: Context, key: KEY, def: String = "") : String {
             val pref = context.getSharedPreferences(NAME, Context.MODE_PRIVATE)
