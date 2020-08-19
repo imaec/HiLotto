@@ -6,10 +6,14 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.imaec.hilotto.utils.Utils
 
-class NumbersDecoration(var context: Context) : RecyclerView.ItemDecoration() {
+class NumbersDecoration(
+    var context: Context,
+    offset1: Int = 8,
+    offset2: Int = 16
+) : RecyclerView.ItemDecoration() {
 
-    private val offset1 = Utils.dp(context, 8)
-    private val offset2 = Utils.dp(context, 16)
+    private val offset1 = Utils.dp(context, offset1)
+    private val offset2 = Utils.dp(context, offset2)
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         val position = parent.getChildLayoutPosition(view)

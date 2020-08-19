@@ -17,6 +17,14 @@ class NumberRepository(
         return count
     }
 
+    suspend fun selectAll(): List<NumberEntity>? {
+        var listResult: List<NumberEntity>? = null
+        withContext(Dispatchers.IO) {
+            listResult = dao.selectAll()
+        }
+        return listResult
+    }
+
     suspend fun insert(entity: NumberEntity) {
         withContext(Dispatchers.IO) {
             dao.insert(entity)
