@@ -30,4 +30,10 @@ class NumberRepository(
             dao.insert(entity)
         }
     }
+
+    suspend fun delete(entity: NumberEntity) {
+        withContext(Dispatchers.IO) {
+            dao.delete(entity)
+        }
+    }
 }

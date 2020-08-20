@@ -23,7 +23,10 @@ class MyNumberAdapter : BaseAdapter() {
     inner class ItemViewHolder(val binding: ItemMyNumberBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(item: NumberEntity) {
-            binding.item = item
+            binding.apply {
+                this.item = item
+                root.setOnClickListener { onClick(item) }
+            }
         }
     }
 }

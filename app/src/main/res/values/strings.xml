@@ -71,7 +71,8 @@
 
     <string name="ok">확인</string>
     <string name="cancel">취소</string>
-    
+
+    <string name="msg_unknown_error">오류가 발생했습니다.\n잠시 후 다시 시도해주세요.</string>
     <string name="msg_data_fail">데이터를 가져오는데 실패했습니다.\n잠시 후 다시 이용해주세요.</string>
     <string name="msg_not_include_number_max">미포함 수는 최대 6개 까지만 추가할 수 있습니다.</string>
     <string name="msg_remove_number">번호를 삭제 하시겠습니까?</string>

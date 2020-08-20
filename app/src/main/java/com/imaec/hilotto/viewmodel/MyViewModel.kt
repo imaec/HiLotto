@@ -24,4 +24,15 @@ class MyViewModel(
             _listNumber.value = repository.selectAll()
         }
     }
+
+    fun deleteNumber(entity: NumberEntity) {
+        viewModelScope.launch {
+            repository.delete(entity)
+            _listNumber.value = repository.selectAll()
+        }
+    }
+
+    fun setOnNumberClickListener(onClick: (Any) -> Unit) {
+        adapter.addOnClickListener { onClick(it) }
+    }
 }
