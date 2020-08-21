@@ -15,6 +15,7 @@ import com.imaec.hilotto.room.dao.NumberDao
 import com.imaec.hilotto.room.entity.NumberEntity
 import com.imaec.hilotto.ui.util.NumbersDecoration
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
+import com.imaec.hilotto.ui.view.dialog.EditDialog
 import com.imaec.hilotto.viewmodel.LottoViewModel
 import com.imaec.hilotto.viewmodel.MyViewModel
 
@@ -48,10 +49,26 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
                 Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
                 return@setOnNumberClickListener
             }
-            CommonDialog(context!!, context!!.getString(R.string.msg_remove_number)).apply {
-                setOnOkClickListener(View.OnClickListener {
-                    myViewModel.deleteNumber(entity)
+        }
+        myViewModel.setOnNumberLongClickListener { entity ->
+            if (entity !is NumberEntity) {
+                Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
+                return@setOnNumberLongClickListener
+            }
+            EditDialog(context!!).apply {
+                setTitle(context.getString(R.string.edit))
+                setOnEditClickListener(View.OnClickListener {
                     dismiss()
+                })
+                setOnDeleteClickListener(View.OnClickListener {
+                    dismiss()
+                    CommonDialog(context, context.getString(R.string.msg_remove_number)).apply {
+                        setOnOkClickListener(View.OnClickListener {
+                            myViewModel.deleteNumber(entity)
+                            dismiss()
+                        })
+                        show()
+                    }
                 })
                 show()
             }

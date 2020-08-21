@@ -26,6 +26,10 @@ class MyNumberAdapter : BaseAdapter() {
             binding.apply {
                 this.item = item
                 root.setOnClickListener { onClick(item) }
+                root.setOnLongClickListener {
+                    onLongClick(item)
+                    true
+                }
             }
         }
     }

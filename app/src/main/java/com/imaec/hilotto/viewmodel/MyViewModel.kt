@@ -35,4 +35,8 @@ class MyViewModel(
     fun setOnNumberClickListener(onClick: (Any) -> Unit) {
         adapter.addOnClickListener { onClick(it) }
     }
+
+    fun setOnNumberLongClickListener(onClick: (Any) -> Unit) {
+        adapter.addOnLongClickListener { onClick(it) }
+    }
 }

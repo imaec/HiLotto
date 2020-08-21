@@ -20,6 +20,13 @@
     <string name="odd_even">홀/짝</string>
     <string name="win">당첨</string>
 
+    <string name="ok">확인</string>
+    <string name="cancel">취소</string>
+    <string name="edit">수정</string>
+    <string name="edit2">수정하기</string>
+    <string name="check_win">당첨결과 확인</string>
+    <string name="delete">삭제하기</string>
+
     <string name="date_empty" tools:ignore="TypographyDashes">0000-00-00</string>
     <string name="title_round_empty">회 당첨 번호</string>
     <string name="win_count_desc">1등 당첨자 수 </string>
@@ -69,9 +76,6 @@
     <string name="win_count_max">000회 : 0명</string>
     <string name="win_count_min">000회 : 0명</string>
 
-    <string name="ok">확인</string>
-    <string name="cancel">취소</string>
-
     <string name="msg_unknown_error">오류가 발생했습니다.\n잠시 후 다시 시도해주세요.</string>
     <string name="msg_data_fail">데이터를 가져오는데 실패했습니다.\n잠시 후 다시 이용해주세요.</string>
     <string name="msg_not_include_number_max">미포함 수는 최대 6개 까지만 추가할 수 있습니다.</string>
@@ -81,4 +85,7 @@
     <string name="msg_number_not_created">번호를 생성하거나 모두 입력해주세요.</string>
     <string name="msg_success_save_number">번호를 저장하였습니다!</string>
     <string name="msg_numbers_is_exist">번호가 이미 저장되어 있습니다.</string>
+    <string name="msg_check_win_click">당첨결과 확인 버튼이 동작하지 않습니다.\n관리자에게 문의해주세요.</string>
+    <string name="msg_edit_click">수정 버튼이 동작하지 않습니다.\n관리자에게 문의해주세요.</string>
+    <string name="msg_delete_click">삭제 버튼이 동작하지 않습니다.\n관리자에게 문의해주세요.</string>
 </resources>
