@@ -1,9 +1,6 @@
 package com.imaec.hilotto.room.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.imaec.hilotto.room.entity.NumberEntity
 
 @Dao
@@ -17,6 +14,9 @@ interface NumberDao {
 
     @Insert
     fun insert(entity: NumberEntity)
+
+    @Update
+    fun update(entity: NumberEntity): Int
 
     @Delete
     fun delete(entity: NumberEntity)

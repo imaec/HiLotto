@@ -37,7 +37,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     private val firestoreRepository = FireStoreRepository()
 
     private var pickedNumber = 1
-    private var pickerFlag = 0
+    private var pickerFlag = 0 // 0 : 포함 수, 1 : 미포함 수
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -296,35 +296,35 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                     if (checkNumber("$pickedNumber", textNumber1)) {
                         this@RecommendFragment.recommendViewModel.setIncludeNumber(1, "$pickedNumber")
                     } else {
-                        Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, R.string.msg_not_input_same_number, Toast.LENGTH_SHORT).show()
                     }
                 }
                 textNumber3.text.isEmpty() -> {
                     if (checkNumber("$pickedNumber", textNumber1, textNumber2)) {
                         this@RecommendFragment.recommendViewModel.setIncludeNumber(2, "$pickedNumber")
                     } else {
-                        Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, R.string.msg_not_input_same_number, Toast.LENGTH_SHORT).show()
                     }
                 }
                 textNumber4.text.isEmpty() -> {
                     if (checkNumber("$pickedNumber", textNumber1, textNumber2, textNumber3)) {
                         this@RecommendFragment.recommendViewModel.setIncludeNumber(3, "$pickedNumber")
                     } else {
-                        Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, R.string.msg_not_input_same_number, Toast.LENGTH_SHORT).show()
                     }
                 }
                 textNumber5.text.isEmpty() -> {
                     if (checkNumber("$pickedNumber", textNumber1, textNumber2, textNumber3, textNumber4)) {
                         this@RecommendFragment.recommendViewModel.setIncludeNumber(4, "$pickedNumber")
                     } else {
-                        Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, R.string.msg_not_input_same_number, Toast.LENGTH_SHORT).show()
                     }
                 }
                 textNumber6.text.isEmpty() -> {
                     if (checkNumber("$pickedNumber", textNumber1, textNumber2, textNumber3, textNumber4, textNumber5)) {
                         this@RecommendFragment.recommendViewModel.setIncludeNumber(5, "$pickedNumber")
                     } else {
-                        Toast.makeText(context, "같은 숫자를 입력할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, R.string.msg_not_input_same_number, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

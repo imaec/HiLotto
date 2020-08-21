@@ -31,6 +31,14 @@ class NumberRepository(
         }
     }
 
+    suspend fun update(entity: NumberEntity): Boolean {
+        var result = 0
+        withContext(Dispatchers.IO) {
+            result = dao.update(entity)
+        }
+        return result > 0
+    }
+
     suspend fun delete(entity: NumberEntity) {
         withContext(Dispatchers.IO) {
             dao.delete(entity)

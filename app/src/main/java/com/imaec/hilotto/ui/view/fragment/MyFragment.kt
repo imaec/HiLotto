@@ -1,10 +1,12 @@
 package com.imaec.hilotto.ui.view.fragment
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.imaec.hilotto.R
+import com.imaec.hilotto.*
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentMyBinding
 import com.imaec.hilotto.repository.FireStoreRepository
@@ -14,6 +16,7 @@ import com.imaec.hilotto.room.AppDatabase
 import com.imaec.hilotto.room.dao.NumberDao
 import com.imaec.hilotto.room.entity.NumberEntity
 import com.imaec.hilotto.ui.util.NumbersDecoration
+import com.imaec.hilotto.ui.view.activity.EditNumberActivity
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
 import com.imaec.hilotto.ui.view.dialog.EditDialog
 import com.imaec.hilotto.viewmodel.LottoViewModel
@@ -44,33 +47,44 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
             recyclerMyNumbers.addItemDecoration(NumbersDecoration(context!!, 6, 12))
         }
 
-        myViewModel.setOnNumberClickListener { entity ->
-            if (entity !is NumberEntity) {
-                Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
-                return@setOnNumberClickListener
+        myViewModel.apply {
+            setOnNumberClickListener { entity ->
+                if (entity !is NumberEntity) {
+                    Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
+                    return@setOnNumberClickListener
+                }
             }
-        }
-        myViewModel.setOnNumberLongClickListener { entity ->
-            if (entity !is NumberEntity) {
-                Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
-                return@setOnNumberLongClickListener
-            }
-            EditDialog(context!!).apply {
-                setTitle(context.getString(R.string.edit))
-                setOnEditClickListener(View.OnClickListener {
-                    dismiss()
-                })
-                setOnDeleteClickListener(View.OnClickListener {
-                    dismiss()
-                    CommonDialog(context, context.getString(R.string.msg_remove_number)).apply {
-                        setOnOkClickListener(View.OnClickListener {
-                            myViewModel.deleteNumber(entity)
-                            dismiss()
-                        })
-                        show()
-                    }
-                })
-                show()
+            setOnNumberLongClickListener { entity ->
+                if (entity !is NumberEntity) {
+                    Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
+                    return@setOnNumberLongClickListener
+                }
+                EditDialog(context!!).apply {
+                    setTitle(context.getString(R.string.edit))
+                    setOnEditClickListener(View.OnClickListener {
+                        dismiss()
+                        startActivityForResult(Intent(context, EditNumberActivity::class.java).apply {
+                            putExtra(EXTRA_NUMBER_ID, entity.numberId)
+                            putExtra(EXTRA_NUMBER_1, entity.number1)
+                            putExtra(EXTRA_NUMBER_2, entity.number2)
+                            putExtra(EXTRA_NUMBER_3, entity.number3)
+                            putExtra(EXTRA_NUMBER_4, entity.number4)
+                            putExtra(EXTRA_NUMBER_5, entity.number5)
+                            putExtra(EXTRA_NUMBER_6, entity.number6)
+                        }, REQUEST_EDIT_NUMBER)
+                    })
+                    setOnDeleteClickListener(View.OnClickListener {
+                        dismiss()
+                        CommonDialog(context, context.getString(R.string.msg_remove_number)).apply {
+                            setOnOkClickListener(View.OnClickListener {
+                                myViewModel.deleteNumber(entity)
+                                dismiss()
+                            })
+                            show()
+                        }
+                    })
+                    show()
+                }
             }
         }
     }
@@ -79,6 +93,16 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
         super.onHiddenChanged(hidden)
 
         if (!hidden) myViewModel.getNumbers()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode != RESULT_OK) return
+
+        if (requestCode == REQUEST_EDIT_NUMBER) {
+            myViewModel.getNumbers()
+        }
     }
 
     private fun init() {
