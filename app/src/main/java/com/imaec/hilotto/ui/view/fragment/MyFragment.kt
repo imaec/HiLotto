@@ -3,8 +3,10 @@ package com.imaec.hilotto.ui.view.fragment
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imaec.hilotto.*
 import com.imaec.hilotto.base.BaseFragment
@@ -48,6 +50,11 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
         }
 
         myViewModel.apply {
+            listNumber.observe(activity!!, Observer {
+                sharedViewModel.listResult.value?.let {
+                    checkWin(it[it.size-1])
+                }
+            })
             setOnNumberClickListener { entity ->
                 if (entity !is NumberEntity) {
                     Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
@@ -92,7 +99,9 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
 
-        if (!hidden) myViewModel.getNumbers()
+        if (!hidden) {
+            myViewModel.getNumbers()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

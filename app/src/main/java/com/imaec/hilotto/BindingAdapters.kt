@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.imaec.hilotto.base.BaseAdapter
+import com.imaec.hilotto.ui.adapter.MyNumberAdapter
 import java.text.DecimalFormat
 import kotlin.math.roundToLong
 
@@ -48,10 +49,10 @@ object BindingAdapters {
     fun setBackgroundNumber(textView: TextView, value: String) {
         textView.apply {
             if (value != ":") {
-                background = textView.context.resources.getDrawable(R.drawable.bg_circle_accent)
+                setBackgroundResource(R.drawable.bg_circle_accent)
                 setTextColor(textView.context.resources.getColor(R.color.white))
             } else {
-                background = null
+                setBackgroundResource(0)
                 setTextColor(textView.context.resources.getColor(R.color.darkGray))
             }
         }
@@ -71,6 +72,16 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("fitNumber")
+    fun setFitNumber(textView: TextView, listFit: List<Int>) {
+        listFit.forEach {
+            if (textView.text.toString().toInt() == it) {
+                textView.setTextColor(textView.context.resources.getColor(R.color.darkGray))
+            }
+        }
+    }
+
+    @JvmStatic
     @BindingAdapter("adapter")
     fun setAdapter(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
         recyclerView.adapter = adapter
@@ -82,6 +93,17 @@ object BindingAdapters {
         (recyclerView.adapter as BaseAdapter).apply {
             clearItem()
             addItems(items)
+            notifyDataSetChanged()
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["app:items", "app:fit"], requireAll = true)
+    fun setItemsAndFit(recyclerView: RecyclerView, items: List<Any>, fitNumbers: List<List<Int>>) {
+        (recyclerView.adapter as MyNumberAdapter).apply {
+            clearItem()
+            addItems(items)
+            setFitNumbers(fitNumbers)
             notifyDataSetChanged()
         }
     }
