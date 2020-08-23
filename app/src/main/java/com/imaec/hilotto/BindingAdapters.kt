@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.imaec.hilotto.base.BaseAdapter
+import com.imaec.hilotto.model.FitNumberDTO
 import com.imaec.hilotto.ui.adapter.MyNumberAdapter
 import java.text.DecimalFormat
 import kotlin.math.roundToLong
@@ -73,12 +74,23 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("fitNumber")
-    fun setFitNumber(textView: TextView, listFit: List<Int>) {
-        listFit.forEach {
+    fun setFitNumber(textView: TextView, fitNumberDTO: FitNumberDTO) {
+        textView.setTextColor(textView.context.resources.getColor(R.color.white))
+        fitNumberDTO.listFitNumber.forEach {
             if (textView.text.toString().toInt() == it) {
                 textView.setTextColor(textView.context.resources.getColor(R.color.darkGray))
             }
         }
+        if (textView.text.toString().toInt() == fitNumberDTO.numberBonus) {
+            textView.setTextColor(textView.context.resources.getColor(R.color.gray))
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("rank")
+    fun setRank(textView: TextView, rank: Int) {
+        textView.setBackgroundResource(if (rank > 0) R.drawable.bg_triangle else 0)
+        textView.text = if (rank > 0) "$rank" else ""
     }
 
     @JvmStatic
@@ -99,7 +111,7 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter(value = ["app:items", "app:fit"], requireAll = true)
-    fun setItemsAndFit(recyclerView: RecyclerView, items: List<Any>, fitNumbers: List<List<Int>>) {
+    fun setItemsAndFit(recyclerView: RecyclerView, items: List<Any>, fitNumbers: List<FitNumberDTO>) {
         (recyclerView.adapter as MyNumberAdapter).apply {
             clearItem()
             addItems(items)

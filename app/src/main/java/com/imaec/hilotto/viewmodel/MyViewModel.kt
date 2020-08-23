@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.base.BaseViewModel
+import com.imaec.hilotto.model.FitNumberDTO
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.repository.NumberRepository
 import com.imaec.hilotto.room.entity.NumberEntity
@@ -21,8 +22,11 @@ class MyViewModel(
     private val _listNumber = MutableLiveData<List<NumberEntity>>().set(emptyList())
     val listNumber: LiveData<List<NumberEntity>> get() = _listNumber
 
-    private val _listFitNumber = MutableLiveData<List<List<Int>>>().set(emptyList())
-    val listFitNumber: LiveData<List<List<Int>>> get() = _listFitNumber
+//    private val _listFitNumber = MutableLiveData<List<List<Int>>>().set(emptyList())
+//    val listFitNumber: LiveData<List<List<Int>>> get() = _listFitNumber
+
+    private val _listFitNumbers = MutableLiveData<List<FitNumberDTO>>().set(emptyList())
+    val listFitNumbers: LiveData<List<FitNumberDTO>> get() = _listFitNumbers
 
     fun getNumbers() {
         viewModelScope.launch {
@@ -39,8 +43,9 @@ class MyViewModel(
 
     fun checkWin(result: LottoDTO) {
         val winNumbers = arrayOf(result.drwtNo1, result.drwtNo2, result.drwtNo3, result.drwtNo4, result.drwtNo5, result.drwtNo6)
-        val listFitTemp = arrayListOf<List<Int>>()
+        val listFitTemp = arrayListOf<FitNumberDTO>()
         _listNumber.value!!.forEach {
+            val fitNumberDTO = FitNumberDTO()
             val listTemp = arrayListOf<Int>()
             arrayOf(it.number1, it.number2, it.number3, it.number4, it.number5, it.number6).forEach { myNumber ->
                 winNumbers.forEach {  winNumber ->
@@ -48,11 +53,19 @@ class MyViewModel(
                         listTemp.add(myNumber)
                     }
                 }
+                if (result.bnusNo == myNumber) {
+                    fitNumberDTO.numberBonus = myNumber
+                    // listTemp.add(myNumber)
+                }
             }
+            fitNumberDTO.listFitNumber.addAll(listTemp)
+//            if (listTemp.size == 6 && !listTemp.contains(result.bnusNo)) {
+//                listTemp.add(0)
+//            }
             Log.d(TAG, "    ## size : ${listTemp.size}")
-            listFitTemp.add(listTemp)
+            listFitTemp.add(fitNumberDTO)
         }
-        _listFitNumber.value = listFitTemp
+        _listFitNumbers.value = listFitTemp
     }
 
     fun setOnNumberClickListener(onClick: (Any) -> Unit) {

@@ -30,7 +30,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:adapter="@{myViewModel.adapter}"
             app:items="@{myViewModel.listNumber}"
-            app:fit="@{myViewModel.listFitNumber}"/>
+            app:fit="@{myViewModel.listFitNumbers}"/>
 
         <TextView
             android:id="@+id/text_empty"
