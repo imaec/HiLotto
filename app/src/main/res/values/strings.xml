@@ -26,6 +26,8 @@
     <string name="edit2">수정하기</string>
     <string name="edit_number">번호 수정</string>
     <string name="selected_number">선택된 번호</string>
+    <string name="win_history">역대 당첨 결과</string>
+    <string name="win_round">당첨 회차 : </string>
     <string name="check_win">당첨결과 확인</string>
     <string name="delete">삭제하기</string>
     <string name="save">저장</string>

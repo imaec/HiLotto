@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.imaec.hilotto.*
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentMyBinding
+import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.repository.FireStoreRepository
 import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.repository.NumberRepository
@@ -19,6 +20,7 @@ import com.imaec.hilotto.room.dao.NumberDao
 import com.imaec.hilotto.room.entity.NumberEntity
 import com.imaec.hilotto.ui.util.NumbersDecoration
 import com.imaec.hilotto.ui.view.activity.EditNumberActivity
+import com.imaec.hilotto.ui.view.activity.WinHistoryActivity
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
 import com.imaec.hilotto.ui.view.dialog.EditDialog
 import com.imaec.hilotto.viewmodel.LottoViewModel
@@ -59,6 +61,15 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
                 if (entity !is NumberEntity) {
                     Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
                     return@setOnNumberClickListener
+                }
+                sharedViewModel.listResult.value?.let {
+                    val listLotto = ArrayList<LottoDTO>().apply {
+                        addAll(it)
+                    }
+                    startActivity(Intent(context, WinHistoryActivity::class.java).apply {
+                        putExtra(EXTRA_LIST_LOTTO, listLotto)
+                        putExtra(EXTRA_MY_NUMBER, entity)
+                    })
                 }
             }
             setOnNumberLongClickListener { entity ->

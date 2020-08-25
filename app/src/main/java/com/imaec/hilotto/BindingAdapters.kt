@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.imaec.hilotto.base.BaseAdapter
 import com.imaec.hilotto.model.FitNumberDTO
 import com.imaec.hilotto.ui.adapter.MyNumberAdapter
+import com.imaec.hilotto.ui.adapter.WinHistoryAdapter
 import java.text.DecimalFormat
 import kotlin.math.roundToLong
 
 object BindingAdapters {
+
+    private val TAG = this::class.java.simpleName
 
     @JvmStatic
     @BindingAdapter("textByInt")
@@ -88,6 +91,13 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("rank")
+    fun setRank(textView: TextView, fitNumberDTO: FitNumberDTO) {
+        textView.setBackgroundResource(if (fitNumberDTO.rank > 0) R.drawable.bg_triangle else 0)
+        textView.text = if (fitNumberDTO.rank > 0) "${fitNumberDTO.rank}" else ""
+    }
+
+    @JvmStatic
+    @BindingAdapter("rank")
     fun setRank(textView: TextView, rank: Int) {
         textView.setBackgroundResource(if (rank > 0) R.drawable.bg_triangle else 0)
         textView.text = if (rank > 0) "$rank" else ""
@@ -112,11 +122,21 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter(value = ["app:items", "app:fit"], requireAll = true)
     fun setItemsAndFit(recyclerView: RecyclerView, items: List<Any>, fitNumbers: List<FitNumberDTO>) {
-        (recyclerView.adapter as MyNumberAdapter).apply {
-            clearItem()
-            addItems(items)
-            setFitNumbers(fitNumbers)
-            notifyDataSetChanged()
+        val adapter = recyclerView.adapter
+        if (adapter is MyNumberAdapter) {
+            adapter.apply {
+                clearItem()
+                addItems(items)
+                setFitNumbers(fitNumbers)
+                notifyDataSetChanged()
+            }
+        } else if (adapter is WinHistoryAdapter) {
+            adapter.apply {
+                clearItem()
+                addItems(items)
+                setFitNumbers(fitNumbers)
+                notifyDataSetChanged()
+            }
         }
     }
 

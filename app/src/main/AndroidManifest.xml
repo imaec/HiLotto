@@ -20,6 +20,9 @@
 
         <activity android:name=".ui.view.activity.EditNumberActivity"
             android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.view.activity.WinHistoryActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

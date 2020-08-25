@@ -55,13 +55,18 @@ class MyViewModel(
                 }
                 if (result.bnusNo == myNumber) {
                     fitNumberDTO.numberBonus = myNumber
-                    // listTemp.add(myNumber)
                 }
             }
-            fitNumberDTO.listFitNumber.addAll(listTemp)
-//            if (listTemp.size == 6 && !listTemp.contains(result.bnusNo)) {
-//                listTemp.add(0)
-//            }
+            fitNumberDTO.apply {
+                listFitNumber.addAll(listTemp)
+                rank = when (fitNumberDTO.listFitNumber.size) {
+                    6 -> 1
+                    5 -> if (fitNumberDTO.numberBonus > 0) 2 else 3
+                    4 -> 4
+                    3 -> 5
+                    else -> 0
+                }
+            }
             Log.d(TAG, "    ## size : ${listTemp.size}")
             listFitTemp.add(fitNumberDTO)
         }

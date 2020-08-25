@@ -1,5 +1,7 @@
 package com.imaec.hilotto.model
 
+import java.io.Serializable
+
 data class LottoDTO(
     var bnusNo: Int,
     var drwNo: Int,
@@ -15,4 +17,4 @@ data class LottoDTO(
     var firstWinamnt: Long,
     var returnValue: String,
     var totSellamnt: Long
-)
+): Serializable

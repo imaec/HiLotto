@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="winHistoryViewModel"
+            type="com.imaec.hilotto.viewmodel.WinHistoryViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_title"
+            style="@style/AppTheme.Toolbar"
+            android:text="@string/win_history"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_selected_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/selected_number"
+            android:textColor="@color/darkGray"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_title" />
+
+        <TextView
+            android:id="@+id/text_selected_number1"
+            style="@style/AppTheme.TextNumberAccent"
+            android:layout_marginLeft="12dp"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/text_selected_number2"
+            app:layout_constraintTop_toBottomOf="@id/text_selected_number"
+            app:textByInt="@{winHistoryViewModel.number.number1}" />
+
+        <TextView
+            android:id="@+id/text_selected_number2"
+            style="@style/AppTheme.TextNumberAccent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintLeft_toRightOf="@id/text_selected_number1"
+            app:layout_constraintRight_toLeftOf="@id/text_selected_number3"
+            app:layout_constraintTop_toBottomOf="@id/text_selected_number"
+            app:textByInt="@{winHistoryViewModel.number.number2}" />
+
+        <TextView
+            android:id="@+id/text_selected_number3"
+            style="@style/AppTheme.TextNumberAccent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintLeft_toRightOf="@id/text_selected_number2"
+            app:layout_constraintRight_toLeftOf="@id/text_selected_number4"
+            app:layout_constraintTop_toBottomOf="@id/text_selected_number"
+            app:textByInt="@{winHistoryViewModel.number.number3}" />
+
+        <TextView
+            android:id="@+id/text_selected_number4"
+            style="@style/AppTheme.TextNumberAccent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintLeft_toRightOf="@id/text_selected_number3"
+            app:layout_constraintRight_toLeftOf="@id/text_selected_number5"
+            app:layout_constraintTop_toBottomOf="@id/text_selected_number"
+            app:textByInt="@{winHistoryViewModel.number.number4}" />
+
+        <TextView
+            android:id="@+id/text_selected_number5"
+            style="@style/AppTheme.TextNumberAccent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintLeft_toRightOf="@id/text_selected_number4"
+            app:layout_constraintRight_toLeftOf="@id/text_selected_number6"
+            app:layout_constraintTop_toBottomOf="@id/text_selected_number"
+            app:textByInt="@{winHistoryViewModel.number.number5}" />
+
+        <TextView
+            android:id="@+id/text_selected_number6"
+            style="@style/AppTheme.TextNumberAccent"
+            android:layout_marginRight="12dp"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintLeft_toRightOf="@id/text_selected_number5"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_selected_number"
+            app:textByInt="@{winHistoryViewModel.number.number6}" />
+
+        <View
+            android:id="@+id/view_divider"
+            style="@style/AppTheme.ViewDivider"
+            android:layout_margin="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_selected_number6" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_win_history"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/lightGray3"
+            app:adapter="@{winHistoryViewModel.adapter}"
+            app:items="@{winHistoryViewModel.listWin}"
+            app:fit="@{winHistoryViewModel.listFitNumbers}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_divider"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
