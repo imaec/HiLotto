@@ -2,6 +2,8 @@ package com.imaec.hilotto.ui.view.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.PopupMenu
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imaec.hilotto.EXTRA_LIST_LOTTO
@@ -35,6 +37,34 @@ class WinHistoryActivity : BaseActivity<ActivityWinHistoryBinding>(R.layout.acti
             setListLotto(intent.getSerializableExtra(EXTRA_LIST_LOTTO) as ArrayList<LottoDTO>)
             setMyNumber(intent.getSerializableExtra(EXTRA_MY_NUMBER) as NumberEntity)
             checkWin()
+        }
+    }
+
+    fun onClick(view: View) {
+        when (view.id) {
+            R.id.image_sort -> {
+                showPopup(view)
+            }
+        }
+    }
+
+    private fun showPopup(view: View) {
+        PopupMenu(this, view).apply {
+            menuInflater.inflate(R.menu.menu_sort, menu)
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.option_acs -> {
+                        winHistoryViewModel.sort(true)
+                        true
+                    }
+                    R.id.option_desc -> {
+                        winHistoryViewModel.sort(false)
+                        true
+                    }
+                    else -> false
+                }
+            }
+            show()
         }
     }
 }

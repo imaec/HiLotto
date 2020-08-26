@@ -73,8 +73,16 @@ class WinHistoryViewModel : BaseViewModel() {
             }
         }
         _listWin.value = listWinTemp
-        _listFitNumbers.value = listFitTemp
+        _listFitNumbers.value = listFitTemp.sortedByDescending { it.round.split("회")[0].toInt() }
 
         Log.d(TAG, "    ## size : ${listFitTemp.size}")
+    }
+
+    fun sort(isAcs: Boolean = false) {
+        _listFitNumbers.value =
+            if (isAcs)
+                _listFitNumbers.value!!.sortedBy { it.round.split("회")[0].toInt() }
+            else
+                _listFitNumbers.value!!.sortedByDescending { it.round.split("회")[0].toInt() }
     }
 }
