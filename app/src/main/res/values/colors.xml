@@ -13,4 +13,15 @@
     <color name="lightGray2">#CCCCCC</color>
     <color name="lightGray3">#EEEEEE</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="color01_10">#ffc34d</color>
+    <color name="color01_10Dark">#fdb932</color>
+    <color name="color11_20">#468eff</color>
+    <color name="color11_20Dark">#2f80ff</color>
+    <color name="color21_30">#ff402a</color>
+    <color name="color21_30Dark">#ff331c</color>
+    <color name="color31_40">#8b8b8b</color>
+    <color name="color31_40Dark">#707070</color>
+    <color name="color41_45">#3ae249</color>
+    <color name="color41_45Dark">#1be12d</color>
 </resources>

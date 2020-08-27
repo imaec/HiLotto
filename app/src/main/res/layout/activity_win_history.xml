@@ -50,57 +50,63 @@
             android:id="@+id/text_selected_number1"
             style="@style/AppTheme.TextNumberAccent"
             android:layout_marginLeft="12dp"
+            app:textByInt="@{winHistoryViewModel.number.number1}"
+            app:backgroundNumber="@{winHistoryViewModel.number.number1}"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/text_selected_number2"
-            app:layout_constraintTop_toBottomOf="@id/text_selected_number"
-            app:textByInt="@{winHistoryViewModel.number.number1}" />
+            app:layout_constraintTop_toBottomOf="@id/text_selected_number" />
 
         <TextView
             android:id="@+id/text_selected_number2"
             style="@style/AppTheme.TextNumberAccent"
+            app:textByInt="@{winHistoryViewModel.number.number2}"
+            app:backgroundNumber="@{winHistoryViewModel.number.number2}"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintLeft_toRightOf="@id/text_selected_number1"
             app:layout_constraintRight_toLeftOf="@id/text_selected_number3"
-            app:layout_constraintTop_toBottomOf="@id/text_selected_number"
-            app:textByInt="@{winHistoryViewModel.number.number2}" />
+            app:layout_constraintTop_toBottomOf="@id/text_selected_number" />
 
         <TextView
             android:id="@+id/text_selected_number3"
             style="@style/AppTheme.TextNumberAccent"
+            app:textByInt="@{winHistoryViewModel.number.number3}"
+            app:backgroundNumber="@{winHistoryViewModel.number.number3}"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintLeft_toRightOf="@id/text_selected_number2"
             app:layout_constraintRight_toLeftOf="@id/text_selected_number4"
-            app:layout_constraintTop_toBottomOf="@id/text_selected_number"
-            app:textByInt="@{winHistoryViewModel.number.number3}" />
+            app:layout_constraintTop_toBottomOf="@id/text_selected_number" />
 
         <TextView
             android:id="@+id/text_selected_number4"
             style="@style/AppTheme.TextNumberAccent"
+            app:textByInt="@{winHistoryViewModel.number.number4}"
+            app:backgroundNumber="@{winHistoryViewModel.number.number4}"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintLeft_toRightOf="@id/text_selected_number3"
             app:layout_constraintRight_toLeftOf="@id/text_selected_number5"
-            app:layout_constraintTop_toBottomOf="@id/text_selected_number"
-            app:textByInt="@{winHistoryViewModel.number.number4}" />
+            app:layout_constraintTop_toBottomOf="@id/text_selected_number" />
 
         <TextView
             android:id="@+id/text_selected_number5"
             style="@style/AppTheme.TextNumberAccent"
+            app:textByInt="@{winHistoryViewModel.number.number5}"
+            app:backgroundNumber="@{winHistoryViewModel.number.number5}"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintLeft_toRightOf="@id/text_selected_number4"
             app:layout_constraintRight_toLeftOf="@id/text_selected_number6"
-            app:layout_constraintTop_toBottomOf="@id/text_selected_number"
-            app:textByInt="@{winHistoryViewModel.number.number5}" />
+            app:layout_constraintTop_toBottomOf="@id/text_selected_number" />
 
         <TextView
             android:id="@+id/text_selected_number6"
             style="@style/AppTheme.TextNumberAccent"
             android:layout_marginRight="12dp"
+            app:textByInt="@{winHistoryViewModel.number.number6}"
+            app:backgroundNumber="@{winHistoryViewModel.number.number6}"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintLeft_toRightOf="@id/text_selected_number5"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_selected_number"
-            app:textByInt="@{winHistoryViewModel.number.number6}" />
+            app:layout_constraintTop_toBottomOf="@id/text_selected_number" />
 
         <View
             android:id="@+id/view_divider"
