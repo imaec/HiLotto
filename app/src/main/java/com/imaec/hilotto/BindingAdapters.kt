@@ -92,8 +92,8 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("backgroundNumber")
-    fun setBackgroundNumber(textView: TextView, value: String) {
+    @BindingAdapter("backgroundNumberCircle")
+    fun setBackgroundNumberCircle(textView: TextView, value: String) {
         try {
             val number = value.toInt()
             textView.setBackgroundResource(
@@ -111,6 +111,54 @@ object BindingAdapters {
             textView.setBackgroundResource(0)
             textView.setTextColor(textView.context.resources.getColor(R.color.darkGray))
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("backgroundNumberSquare")
+    fun setBackgroundNumberSquare(textView: TextView, number: Int) {
+        textView.setBackgroundResource(
+            when (number) {
+                in 1..10 -> R.drawable.bg_square_1
+                in 11..20 -> R.drawable.bg_square_2
+                in 21..30 -> R.drawable.bg_square_3
+                in 31..40 -> R.drawable.bg_square_4
+                in 41..45 -> R.drawable.bg_square_5
+                else -> R.drawable.bg_square_1
+            }
+        )
+        textView.setTextColor(textView.context.resources.getColor(R.color.white))
+    }
+
+    @JvmStatic
+    @BindingAdapter("backgroundRoundedLeftTop")
+    fun setBackgroundRoundedLeftTop(textView: TextView, number: Int) {
+        textView.setBackgroundResource(
+            when (number) {
+                in 1..10 -> R.drawable.bg_left_top_rounded_1
+                in 11..20 -> R.drawable.bg_left_top_rounded_2
+                in 21..30 -> R.drawable.bg_left_top_rounded_3
+                in 31..40 -> R.drawable.bg_left_top_rounded_4
+                in 41..45 -> R.drawable.bg_left_top_rounded_5
+                else -> R.drawable.bg_left_top_rounded_1
+            }
+        )
+        textView.setTextColor(textView.context.resources.getColor(R.color.white))
+    }
+
+    @JvmStatic
+    @BindingAdapter("backgroundRoundedRightTop")
+    fun setBackgroundRoundedRightTop(textView: TextView, number: Int) {
+        textView.setBackgroundResource(
+            when (number) {
+                in 1..10 -> R.drawable.bg_right_top_rounded_1
+                in 11..20 -> R.drawable.bg_right_top_rounded_2
+                in 21..30 -> R.drawable.bg_right_top_rounded_3
+                in 31..40 -> R.drawable.bg_right_top_rounded_4
+                in 41..45 -> R.drawable.bg_right_top_rounded_5
+                else -> R.drawable.bg_right_top_rounded_1
+            }
+        )
+        textView.setTextColor(textView.context.resources.getColor(R.color.white))
     }
 
     @JvmStatic
@@ -157,8 +205,8 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("backgroundNumber")
-    fun setBackgroundNumber(view: View, number: Int) {
+    @BindingAdapter("backgroundNumberCircle")
+    fun setBackgroundNumberCircle(view: View, number: Int) {
         view.setBackgroundResource(
             when (number) {
                 in 1..10 -> R.drawable.bg_circle_1
