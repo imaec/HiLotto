@@ -1,12 +1,13 @@
 package com.imaec.hilotto.ui.adapter
 
-import android.util.Log
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.imaec.hilotto.base.BaseAdapter
 import com.imaec.hilotto.databinding.ItemSumBinding
 import com.imaec.hilotto.model.SumDTO
+import kotlinx.android.synthetic.main.item_sum.view.*
 
 class SumAdapter : BaseAdapter() {
 
@@ -27,12 +28,20 @@ class SumAdapter : BaseAdapter() {
         this.sumMax = sumMax
     }
 
+    @Suppress("UNCHECKED_CAST")
     inner class ItemViewHolder(val binding: ItemSumBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(item: SumDTO) {
             item.sumMax = sumMax
+
+            val listSortedTemp = (listItem as ArrayList<SumDTO>).sortedWith(compareBy { it.sum })
             binding.apply {
                 this.item = item
+                progressSum.progressDrawable.setColorFilter(when (item.sum) {
+                    listSortedTemp[0].sum -> itemView.context.resources.getColor(android.R.color.holo_blue_dark) // 최소
+                    listSortedTemp[itemCount - 1].sum -> itemView.context.resources.getColor(android.R.color.holo_red_dark) // 최대
+                    else -> itemView.context.resources.getColor(android.R.color.black)
+                }, PorterDuff.Mode.SRC_IN)
             }
         }
     }

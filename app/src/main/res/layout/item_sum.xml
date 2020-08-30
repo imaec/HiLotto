@@ -31,7 +31,7 @@
 
         <ProgressBar
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:id="@+id/progress_item"
+            android:id="@+id/progress_sum"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:progress="@{item.sum}"
