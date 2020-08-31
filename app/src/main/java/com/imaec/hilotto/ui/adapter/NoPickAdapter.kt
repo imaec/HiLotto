@@ -24,6 +24,7 @@ class NoPickAdapter : BaseAdapter() {
     inner class ItemViewHolder(val binding: ItemNopickBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(item: Int) {
+            
             binding.apply {
                 this.item = item
             }
