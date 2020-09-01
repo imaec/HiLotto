@@ -112,4 +112,24 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/darkGray</item>
     </style>
+
+    <style name="AppTheme.PickProgress1" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="colorAccent">@color/color01_10</item>
+    </style>
+
+    <style name="AppTheme.PickProgress2" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="colorAccent">@color/color11_20</item>
+    </style>
+
+    <style name="AppTheme.PickProgress3" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="colorAccent">@color/color21_30</item>
+    </style>
+
+    <style name="AppTheme.PickProgress4" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="colorAccent">@color/color31_40</item>
+    </style>
+
+    <style name="AppTheme.PickProgress5" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="colorAccent">@color/color41_45</item>
+    </style>
 </resources>

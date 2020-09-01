@@ -74,10 +74,11 @@
             app:layout_constraintTop_toBottomOf="@id/text_pick_count"/>
 
         <ProgressBar
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            style="@style/AppTheme.PickProgress1"
             android:id="@+id/progress1"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:theme="@style/AppTheme.PickProgress1"
             android:progress="@{pickViewModel.pickedRange1}"
             android:max="@{pickViewModel.pickMax}"
             app:layout_constraintLeft_toRightOf="@id/text_range1"
@@ -111,10 +112,11 @@
             app:layout_constraintTop_toBottomOf="@id/text_range1"/>
 
         <ProgressBar
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            style="@style/AppTheme.PickProgress2"
             android:id="@+id/progress2"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:theme="@style/AppTheme.PickProgress2"
             android:progress="@{pickViewModel.pickedRange2}"
             android:max="@{pickViewModel.pickMax}"
             app:layout_constraintLeft_toRightOf="@id/text_range2"
@@ -148,10 +150,11 @@
             app:layout_constraintTop_toBottomOf="@id/text_range2"/>
 
         <ProgressBar
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            style="@style/AppTheme.PickProgress3"
             android:id="@+id/progress3"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:theme="@style/AppTheme.PickProgress3"
             android:progress="@{pickViewModel.pickedRange3}"
             android:max="@{pickViewModel.pickMax}"
             app:layout_constraintLeft_toRightOf="@id/text_range3"
@@ -185,10 +188,11 @@
             app:layout_constraintTop_toBottomOf="@id/text_range3"/>
 
         <ProgressBar
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            style="@style/AppTheme.PickProgress4"
             android:id="@+id/progress4"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:theme="@style/AppTheme.PickProgress4"
             android:progress="@{pickViewModel.pickedRange4}"
             android:max="@{pickViewModel.pickMax}"
             app:layout_constraintLeft_toRightOf="@id/text_range4"
@@ -222,10 +226,11 @@
             app:layout_constraintTop_toBottomOf="@id/text_range4"/>
 
         <ProgressBar
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            style="@style/AppTheme.PickProgress5"
             android:id="@+id/progress5"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:theme="@style/AppTheme.PickProgress5"
             android:progress="@{pickViewModel.pickedRange5}"
             android:max="@{pickViewModel.pickMax}"
             app:layout_constraintLeft_toRightOf="@id/text_range5"
