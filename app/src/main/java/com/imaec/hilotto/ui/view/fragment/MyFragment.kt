@@ -62,11 +62,8 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
                     return@setOnNumberClickListener
                 }
                 sharedViewModel.listResult.value?.let {
-                    val listLotto = ArrayList<LottoDTO>().apply {
-                        addAll(it)
-                    }
                     startActivity(Intent(context, WinHistoryActivity::class.java).apply {
-                        putExtra(EXTRA_LIST_LOTTO, listLotto)
+                        putExtra(EXTRA_LIST_LOTTO, it as ArrayList<LottoDTO>)
                         putExtra(EXTRA_MY_NUMBER, entity)
                     })
                 }

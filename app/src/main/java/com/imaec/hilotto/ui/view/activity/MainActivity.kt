@@ -85,8 +85,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
 
     fun onClick(view: View) {
         Log.d(TAG, "    ## onClick($view)")
-        if (activeFragment is RecommendFragment) {
-            fragmentRecommend.onClick(view)
+        when (activeFragment) {
+            is HomeFragment -> {
+                fragmentHome.onClick(view)
+            }
+            is RecommendFragment -> {
+                fragmentRecommend.onClick(view)
+            }
+            else -> {
+                
+            }
         }
     }
 

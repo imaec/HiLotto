@@ -1,15 +1,21 @@
 package com.imaec.hilotto.ui.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.imaec.hilotto.EXTRA_LIST_LOTTO
+import com.imaec.hilotto.EXTRA_MY_NUMBER
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentHomeBinding
+import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.repository.FirebaseRepository
 import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.ui.util.LatelyResultDecoration
+import com.imaec.hilotto.ui.view.activity.LatelyResultActivity
+import com.imaec.hilotto.ui.view.activity.WinHistoryActivity
 import com.imaec.hilotto.viewmodel.HomeViewModel
 import com.imaec.hilotto.viewmodel.LottoViewModel
 
@@ -38,5 +44,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         sharedViewModel.listResult.observe(activity!!, Observer {
             homeViewModel.setListLatelyResult(it)
         })
+    }
+
+    fun onClick(view: View) {
+        when (view.id) {
+            R.id.text_lately_result_more -> {
+                sharedViewModel.listResult.value?.let {
+                    startActivity(Intent(context, LatelyResultActivity::class.java).apply {
+                        putExtra(EXTRA_LIST_LOTTO, it as ArrayList<LottoDTO>)
+                    })
+                }
+            }
+        }
     }
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="latelyResultViewModel"
+            type="com.imaec.hilotto.viewmodel.LatelyResultViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_title"
+            style="@style/AppTheme.Toolbar"
+            android:text="@string/current_result"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_pick"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/ic_launcher"
+            android:onClick="onClick"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_title"
+            app:layout_constraintBottom_toBottomOf="@id/text_title"/>
+
+       <androidx.viewpager2.widget.ViewPager2
+           android:id="@+id/vp_lately_result"
+           android:layout_width="0dp"
+           android:layout_height="0dp"
+           android:orientation="horizontal"
+           android:layoutDirection="rtl"
+           app:adapter="@{latelyResultViewModel.adapter}"
+           app:items="@{latelyResultViewModel.listLatelyResult}"
+           app:layout_constraintLeft_toLeftOf="parent"
+           app:layout_constraintRight_toRightOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/text_title"
+           app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

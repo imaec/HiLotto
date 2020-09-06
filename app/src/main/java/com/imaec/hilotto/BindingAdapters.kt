@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.imaec.hilotto.base.BaseAdapter
 import com.imaec.hilotto.model.FitNumberDTO
 import com.imaec.hilotto.ui.adapter.MyNumberAdapter
@@ -195,6 +196,22 @@ object BindingAdapters {
                 setFitNumbers(fitNumbers)
                 notifyDataSetChanged()
             }
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("adapter")
+    fun setAdapter(viewPager2: ViewPager2, adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
+        viewPager2.adapter = adapter
+    }
+
+    @JvmStatic
+    @BindingAdapter("items")
+    fun setItems(viewPager2: ViewPager2, items: List<Any>) {
+        (viewPager2.adapter as BaseAdapter).apply {
+            clearItem()
+            addItems(items)
+            notifyDataSetChanged()
         }
     }
 
