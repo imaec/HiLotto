@@ -2,10 +2,9 @@ package com.imaec.hilotto.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.imaec.hilotto.repository.FireStoreRepository
+import com.imaec.hilotto.repository.FirebaseRepository
 import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.repository.NumberRepository
-import com.imaec.hilotto.ui.view.fragment.SumFragment
 import com.imaec.hilotto.viewmodel.*
 
 class BaseViewModelFactory(private vararg val repository: Any) : ViewModelProvider.Factory {
@@ -18,7 +17,7 @@ class BaseViewModelFactory(private vararg val repository: Any) : ViewModelProvid
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {
-            modelClass.isAssignableFrom(LottoViewModel::class.java) -> LottoViewModel(repository[0] as LottoRepository, repository[1] as FireStoreRepository) as T
+            modelClass.isAssignableFrom(LottoViewModel::class.java) -> LottoViewModel(repository[0] as LottoRepository, repository[1] as FirebaseRepository) as T
             modelClass.isAssignableFrom(MainViewModel::class.java) -> MainViewModel() as T
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel() as T
             modelClass.isAssignableFrom(StatisticsViewModel::class.java) -> StatisticsViewModel() as T

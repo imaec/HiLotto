@@ -2,7 +2,6 @@ package com.imaec.hilotto.ui.view.fragment
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.lifecycle.Observer
@@ -12,7 +11,7 @@ import com.imaec.hilotto.Lotto
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentRecommendBinding
-import com.imaec.hilotto.repository.FireStoreRepository
+import com.imaec.hilotto.repository.FirebaseRepository
 import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.repository.NumberRepository
 import com.imaec.hilotto.room.AppDatabase
@@ -34,7 +33,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     private lateinit var numberRepository: NumberRepository
 
     private val lottoRepository = LottoRepository()
-    private val firestoreRepository = FireStoreRepository()
+    private val firebaseRepository = FirebaseRepository()
 
     private var pickedNumber = 1
     private var pickerFlag = 0 // 0 : 포함 수, 1 : 미포함 수
@@ -45,7 +44,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
         init()
 
         recommendViewModel = getViewModel(RecommendViewModel::class.java, numberRepository)
-        sharedViewModel = getViewModel(LottoViewModel::class.java, activity!!, lottoRepository, firestoreRepository)
+        sharedViewModel = getViewModel(LottoViewModel::class.java, activity!!, lottoRepository, firebaseRepository)
 
         binding.apply {
             lifecycleOwner = this@RecommendFragment

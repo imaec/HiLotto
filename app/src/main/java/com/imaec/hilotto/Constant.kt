@@ -1,5 +1,8 @@
 package com.imaec.hilotto
 
+// Lotto Parsing Url
+const val URL_LOTTO = "https://www.dhlottery.co.kr/common.do?method=main&mainMode=default"
+
 // Intent Extra Key
 const val EXTRA_NUMBER_ID = "extra_number_id"
 const val EXTRA_NUMBER_1 = "extra_number_1"

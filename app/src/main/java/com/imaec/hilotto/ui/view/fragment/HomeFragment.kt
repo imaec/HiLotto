@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentHomeBinding
-import com.imaec.hilotto.repository.FireStoreRepository
+import com.imaec.hilotto.repository.FirebaseRepository
 import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.ui.util.LatelyResultDecoration
 import com.imaec.hilotto.viewmodel.HomeViewModel
@@ -19,13 +19,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private lateinit var sharedViewModel: LottoViewModel
 
     private val lottoRepository = LottoRepository()
-    private val firestoreRepository = FireStoreRepository()
+    private val firebaseRepository = FirebaseRepository()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeViewModel = getViewModel(HomeViewModel::class.java, lottoRepository, firestoreRepository)
-        sharedViewModel = getViewModel(LottoViewModel::class.java, activity!!, lottoRepository, firestoreRepository)
+        homeViewModel = getViewModel(HomeViewModel::class.java, lottoRepository, firebaseRepository)
+        sharedViewModel = getViewModel(LottoViewModel::class.java, activity!!, lottoRepository, firebaseRepository)
 
         binding.apply {
             lifecycleOwner = this@HomeFragment

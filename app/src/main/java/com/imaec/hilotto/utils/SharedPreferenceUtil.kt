@@ -5,6 +5,7 @@ import android.content.Context
 class SharedPreferenceUtil {
 
     enum class KEY {
+        PREF_CUR_DRW_NO,
         PREF_RECOMMEND_CONDITION_SUM,
         PREF_RECOMMEND_CONDITION_PICK,
         PREF_RECOMMEND_CONDITION_ODD_EVEN,

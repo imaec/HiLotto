@@ -6,16 +6,18 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
 import com.imaec.hilotto.databinding.ActivityMainBinding
-import com.imaec.hilotto.repository.FireStoreRepository
+import com.imaec.hilotto.repository.FirebaseRepository
 import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.ui.view.fragment.HomeFragment
 import com.imaec.hilotto.ui.view.fragment.MyFragment
 import com.imaec.hilotto.ui.view.fragment.RecommendFragment
 import com.imaec.hilotto.ui.view.fragment.StatisticsFragment
+import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.viewmodel.LottoViewModel
 import com.imaec.hilotto.viewmodel.MainViewModel
 
@@ -26,7 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
     private lateinit var activeFragment: Fragment
 
     private val lottoRepository = LottoRepository()
-    private val firestoreRepository = FireStoreRepository()
+    private val firebaseRepository = FirebaseRepository()
     private val fragmentHome = HomeFragment()
     private val fragmentStatistics = StatisticsFragment()
     private val fragmentRecommend = RecommendFragment()
@@ -36,7 +38,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
         super.onCreate(savedInstanceState)
 
         mainViewModel = getViewModel(MainViewModel::class.java)
-        sharedViewModel = getViewModel(LottoViewModel::class.java, lottoRepository, firestoreRepository)
+        sharedViewModel = getViewModel(LottoViewModel::class.java, lottoRepository, firebaseRepository)
 
         binding.apply {
             lifecycleOwner = this@MainActivity
@@ -45,13 +47,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
         }
 
         showProgress()
-        sharedViewModel.getLotto { isSuccess ->
-            hideProgress()
-            if (isSuccess) {
-                init()
-            } else {
-                Toast.makeText(this, R.string.msg_data_fail, Toast.LENGTH_SHORT).show()
+        val curDrwNo = SharedPreferenceUtil.getInt(this, SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO, 1)
+        sharedViewModel.apply {
+            getLotto(curDrwNo) { isSuccess ->
+                hideProgress()
+                if (isSuccess) {
+                    init()
+                } else {
+                    Toast.makeText(this@MainActivity, R.string.msg_data_fail, Toast.LENGTH_SHORT).show()
+                }
             }
+            this.curDrwNo.observe(this@MainActivity, Observer {
+                SharedPreferenceUtil.putValue(this@MainActivity, SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO, it)
+            })
         }
     }
 

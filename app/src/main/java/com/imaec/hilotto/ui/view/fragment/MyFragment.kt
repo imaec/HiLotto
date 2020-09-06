@@ -3,7 +3,6 @@ package com.imaec.hilotto.ui.view.fragment
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -12,7 +11,7 @@ import com.imaec.hilotto.*
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentMyBinding
 import com.imaec.hilotto.model.LottoDTO
-import com.imaec.hilotto.repository.FireStoreRepository
+import com.imaec.hilotto.repository.FirebaseRepository
 import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.repository.NumberRepository
 import com.imaec.hilotto.room.AppDatabase
@@ -34,7 +33,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
     private lateinit var numberRepository: NumberRepository
 
     private val lottoRepository = LottoRepository()
-    private val firestoreRepository = FireStoreRepository()
+    private val firebaseRepository = FirebaseRepository()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,7 +41,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
         init()
 
         myViewModel = getViewModel(MyViewModel::class.java, numberRepository)
-        sharedViewModel = getViewModel(LottoViewModel::class.java, activity!!, lottoRepository, firestoreRepository)
+        sharedViewModel = getViewModel(LottoViewModel::class.java, activity!!, lottoRepository, firebaseRepository)
 
         binding.apply {
             lifecycleOwner = this@MyFragment
