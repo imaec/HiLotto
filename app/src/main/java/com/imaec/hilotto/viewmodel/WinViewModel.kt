@@ -71,7 +71,7 @@ class WinViewModel : BaseViewModel() {
 
     fun setWinInfo(listResult: List<LottoDTO>) {
         val listTemp = ArrayList<LottoDTO>()
-        listResult.subList(listResult.size - 20, listResult.size).reversed().forEach {
+        listResult.subList(0, 20).forEach {
             listTemp.add(it)
         }
 

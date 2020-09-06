@@ -124,7 +124,7 @@ class PickViewModel : BaseViewModel() {
 
     fun setPickedNum(listResult: List<LottoDTO>, isInclude: Boolean = false) {
         initRange()
-        listResult.subList(listResult.size - 20, listResult.size).reversed().forEach {
+        listResult.subList(0, 20).forEach {
             setRange(it.drwtNo1)
             setRange(it.drwtNo2)
             setRange(it.drwtNo3)
@@ -138,7 +138,7 @@ class PickViewModel : BaseViewModel() {
 
     fun setNoPickNum(listResult: List<LottoDTO>, isInclude: Boolean = false) {
         initNoPickNum()
-        listResult.subList(listResult.size - 20, listResult.size).reversed().forEach {
+        listResult.subList(0, 20).forEach {
             listNoPick.remove(it.drwtNo1)
             listNoPick.remove(it.drwtNo2)
             listNoPick.remove(it.drwtNo3)

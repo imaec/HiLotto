@@ -16,6 +16,6 @@ class HomeViewModel : BaseViewModel() {
     val listLatelyResult: LiveData<List<LottoDTO>> get() = _listLatelyResult
 
     fun setListLatelyResult(listResult: List<LottoDTO>) {
-        _listLatelyResult.value = listResult.subList(listResult.size-11, listResult.size-1).reversed()
+        _listLatelyResult.value = listResult.subList(1, 10)
     }
 }

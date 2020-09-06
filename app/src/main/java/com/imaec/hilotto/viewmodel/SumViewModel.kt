@@ -37,7 +37,7 @@ class SumViewModel : BaseViewModel() {
 
     fun setListSum(listResult: List<LottoDTO>, isInclude: Boolean = false) {
         val listTemp = ArrayList<SumDTO>()
-        listResult.subList(listResult.size - 20, listResult.size).reversed().forEach {
+        listResult.subList(0, 20).forEach {
             if (isInclude) listTemp.add(SumDTO("${it.drwNo}회", it.drwtNo1 + it.drwtNo2 + it.drwtNo3 + it.drwtNo4 + it.drwtNo5 + it.drwtNo6 + it.bnusNo))
             else listTemp.add(SumDTO("${it.drwNo}회", it.drwtNo1 + it.drwtNo2 + it.drwtNo3 + it.drwtNo4 + it.drwtNo5 + it.drwtNo6))
         }

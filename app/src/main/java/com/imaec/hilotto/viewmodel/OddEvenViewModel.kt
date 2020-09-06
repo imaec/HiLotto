@@ -40,7 +40,7 @@ class OddEvenViewModel : BaseViewModel() {
 
     fun setOddEven(listResult: List<LottoDTO>) {
         val listTemp = ArrayList<OddEvenDTO>()
-        listResult.subList(listResult.size - 20, listResult.size).reversed().forEach {
+        listResult.subList(0, 20).forEach {
             val listOdd = getOdd(it.drwtNo1, it.drwtNo2, it.drwtNo3, it.drwtNo4, it.drwtNo5, it.drwtNo6)
             val listEven = getEven(it.drwtNo1, it.drwtNo2, it.drwtNo3, it.drwtNo4, it.drwtNo5, it.drwtNo6)
             val listOddEven = ArrayList<String>().apply {
