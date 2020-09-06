@@ -18,4 +18,8 @@ class HomeViewModel : BaseViewModel() {
     fun setListLatelyResult(listResult: List<LottoDTO>) {
         _listLatelyResult.value = listResult.subList(1, 10)
     }
+
+    fun setOnItemClickListener(onClick: (Any) -> Unit) {
+        adapter.addOnClickListener { onClick(it) }
+    }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.imaec.hilotto.EXTRA_LATELY_RESULT_POSITION
 import com.imaec.hilotto.EXTRA_LIST_LOTTO
 import com.imaec.hilotto.EXTRA_MY_NUMBER
 import com.imaec.hilotto.R
@@ -39,6 +40,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             homeViewModel = this@HomeFragment.homeViewModel
             recyclerLatelyResult.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             recyclerLatelyResult.addItemDecoration(LatelyResultDecoration(context!!))
+        }
+
+        homeViewModel.apply {
+            setOnItemClickListener { dto ->
+                sharedViewModel.listResult.value?.let {
+                    val position = it.indexOf(dto)
+                    startActivity(Intent(context, LatelyResultActivity::class.java).apply {
+                        putExtra(EXTRA_LIST_LOTTO, it as ArrayList<LottoDTO>)
+                        putExtra(EXTRA_LATELY_RESULT_POSITION, position)
+                    })
+                }
+            }
         }
 
         sharedViewModel.listResult.observe(activity!!, Observer {

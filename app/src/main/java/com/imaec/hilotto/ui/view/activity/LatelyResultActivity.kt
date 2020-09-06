@@ -3,6 +3,7 @@ package com.imaec.hilotto.ui.view.activity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
+import com.imaec.hilotto.EXTRA_LATELY_RESULT_POSITION
 import com.imaec.hilotto.EXTRA_LIST_LOTTO
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
@@ -28,7 +29,7 @@ class LatelyResultActivity : BaseActivity<ActivityLatelyResultBinding>(R.layout.
         latelyResultViewModel.apply {
             setListLatelyResult(intent.getSerializableExtra(EXTRA_LIST_LOTTO) as ArrayList<LottoDTO>)
             listLatelyResult.observe(this@LatelyResultActivity, Observer {
-                Log.d(TAG, "    ## size : ${it.size}")
+                binding.vpLatelyResult.currentItem = intent.getIntExtra(EXTRA_LATELY_RESULT_POSITION, 0)
             })
         }
     }
