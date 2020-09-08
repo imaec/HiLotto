@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.imaec.hilotto.model.LottoDTO" />
+            type="com.imaec.hilotto.model.LatelyResultDTO" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,9 +37,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
+                    android:text="@{item.round}"
                     android:textColor="@color/darkGray"
                     android:textSize="20sp"
-                    app:textByInt="@{item.drwNo}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="2020-08-29"
+                    android:text="@{item.date}"
                     android:textColor="@color/darkGray"
                     android:textSize="12sp"
                     app:layout_constraintRight_toRightOf="parent"
@@ -58,8 +58,8 @@
                     style="@style/AppTheme.TextNumberAccent"
                     android:id="@+id/text_number_1"
                     android:layout_marginLeft="8dp"
-                    app:textByInt="@{item.drwtNo1}"
-                    app:backgroundNumberCircle="@{item.drwtNo1}"
+                    app:textByInt="@{item.no1}"
+                    app:backgroundNumberCircle="@{item.no1}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/text_number_2"
                     app:layout_constraintTop_toBottomOf="@id/text_title"
@@ -70,8 +70,8 @@
                     android:id="@+id/text_number_2"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
-                    app:textByInt="@{item.drwtNo2}"
-                    app:backgroundNumberCircle="@{item.drwtNo2}"
+                    app:textByInt="@{item.no2}"
+                    app:backgroundNumberCircle="@{item.no2}"
                     app:layout_constraintLeft_toRightOf="@id/text_number_1"
                     app:layout_constraintRight_toLeftOf="@id/text_number_3"
                     app:layout_constraintTop_toBottomOf="@id/text_title"
@@ -82,8 +82,8 @@
                     android:id="@+id/text_number_3"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
-                    app:textByInt="@{item.drwtNo3}"
-                    app:backgroundNumberCircle="@{item.drwtNo3}"
+                    app:textByInt="@{item.no3}"
+                    app:backgroundNumberCircle="@{item.no3}"
                     app:layout_constraintLeft_toRightOf="@id/text_number_2"
                     app:layout_constraintRight_toLeftOf="@id/text_number_4"
                     app:layout_constraintTop_toBottomOf="@id/text_title"
@@ -94,8 +94,8 @@
                     android:id="@+id/text_number_4"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
-                    app:textByInt="@{item.drwtNo4}"
-                    app:backgroundNumberCircle="@{item.drwtNo4}"
+                    app:textByInt="@{item.no4}"
+                    app:backgroundNumberCircle="@{item.no4}"
                     app:layout_constraintLeft_toRightOf="@id/text_number_3"
                     app:layout_constraintRight_toLeftOf="@id/text_number_5"
                     app:layout_constraintTop_toBottomOf="@id/text_title"
@@ -106,8 +106,8 @@
                     android:id="@+id/text_number_5"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
-                    app:textByInt="@{item.drwtNo5}"
-                    app:backgroundNumberCircle="@{item.drwtNo5}"
+                    app:textByInt="@{item.no5}"
+                    app:backgroundNumberCircle="@{item.no5}"
                     app:layout_constraintLeft_toRightOf="@id/text_number_4"
                     app:layout_constraintRight_toLeftOf="@id/text_number_6"
                     app:layout_constraintTop_toBottomOf="@id/text_title"
@@ -117,8 +117,8 @@
                     style="@style/AppTheme.TextNumberAccent"
                     android:id="@+id/text_number_6"
                     android:layout_marginRight="8dp"
-                    app:textByInt="@{item.drwtNo6}"
-                    app:backgroundNumberCircle="@{item.drwtNo6}"
+                    app:textByInt="@{item.no6}"
+                    app:backgroundNumberCircle="@{item.no6}"
                     app:layout_constraintLeft_toRightOf="@id/text_number_5"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_title"
@@ -144,8 +144,8 @@
                     android:layout_marginLeft="0dp"
                     android:layout_marginRight="0dp"
                     android:layout_marginTop="12dp"
-                    app:textByInt="@{item.bnusNo}"
-                    app:backgroundNumberCircle="@{item.bnusNo}"
+                    app:textByInt="@{item.noBonus}"
+                    app:backgroundNumberCircle="@{item.noBonus}"
                     app:layout_constraintLeft_toLeftOf="@id/text_number_6"
                     app:layout_constraintRight_toRightOf="@id/text_number_6"
                     app:layout_constraintTop_toBottomOf="@id/text_number_6"
@@ -192,9 +192,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
+                    android:text="@{item.prizeTotal}"
                     android:textSize="14sp"
                     android:textColor="@color/darkGray"
-                    app:decimalAndUnit="@{item.firstAccumamnt}"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/text_prize_total_title"/>
 
@@ -217,9 +217,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
+                    android:text="@{item.winCount}"
                     android:textSize="14sp"
                     android:textColor="@color/darkGray"
-                    app:textByInt="@{item.firstPrzwnerCo}"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/text_win_count_title"/>
 
@@ -242,9 +242,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
+                    android:text="@{item.prizeByOne}"
                     android:textSize="14sp"
                     android:textColor="@color/darkGray"
-                    app:decimalAndUnitPerOne="@{item.firstWinamnt}"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/text_prize_by_one_title"/>
 
@@ -291,9 +291,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="120"
                     android:textSize="14sp"
                     android:textColor="@color/darkGray"
+                    app:textByInt="@{item.noSum}"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/text_sum_title"/>
 
@@ -316,7 +316,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="연속번호 없음"
+                    android:text="@{item.noContinues}"
                     android:textSize="14sp"
                     android:textColor="@color/darkGray"
                     app:layout_constraintRight_toRightOf="parent"
@@ -341,7 +341,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="2 : 4"
+                    android:text="@{item.noOddEven}"
                     android:textSize="14sp"
                     android:textColor="@color/darkGray"
                     app:layout_constraintRight_toRightOf="parent"

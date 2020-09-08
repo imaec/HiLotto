@@ -19,4 +19,10 @@ class ExampleUnitTest {
         println(listTemp)
         assertEquals(4, 2 + 2)
     }
+
+    @Test
+    fun oddEvenTest() {
+        println("${Lotto.getOdd(10, 16, 18, 20, 25, 31)} : ${Lotto.getEven(10, 16, 18, 20, 25, 31)}")
+        assert(true)
+    }
 }
