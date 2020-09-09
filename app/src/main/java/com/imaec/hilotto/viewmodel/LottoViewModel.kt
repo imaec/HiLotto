@@ -4,8 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.URL_LOTTO
+import com.imaec.hilotto.URL_STORE
 import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.model.LottoDTO
+import com.imaec.hilotto.model.StoreDTO
 import com.imaec.hilotto.repository.FirebaseRepository
 import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.utils.DateUtil
@@ -53,6 +55,9 @@ class LottoViewModel(
 
     private val _price = MutableLiveData<Long>().set(0)
     val price: LiveData<Long> get() = _price
+
+    private val _listStore = MutableLiveData<List<StoreDTO>>().set(ArrayList())
+    val listStore: LiveData<List<StoreDTO>> get() = _listStore
 
     private fun setCurData(dto: LottoDTO) {
         dto.apply {
@@ -128,6 +133,14 @@ class LottoViewModel(
                 getLottoSiteData(it, curDrwNo) { isSuccess ->
                     callback(isSuccess)
                 }
+            }
+        }
+    }
+
+    fun getStore() {
+        viewModelScope.launch {
+            lottoRepository.getStore(URL_STORE) {
+                launch(Dispatchers.Main) { _listStore.value = it }
             }
         }
     }

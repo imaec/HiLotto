@@ -5,17 +5,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.imaec.hilotto.EXTRA_LATELY_RESULT_POSITION
-import com.imaec.hilotto.EXTRA_LIST_LOTTO
-import com.imaec.hilotto.EXTRA_MY_NUMBER
-import com.imaec.hilotto.R
+import com.imaec.hilotto.*
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentHomeBinding
 import com.imaec.hilotto.model.LottoDTO
+import com.imaec.hilotto.model.StoreDTO
 import com.imaec.hilotto.repository.FirebaseRepository
 import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.ui.util.LatelyResultDecoration
 import com.imaec.hilotto.ui.view.activity.LatelyResultActivity
+import com.imaec.hilotto.ui.view.activity.StoreActivity
 import com.imaec.hilotto.ui.view.activity.WinHistoryActivity
 import com.imaec.hilotto.viewmodel.HomeViewModel
 import com.imaec.hilotto.viewmodel.LottoViewModel
@@ -65,6 +64,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 sharedViewModel.listResult.value?.let {
                     startActivity(Intent(context, LatelyResultActivity::class.java).apply {
                         putExtra(EXTRA_LIST_LOTTO, it as ArrayList<LottoDTO>)
+                    })
+                }
+            }
+            R.id.text_store -> {
+                sharedViewModel.listStore.value?.let {
+                    startActivity(Intent(context, StoreActivity::class.java).apply {
+                        putExtra(EXTRA_LIST_STORE, it as ArrayList<StoreDTO>)
                     })
                 }
             }

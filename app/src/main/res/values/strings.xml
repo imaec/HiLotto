@@ -42,7 +42,7 @@
     <string name="win_count_empty">명</string>
     <string name="current_result">최근 회차 결과</string>
     <string name="more">더보기</string>
-    <string name="store">당첨 판매점</string>
+    <string name="store">1등 당첨 판매점</string>
     <string name="condition_sum">합계 적용</string>
     <string name="condition_pick">출현/미출현 적용</string>
     <string name="condition_continues">연속번호 적용</string>

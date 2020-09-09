@@ -57,6 +57,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
                     Toast.makeText(this@MainActivity, R.string.msg_data_fail, Toast.LENGTH_SHORT).show()
                 }
             }
+            getStore()
             this.curDrwNo.observe(this@MainActivity, Observer {
                 SharedPreferenceUtil.putValue(this@MainActivity, SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO, it)
             })

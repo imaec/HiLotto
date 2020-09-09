@@ -21,6 +21,9 @@
         <activity android:name=".ui.view.activity.LatelyResultActivity"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".ui.view.activity.StoreActivity"
+            android:screenOrientation="portrait"/>
+
         <activity android:name=".ui.view.activity.EditNumberActivity"
             android:screenOrientation="portrait"/>
 

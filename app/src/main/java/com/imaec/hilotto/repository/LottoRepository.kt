@@ -2,6 +2,7 @@ package com.imaec.hilotto.repository
 
 import android.util.Log
 import com.imaec.hilotto.model.LottoDTO
+import com.imaec.hilotto.model.StoreDTO
 import com.imaec.hilotto.retrofit.LottoService
 import com.imaec.hilotto.retrofit.RetrofitClient
 import kotlinx.coroutines.Dispatchers
@@ -13,6 +14,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LottoRepository {
+
+    private val TAG = this::class.java.simpleName
 
     suspend fun getCurDrwNo(strUrl: String, callback: (Int) -> Unit) {
         withContext(Dispatchers.IO) {
@@ -45,5 +48,27 @@ class LottoRepository {
                 onFailure()
             }
         })
+    }
+
+    suspend fun getStore(strUrl: String, callback: (List<StoreDTO>) -> Unit) {
+        withContext(Dispatchers.IO) {
+            val listStore = ArrayList<StoreDTO>()
+            try {
+                val doc = Jsoup.connect(strUrl).get()
+                val elements = doc.getElementsByClass("group_content")
+                val tbody = elements[0].getElementsByTag("tbody")[0]
+                val arrTr = tbody.getElementsByTag("tr")
+                arrTr.forEach {
+                    listStore.add(StoreDTO(
+                        it.getElementsByTag("td")[1].text(),
+                        it.getElementsByTag("td")[2].text(),
+                        it.getElementsByTag("td")[3].text()
+                    ))
+                }
+            } catch (e: Exception) {
+                Log.d(TAG, "    ## error : ${e.message}")
+            }
+            callback(listStore)
+        }
     }
 }
