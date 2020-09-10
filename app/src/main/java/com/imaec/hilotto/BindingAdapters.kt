@@ -165,7 +165,9 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("adapter")
     fun setAdapter(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
-        recyclerView.adapter = adapter
+        recyclerView.adapter = adapter.apply {
+            setHasStableIds(true)
+        }
     }
 
     @JvmStatic
