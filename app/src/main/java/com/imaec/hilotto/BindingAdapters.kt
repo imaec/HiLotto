@@ -74,7 +74,7 @@ object BindingAdapters {
             }
         }
         if (textView.text.toString().toInt() == fitNumberDTO.numberBonus) {
-            textView.setTextColor(textView.context.resources.getColor(R.color.gray))
+            textView.setTextColor(textView.context.resources.getColor(R.color.darkGray))
         }
     }
 
@@ -219,6 +219,12 @@ object BindingAdapters {
     @BindingAdapter("isVisible")
     fun isVisible(view: View, isVisible: Boolean) {
         view.visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
+
+    @JvmStatic
+    @BindingAdapter("backgroundDot")
+    fun setBackgroundDot(view: View, isBonus: Boolean) {
+        view.setBackgroundResource(if (isBonus) R.drawable.dot_red else R.drawable.dot_primary)
     }
 
     @JvmStatic

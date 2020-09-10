@@ -53,7 +53,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
         myViewModel.apply {
             listNumber.observe(activity!!, Observer {
                 sharedViewModel.listResult.value?.let {
-                    checkWin(it[it.size-1])
+                    checkWin(it[0])
                 }
             })
             setOnNumberClickListener { entity ->
