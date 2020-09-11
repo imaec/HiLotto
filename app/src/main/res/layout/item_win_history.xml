@@ -56,6 +56,21 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_round"/>
 
+        <View
+            android:id="@+id/view_dot_1"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/dot_primary"
+            android:visibility="gone"
+            app:isVisible="@{fitNumberDTO.fitNo1 || fitNumberDTO.listIsFitBonus[0]}"
+            app:backgroundDot="@{fitNumberDTO.listIsFitBonus[0]}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/text_number_2"
+            app:layout_constraintBottom_toTopOf="@id/text_number_1"/>
+
         <TextView
             style="@style/AppTheme.TextNumberAccent"
             android:id="@+id/text_number_1"
@@ -69,6 +84,21 @@
             app:layout_constraintTop_toBottomOf="@id/text_round"
             app:layout_constraintDimensionRatio="1"/>
 
+        <View
+            android:id="@+id/view_dot_2"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/dot_primary"
+            android:visibility="gone"
+            app:isVisible="@{fitNumberDTO.fitNo2 || fitNumberDTO.listIsFitBonus[1]}"
+            app:backgroundDot="@{fitNumberDTO.listIsFitBonus[1]}"
+            app:layout_constraintLeft_toRightOf="@id/text_number_1"
+            app:layout_constraintRight_toLeftOf="@id/text_number_3"
+            app:layout_constraintBottom_toTopOf="@id/text_number_2"/>
+
         <TextView
             style="@style/AppTheme.TextNumberAccent"
             android:id="@+id/text_number_2"
@@ -80,6 +110,21 @@
             app:layout_constraintRight_toLeftOf="@id/text_number_3"
             app:layout_constraintTop_toTopOf="@id/text_number_1"
             app:layout_constraintDimensionRatio="1"/>
+
+        <View
+            android:id="@+id/view_dot_3"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/dot_primary"
+            android:visibility="gone"
+            app:isVisible="@{fitNumberDTO.fitNo3 || fitNumberDTO.listIsFitBonus[2]}"
+            app:backgroundDot="@{fitNumberDTO.listIsFitBonus[2]}"
+            app:layout_constraintLeft_toRightOf="@id/text_number_2"
+            app:layout_constraintRight_toLeftOf="@id/text_number_4"
+            app:layout_constraintBottom_toTopOf="@id/text_number_3"/>
 
         <TextView
             style="@style/AppTheme.TextNumberAccent"
@@ -93,6 +138,21 @@
             app:layout_constraintTop_toTopOf="@id/text_number_1"
             app:layout_constraintDimensionRatio="1"/>
 
+        <View
+            android:id="@+id/view_dot_4"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/dot_primary"
+            android:visibility="gone"
+            app:isVisible="@{fitNumberDTO.fitNo4 || fitNumberDTO.listIsFitBonus[3]}"
+            app:backgroundDot="@{fitNumberDTO.listIsFitBonus[3]}"
+            app:layout_constraintLeft_toRightOf="@id/text_number_3"
+            app:layout_constraintRight_toLeftOf="@id/text_number_5"
+            app:layout_constraintBottom_toTopOf="@id/text_number_4"/>
+
         <TextView
             style="@style/AppTheme.TextNumberAccent"
             android:id="@+id/text_number_4"
@@ -105,6 +165,21 @@
             app:layout_constraintTop_toTopOf="@id/text_number_1"
             app:layout_constraintDimensionRatio="1"/>
 
+        <View
+            android:id="@+id/view_dot_5"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/dot_primary"
+            android:visibility="gone"
+            app:isVisible="@{fitNumberDTO.fitNo5 || fitNumberDTO.listIsFitBonus[4]}"
+            app:backgroundDot="@{fitNumberDTO.listIsFitBonus[4]}"
+            app:layout_constraintLeft_toRightOf="@id/text_number_4"
+            app:layout_constraintRight_toLeftOf="@id/text_number_6"
+            app:layout_constraintBottom_toTopOf="@id/text_number_5"/>
+
         <TextView
             style="@style/AppTheme.TextNumberAccent"
             android:id="@+id/text_number_5"
@@ -116,6 +191,21 @@
             app:layout_constraintRight_toLeftOf="@id/text_number_6"
             app:layout_constraintTop_toTopOf="@id/text_number_1"
             app:layout_constraintDimensionRatio="1"/>
+
+        <View
+            android:id="@+id/view_dot_6"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/dot_primary"
+            android:visibility="gone"
+            app:isVisible="@{fitNumberDTO.fitNo6 || fitNumberDTO.listIsFitBonus[5]}"
+            app:backgroundDot="@{fitNumberDTO.listIsFitBonus[5]}"
+            app:layout_constraintLeft_toRightOf="@id/text_number_5"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/text_number_6"/>
 
         <TextView
             style="@style/AppTheme.TextNumberAccent"

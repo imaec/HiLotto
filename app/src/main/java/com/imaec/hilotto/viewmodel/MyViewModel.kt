@@ -16,14 +16,13 @@ class MyViewModel(
 ) : BaseViewModel() {
 
     init {
-        adapter = MyNumberAdapter()
+        adapter = MyNumberAdapter().apply {
+            setHasStableIds(true)
+        }
     }
 
     private val _listNumber = MutableLiveData<List<NumberEntity>>().set(emptyList())
     val listNumber: LiveData<List<NumberEntity>> get() = _listNumber
-
-//    private val _listFitNumber = MutableLiveData<List<List<Int>>>().set(emptyList())
-//    val listFitNumber: LiveData<List<List<Int>>> get() = _listFitNumber
 
     private val _listFitNumbers = MutableLiveData<List<FitNumberDTO>>().set(emptyList())
     val listFitNumbers: LiveData<List<FitNumberDTO>> get() = _listFitNumbers
@@ -67,7 +66,6 @@ class MyViewModel(
                     else -> 0
                 }
             }
-            Log.d(TAG, "    ## size : ${listTemp.size}")
             listFitTemp.add(fitNumberDTO)
         }
         _listFitNumbers.value = listFitTemp

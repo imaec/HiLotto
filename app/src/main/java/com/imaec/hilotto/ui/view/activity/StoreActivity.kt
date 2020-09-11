@@ -2,6 +2,7 @@ package com.imaec.hilotto.ui.view.activity
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.imaec.hilotto.EXTRA_CURRENT_ROUND
 import com.imaec.hilotto.EXTRA_LIST_STORE
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
@@ -29,6 +30,7 @@ class StoreActivity : BaseActivity<ActivityStoreBinding>(R.layout.activity_store
 
         storeViewModel.apply {
             setListStore(intent.getSerializableExtra(EXTRA_LIST_STORE) as ArrayList<StoreDTO>)
+            setRound(intent.getIntExtra(EXTRA_CURRENT_ROUND, 0))
         }
     }
 }

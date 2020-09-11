@@ -12,10 +12,17 @@ class StoreViewModel : BaseViewModel() {
         adapter = StoreAdapter()
     }
 
-    private val _listStore = MutableLiveData<List<StoreDTO>>().set(ArrayList())
+    private val _listStore = MutableLiveData<List<StoreDTO>>(ArrayList())
     val listStore: LiveData<List<StoreDTO>> get() = _listStore
+
+    private val _round = MutableLiveData<String>("0회")
+    val round: LiveData<String> get() = _round
 
     fun setListStore(listStore: List<StoreDTO>) {
         _listStore.value = listStore
+    }
+
+    fun setRound(round: Int) {
+        _round.value = "${round}회"
     }
 }

@@ -70,6 +70,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             R.id.text_store -> {
                 sharedViewModel.listStore.value?.let {
                     startActivity(Intent(context, StoreActivity::class.java).apply {
+                        putExtra(EXTRA_CURRENT_ROUND, sharedViewModel.curDrwNo.value ?: 0)
                         putExtra(EXTRA_LIST_STORE, it as ArrayList<StoreDTO>)
                     })
                 }
