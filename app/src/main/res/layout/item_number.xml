@@ -6,6 +6,10 @@
         <variable
             name="item"
             type="String" />
+
+        <variable
+            name="listContinues"
+            type="java.util.List&lt;String>" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -28,6 +32,7 @@
             android:textSize="12sp"
             android:textStyle="bold"
             app:backgroundNumberCircle="@{item}"
+            app:backgroundContinues="@{listContinues}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintLeft_toLeftOf="parent"

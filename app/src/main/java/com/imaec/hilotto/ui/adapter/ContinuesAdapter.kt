@@ -27,8 +27,17 @@ class ContinuesAdapter : BaseAdapter() {
     inner class ItemViewHolder(val binding: ItemContinuesBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(item: ContinueDTO) {
+            val listTemp = ArrayList<String>()
+            item.continueNum.forEach {
+                it.forEach { number ->
+                    listTemp.add("$number")
+                }
+            }
+
             binding.apply {
-                recyclerItemNum.adapter = NumberAdapter()
+                recyclerItemNum.adapter = NumberAdapter().apply {
+                    setListContinues(listTemp)
+                }
                 recyclerItemNum.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
                 recyclerItemNum.removeItemDecoration(itemDecoration)
                 recyclerItemNum.addItemDecoration(itemDecoration)

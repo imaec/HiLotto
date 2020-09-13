@@ -93,6 +93,34 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("backgroundContinues")
+    fun setBackgroundContinues(textView: TextView, listContinues: List<String>) {
+        try {
+            val number = textView.text.toString().toInt()
+
+            if (listContinues.contains("$number")) {
+                textView.setBackgroundResource(0)
+                textView.setTextColor(textView.context.resources.getColor(R.color.darkGray))
+            } else {
+                textView.setBackgroundResource(
+                    when (number) {
+                        in 1..10 -> R.drawable.bg_circle_1
+                        in 11..20 -> R.drawable.bg_circle_2
+                        in 21..30 -> R.drawable.bg_circle_3
+                        in 31..40 -> R.drawable.bg_circle_4
+                        in 41..45 -> R.drawable.bg_circle_5
+                        else -> R.drawable.bg_circle_1
+                    }
+                )
+                textView.setTextColor(textView.context.resources.getColor(R.color.white))
+            }
+        } catch (e: Exception) {
+            textView.setBackgroundResource(0)
+            textView.setTextColor(textView.context.resources.getColor(R.color.darkGray))
+        }
+    }
+
+    @JvmStatic
     @BindingAdapter("backgroundNumberCircle")
     fun setBackgroundNumberCircle(textView: TextView, value: String) {
         try {
