@@ -21,14 +21,14 @@ object Lotto {
         return getSumAvg(list) + maxRange
     }
 
-    private fun getWeight(list: List<LottoDTO>, condPick: Boolean): HashMap<Int, Int> {
+    private fun getWeight(list: List<LottoDTO>): HashMap<Int, Int> {
         val w = HashMap<Int, Int>()
-        if (!condPick) {
-            (0..5).forEach {
-                w[it] = 1
-            }
-            return w
-        }
+//        if (!condPick) {
+//            (0..5).forEach {
+//                w[it] = 1
+//            }
+//            return w
+//        }
         val countSum = ArrayList<Int>().apply {
             (0..44).forEach { _ ->
                 add(0)
@@ -61,8 +61,8 @@ object Lotto {
         return w
     }
 
-    private fun getWeightedRandom(list: List<LottoDTO>, condPick: Boolean): Int {
-        val map = getWeight(list, condPick)
+    private fun getWeightedRandom(list: List<LottoDTO>): Int {
+        val map = getWeight(list)
         val listNumber = Array(45) { 0 }
         val listWeight = Array(45) { 0 }
         for (key in map.keys) {
@@ -97,12 +97,16 @@ object Lotto {
         return selection
     }
 
+    private fun getRandom(): Int {
+        return Random().nextInt(45) + 1
+    }
+
     private fun getRanNumbers(list: List<LottoDTO>, condPick: Boolean): ArrayList<Int> {
         val result = arrayListOf<Int>()
         var isContinue = true
         while (isContinue) {
             var isExist = false
-            val number = getWeightedRandom(list, condPick)
+            val number = if (condPick) getWeightedRandom(list) else getRandom()
 
             result.forEach {
                 if (it == number) {

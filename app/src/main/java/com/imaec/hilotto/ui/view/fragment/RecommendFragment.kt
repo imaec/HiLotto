@@ -4,9 +4,11 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.imaec.hilotto.Lotto
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
@@ -96,20 +98,20 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             R.id.switch_condition1 -> {
                 SharedPreferenceUtil.putValue(context!!, SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_SUM, b)
                 setCheck(b && binding.switchCondition2.isChecked
-                        && binding.switchCondition3.isChecked, b, cp as Switch)
+                        && binding.switchCondition3.isChecked, b, cp as SwitchMaterial)
             }
             R.id.switch_condition2 -> {
                 SharedPreferenceUtil.putValue(context!!, SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_PICK, b)
                 setCheck(b && binding.switchCondition1.isChecked
-                        && binding.switchCondition3.isChecked, b, cp as Switch)
+                        && binding.switchCondition3.isChecked, b, cp as SwitchMaterial)
             }
             R.id.switch_condition3 -> {
                 SharedPreferenceUtil.putValue(context!!, SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_ODD_EVEN, b)
                 setCheck(b && binding.switchCondition1.isChecked
-                        && binding.switchCondition2.isChecked, b, cp as Switch)
+                        && binding.switchCondition2.isChecked, b, cp as SwitchMaterial)
             }
             R.id.switch_condition_all -> {
-                setCheck(true, b, cp as Switch)
+                setCheck(true, b, cp as SwitchMaterial)
             }
         }
     }
@@ -219,7 +221,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
         numberRepository = NumberRepository(numberDao)
     }
 
-    private fun setCheck(all: Boolean, isChecked: Boolean, switch: Switch) {
+    private fun setCheck(all: Boolean, isChecked: Boolean, switch: SwitchMaterial) {
         SharedPreferenceUtil.putValue(context!!, SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_ALL, all)
         if (all) {
             if (switch.id == R.id.switch_condition_all) {
@@ -256,7 +258,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             if (field.name == "mSelectionDivider") {
                 field.isAccessible = true
                 try {
-                    val colorDrawable = ColorDrawable(resources.getColor(R.color.colorPrimary))
+                    val colorDrawable = ColorDrawable(ContextCompat.getColor(context!!, R.color.colorPrimary))
                     field.set(binding.picker, colorDrawable)
                 } catch (e: Exception) {
                     e.printStackTrace()
