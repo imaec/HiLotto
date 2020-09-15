@@ -93,6 +93,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
             is RecommendFragment -> {
                 fragmentRecommend.onClick(view)
             }
+            is MyFragment -> {
+                fragmentMy.onClick(view)
+            }
             else -> {
                 
             }

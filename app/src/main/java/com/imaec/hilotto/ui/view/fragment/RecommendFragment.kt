@@ -213,6 +213,9 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                     }
                 }
             }
+            R.id.image_setting -> {
+
+            }
         }
     }
 

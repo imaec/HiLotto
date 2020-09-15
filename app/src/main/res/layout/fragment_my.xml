@@ -21,6 +21,17 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/image_setting"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_setting"
+            android:onClick="onClick"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_title"
+            app:layout_constraintBottom_toBottomOf="@id/text_title"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_my_numbers"
             android:layout_width="match_parent"

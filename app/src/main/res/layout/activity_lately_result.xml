@@ -26,7 +26,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginRight="8dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_search"
             android:onClick="onClick"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_title"

@@ -121,6 +121,14 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
         }
     }
 
+    fun onClick(view: View) {
+        when (view.id) {
+            R.id.image_setting -> {
+
+            }
+        }
+    }
+
     private fun init() {
         numberDao = AppDatabase.getInstance(context!!).numberDao()
         numberRepository = NumberRepository(numberDao)
