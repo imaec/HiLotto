@@ -207,8 +207,10 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                             number5 = it[4].toInt(),
                             number6 = it[5].toInt())
                         ) { isSuccess ->
-                            if (isSuccess) Toast.makeText(context, R.string.msg_success_save_number, Toast.LENGTH_SHORT).show()
-                            else Toast.makeText(context, R.string.msg_numbers_is_exist, Toast.LENGTH_SHORT).show()
+                            showAd(R.string.ad_id_recommend_front, true) {
+                                if (isSuccess) Toast.makeText(context, R.string.msg_success_save_number, Toast.LENGTH_SHORT).show()
+                                else Toast.makeText(context, R.string.msg_numbers_is_exist, Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }

@@ -1,6 +1,8 @@
 package com.imaec.hilotto.ui.view.activity
 
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -30,9 +32,13 @@ class LatelyResultActivity : BaseActivity<ActivityLatelyResultBinding>(R.layout.
         }
 
         latelyResultViewModel.apply {
-            setListLatelyResult(intent.getSerializableExtra(EXTRA_LIST_LOTTO) as ArrayList<LottoDTO>)
+            showAd(R.string.ad_id_lately_front, true) {
+                setListLatelyResult(intent.getSerializableExtra(EXTRA_LIST_LOTTO) as ArrayList<LottoDTO>)
+            }
             listLatelyResult.observe(this@LatelyResultActivity, Observer {
-                binding.vpLatelyResult.currentItem = intent.getIntExtra(EXTRA_LATELY_RESULT_POSITION, 0)
+                Handler().postDelayed({
+                    binding.vpLatelyResult.currentItem = intent.getIntExtra(EXTRA_LATELY_RESULT_POSITION, 0)
+                }, 100)
             })
         }
     }

@@ -34,9 +34,11 @@ class WinHistoryActivity : BaseActivity<ActivityWinHistoryBinding>(R.layout.acti
         }
 
         winHistoryViewModel.apply {
-            setListLotto(intent.getSerializableExtra(EXTRA_LIST_LOTTO) as ArrayList<LottoDTO>)
-            setMyNumber(intent.getSerializableExtra(EXTRA_MY_NUMBER) as NumberEntity)
-            checkWin()
+            showAd(R.string.ad_id_history_front, true) {
+                setListLotto(intent.getSerializableExtra(EXTRA_LIST_LOTTO) as ArrayList<LottoDTO>)
+                setMyNumber(intent.getSerializableExtra(EXTRA_MY_NUMBER) as NumberEntity)
+                checkWin()
+            }
         }
     }
 

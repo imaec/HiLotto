@@ -19,9 +19,24 @@ android {
     }
     buildTypes {
         debug {
-
+            resValue "string", "admob_app_id", "ca-app-pub-3940256099942544~3347511713"
+            resValue "string", "ad_id_main_front", "ca-app-pub-3940256099942544/1033173712"
+            resValue "string", "ad_id_recommend_front", "ca-app-pub-3940256099942544/1033173712"
+            resValue "string", "ad_id_lately_front", "ca-app-pub-3940256099942544/1033173712"
+            resValue "string", "ad_id_history_front", "ca-app-pub-3940256099942544/1033173712"
+            resValue "string", "ad_id_home_banner", "ca-app-pub-3940256099942544/6300978111"
+            resValue "string", "ad_id_my_banner", "ca-app-pub-3940256099942544/6300978111"
+            resValue "string", "ad_id_lately_banner", "ca-app-pub-3940256099942544/6300978111"
         }
         release {
+            resValue "string", "admob_app_id", "ca-app-pub-7147836151485354~9585074380"
+            resValue "string", "ad_id_main_front", "ca-app-pub-7147836151485354/4133243636"
+            resValue "string", "ad_id_recommend_front", "ca-app-pub-7147836151485354/5035261765"
+            resValue "string", "ad_id_lately_front", "ca-app-pub-7147836151485354/3774344500"
+            resValue "string", "ad_id_history_front", "ca-app-pub-7147836151485354/2078119459"
+            resValue "string", "ad_id_home_banner", "ca-app-pub-7147836151485354/6923058507"
+            resValue "string", "ad_id_my_banner", "ca-app-pub-7147836151485354/3530608409"
+            resValue "string", "ad_id_lately_banner", "ca-app-pub-7147836151485354/8835099498"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -69,6 +84,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
     implementation 'org.conscrypt:conscrypt-android:2.2.1'
+    // Admob
+    implementation 'com.google.android.gms:play-services-ads:19.4.0'
     // Firebase Cloud FireStore, Database
     implementation 'com.google.firebase:firebase-database:19.4.0'
 }

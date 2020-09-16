@@ -1,6 +1,7 @@
 package com.imaec.hilotto.base
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.ViewModelStoreOwner
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
 import com.imaec.hilotto.ui.view.dialog.ProgressDialog
+import java.util.*
 
 
 abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutResId: Int) : Fragment() {
@@ -20,6 +26,7 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRe
     protected val TAG = this::class.java.simpleName
 
     protected lateinit var binding: T
+    private lateinit var interstitialAd: InterstitialAd
 
     private val progressDialog: ProgressDialog by lazy { ProgressDialog(context!!) }
 
@@ -30,6 +37,8 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        init()
     }
 
     protected fun <T : ViewModel> getViewModel(modelClass: Class<T>, vararg repository: Any) : T {
@@ -46,5 +55,54 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRe
 
     protected fun hideProgress() {
         if (progressDialog.isShowing) progressDialog.dismiss()
+    }
+
+    private fun init() {
+        MobileAds.initialize(context) {}
+    }
+
+    private fun showAd(adId: Int, callback: () -> Unit) {
+        interstitialAd = InterstitialAd(context).apply {
+            adUnitId = getString(adId)
+            adListener = object : AdListener() {
+                override fun onAdLoaded() {
+                    interstitialAd.show()
+                }
+
+                override fun onAdFailedToLoad(p0: Int) {
+                    super.onAdFailedToLoad(p0)
+                    Log.d(TAG, "    ## ad failed to load : $p0")
+                    callback()
+                }
+
+                override fun onAdClosed() {
+                    super.onAdClosed()
+                    callback()
+                }
+            }
+        }
+        interstitialAd.loadAd(AdRequest.Builder().build())
+    }
+
+    fun showAd(adId: Int, isRandom: Boolean = false, callback: () -> Unit) {
+        showProgress()
+
+        if (isRandom) {
+            val ran = Random().nextInt(4) + 1
+            if (ran == 1) {
+                showAd(adId) {
+                    hideProgress()
+                    callback()
+                }
+            } else {
+                hideProgress()
+                callback()
+            }
+        } else {
+            showAd(adId) {
+                hideProgress()
+                callback()
+            }
+        }
     }
 }

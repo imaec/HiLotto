@@ -7,6 +7,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
@@ -20,6 +23,7 @@ import com.imaec.hilotto.ui.view.fragment.StatisticsFragment
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.viewmodel.LottoViewModel
 import com.imaec.hilotto.viewmodel.MainViewModel
+import java.util.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -52,7 +56,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
             getLotto(curDrwNo) { isSuccess ->
                 hideProgress()
                 if (isSuccess) {
-                    init()
+                    showAd(R.string.ad_id_main_front) {
+                        init()
+                    }
                 } else {
                     Toast.makeText(this@MainActivity, R.string.msg_data_fail, Toast.LENGTH_SHORT).show()
                 }
