@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.ads.AdRequest
 import com.imaec.hilotto.*
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentHomeBinding
@@ -39,16 +40,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             homeViewModel = this@HomeFragment.homeViewModel
             recyclerLatelyResult.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             recyclerLatelyResult.addItemDecoration(LatelyResultDecoration(context!!))
+            adView.loadAd(AdRequest.Builder().build())
         }
 
         homeViewModel.apply {
             setOnItemClickListener { dto ->
                 sharedViewModel.listResult.value?.let {
-                    val position = it.indexOf(dto)
-                    startActivity(Intent(context, LatelyResultActivity::class.java).apply {
-                        putExtra(EXTRA_LIST_LOTTO, it as ArrayList<LottoDTO>)
-                        putExtra(EXTRA_LATELY_RESULT_POSITION, position)
-                    })
+                    showAd(R.string.ad_id_lately_front, true) {
+                        val position = it.indexOf(dto)
+                        startActivity(Intent(context, LatelyResultActivity::class.java).apply {
+                            putExtra(EXTRA_LIST_LOTTO, it as ArrayList<LottoDTO>)
+                            putExtra(EXTRA_LATELY_RESULT_POSITION, position)
+                        })
+                    }
                 }
             }
         }

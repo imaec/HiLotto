@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.ads.AdRequest
 import com.imaec.hilotto.*
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentMyBinding
@@ -48,6 +49,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
             myViewModel = this@MyFragment.myViewModel
             recyclerMyNumbers.layoutManager = LinearLayoutManager(context)
             recyclerMyNumbers.addItemDecoration(NumbersDecoration(context!!, 6, 12))
+            adView.loadAd(AdRequest.Builder().build())
         }
 
         myViewModel.apply {
@@ -62,10 +64,12 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
                     return@setOnNumberClickListener
                 }
                 sharedViewModel.listResult.value?.let {
-                    startActivity(Intent(context, WinHistoryActivity::class.java).apply {
-                        putExtra(EXTRA_LIST_LOTTO, it as ArrayList<LottoDTO>)
-                        putExtra(EXTRA_MY_NUMBER, entity)
-                    })
+                    showAd(R.string.ad_id_history_front, true) {
+                        startActivity(Intent(context, WinHistoryActivity::class.java).apply {
+                            putExtra(EXTRA_LIST_LOTTO, it as ArrayList<LottoDTO>)
+                            putExtra(EXTRA_MY_NUMBER, entity)
+                        })
+                    }
                 }
             }
             setOnNumberLongClickListener { entity ->

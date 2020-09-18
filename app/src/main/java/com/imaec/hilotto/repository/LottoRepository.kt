@@ -36,7 +36,6 @@ class LottoRepository {
         callLottoNumber.clone().enqueue(object : Callback<LottoDTO> {
             override fun onResponse(call: Call<LottoDTO>, response: Response<LottoDTO>) {
                 response.body()?.let {
-                    Log.d("response", " ## : $it")
                     onResponse(it)
                 } ?: run {
                     onFailure()

@@ -2,6 +2,7 @@ package com.imaec.hilotto.ui.view.activity
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.ads.AdRequest
 import com.imaec.hilotto.EXTRA_CURRENT_ROUND
 import com.imaec.hilotto.EXTRA_LIST_STORE
 import com.imaec.hilotto.R
@@ -26,6 +27,7 @@ class StoreActivity : BaseActivity<ActivityStoreBinding>(R.layout.activity_store
             storeViewModel = this@StoreActivity.storeViewModel
             recyclerStore.layoutManager = LinearLayoutManager(this@StoreActivity)
             recyclerStore.addItemDecoration(StoreDecoration(this@StoreActivity))
+            adView.loadAd(AdRequest.Builder().build())
         }
 
         storeViewModel.apply {

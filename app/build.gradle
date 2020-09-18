@@ -27,6 +27,7 @@ android {
             resValue "string", "ad_id_home_banner", "ca-app-pub-3940256099942544/6300978111"
             resValue "string", "ad_id_my_banner", "ca-app-pub-3940256099942544/6300978111"
             resValue "string", "ad_id_lately_banner", "ca-app-pub-3940256099942544/6300978111"
+            resValue "string", "ad_id_store_banner", "ca-app-pub-3940256099942544/6300978111"
         }
         release {
             resValue "string", "admob_app_id", "ca-app-pub-7147836151485354~9585074380"
@@ -37,6 +38,7 @@ android {
             resValue "string", "ad_id_home_banner", "ca-app-pub-7147836151485354/6923058507"
             resValue "string", "ad_id_my_banner", "ca-app-pub-7147836151485354/3530608409"
             resValue "string", "ad_id_lately_banner", "ca-app-pub-7147836151485354/8835099498"
+            resValue "string", "ad_id_store_banner", "ca-app-pub-7147836151485354/7149007957"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

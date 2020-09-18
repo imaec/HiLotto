@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.google.android.gms.ads.AdRequest
 import com.imaec.hilotto.EXTRA_LATELY_RESULT_POSITION
 import com.imaec.hilotto.EXTRA_LIST_LOTTO
 import com.imaec.hilotto.R
@@ -29,12 +30,11 @@ class LatelyResultActivity : BaseActivity<ActivityLatelyResultBinding>(R.layout.
         binding.apply {
             lifecycleOwner = this@LatelyResultActivity
             latelyResultViewModel =  this@LatelyResultActivity.latelyResultViewModel
+            adView.loadAd(AdRequest.Builder().build())
         }
 
         latelyResultViewModel.apply {
-            showAd(R.string.ad_id_lately_front, true) {
-                setListLatelyResult(intent.getSerializableExtra(EXTRA_LIST_LOTTO) as ArrayList<LottoDTO>)
-            }
+            setListLatelyResult(intent.getSerializableExtra(EXTRA_LIST_LOTTO) as ArrayList<LottoDTO>)
             listLatelyResult.observe(this@LatelyResultActivity, Observer {
                 Handler().postDelayed({
                     binding.vpLatelyResult.currentItem = intent.getIntExtra(EXTRA_LATELY_RESULT_POSITION, 0)
