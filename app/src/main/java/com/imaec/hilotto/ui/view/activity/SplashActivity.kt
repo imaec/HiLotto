@@ -2,7 +2,6 @@ package com.imaec.hilotto.ui.view.activity
 
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
@@ -13,5 +12,15 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        MainActivity.isLoaded.observe(this, Observer {
+            if (it) {
+                setResult(RESULT_OK)
+                finish()
+            }
+        })
+    }
+
+    override fun onBackPressed() {
     }
 }

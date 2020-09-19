@@ -1,15 +1,14 @@
 package com.imaec.hilotto.ui.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
@@ -23,9 +22,12 @@ import com.imaec.hilotto.ui.view.fragment.StatisticsFragment
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.viewmodel.LottoViewModel
 import com.imaec.hilotto.viewmodel.MainViewModel
-import java.util.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), BottomNavigationView.OnNavigationItemSelectedListener {
+
+    companion object {
+        val isLoaded = MutableLiveData<Boolean>(false)
+    }
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var sharedViewModel: LottoViewModel
@@ -38,8 +40,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
     private val fragmentRecommend = RecommendFragment()
     private val fragmentMy = MyFragment()
 
+    private var loadedCount = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        startActivityForResult(Intent(this, SplashActivity::class.java), 0)
 
         mainViewModel = getViewModel(MainViewModel::class.java)
         sharedViewModel = getViewModel(LottoViewModel::class.java, lottoRepository, firebaseRepository)
@@ -49,6 +55,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
             viewModel = this@MainActivity.mainViewModel
             bottomNavigation.setOnNavigationItemSelectedListener(this@MainActivity)
         }
+        showAd(R.string.ad_id_main_front, false, {
+            loadedCount++
+            if (loadedCount == 2) isLoaded.value = true
+        }, {
+            init()
+        })
 
         showProgress()
         val curDrwNo = SharedPreferenceUtil.getInt(this, SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO, 1)
@@ -56,9 +68,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
             getLotto(curDrwNo) { isSuccess ->
                 hideProgress()
                 if (isSuccess) {
-                    showAd(R.string.ad_id_main_front) {
-                        init()
-                    }
+                    loadedCount++
+                    if (loadedCount == 2) isLoaded.value = true
                 } else {
                     Toast.makeText(this@MainActivity, R.string.msg_data_fail, Toast.LENGTH_SHORT).show()
                 }
@@ -90,6 +101,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_OK) {
+            interstitialAd.show()
+            isLoaded.value = false
+        }
+    }
+
     fun onClick(view: View) {
         Log.d(TAG, "    ## onClick($view)")
         when (activeFragment) {
@@ -109,10 +129,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
     }
 
     private fun init() {
-        supportFragmentManager.beginTransaction().add(R.id.frame, fragmentMy, getString(R.string.my)).hide(fragmentMy).commit()
-        supportFragmentManager.beginTransaction().add(R.id.frame, fragmentRecommend, getString(R.string.recommend)).hide(fragmentRecommend).commit()
-        supportFragmentManager.beginTransaction().add(R.id.frame, fragmentStatistics, getString(R.string.statistics)).hide(fragmentStatistics).commit()
-        supportFragmentManager.beginTransaction().add(R.id.frame, fragmentHome, getString(R.string.home)).commit()
+        supportFragmentManager.beginTransaction().add(R.id.frame, fragmentMy, getString(R.string.my)).hide(fragmentMy).commitAllowingStateLoss()
+        supportFragmentManager.beginTransaction().add(R.id.frame, fragmentRecommend, getString(R.string.recommend)).hide(fragmentRecommend).commitAllowingStateLoss()
+        supportFragmentManager.beginTransaction().add(R.id.frame, fragmentStatistics, getString(R.string.statistics)).hide(fragmentStatistics).commitAllowingStateLoss()
+        supportFragmentManager.beginTransaction().add(R.id.frame, fragmentHome, getString(R.string.home)).commitAllowingStateLoss()
         activeFragment = fragmentHome
     }
 

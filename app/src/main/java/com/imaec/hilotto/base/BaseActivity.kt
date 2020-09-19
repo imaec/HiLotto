@@ -21,7 +21,7 @@ abstract class BaseActivity<T : ViewDataBinding>(@LayoutRes private val layoutRe
     protected val TAG = this::class.java.simpleName
 
     protected lateinit var binding: T
-    private lateinit var interstitialAd: InterstitialAd
+    protected lateinit var interstitialAd: InterstitialAd
 
     private val progressDialog: ProgressDialog by lazy { ProgressDialog(this) }
 
@@ -49,48 +49,53 @@ abstract class BaseActivity<T : ViewDataBinding>(@LayoutRes private val layoutRe
         MobileAds.initialize(this) {}
     }
 
-    private fun showAd(adId: Int, callback: () -> Unit) {
+    private fun showAd(adId: Int, onLoaded: () -> Unit, onClosed: () -> Unit) {
         interstitialAd = InterstitialAd(this).apply {
             adUnitId = getString(adId)
             adListener = object : AdListener() {
                 override fun onAdLoaded() {
-                    interstitialAd.show()
+                    onLoaded()
                 }
 
                 override fun onAdFailedToLoad(p0: Int) {
                     super.onAdFailedToLoad(p0)
                     Log.d(TAG, "    ## ad failed to load : $p0")
-                    callback()
+                    onClosed()
                 }
 
                 override fun onAdClosed() {
                     super.onAdClosed()
-                    callback()
+                    onClosed()
                 }
             }
         }
         interstitialAd.loadAd(AdRequest.Builder().build())
     }
 
-    fun showAd(adId: Int, isRandom: Boolean = false, callback: () -> Unit) {
+    fun showAd(adId: Int, isRandom: Boolean, onLoaded: () -> Unit, onClosed: () -> Unit) {
         showProgress()
 
         if (isRandom) {
             val ran = Random().nextInt(4) + 1
             if (ran == 1) {
-                showAd(adId) {
+                showAd(adId, { // onLoaded
                     hideProgress()
-                    callback()
-                }
+                }, { // onClosed
+                    hideProgress()
+                    onClosed()
+                })
             } else {
                 hideProgress()
-                callback()
+                onClosed()
             }
         } else {
-            showAd(adId) {
+            showAd(adId, {
                 hideProgress()
-                callback()
-            }
+                onLoaded()
+            }, {
+                hideProgress()
+                onClosed()
+            })
         }
     }
 }
