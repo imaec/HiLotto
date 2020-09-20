@@ -1,5 +1,6 @@
 package com.imaec.hilotto.base
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +18,8 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.imaec.hilotto.R
 import com.imaec.hilotto.ui.view.dialog.ProgressDialog
 import java.util.*
 
@@ -39,6 +42,29 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRe
         super.onViewCreated(view, savedInstanceState)
 
         init()
+
+        FirebaseCrashlytics.getInstance().log("$TAG onViewCreated")
+        FirebaseCrashlytics.getInstance().setCustomKey(getString(R.string.key_fragment), TAG)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FirebaseCrashlytics.getInstance().log("$TAG onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        FirebaseCrashlytics.getInstance().log("$TAG onPause")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        FirebaseCrashlytics.getInstance().log("$TAG onDestroy")
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        FirebaseCrashlytics.getInstance().log("$TAG onActivityResult")
     }
 
     protected fun <T : ViewModel> getViewModel(modelClass: Class<T>, vararg repository: Any) : T {
