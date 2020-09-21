@@ -37,6 +37,10 @@
     <string name="save">저장</string>
     <string name="loading">loading...</string>
 
+    <!-- Firebase Analytics Events & Key -->
+    <string name="event_screen_fragment">screen_fragment</string>
+    <string name="key_screen_fragment">fragment</string>
+
     <!-- Firebase Crashlytics Events & Key -->
     <string name="key_activity">activity</string>
     <string name="key_fragment">fragment</string>

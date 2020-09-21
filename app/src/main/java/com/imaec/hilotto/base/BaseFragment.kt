@@ -18,6 +18,7 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.imaec.hilotto.R
 import com.imaec.hilotto.ui.view.dialog.ProgressDialog
@@ -32,6 +33,7 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRe
     private lateinit var interstitialAd: InterstitialAd
 
     private val progressDialog: ProgressDialog by lazy { ProgressDialog(context!!) }
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, layoutResId, container, false)
@@ -45,6 +47,9 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRe
 
         FirebaseCrashlytics.getInstance().log("$TAG onViewCreated")
         FirebaseCrashlytics.getInstance().setCustomKey(getString(R.string.key_fragment), TAG)
+        logEvent(getString(R.string.event_screen_fragment), Bundle().apply {
+            putString(getString(R.string.key_screen_fragment), TAG)
+        })
     }
 
     override fun onResume() {
@@ -83,8 +88,13 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRe
         if (progressDialog.isShowing) progressDialog.dismiss()
     }
 
+    protected fun logEvent(key: String, bundle: Bundle) {
+        firebaseAnalytics.logEvent(key, bundle)
+    }
+
     private fun init() {
         MobileAds.initialize(context) {}
+        firebaseAnalytics = FirebaseAnalytics.getInstance(context!!)
     }
 
     private fun showAd(adId: Int, callback: () -> Unit) {

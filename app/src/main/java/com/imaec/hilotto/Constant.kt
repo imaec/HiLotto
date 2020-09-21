@@ -20,3 +20,10 @@ const val EXTRA_MY_NUMBER = "extra_my_number"
 
 // Request Code
 const val REQUEST_EDIT_NUMBER = 10
+
+class Event {
+    companion object {
+        const val CREATE_NUMBER = "create_number"
+        const val SAVE_NUMBER = "save_number"
+    }
+}

@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.imaec.hilotto.Event
 import com.imaec.hilotto.Lotto
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
@@ -163,6 +165,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             }
             R.id.text_create -> {
                 if (binding.textCreate.text == getString(R.string.create_numbers)) {
+                    logEvent(Event.CREATE_NUMBER, Bundle())
                     recommendViewModel.apply {
                         var index = 0
                         listResult.value?.let { listResult ->
@@ -199,6 +202,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                 }
                 recommendViewModel.apply {
                     listIncludeNumber.value?.let {
+                        logEvent(Event.SAVE_NUMBER, Bundle())
                         saveNumber(NumberEntity(
                             number1 = it[0].toInt(),
                             number2 = it[1].toInt(),
