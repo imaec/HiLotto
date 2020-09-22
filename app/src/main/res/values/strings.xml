@@ -45,6 +45,9 @@
     <string name="key_activity">activity</string>
     <string name="key_fragment">fragment</string>
 
+    <!-- Kakao Template Id -->
+    <string name="template_id_app">37055</string>
+
     <string name="date_empty" tools:ignore="TypographyDashes">0000-00-00</string>
     <string name="title_round_empty">회 당첨 번호</string>
     <string name="win_count_desc">1등 당첨자 수 </string>

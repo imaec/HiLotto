@@ -95,4 +95,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.5.0'
     // Firebase Crashlytics
     implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
+    // 카카오링크
+    // implementation "com.kakao.sdk:v2-link:2.0.2"
+    implementation group: project.KAKAO_SDK_GROUP, name: 'kakaolink', version: project.KAKAO_SDK_VERSION
 }
