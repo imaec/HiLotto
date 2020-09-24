@@ -37,9 +37,11 @@
     <string name="delete">삭제하기</string>
     <string name="save">저장</string>
     <string name="loading">loading...</string>
+    <string name="app_setting">앱 설정</string>
+    <string name="setting_statistics">통계 회차 설정</string>
+    <string name="export_my_number">내 번호 내보내기</string>
     <string name="app_info">앱 정보</string>
     <string name="app_version">앱 버전</string>
-    <string name="license_info">라이센스 정보</string>
     <string name="share">공유하기</string>
     <string name="share_app">친구에게 앱 알려주기</string>
 

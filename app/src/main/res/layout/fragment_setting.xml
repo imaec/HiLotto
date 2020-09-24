@@ -23,11 +23,82 @@
 
         <TextView
             style="@style/TextSettingTitle"
+            android:id="@+id/text_app_setting"
+            android:text="@string/app_setting"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_title"
+            app:layout_constraintBottom_toTopOf="@id/text_setting_statistics_title"/>
+
+        <TextView
+            style="@style/TextSettingSubTitle"
+            android:id="@+id/text_setting_statistics_title"
+            android:text="@string/setting_statistics"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/text_setting_statistics"
+            app:layout_constraintTop_toBottomOf="@id/text_app_setting"
+            app:layout_constraintBottom_toTopOf="@id/text_export_my_number"/>
+
+        <TextView
+            style="@style/TextSettingContent"
+            android:id="@+id/text_setting_statistics"
+            android:layout_marginTop="8dp"
+            android:text="20회"
+            app:layout_constraintLeft_toRightOf="@id/text_setting_statistics_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_app_setting"
+            app:layout_constraintBottom_toTopOf="@id/text_export_my_number" />
+
+        <View
+            android:id="@+id/view_setting_statistics"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:onClick="onClick"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_setting_statistics_title"
+            app:layout_constraintBottom_toBottomOf="@id/text_setting_statistics_title"/>
+
+        <TextView
+            style="@style/TextSettingSubTitle"
+            android:id="@+id/text_export_my_number"
+            android:text="@string/export_my_number"
+            android:onClick="onClick"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_setting_statistics_title"
+            app:layout_constraintBottom_toTopOf="@id/text_app_info"/>
+
+        <ImageView
+            android:id="@+id/image_export_my_number"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_add"
+            android:onClick="onClick"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_export_my_number"
+            app:layout_constraintBottom_toBottomOf="@id/text_export_my_number"
+            app:layout_constraintDimensionRatio="1"/>
+
+        <TextView
+            style="@style/TextSettingTitle"
             android:id="@+id/text_app_info"
             android:text="@string/app_info"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_title"
+            app:layout_constraintTop_toBottomOf="@id/text_export_my_number"
             app:layout_constraintBottom_toTopOf="@id/text_app_version_title"/>
 
         <TextView
