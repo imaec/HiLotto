@@ -23,6 +23,7 @@ class BaseViewModelFactory(private vararg val repository: Any) : ViewModelProvid
             modelClass.isAssignableFrom(StatisticsViewModel::class.java) -> StatisticsViewModel() as T
             modelClass.isAssignableFrom(RecommendViewModel::class.java) -> RecommendViewModel(repository[0] as NumberRepository) as T
             modelClass.isAssignableFrom(MyViewModel::class.java) -> MyViewModel(repository[0] as NumberRepository) as T
+            modelClass.isAssignableFrom(SettingViewModel::class.java) -> SettingViewModel() as T
             modelClass.isAssignableFrom(LatelyResultViewModel::class.java) -> LatelyResultViewModel() as T
             modelClass.isAssignableFrom(StoreViewModel::class.java) -> StoreViewModel() as T
             modelClass.isAssignableFrom(WinHistoryViewModel::class.java) -> WinHistoryViewModel() as T

@@ -15,10 +15,7 @@ import com.imaec.hilotto.base.BaseActivity
 import com.imaec.hilotto.databinding.ActivityMainBinding
 import com.imaec.hilotto.repository.FirebaseRepository
 import com.imaec.hilotto.repository.LottoRepository
-import com.imaec.hilotto.ui.view.fragment.HomeFragment
-import com.imaec.hilotto.ui.view.fragment.MyFragment
-import com.imaec.hilotto.ui.view.fragment.RecommendFragment
-import com.imaec.hilotto.ui.view.fragment.StatisticsFragment
+import com.imaec.hilotto.ui.view.fragment.*
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.viewmodel.LottoViewModel
 import com.imaec.hilotto.viewmodel.MainViewModel
@@ -39,6 +36,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
     private val fragmentStatistics = StatisticsFragment()
     private val fragmentRecommend = RecommendFragment()
     private val fragmentMy = MyFragment()
+    private val fragmentSetting = SettingFragment()
 
     private var loadedCount = 0
 
@@ -87,6 +85,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
             R.id.navigation_statistics -> fragmentStatistics
             R.id.navigation_recommend -> fragmentRecommend
             R.id.navigation_my-> fragmentMy
+            R.id.navigation_setting -> fragmentSetting
             else -> fragmentHome
         })
         return true
@@ -122,6 +121,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
             is MyFragment -> {
                 fragmentMy.onClick(view)
             }
+            is SettingFragment -> {
+                fragmentSetting.onClick(view)
+            }
             else -> {
                 
             }
@@ -129,6 +131,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
     }
 
     private fun init() {
+        supportFragmentManager.beginTransaction().add(R.id.frame, fragmentSetting, getString(R.string.setting)).hide(fragmentSetting).commitAllowingStateLoss()
         supportFragmentManager.beginTransaction().add(R.id.frame, fragmentMy, getString(R.string.my)).hide(fragmentMy).commitAllowingStateLoss()
         supportFragmentManager.beginTransaction().add(R.id.frame, fragmentRecommend, getString(R.string.recommend)).hide(fragmentRecommend).commitAllowingStateLoss()
         supportFragmentManager.beginTransaction().add(R.id.frame, fragmentStatistics, getString(R.string.statistics)).hide(fragmentStatistics).commitAllowingStateLoss()
