@@ -107,6 +107,8 @@
 
     <string name="msg_search_hint">검색할 단어를 입력해주세요.</string>
     <string name="msg_search_hint_round">검색할 회차를 입력해주세요.</string>
+    <string name="msg_setting_statistics_hint">통계 낼 회차 수를 입력해주세요.</string>
+    <string name="msg_success_save_setting_statistics">통계 회차를 설정 하였습니다.</string>
     <string name="msg_unknown_error">오류가 발생했습니다.\n잠시 후 다시 시도해주세요.</string>
     <string name="msg_data_fail">데이터를 가져오는데 실패했습니다.\n잠시 후 다시 이용해주세요.</string>
     <string name="msg_not_include_number_max">미포함 수는 최대 6개 까지만 추가할 수 있습니다.</string>

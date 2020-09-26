@@ -44,7 +44,7 @@
             style="@style/TextSettingContent"
             android:id="@+id/text_setting_statistics"
             android:layout_marginTop="8dp"
-            android:text="20회"
+            android:text="@{settingViewModel.settingStatistics}"
             app:layout_constraintLeft_toRightOf="@id/text_setting_statistics_title"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_app_setting"
@@ -77,12 +77,12 @@
             app:layout_constraintBottom_toTopOf="@id/text_app_info"/>
 
         <ImageView
-            android:id="@+id/image_export_my_number"
+            android:id="@+id/image_export_info"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:src="@drawable/ic_add"
+            android:src="@drawable/ic_info"
             android:onClick="onClick"
             android:clickable="true"
             android:focusable="true"

@@ -10,6 +10,7 @@ class SharedPreferenceUtil {
         PREF_RECOMMEND_CONDITION_PICK,
         PREF_RECOMMEND_CONDITION_ODD_EVEN,
         PREF_RECOMMEND_CONDITION_ALL,
+        PREF_SETTING_STATISTICS,
     }
 
     companion object {

@@ -2,7 +2,6 @@ package com.imaec.hilotto.ui.view.activity
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -13,7 +12,7 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
 import com.imaec.hilotto.databinding.ActivityLatelyResultBinding
 import com.imaec.hilotto.model.LottoDTO
-import com.imaec.hilotto.ui.view.dialog.SearchDialog
+import com.imaec.hilotto.ui.view.dialog.InputDialog
 import com.imaec.hilotto.viewmodel.LatelyResultViewModel
 import kotlinx.android.synthetic.main.dialog_search.*
 
@@ -46,7 +45,7 @@ class LatelyResultActivity : BaseActivity<ActivityLatelyResultBinding>(R.layout.
     fun onClick(view: View) {
         when (view.id) {
             R.id.image_search -> {
-                SearchDialog(this).apply {
+                InputDialog(this).apply {
                     setTitle(getString(R.string.search_round))
                     setHint(getString(R.string.msg_search_hint_round))
                     setOnSearchClickListener(View.OnClickListener {

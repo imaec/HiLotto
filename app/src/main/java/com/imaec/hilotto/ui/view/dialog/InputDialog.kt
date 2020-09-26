@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.dialog_edit.text_title
 import kotlinx.android.synthetic.main.dialog_search.*
 import kotlinx.android.synthetic.main.dialog_search.view.*
 
-class SearchDialog(context: Context) : Dialog(context) {
+class InputDialog(context: Context) : Dialog(context) {
 
     private var title = ""
     private var hint = ""
