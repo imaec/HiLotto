@@ -15,37 +15,40 @@ class PickViewModel : BaseViewModel() {
     val noPickAdapter4 = NoPickAdapter()
     val noPickAdapter5 = NoPickAdapter()
 
-    private val _pickedRange1 = MutableLiveData<Int>().set(0)
+    private val _statisticsNo = MutableLiveData<Int>(20)
+    val statisticsNo: LiveData<Int> get() = _statisticsNo
+
+    private val _pickedRange1 = MutableLiveData<Int>(0)
     val pickedRange1: LiveData<Int> get() = _pickedRange1
 
-    private val _pickedRange2 = MutableLiveData<Int>().set(0)
+    private val _pickedRange2 = MutableLiveData<Int>(0)
     val pickedRange2: LiveData<Int> get() = _pickedRange2
 
-    private val _pickedRange3 = MutableLiveData<Int>().set(0)
+    private val _pickedRange3 = MutableLiveData<Int>(0)
     val pickedRange3: LiveData<Int> get() = _pickedRange3
 
-    private val _pickedRange4 = MutableLiveData<Int>().set(0)
+    private val _pickedRange4 = MutableLiveData<Int>(0)
     val pickedRange4: LiveData<Int> get() = _pickedRange4
 
-    private val _pickedRange5 = MutableLiveData<Int>().set(0)
+    private val _pickedRange5 = MutableLiveData<Int>(0)
     val pickedRange5: LiveData<Int> get() = _pickedRange5
 
-    private val _pickMax = MutableLiveData<Int>().set(0)
+    private val _pickMax = MutableLiveData<Int>(0)
     val pickMax: LiveData<Int> get() = _pickMax
 
-    private val _listNoPick1 = MutableLiveData<List<Int>>().set(ArrayList())
+    private val _listNoPick1 = MutableLiveData<List<Int>>(ArrayList())
     val listNoPick1: LiveData<List<Int>> get() = _listNoPick1
 
-    private val _listNoPick2 = MutableLiveData<List<Int>>().set(ArrayList())
+    private val _listNoPick2 = MutableLiveData<List<Int>>(ArrayList())
     val listNoPick2: LiveData<List<Int>> get() = _listNoPick2
 
-    private val _listNoPick3 = MutableLiveData<List<Int>>().set(ArrayList())
+    private val _listNoPick3 = MutableLiveData<List<Int>>(ArrayList())
     val listNoPick3: LiveData<List<Int>> get() = _listNoPick3
 
-    private val _listNoPick4 = MutableLiveData<List<Int>>().set(ArrayList())
+    private val _listNoPick4 = MutableLiveData<List<Int>>(ArrayList())
     val listNoPick4: LiveData<List<Int>> get() = _listNoPick4
 
-    private val _listNoPick5 = MutableLiveData<List<Int>>().set(ArrayList())
+    private val _listNoPick5 = MutableLiveData<List<Int>>(ArrayList())
     val listNoPick5: LiveData<List<Int>> get() = _listNoPick5
 
     private lateinit var listNoPick: ArrayList<Int>
@@ -122,9 +125,13 @@ class PickViewModel : BaseViewModel() {
         _listNoPick5.value = listTemp5
     }
 
+    fun setStatisticsNo(no: Int) {
+        _statisticsNo.value = no
+    }
+
     fun setPickedNum(listResult: List<LottoDTO>, isInclude: Boolean = false) {
         initRange()
-        listResult.subList(0, 20).forEach {
+        listResult.subList(0, statisticsNo.value ?: 20).forEach {
             setRange(it.drwtNo1)
             setRange(it.drwtNo2)
             setRange(it.drwtNo3)
@@ -138,7 +145,7 @@ class PickViewModel : BaseViewModel() {
 
     fun setNoPickNum(listResult: List<LottoDTO>, isInclude: Boolean = false) {
         initNoPickNum()
-        listResult.subList(0, 20).forEach {
+        listResult.subList(0, statisticsNo.value ?: 20).forEach {
             listNoPick.remove(it.drwtNo1)
             listNoPick.remove(it.drwtNo2)
             listNoPick.remove(it.drwtNo3)

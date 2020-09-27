@@ -9,6 +9,7 @@ import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentPickBinding
 import com.imaec.hilotto.repository.FirebaseRepository
 import com.imaec.hilotto.repository.LottoRepository
+import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.viewmodel.LottoViewModel
 import com.imaec.hilotto.viewmodel.PickViewModel
 
@@ -36,6 +37,8 @@ class PickFragment : BaseFragment<FragmentPickBinding>(R.layout.fragment_pick) {
             recyclerNopick4.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             recyclerNopick5.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
+
+        pickViewModel.setStatisticsNo(SharedPreferenceUtil.getInt(context!!, SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS, 20))
 
         sharedViewModel.listResult.observe(activity!!, Observer {
             pickViewModel.setPickedNum(it)

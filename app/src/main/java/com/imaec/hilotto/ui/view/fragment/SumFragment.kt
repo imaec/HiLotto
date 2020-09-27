@@ -10,6 +10,7 @@ import com.imaec.hilotto.databinding.FragmentSumBinding
 import com.imaec.hilotto.repository.FirebaseRepository
 import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.ui.util.SumDecoration
+import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.viewmodel.LottoViewModel
 import com.imaec.hilotto.viewmodel.SumViewModel
 
@@ -34,6 +35,8 @@ class SumFragment : BaseFragment<FragmentSumBinding>(R.layout.fragment_sum) {
             recyclerSum.layoutManager = LinearLayoutManager(context)
             recyclerSum.addItemDecoration(SumDecoration(context!!))
         }
+
+        sumViewModel.setStatisticsNo(SharedPreferenceUtil.getInt(context!!, SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS, 20))
 
         sharedViewModel.listResult.observe(activity!!, Observer {
             sumViewModel.setListSum(it)

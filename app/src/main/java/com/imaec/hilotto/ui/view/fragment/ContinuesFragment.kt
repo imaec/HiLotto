@@ -10,6 +10,7 @@ import com.imaec.hilotto.databinding.FragmentContinuesBinding
 import com.imaec.hilotto.repository.FirebaseRepository
 import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.ui.util.NumbersDecoration
+import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.viewmodel.ContinuesViewModel
 import com.imaec.hilotto.viewmodel.LottoViewModel
 
@@ -34,6 +35,8 @@ class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragme
             recyclerContinues.layoutManager = LinearLayoutManager(context)
             recyclerContinues.addItemDecoration(NumbersDecoration(context!!))
         }
+
+        continuesViewModel.setStatisticsNo(SharedPreferenceUtil.getInt(context!!, SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS, 20))
 
         sharedViewModel.listResult.observe(activity!!, Observer {
             continuesViewModel.setPickedNum(it)

@@ -13,8 +13,15 @@ class OddEvenViewModel : BaseViewModel() {
         adapter = OddEvenAdapter()
     }
 
-    private val _listOddEven = MutableLiveData<List<OddEvenDTO>>().set(ArrayList())
+    private val _statisticsNo = MutableLiveData<Int>(20)
+    val statisticsNo: LiveData<Int> get() = _statisticsNo
+
+    private val _listOddEven = MutableLiveData<List<OddEvenDTO>>(ArrayList())
     val listOddEven: LiveData<List<OddEvenDTO>> get() = _listOddEven
+
+    fun setStatisticsNo(no: Int) {
+        _statisticsNo.value = no
+    }
 
     private fun getOdd(no1: Int, no2: Int, no3: Int, no4: Int, no5: Int, no6: Int): ArrayList<String> {
         val listOdd = ArrayList<String>()
@@ -40,7 +47,7 @@ class OddEvenViewModel : BaseViewModel() {
 
     fun setOddEven(listResult: List<LottoDTO>) {
         val listTemp = ArrayList<OddEvenDTO>()
-        listResult.subList(0, 20).forEach {
+        listResult.subList(0, statisticsNo.value ?: 20).forEach {
             val listOdd = getOdd(it.drwtNo1, it.drwtNo2, it.drwtNo3, it.drwtNo4, it.drwtNo5, it.drwtNo6)
             val listEven = getEven(it.drwtNo1, it.drwtNo2, it.drwtNo3, it.drwtNo4, it.drwtNo5, it.drwtNo6)
             val listOddEven = ArrayList<String>().apply {

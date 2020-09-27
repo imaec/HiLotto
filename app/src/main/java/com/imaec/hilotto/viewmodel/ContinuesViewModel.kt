@@ -14,12 +14,19 @@ class ContinuesViewModel : BaseViewModel() {
         adapter = ContinuesAdapter()
     }
 
+    private val _statisticsNo = MutableLiveData<Int>(20)
+    val statisticsNo: LiveData<Int> get() = _statisticsNo
+
     private val _listContinues = MutableLiveData<List<ContinueDTO>>().set(ArrayList())
     val listContinues: LiveData<List<ContinueDTO>> get() = _listContinues
 
+    fun setStatisticsNo(no: Int) {
+        _statisticsNo.value = no
+    }
+
     fun setPickedNum(listResult: List<LottoDTO>) {
         val listTemp = ArrayList<ContinueDTO>()
-        listResult.subList(0, 20).forEach {
+        listResult.subList(0, statisticsNo.value ?: 20).forEach {
             val continues = Lotto.getContinues(it.drwtNo1, it.drwtNo2, it.drwtNo3, it.drwtNo4, it.drwtNo5, it.drwtNo6)
             val continueString = Lotto.getSequenceString(continues)
             val continueNum = Lotto.getSequenceNumber(it.drwtNo1, it.drwtNo2, it.drwtNo3, it.drwtNo4, it.drwtNo5, it.drwtNo6)

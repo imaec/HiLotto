@@ -13,16 +13,19 @@ class SumViewModel : BaseViewModel() {
         adapter = SumAdapter()
     }
 
-    private val _listSum = MutableLiveData<List<SumDTO>>().set(ArrayList())
+    private val _statisticsNo = MutableLiveData<Int>(20)
+    val statisticsNo: LiveData<Int> get() = _statisticsNo
+
+    private val _listSum = MutableLiveData<List<SumDTO>>(ArrayList())
     val listSum: LiveData<List<SumDTO>> get() = _listSum
 
-    private val _sumAvg = MutableLiveData<String>().set("")
+    private val _sumAvg = MutableLiveData<String>("")
     val sumAvg: LiveData<String> get() = _sumAvg
 
-    private val _sumMin = MutableLiveData<Int>().set(21)
+    private val _sumMin = MutableLiveData<Int>(21)
     val sumMin: LiveData<Int> get() = _sumMin
 
-    private val _sumMax = MutableLiveData<Int>().set(255)
+    private val _sumMax = MutableLiveData<Int>(255)
     val sumMax: LiveData<Int> get() = _sumMax
 
     private fun setSum() {
@@ -35,9 +38,13 @@ class SumViewModel : BaseViewModel() {
         }
     }
 
+    fun setStatisticsNo(no: Int) {
+        _statisticsNo.value = no
+    }
+
     fun setListSum(listResult: List<LottoDTO>, isInclude: Boolean = false) {
         val listTemp = ArrayList<SumDTO>()
-        listResult.subList(0, 20).forEach {
+        listResult.subList(0, statisticsNo.value ?: 20).forEach {
             if (isInclude) listTemp.add(SumDTO("${it.drwNo}회", it.drwtNo1 + it.drwtNo2 + it.drwtNo3 + it.drwtNo4 + it.drwtNo5 + it.drwtNo6 + it.bnusNo))
             else listTemp.add(SumDTO("${it.drwNo}회", it.drwtNo1 + it.drwtNo2 + it.drwtNo3 + it.drwtNo4 + it.drwtNo5 + it.drwtNo6))
         }

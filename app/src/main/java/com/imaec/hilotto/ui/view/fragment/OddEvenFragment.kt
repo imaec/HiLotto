@@ -10,6 +10,7 @@ import com.imaec.hilotto.databinding.FragmentOddEvenBinding
 import com.imaec.hilotto.repository.FirebaseRepository
 import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.ui.util.NumbersDecoration
+import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.viewmodel.LottoViewModel
 import com.imaec.hilotto.viewmodel.OddEvenViewModel
 
@@ -34,6 +35,8 @@ class OddEvenFragment : BaseFragment<FragmentOddEvenBinding>(R.layout.fragment_o
             recyclerOddEven.layoutManager = LinearLayoutManager(context)
             recyclerOddEven.addItemDecoration(NumbersDecoration(context!!))
         }
+
+        oddEvenViewModel.setStatisticsNo(SharedPreferenceUtil.getInt(context!!, SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS, 20))
 
         sharedViewModel.listResult.observe(activity!!, Observer {
             oddEvenViewModel.setOddEven(it)

@@ -8,6 +8,7 @@ import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentWinBinding
 import com.imaec.hilotto.repository.FirebaseRepository
 import com.imaec.hilotto.repository.LottoRepository
+import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.viewmodel.LottoViewModel
 import com.imaec.hilotto.viewmodel.WinViewModel
 
@@ -30,6 +31,8 @@ class WinFragment : BaseFragment<FragmentWinBinding>(R.layout.fragment_win) {
             winViewModel = this@WinFragment.winViewModel
             sharedViewModel = this@WinFragment.sharedViewModel
         }
+
+        winViewModel.setStatisticsNo(SharedPreferenceUtil.getInt(context!!, SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS, 20))
 
         sharedViewModel.listResult.observe(activity!!, Observer {
             winViewModel.setWinInfo(it)
