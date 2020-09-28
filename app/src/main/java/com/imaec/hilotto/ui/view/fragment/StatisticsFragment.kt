@@ -17,8 +17,12 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>(R.layout.frag
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         init()
+    }
+
+    fun init() {
+        viewModel = getViewModel(StatisticsViewModel::class.java)
+        pagerAdapter = StatisticsPagerAdapter(childFragmentManager, lifecycle)
 
         binding.apply {
             lifecycleOwner = this@StatisticsFragment
@@ -28,10 +32,5 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>(R.layout.frag
                 tab.text = resources.getStringArray(R.array.tabs_statistics)[position]
             }.attach()
         }
-    }
-
-    private fun init() {
-        viewModel = getViewModel(StatisticsViewModel::class.java)
-        pagerAdapter = StatisticsPagerAdapter(childFragmentManager, lifecycle)
     }
 }

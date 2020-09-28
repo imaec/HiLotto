@@ -8,6 +8,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentSettingBinding
+import com.imaec.hilotto.ui.view.activity.MainActivity
 import com.imaec.hilotto.ui.view.dialog.InputDialog
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.utils.Utils
@@ -49,6 +50,8 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                             SharedPreferenceUtil.putValue(context, SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS, edit_search.text.toString().toInt())
                             settingViewModel.setSettingStatistics("${edit_search.text}회")
                             Toast.makeText(context, R.string.msg_success_save_setting_statistics, Toast.LENGTH_SHORT).show()
+
+                            (activity as MainActivity).fragmentStatistics.init()
                         } else {
                             Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
                         }
