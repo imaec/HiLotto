@@ -33,7 +33,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
     private val lottoRepository = LottoRepository()
     private val firebaseRepository = FirebaseRepository()
     private val fragmentHome = HomeFragment()
-    val fragmentStatistics = StatisticsFragment()
+    private val fragmentStatistics = StatisticsFragment()
     private val fragmentRecommend = RecommendFragment()
     private val fragmentMy = MyFragment()
     private val fragmentSetting = SettingFragment()

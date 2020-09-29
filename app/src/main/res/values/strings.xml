@@ -40,6 +40,7 @@
     <string name="app_setting">앱 설정</string>
     <string name="setting_statistics">통계 회차 설정</string>
     <string name="export_my_number">내 번호 내보내기</string>
+    <string name="import_my_number">내 번호 가져오기</string>
     <string name="app_info">앱 정보</string>
     <string name="app_version">앱 버전</string>
     <string name="share">공유하기</string>
@@ -123,4 +124,7 @@
     <string name="msg_edit_click">수정 버튼이 동작하지 않습니다.\n관리자에게 문의해주세요.</string>
     <string name="msg_delete_click">삭제 버튼이 동작하지 않습니다.\n관리자에게 문의해주세요.</string>
     <string name="msg_share_fail">"공유하기에 실패했습니다.\n잠시 후 다시 시도해주세요."</string>
+    <string name="msg_empty_my_number">내 번호가 없습니다.</string>
+    <string name="msg_fail_save_my_number">내 번호 내보내기에 실패하였습니다.\n관리자에게 문의해주시기 바랍니다.</string>
+    <string name="msg_success_save_my_number">내 번호를 내부저장소에 저장하였습니다.</string>
 </resources>

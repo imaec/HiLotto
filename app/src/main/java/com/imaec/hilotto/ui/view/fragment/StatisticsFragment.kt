@@ -20,6 +20,14 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>(R.layout.frag
         init()
     }
 
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+
+        if (!hidden) {
+            init()
+        }
+    }
+
     fun init() {
         viewModel = getViewModel(StatisticsViewModel::class.java)
         pagerAdapter = StatisticsPagerAdapter(childFragmentManager, lifecycle)

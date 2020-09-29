@@ -74,7 +74,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_setting_statistics_title"
-            app:layout_constraintBottom_toTopOf="@id/text_app_info"/>
+            app:layout_constraintBottom_toTopOf="@id/text_import_my_number"/>
 
         <ImageView
             android:id="@+id/image_export_info"
@@ -94,12 +94,42 @@
             app:layout_constraintDimensionRatio="1"/>
 
         <TextView
+            style="@style/TextSettingSubTitle"
+            android:id="@+id/text_import_my_number"
+            android:text="@string/import_my_number"
+            android:onClick="onClick"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_export_my_number"
+            app:layout_constraintBottom_toTopOf="@id/text_app_info"/>
+
+        <ImageView
+            android:id="@+id/image_import_info"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_info"
+            android:onClick="onClick"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_import_my_number"
+            app:layout_constraintBottom_toBottomOf="@id/text_import_my_number"
+            app:layout_constraintDimensionRatio="1"/>
+
+        <TextView
             style="@style/TextSettingTitle"
             android:id="@+id/text_app_info"
             android:text="@string/app_info"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_export_my_number"
+            app:layout_constraintTop_toBottomOf="@id/text_import_my_number"
             app:layout_constraintBottom_toTopOf="@id/text_app_version_title"/>
 
         <TextView

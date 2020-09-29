@@ -1,11 +1,14 @@
 package com.imaec.hilotto.repository
 
+import android.util.Log
 import com.google.firebase.database.*
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.utils.DateUtil
 import java.util.HashMap
 
 class FirebaseRepository {
+
+    private val TAG = this::class.java.simpleName
 
     private var database = FirebaseDatabase.getInstance()
     private var ref = database.reference
@@ -42,6 +45,7 @@ class FirebaseRepository {
                                 drwNoDate = hashMap["date"].toString()
                             }
                             listCurrent.add(lotto)
+                            Log.d(TAG, "    ## ${listCurrent.size} / ${listItem.size}")
                         }
                     }
 

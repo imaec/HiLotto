@@ -20,6 +20,9 @@ const val EXTRA_MY_NUMBER = "extra_my_number"
 
 // Request Code
 const val REQUEST_EDIT_NUMBER = 10
+const val REQUEST_CREATE_FILE = 20
+const val REQUEST_PERMISSION_EXPORT = 100
+const val REQUEST_PERMISSION_IMPORT = 200
 
 class Event {
     companion object {
