@@ -68,13 +68,14 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
             when (resultCode) {
                 RESULT_OK -> {
                     data?.data?.let {
-                        Log.d(TAG, "    ## uri : $it")
-                        // writeInFile(data.data, "bison is bision")
+                        val result = settingViewModel.export(context!!, myViewModel.listNumber.value!!, it)
+                        Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
+                    } ?: run {
+                        Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         }
-
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -167,21 +168,18 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
 
     private fun export() {
         myViewModel.listNumber.value?.let {
-            val result = settingViewModel.export(
-                it,
-                if (Build.VERSION.SDK_INT < 29) {
+            if (Build.VERSION.SDK_INT < 29) {
+                val result = settingViewModel.export(
+                    it,
                     File("${Environment.getExternalStorageDirectory().absolutePath}/${getString(R.string.app_name)}")
-                } else {
-                    val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-                        type = "application/json"
-                        putExtra(Intent.EXTRA_TITLE, "test.json")
-                    }
-                    startActivityForResult(intent, REQUEST_CREATE_FILE)
-
-                    context!!.getExternalFilesDir("/${getString(R.string.app_name)}")!!
-                }
-            )
-            Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
+                )
+                Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
+            } else {
+                startActivityForResult(Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                    type = "application/json"
+                    putExtra(Intent.EXTRA_TITLE, "myNumber.json")
+                }, REQUEST_CREATE_FILE)
+            }
         } ?: run {
             Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
         }

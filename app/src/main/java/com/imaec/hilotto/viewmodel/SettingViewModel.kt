@@ -1,5 +1,7 @@
 package com.imaec.hilotto.viewmodel
 
+import android.content.Context
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,10 +9,7 @@ import com.google.gson.Gson
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.room.entity.NumberEntity
-import java.io.BufferedWriter
-import java.io.File
-import java.io.FileWriter
-import java.io.IOException
+import java.io.*
 
 
 class SettingViewModel : BaseViewModel() {
@@ -49,15 +48,34 @@ class SettingViewModel : BaseViewModel() {
                 try {
                     val jsonString = Gson().toJson(listNumber)
                     Log.d(TAG, "    ## json : $jsonString")
-                    val buf = BufferedWriter(FileWriter("$file/myNumber.json", false))
-                    buf.append(jsonString)
-                    buf.close()
+                    BufferedWriter(FileWriter("${file}/myNumber.json", false)).apply {
+                        write(jsonString)
+                        flush()
+                        close()
+                    }
                 } catch (e: IOException) {
+                    Log.e(TAG, "    ## IO Exception : ${Log.getStackTraceString(e)}")
                     return R.string.msg_fail_save_my_number
                 }
                 R.string.msg_success_save_my_number
             }
         }
+    }
+
+    fun export(context: Context, listNumber: List<NumberEntity>, uri: Uri): Int {
+        try {
+            val jsonString = Gson().toJson(listNumber)
+            val outputStream = context.contentResolver.openOutputStream(uri)
+            BufferedWriter(OutputStreamWriter(outputStream!!)).apply {
+                write(jsonString)
+                flush()
+                close()
+            }
+        } catch (e: IOException) {
+            Log.e(TAG, "    ## IO Exception : ${Log.getStackTraceString(e)}")
+            return R.string.msg_fail_save_my_number
+        }
+        return R.string.msg_success_save_my_number
     }
 
     fun import() {
