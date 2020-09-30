@@ -15,6 +15,9 @@ interface NumberDao {
     @Insert
     fun insert(entity: NumberEntity)
 
+    @Insert
+    fun insertAll(entities: List<NumberEntity>)
+
     @Update
     fun update(entity: NumberEntity): Int
 

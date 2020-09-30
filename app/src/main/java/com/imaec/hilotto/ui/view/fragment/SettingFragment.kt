@@ -13,15 +13,13 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.imaec.hilotto.R
-import com.imaec.hilotto.REQUEST_CREATE_FILE
-import com.imaec.hilotto.REQUEST_PERMISSION_EXPORT
-import com.imaec.hilotto.REQUEST_PERMISSION_IMPORT
+import com.imaec.hilotto.*
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentSettingBinding
 import com.imaec.hilotto.repository.NumberRepository
 import com.imaec.hilotto.room.AppDatabase
 import com.imaec.hilotto.room.dao.NumberDao
+import com.imaec.hilotto.ui.view.dialog.CommonDialog
 import com.imaec.hilotto.ui.view.dialog.InputDialog
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.utils.Utils
@@ -64,12 +62,30 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_CREATE_FILE) {
-            when (resultCode) {
-                RESULT_OK -> {
+        when (requestCode) {
+            REQUEST_CREATE_FILE -> {
+                if (resultCode == RESULT_OK) {
                     data?.data?.let {
                         val result = settingViewModel.export(context!!, myViewModel.listNumber.value!!, it)
                         Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
+                    } ?: run {
+                        Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            REQUEST_GET_CONTENT -> {
+                if (resultCode == RESULT_OK) {
+                    data?.data?.let {
+                        settingViewModel.import(context!!, it)?.let { entities ->
+                            entities.forEach { entity ->
+                                Log.d(TAG, "    ## numberId : ${entity.numberId}")
+                            }
+                            myViewModel.saveNumbers(entities.toList()) {
+                                Log.d(TAG, "    ## result : $it")
+                            }
+                        } ?: run {
+
+                        }
                     } ?: run {
                         Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
                     }
@@ -126,13 +142,29 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
             }
             R.id.text_export_my_number -> {
                 if (!checkPermission(REQUEST_PERMISSION_EXPORT)) return
-                export()
+
+                CommonDialog(context!!, getString(R.string.msg_export_info)).apply {
+                    setTitle(getString(R.string.export_my_number))
+                    setOnOkClickListener(View.OnClickListener {
+                        export()
+                        dismiss()
+                    })
+                    show()
+                }
             }
             R.id.image_export_info -> {
             }
             R.id.text_import_my_number -> {
                 if (!checkPermission(REQUEST_PERMISSION_IMPORT)) return
-                import()
+
+                CommonDialog(context!!, getString(R.string.msg_import_info)).apply {
+                    setTitle(getString(R.string.import_my_number))
+                    setOnOkClickListener(View.OnClickListener {
+                        import()
+                        dismiss()
+                    })
+                    show()
+                }
             }
             R.id.image_import_info -> {
             }
@@ -168,6 +200,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
 
     private fun export() {
         myViewModel.listNumber.value?.let {
+            it.forEach { entity ->
+                Log.d(TAG, "    ## numberId : ${entity.numberId}")
+            }
             if (Build.VERSION.SDK_INT < 29) {
                 val result = settingViewModel.export(
                     it,
@@ -186,6 +221,8 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
     }
 
     private fun import() {
-
+        startActivityForResult(Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            type = "application/json"
+        }, REQUEST_GET_CONTENT)
     }
 }

@@ -31,6 +31,12 @@ class NumberRepository(
         }
     }
 
+    suspend fun insertAll(entities: List<NumberEntity>) {
+        withContext(Dispatchers.IO) {
+            dao.insertAll(entities)
+        }
+    }
+
     suspend fun update(entity: NumberEntity): Boolean {
         var result = 0
         withContext(Dispatchers.IO) {

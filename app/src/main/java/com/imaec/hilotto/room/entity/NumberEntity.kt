@@ -7,7 +7,7 @@ import java.io.Serializable
 
 @Entity(tableName = "numberEntity")
 data class NumberEntity(
-    @PrimaryKey(autoGenerate = true) var numberId: Int = 0,
+    @PrimaryKey(autoGenerate = true) var numberId: Long = 0,
     @ColumnInfo var number1: Int = 0,
     @ColumnInfo var number2: Int = 0,
     @ColumnInfo var number3: Int = 0,

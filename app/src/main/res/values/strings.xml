@@ -124,6 +124,8 @@
     <string name="msg_edit_click">수정 버튼이 동작하지 않습니다.\n관리자에게 문의해주세요.</string>
     <string name="msg_delete_click">삭제 버튼이 동작하지 않습니다.\n관리자에게 문의해주세요.</string>
     <string name="msg_share_fail">"공유하기에 실패했습니다.\n잠시 후 다시 시도해주세요."</string>
+    <string name="msg_export_info">내 번호를 내부저장소에 저장 하시겠습니까?</string>
+    <string name="msg_import_info">내 번호를 내부저장소에서 가져오시겠습니까?</string>
     <string name="msg_empty_my_number">내 번호가 없습니다.</string>
     <string name="msg_fail_save_my_number">내 번호 내보내기에 실패하였습니다.\n관리자에게 문의해주시기 바랍니다.</string>
     <string name="msg_success_save_my_number">내 번호를 내부저장소에 저장하였습니다.</string>

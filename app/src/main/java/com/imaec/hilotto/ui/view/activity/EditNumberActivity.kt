@@ -50,7 +50,7 @@ class EditNumberActivity : BaseActivity<ActivityEditNumberBinding>(R.layout.acti
 
         editNumberViewModel.apply {
             setNumber(NumberEntity(
-                intent.getIntExtra(EXTRA_NUMBER_ID, 0),
+                intent.getLongExtra(EXTRA_NUMBER_ID, 0.toLong()),
                 intent.getIntExtra(EXTRA_NUMBER_1, 0),
                 intent.getIntExtra(EXTRA_NUMBER_2, 0),
                 intent.getIntExtra(EXTRA_NUMBER_3, 0),

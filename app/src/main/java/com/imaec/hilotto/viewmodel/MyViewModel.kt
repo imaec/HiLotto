@@ -1,6 +1,5 @@
 package com.imaec.hilotto.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.base.BaseViewModel
@@ -77,5 +76,21 @@ class MyViewModel(
 
     fun setOnNumberLongClickListener(onClick: (Any) -> Unit) {
         adapter.addOnLongClickListener { onClick(it) }
+    }
+
+    fun saveNumbers(list: List<NumberEntity>, callback: (Boolean) -> Unit) {
+        val listTemp = ArrayList<NumberEntity>().apply {
+            addAll(list)
+        }
+        viewModelScope.launch {
+            list.forEach { entity ->
+                if (repository.selectByNumbers(entity) > 0) {
+                    // ALREADY EXIST
+                    listTemp.remove(entity)
+                }
+            }
+            if (listTemp.size > 0) repository.insertAll(listTemp)
+            callback(true)
+        }
     }
 }

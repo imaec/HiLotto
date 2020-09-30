@@ -63,7 +63,7 @@ class SettingViewModel : BaseViewModel() {
     }
 
     fun export(context: Context, listNumber: List<NumberEntity>, uri: Uri): Int {
-        try {
+        return try {
             val jsonString = Gson().toJson(listNumber)
             val outputStream = context.contentResolver.openOutputStream(uri)
             BufferedWriter(OutputStreamWriter(outputStream!!)).apply {
@@ -71,14 +71,27 @@ class SettingViewModel : BaseViewModel() {
                 flush()
                 close()
             }
+            R.string.msg_success_save_my_number
         } catch (e: IOException) {
             Log.e(TAG, "    ## IO Exception : ${Log.getStackTraceString(e)}")
-            return R.string.msg_fail_save_my_number
+            R.string.msg_fail_save_my_number
         }
-        return R.string.msg_success_save_my_number
     }
 
-    fun import() {
+    fun import(context: Context, uri: Uri): Array<NumberEntity>? {
+        return try {
+            val inputStream = context.contentResolver.openInputStream(uri)
+            val bufferReader = BufferedReader(InputStreamReader(inputStream!!))
 
+            val stringBuilder = StringBuilder()
+            var line: String?
+            while (bufferReader.readLine().also { line = it } != null) {
+                stringBuilder.append(line)
+            }
+            Gson().fromJson(stringBuilder.toString(), Array<NumberEntity>::class.java)
+        } catch (e: IOException) {
+            Log.e(TAG, "    ## IO Exception : ${Log.getStackTraceString(e)}")
+            null
+        }
     }
 }
