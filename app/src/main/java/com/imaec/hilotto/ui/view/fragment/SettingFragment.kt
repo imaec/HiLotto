@@ -2,13 +2,12 @@ package com.imaec.hilotto.ui.view.fragment
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
-import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -73,18 +72,15 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                     }
                 }
             }
-            REQUEST_GET_CONTENT -> {
+            REQUEST_OPEN_DOCUMENT -> {
                 if (resultCode == RESULT_OK) {
                     data?.data?.let {
                         settingViewModel.import(context!!, it)?.let { entities ->
-                            entities.forEach { entity ->
-                                Log.d(TAG, "    ## numberId : ${entity.numberId}")
-                            }
                             myViewModel.saveNumbers(entities.toList()) {
-                                Log.d(TAG, "    ## result : $it")
+                                Toast.makeText(context, R.string.msg_success_import_my_number, Toast.LENGTH_SHORT).show()
                             }
                         } ?: run {
-
+                            Toast.makeText(context, R.string.msg_fail_import_my_number, Toast.LENGTH_SHORT).show()
                         }
                     } ?: run {
                         Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
@@ -206,7 +202,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
             if (Build.VERSION.SDK_INT < 29) {
                 val result = settingViewModel.export(
                     it,
-                    File("${Environment.getExternalStorageDirectory().absolutePath}/${getString(R.string.app_name)}")
+                    File("${Environment.getExternalStorageDirectory().absolutePath}/${Environment.DIRECTORY_DOWNLOADS}")
                 )
                 Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
             } else {
@@ -221,8 +217,18 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
     }
 
     private fun import() {
-        startActivityForResult(Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-            type = "application/json"
-        }, REQUEST_GET_CONTENT)
+        if (Build.VERSION.SDK_INT < 29) {
+            settingViewModel.import(context!!, Uri.parse("file://${File("${Environment.getExternalStorageDirectory().absolutePath}/${Environment.DIRECTORY_DOWNLOADS}").path}/myNumber.json"))?.let { entities ->
+                myViewModel.saveNumbers(entities.toList()) {
+                    Toast.makeText(context, R.string.msg_success_import_my_number, Toast.LENGTH_SHORT).show()
+                }
+            } ?: run {
+                Toast.makeText(context, R.string.msg_fail_import_my_number, Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            startActivityForResult(Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                type = "application/json"
+            }, REQUEST_OPEN_DOCUMENT)
+        }
     }
 }

@@ -78,7 +78,7 @@ class MyViewModel(
         adapter.addOnLongClickListener { onClick(it) }
     }
 
-    fun saveNumbers(list: List<NumberEntity>, callback: (Boolean) -> Unit) {
+    fun saveNumbers(list: List<NumberEntity>, callback: () -> Unit) {
         val listTemp = ArrayList<NumberEntity>().apply {
             addAll(list)
         }
@@ -90,7 +90,7 @@ class MyViewModel(
                 }
             }
             if (listTemp.size > 0) repository.insertAll(listTemp)
-            callback(true)
+            callback()
         }
     }
 }

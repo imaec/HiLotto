@@ -55,9 +55,9 @@ class SettingViewModel : BaseViewModel() {
                     }
                 } catch (e: IOException) {
                     Log.e(TAG, "    ## IO Exception : ${Log.getStackTraceString(e)}")
-                    return R.string.msg_fail_save_my_number
+                    return R.string.msg_fail_export_my_number
                 }
-                R.string.msg_success_save_my_number
+                R.string.msg_success_export_my_number
             }
         }
     }
@@ -71,10 +71,10 @@ class SettingViewModel : BaseViewModel() {
                 flush()
                 close()
             }
-            R.string.msg_success_save_my_number
+            R.string.msg_success_export_my_number
         } catch (e: IOException) {
             Log.e(TAG, "    ## IO Exception : ${Log.getStackTraceString(e)}")
-            R.string.msg_fail_save_my_number
+            R.string.msg_fail_export_my_number
         }
     }
 
