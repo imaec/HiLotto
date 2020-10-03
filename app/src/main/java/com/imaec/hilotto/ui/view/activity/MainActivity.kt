@@ -24,6 +24,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
 
     companion object {
         val isLoaded = MutableLiveData<Boolean>(false)
+        val progress = MutableLiveData<Int>(0)
     }
 
     private lateinit var mainViewModel: MainViewModel
@@ -63,7 +64,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
         showProgress()
         val curDrwNo = SharedPreferenceUtil.getInt(this, SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO, 1)
         sharedViewModel.apply {
-            getLotto(curDrwNo) { isSuccess ->
+            getLotto(curDrwNo, { isSuccess ->
                 hideProgress()
                 if (isSuccess) {
                     loadedCount++
@@ -71,7 +72,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
                 } else {
                     Toast.makeText(this@MainActivity, R.string.msg_data_fail, Toast.LENGTH_SHORT).show()
                 }
-            }
+            }, { // progress
+                progress.value = it
+            })
             getStore()
             this.curDrwNo.observe(this@MainActivity, Observer {
                 SharedPreferenceUtil.putValue(this@MainActivity, SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO, it)

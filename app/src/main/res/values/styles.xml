@@ -149,6 +149,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="AppTheme.LoadingProgress" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="colorAccent">@color/darkGray</item>
+    </style>
+
     <style name="AppTheme.PickProgress1" parent="Widget.AppCompat.ProgressBar.Horizontal">
         <item name="colorAccent">@color/color01_10</item>
     </style>

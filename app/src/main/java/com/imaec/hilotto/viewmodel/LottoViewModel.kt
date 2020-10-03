@@ -83,20 +83,24 @@ class LottoViewModel(
         }
     }
 
-    private fun getLottoSiteData(curDrwNoReal: Int, curDrwNo: Int, callback: (Boolean) -> Unit) {
+    private fun getLottoSiteData(curDrwNoReal: Int, curDrwNo: Int, callback: (Boolean) -> Unit, callbackProgress: (Int) -> Unit) {
         val listTemp = ArrayList<LottoDTO>()
         val gap = curDrwNoReal - curDrwNo
         for (drwNo in (curDrwNo)..curDrwNoReal) {
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
                     lottoRepository.getData(drwNo, {
-                        Log.e(TAG, "    ## getLottoSiteDat > $drwNo / ${listTemp.size} / $gap")
                         listTemp.add(it)
+                        callbackProgress((listTemp.size*100)/curDrwNoReal)
 
                         if (listTemp.size == gap + 1) {
                             // 모든 리스트 DB에 저장
                             firebaseRepository.setWeek(curDrwNoReal)
                             firebaseRepository.setLottoList(listTemp.sortedBy { dto -> dto.drwNo })
+
+                            _listResult.value = listTemp.sortedByDescending { dto -> dto.drwNo }
+                            setCurData(listTemp.sortedByDescending { dto -> dto.drwNo }[0])
+                            callback(true)
 
                             getDatabaseData {
                                 callback(true)
@@ -118,7 +122,7 @@ class LottoViewModel(
         }
     }
 
-    fun getLotto(curDrwNo: Int, callback: (Boolean) -> Unit) {
+    fun getLotto(curDrwNo: Int, callback: (Boolean) -> Unit, callbackProgress: (Int) -> Unit) {
         getCurDrwNo {
             _curDrwNo.value = it
             firebaseRepository.setWeek(it)
@@ -130,9 +134,7 @@ class LottoViewModel(
                 }
             } else if (it > curDrwNo) {
                 Log.e(TAG, "    ## getLotto > false")
-                getLottoSiteData(it, curDrwNo) { isSuccess ->
-                    callback(isSuccess)
-                }
+                getLottoSiteData(it, curDrwNo, callback, callbackProgress)
             }
         }
     }

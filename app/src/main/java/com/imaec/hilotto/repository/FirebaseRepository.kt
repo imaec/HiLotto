@@ -4,6 +4,8 @@ import android.util.Log
 import com.google.firebase.database.*
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.utils.DateUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.HashMap
 
 class FirebaseRepository {
@@ -45,7 +47,6 @@ class FirebaseRepository {
                                 drwNoDate = hashMap["date"].toString()
                             }
                             listCurrent.add(lotto)
-                            Log.d(TAG, "    ## ${listCurrent.size} / ${listItem.size}")
                         }
                     }
 
