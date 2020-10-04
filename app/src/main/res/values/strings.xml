@@ -131,4 +131,6 @@
     <string name="msg_fail_import_my_number">내 번호 가져오기에 실패하였습니다.\nDownload 폴더에 myNumber.json 파일이 있는지 확인해주세요.</string>
     <string name="msg_success_export_my_number">내 번호를 내부저장소에 저장하였습니다.</string>
     <string name="msg_success_import_my_number">내 번호를 내부저장소에서 가져왔습니다.</string>
+    <string name="msg_export_description">1. [추천 번호] 화면에서 번호를 직접 입력하거나 생성한 후 번호를 저장합니다.\n\n2. [내 번호] 화면에 번호가 저장되었는지 확인합니다.\n\n3. [설정] 화면에서 내 번호 내보내기를 하면 내부 저장소에 Downloads 폴더에 myNumber.json 으로 내 번호가 저장됩니다. </string>
+    <string name="msg_import_description">1. [설정] 화면에서 내 번호 가져오기를 누른 후 [확인]을 누릅니다.\n\n2. myNumber.json 이라는 파일을 클릭하시면 내 번호 가져오기를 할 수 있습니다.</string>
 </resources>

@@ -19,6 +19,7 @@ import com.imaec.hilotto.repository.NumberRepository
 import com.imaec.hilotto.room.AppDatabase
 import com.imaec.hilotto.room.dao.NumberDao
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
+import com.imaec.hilotto.ui.view.dialog.InfoDialog
 import com.imaec.hilotto.ui.view.dialog.InputDialog
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.utils.Utils
@@ -136,6 +137,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                     show()
                 }
             }
+            R.id.image_export_info -> InfoDialog(context!!, getString(R.string.msg_export_description)).show()
             R.id.text_export_my_number -> {
                 if (!checkPermission(REQUEST_PERMISSION_EXPORT)) return
 
@@ -148,8 +150,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                     show()
                 }
             }
-            R.id.image_export_info -> {
-            }
+            R.id.image_import_info -> InfoDialog(context!!, getString(R.string.msg_import_description)).show()
             R.id.text_import_my_number -> {
                 if (!checkPermission(REQUEST_PERMISSION_IMPORT)) return
 
@@ -161,8 +162,6 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                     })
                     show()
                 }
-            }
-            R.id.image_import_info -> {
             }
             R.id.text_share -> {
                 KakaoLinkService.getInstance()
