@@ -47,8 +47,8 @@
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switch_condition1"
-                android:theme="@style/AppTheme.ConditionSwitch"
-                style="@style/AppTheme.ConditionSwitch"
+                android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
+                style="@style/AppTheme.BlackAccent.ConditionSwitch"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_title" />
 
@@ -61,8 +61,8 @@
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switch_condition2"
-                android:theme="@style/AppTheme.ConditionSwitch"
-                style="@style/AppTheme.ConditionSwitch"
+                android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
+                style="@style/AppTheme.BlackAccent.ConditionSwitch"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_condition1" />
 
@@ -75,8 +75,8 @@
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switch_condition3"
-                android:theme="@style/AppTheme.ConditionSwitch"
-                style="@style/AppTheme.ConditionSwitch"
+                android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
+                style="@style/AppTheme.BlackAccent.ConditionSwitch"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_condition2" />
 
@@ -99,8 +99,8 @@
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switch_condition_all"
-                android:theme="@style/AppTheme.ConditionSwitch"
-                style="@style/AppTheme.ConditionSwitch"
+                android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
+                style="@style/AppTheme.BlackAccent.ConditionSwitch"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_divider" />
 
