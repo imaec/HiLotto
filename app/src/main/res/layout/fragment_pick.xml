@@ -17,6 +17,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ProgressBar
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:id="@+id/progress0"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:max="@{pickViewModel.pickMax}"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <TextView
             android:id="@+id/text_temp"
             android:layout_width="wrap_content"
@@ -88,10 +99,9 @@
 
         <TextView
             android:id="@+id/text_sum1"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="0dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:gravity="center"
             android:text="@string/sum_empty"
             app:textByInt="@{pickViewModel.pickedRange1}"
             app:layout_constraintRight_toRightOf="parent"
@@ -126,10 +136,9 @@
 
         <TextView
             android:id="@+id/text_sum2"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="0dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:gravity="center"
             android:text="@string/sum_empty"
             app:textByInt="@{pickViewModel.pickedRange2}"
             app:layout_constraintRight_toRightOf="parent"
@@ -164,10 +173,9 @@
 
         <TextView
             android:id="@+id/text_sum3"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="0dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:gravity="center"
             android:text="@string/sum_empty"
             app:textByInt="@{pickViewModel.pickedRange3}"
             app:layout_constraintRight_toRightOf="parent"
@@ -202,10 +210,9 @@
 
         <TextView
             android:id="@+id/text_sum4"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="0dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:gravity="center"
             android:text="@string/sum_empty"
             app:textByInt="@{pickViewModel.pickedRange4}"
             app:layout_constraintRight_toRightOf="parent"
@@ -240,10 +247,9 @@
 
         <TextView
             android:id="@+id/text_sum5"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="0dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:gravity="center"
             android:text="@string/sum_empty"
             app:textByInt="@{pickViewModel.pickedRange5}"
             app:layout_constraintRight_toRightOf="parent"
