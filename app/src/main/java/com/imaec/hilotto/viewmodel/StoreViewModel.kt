@@ -25,4 +25,8 @@ class StoreViewModel : BaseViewModel() {
     fun setRound(round: Int) {
         _round.value = "${round}회"
     }
+
+    fun setOnItemClickListener(onClick: (Any) -> Unit) {
+        adapter.addOnClickListener { onClick(it) }
+    }
 }

@@ -29,7 +29,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var sharedViewModel: LottoViewModel
-    private lateinit var activeFragment: Fragment
 
     private val lottoRepository = LottoRepository()
     private val firebaseRepository = FirebaseRepository()
@@ -38,6 +37,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
     private val fragmentRecommend = RecommendFragment()
     private val fragmentMy = MyFragment()
     private val fragmentSetting = SettingFragment()
+    private var activeFragment: Fragment = fragmentHome
 
     private var loadedCount = 0
 

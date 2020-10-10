@@ -25,6 +25,9 @@ class StoreAdapter : BaseAdapter() {
         fun onBind(item: StoreDTO) {
             binding.apply {
                 this.item = item
+                root.setOnClickListener {
+                    onClick(item)
+                }
             }
         }
     }
