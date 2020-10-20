@@ -2,6 +2,7 @@ package com.imaec.hilotto.ui.view.fragment
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
@@ -125,13 +126,17 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             R.id.text_number4,
             R.id.text_number5,
             R.id.text_number6 -> {
-                if ((view as TextView).text.isEmpty()) return
-                CommonDialog(context!!, context!!.getString(R.string.msg_remove_number)).apply {
-                    setOnOkClickListener(View.OnClickListener {
-                        removeNumber(view)
-                        dismiss()
-                    })
-                    show()
+                if ((view as TextView).text.isEmpty()) {
+                    pickerFlag = 0
+                    showPicker()
+                } else {
+                    CommonDialog(context!!, context!!.getString(R.string.msg_remove_number)).apply {
+                        setOnOkClickListener(View.OnClickListener {
+                            removeNumber(view)
+                            dismiss()
+                        })
+                        show()
+                    }
                 }
             }
             R.id.view_bg -> {
@@ -200,16 +205,17 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                     return
                 }
                 recommendViewModel.apply {
-                    listIncludeNumber.value?.let {
+                    listIncludeNumber.value?.let { list ->
+                        val sortedList = list.sortedBy { it.toInt() }
                         logEvent(Event.SAVE_NUMBER, Bundle())
                         saveNumber(NumberEntity(
-                            numberId = "${it[0]}${it[1]}${it[2]}${it[3]}${it[4]}${it[5]}".toLong(),
-                            number1 = it[0].toInt(),
-                            number2 = it[1].toInt(),
-                            number3 = it[2].toInt(),
-                            number4 = it[3].toInt(),
-                            number5 = it[4].toInt(),
-                            number6 = it[5].toInt())
+                            numberId = "${sortedList[0]}${sortedList[1]}${sortedList[2]}${sortedList[3]}${sortedList[4]}${sortedList[5]}".toLong(),
+                            number1 = sortedList[0].toInt(),
+                            number2 = sortedList[1].toInt(),
+                            number3 = sortedList[2].toInt(),
+                            number4 = sortedList[3].toInt(),
+                            number5 = sortedList[4].toInt(),
+                            number6 = sortedList[5].toInt())
                         ) { isSuccess ->
                             showAd(R.string.ad_id_recommend_front, true) {
                                 if (isSuccess) {

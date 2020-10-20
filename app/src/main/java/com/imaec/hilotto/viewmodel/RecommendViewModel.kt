@@ -89,6 +89,7 @@ class RecommendViewModel(
             }
             repository.insert(entity)
             callback(true)
+            _listIncludeNumber.value = arrayListOf("", "", "", "", "", "")
         }
     }
 }
