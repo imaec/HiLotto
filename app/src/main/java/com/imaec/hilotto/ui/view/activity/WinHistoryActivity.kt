@@ -1,10 +1,8 @@
 package com.imaec.hilotto.ui.view.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.PopupMenu
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imaec.hilotto.EXTRA_LIST_LOTTO
 import com.imaec.hilotto.EXTRA_MY_NUMBER
@@ -53,11 +51,19 @@ class WinHistoryActivity : BaseActivity<ActivityWinHistoryBinding>(R.layout.acti
             menuInflater.inflate(R.menu.menu_sort, menu)
             setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.option_acs -> {
+                    R.id.option_default -> { // 기본
+                        winHistoryViewModel.sort(false)
+                        true
+                    }
+                    R.id.option_win -> { // 순위순
+                        winHistoryViewModel.sort(isAcs = false, isWinSort = true)
+                        true
+                    }
+                    R.id.option_acs -> { // 과거순
                         winHistoryViewModel.sort(true)
                         true
                     }
-                    R.id.option_desc -> {
+                    R.id.option_desc -> { // 최신순
                         winHistoryViewModel.sort(false)
                         true
                     }

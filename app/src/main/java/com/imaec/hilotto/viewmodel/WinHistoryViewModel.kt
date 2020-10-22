@@ -1,6 +1,5 @@
 package com.imaec.hilotto.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.base.BaseViewModel
@@ -65,7 +64,6 @@ class WinHistoryViewModel : BaseViewModel() {
                 }
                 round = "${result.drwNo}회"
             }
-            Log.d(TAG, "    ## ${listFitTemp.size + 1} fitNumber : $fitNumberDTO")
 
             if (fitNumberDTO.listFitNumber.size >= 3) {
                 listWinTemp.add(_number.value!!)
@@ -74,15 +72,17 @@ class WinHistoryViewModel : BaseViewModel() {
         }
         _listWin.value = listWinTemp
         _listFitNumbers.value = listFitTemp.sortedByDescending { it.round.split("회")[0].toInt() }
-
-        Log.d(TAG, "    ## size : ${listFitTemp.size}")
     }
 
-    fun sort(isAcs: Boolean = false) {
+    fun sort(isAcs: Boolean = false, isWinSort: Boolean = false) {
         _listFitNumbers.value =
-            if (isAcs)
-                _listFitNumbers.value!!.sortedBy { it.round.split("회")[0].toInt() }
-            else
-                _listFitNumbers.value!!.sortedByDescending { it.round.split("회")[0].toInt() }
+            if (isWinSort) {
+                _listFitNumbers.value!!.sortedByDescending { it.round.split("회")[0].toInt() }.sortedBy { it.rank }
+            } else {
+                if (isAcs)
+                    _listFitNumbers.value!!.sortedBy { it.round.split("회")[0].toInt() }
+                else
+                    _listFitNumbers.value!!.sortedByDescending { it.round.split("회")[0].toInt() }
+            }
     }
 }

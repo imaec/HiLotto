@@ -32,8 +32,10 @@
     <string name="win_history">역대 당첨 결과</string>
     <string name="win_round">당첨 회차 : </string>
     <string name="check_win">당첨결과 확인</string>
+    <string name="sort_default">기본</string>
     <string name="sort_acs">과거순</string>
     <string name="sort_desc">최근순</string>
+    <string name="sort_win">순위순</string>
     <string name="delete">삭제하기</string>
     <string name="save">저장</string>
     <string name="loading">loading...</string>

@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/option_default"
+        android:icon="@mipmap/ic_launcher"
+        android:title="@string/sort_default" />
+
+    <item
+        android:id="@+id/option_win"
+        android:icon="@mipmap/ic_launcher"
+        android:title="@string/sort_win" />
+
+    <item
         android:id="@+id/option_acs"
         android:icon="@mipmap/ic_launcher"
         android:title="@string/sort_acs" />

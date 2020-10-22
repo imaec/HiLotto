@@ -1,6 +1,5 @@
 package com.imaec.hilotto.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -26,9 +25,6 @@ class WinHistoryAdapter : BaseAdapter() {
 
     fun setFitNumbers(listFit: List<FitNumberDTO>) {
         this.listFit = listFit
-        listFit.forEach {
-            Log.d(TAG, "    ## $it")
-        }
     }
 
     inner class ItemViewHolder(private val binding: ItemWinHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
