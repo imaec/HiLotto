@@ -35,7 +35,7 @@ class ContinuesAdapter : BaseAdapter() {
             }
 
             binding.apply {
-                recyclerItemNum.adapter = NumberAdapter().apply {
+                recyclerItemNum.adapter = NumberAdapter(true).apply {
                     setListContinues(listTemp)
                 }
                 recyclerItemNum.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)

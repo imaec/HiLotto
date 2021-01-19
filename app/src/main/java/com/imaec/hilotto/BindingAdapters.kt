@@ -1,9 +1,9 @@
 package com.imaec.hilotto
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -11,7 +11,6 @@ import com.imaec.hilotto.base.BaseAdapter
 import com.imaec.hilotto.model.FitNumberDTO
 import com.imaec.hilotto.ui.adapter.MyNumberAdapter
 import com.imaec.hilotto.ui.adapter.WinHistoryAdapter
-import java.lang.Exception
 import java.text.DecimalFormat
 import kotlin.math.roundToLong
 
@@ -67,14 +66,14 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("fitNumber")
     fun setFitNumber(textView: TextView, fitNumberDTO: FitNumberDTO) {
-        textView.setTextColor(textView.context.resources.getColor(R.color.white))
+        textView.setTextColor(ContextCompat.getColor(textView.context, R.color.white))
         fitNumberDTO.listFitNumber.forEach {
             if (textView.text.toString().toInt() == it) {
-                textView.setTextColor(textView.context.resources.getColor(R.color.darkGray))
+                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.darkGray))
             }
         }
         if (textView.text.toString().toInt() == fitNumberDTO.numberBonus) {
-            textView.setTextColor(textView.context.resources.getColor(R.color.darkGray))
+            textView.setTextColor(ContextCompat.getColor(textView.context, R.color.darkGray))
         }
     }
 
@@ -93,15 +92,14 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("backgroundContinues")
-    fun setBackgroundContinues(textView: TextView, listContinues: List<String>) {
+    @BindingAdapter(value = ["app:backgroundContinues", "app:isContinues"], requireAll = false)
+    fun setBackgroundContinues(textView: TextView, listContinues: List<String>, isContinues: Boolean = false) {
+        if (!isContinues) return
+
         try {
             val number = textView.text.toString().toInt()
 
             if (listContinues.contains("$number")) {
-                textView.setBackgroundResource(0)
-                textView.setTextColor(textView.context.resources.getColor(R.color.darkGray))
-            } else {
                 textView.setBackgroundResource(
                     when (number) {
                         in 1..10 -> R.drawable.bg_circle_1
@@ -112,11 +110,14 @@ object BindingAdapters {
                         else -> R.drawable.bg_circle_1
                     }
                 )
-                textView.setTextColor(textView.context.resources.getColor(R.color.white))
+                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.white))
+            } else {
+                textView.setBackgroundResource(0)
+                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.darkGray))
             }
         } catch (e: Exception) {
             textView.setBackgroundResource(0)
-            textView.setTextColor(textView.context.resources.getColor(R.color.darkGray))
+            textView.setTextColor(ContextCompat.getColor(textView.context, R.color.darkGray))
         }
     }
 
@@ -135,10 +136,11 @@ object BindingAdapters {
                     else -> R.drawable.bg_circle_1
                 }
             )
-            textView.setTextColor(textView.context.resources.getColor(R.color.white))
+            textView.setTextColor(ContextCompat.getColor(textView.context, R.color.white))
+
         } catch (e: Exception) {
             textView.setBackgroundResource(0)
-            textView.setTextColor(textView.context.resources.getColor(R.color.darkGray))
+            textView.setTextColor(ContextCompat.getColor(textView.context, R.color.darkGray))
         }
     }
 
@@ -155,7 +157,7 @@ object BindingAdapters {
                 else -> R.drawable.bg_square_1
             }
         )
-        textView.setTextColor(textView.context.resources.getColor(R.color.white))
+        textView.setTextColor(ContextCompat.getColor(textView.context, R.color.white))
     }
 
     @JvmStatic
@@ -171,7 +173,7 @@ object BindingAdapters {
                 else -> R.drawable.bg_left_top_rounded_1
             }
         )
-        textView.setTextColor(textView.context.resources.getColor(R.color.white))
+        textView.setTextColor(ContextCompat.getColor(textView.context, R.color.white))
     }
 
     @JvmStatic
@@ -187,7 +189,7 @@ object BindingAdapters {
                 else -> R.drawable.bg_right_top_rounded_1
             }
         )
-        textView.setTextColor(textView.context.resources.getColor(R.color.white))
+        textView.setTextColor(ContextCompat.getColor(textView.context, R.color.white))
     }
 
     @JvmStatic

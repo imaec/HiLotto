@@ -3,7 +3,9 @@ package com.imaec.hilotto.ui.adapter
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseAdapter
 import com.imaec.hilotto.databinding.ItemSumBinding
 import com.imaec.hilotto.model.SumDTO
@@ -38,9 +40,9 @@ class SumAdapter : BaseAdapter() {
             binding.apply {
                 this.item = item
                 progressSum.progressDrawable.setColorFilter(when (item.sum) {
-                    listSortedTemp[0].sum -> itemView.context.resources.getColor(android.R.color.holo_blue_dark) // 최소
-                    listSortedTemp[itemCount - 1].sum -> itemView.context.resources.getColor(android.R.color.holo_red_dark) // 최대
-                    else -> itemView.context.resources.getColor(android.R.color.black)
+                    listSortedTemp[0].sum -> ContextCompat.getColor(itemView.context, android.R.color.holo_blue_dark) // 최소
+                    listSortedTemp[itemCount - 1].sum -> ContextCompat.getColor(itemView.context, android.R.color.holo_red_dark) // 최대
+                    else -> ContextCompat.getColor(itemView.context, android.R.color.black)
                 }, PorterDuff.Mode.SRC_IN)
             }
         }

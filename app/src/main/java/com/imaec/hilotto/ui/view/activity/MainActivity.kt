@@ -23,8 +23,8 @@ import com.imaec.hilotto.viewmodel.MainViewModel
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), BottomNavigationView.OnNavigationItemSelectedListener {
 
     companion object {
-        val isLoaded = MutableLiveData<Boolean>(false)
-        val progress = MutableLiveData<Int>(0)
+        val isLoaded = MutableLiveData(false)
+        val progress = MutableLiveData(0)
     }
 
     private lateinit var mainViewModel: MainViewModel

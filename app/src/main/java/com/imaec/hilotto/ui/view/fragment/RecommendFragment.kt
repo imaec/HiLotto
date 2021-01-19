@@ -88,7 +88,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             })
         }
 
-        sharedViewModel.listResult.observe(activity!!, Observer {
+        sharedViewModel.listResult.observe(activity!!, {
             recommendViewModel.setListResult(it)
         })
 

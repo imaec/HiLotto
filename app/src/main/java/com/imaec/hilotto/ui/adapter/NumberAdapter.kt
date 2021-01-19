@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.imaec.hilotto.base.BaseAdapter
 import com.imaec.hilotto.databinding.ItemNumberBinding
 
-class NumberAdapter : BaseAdapter() {
+class NumberAdapter(
+    private val isContinues: Boolean = false
+) : BaseAdapter() {
 
     private val listContinues = ArrayList<String>()
 
@@ -31,6 +33,7 @@ class NumberAdapter : BaseAdapter() {
             binding.apply {
                 this.item = item
                 this.listContinues = this@NumberAdapter.listContinues
+                this.isContinues = this@NumberAdapter.isContinues
                 root.setOnClickListener {
                     onClick(item)
                 }

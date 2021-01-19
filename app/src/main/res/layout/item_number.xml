@@ -8,6 +8,10 @@
             type="String" />
 
         <variable
+            name="isContinues"
+            type="Boolean" />
+
+        <variable
             name="listContinues"
             type="java.util.List&lt;String>" />
     </data>
@@ -33,6 +37,7 @@
             android:textStyle="bold"
             app:backgroundNumberCircle="@{item}"
             app:backgroundContinues="@{listContinues}"
+            app:isContinues="@{isContinues}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintLeft_toLeftOf="parent"
