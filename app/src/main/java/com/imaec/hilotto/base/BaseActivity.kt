@@ -9,10 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
-import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.*
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.imaec.hilotto.R
@@ -89,7 +86,7 @@ abstract class BaseActivity<T : ViewDataBinding>(@LayoutRes private val layoutRe
                     onLoaded()
                 }
 
-                override fun onAdFailedToLoad(p0: Int) {
+                override fun onAdFailedToLoad(p0: LoadAdError?) {
                     super.onAdFailedToLoad(p0)
                     Log.d(TAG, "    ## ad failed to load : $p0")
                     onClosed()

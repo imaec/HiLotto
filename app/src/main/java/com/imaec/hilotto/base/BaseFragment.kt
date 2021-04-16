@@ -13,10 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
-import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.*
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.imaec.hilotto.R
@@ -104,7 +101,7 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRe
                     interstitialAd.show()
                 }
 
-                override fun onAdFailedToLoad(p0: Int) {
+                override fun onAdFailedToLoad(p0: LoadAdError?) {
                     super.onAdFailedToLoad(p0)
                     Log.d(TAG, "    ## ad failed to load : $p0")
                     callback()

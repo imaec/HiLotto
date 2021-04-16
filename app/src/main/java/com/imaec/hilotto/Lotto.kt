@@ -4,10 +4,11 @@ import com.imaec.hilotto.model.LottoDTO
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
-import kotlin.math.ln
 import kotlin.math.roundToInt
 
 object Lotto {
+
+    private val TAG = this::class.java.simpleName
 
     private var minRange = 25
     private var maxRange = 25
@@ -36,6 +37,7 @@ object Lotto {
         }
 
         list.forEach {
+            if (it.drwNo == 0) return@forEach
             countSum[it.drwtNo1 - 1] += 1
             countSum[it.drwtNo2 - 1] += 1
             countSum[it.drwtNo3 - 1] += 1

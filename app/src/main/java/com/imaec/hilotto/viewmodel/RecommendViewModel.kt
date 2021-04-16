@@ -1,5 +1,6 @@
 package com.imaec.hilotto.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.base.BaseViewModel
@@ -77,6 +78,7 @@ class RecommendViewModel(
     }
 
     fun setListResult(list: List<LottoDTO>) {
+        Log.d(TAG, "    ## list : $list")
         _listResult.value = list
     }
 
