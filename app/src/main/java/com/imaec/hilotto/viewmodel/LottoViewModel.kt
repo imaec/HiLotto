@@ -83,32 +83,41 @@ class LottoViewModel(
         }
     }
 
-    private fun getLottoSiteData(curDrwNoReal: Int, curDrwNo: Int, callback: (Boolean) -> Unit, callbackProgress: (Int) -> Unit) {
+    private fun getLottoSiteData(
+        curDrwNoReal: Int,
+        curDrwNo: Int,
+        callback: (Boolean) -> Unit,
+        callbackProgress: (Int) -> Unit
+    ) {
         val listTemp = ArrayList<LottoDTO>()
         val gap = curDrwNoReal - curDrwNo
         for (drwNo in (curDrwNo)..curDrwNoReal) {
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
-                    lottoRepository.getData(drwNo, {
-                        listTemp.add(it)
-                        callbackProgress((listTemp.size*100)/curDrwNoReal)
+                    lottoRepository.getData(
+                        drwNo,
+                        {
+                            listTemp.add(it)
+                            callbackProgress((listTemp.size * 100) / curDrwNoReal)
 
-                        if (listTemp.size == gap + 1) {
-                            // 모든 리스트 DB에 저장
-                            firebaseRepository.setWeek(curDrwNoReal)
-                            firebaseRepository.setLottoList(listTemp.sortedBy { dto -> dto.drwNo })
+                            if (listTemp.size == gap + 1) {
+                                // 모든 리스트 DB에 저장
+                                firebaseRepository.setWeek(curDrwNoReal)
+                                firebaseRepository.setLottoList(listTemp.sortedBy { dto -> dto.drwNo })
 
-                            _listResult.value = listTemp.sortedByDescending { dto -> dto.drwNo }
-                            setCurData(listTemp.sortedByDescending { dto -> dto.drwNo }[0])
-                            callback(true)
-
-                            getDatabaseData {
+                                _listResult.value = listTemp.sortedByDescending { dto -> dto.drwNo }
+                                setCurData(listTemp.sortedByDescending { dto -> dto.drwNo }[0])
                                 callback(true)
+
+                                getDatabaseData {
+                                    callback(true)
+                                }
                             }
+                        },
+                        {
+                            callback(false)
                         }
-                    }, {
-                        callback(false)
-                    })
+                    )
                 }
             }
         }

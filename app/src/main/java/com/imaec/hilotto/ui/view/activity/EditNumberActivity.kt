@@ -49,15 +49,17 @@ class EditNumberActivity : BaseActivity<ActivityEditNumberBinding>(R.layout.acti
         }
 
         editNumberViewModel.apply {
-            setNumber(NumberEntity(
-                intent.getLongExtra(EXTRA_NUMBER_ID, 0.toLong()),
-                intent.getIntExtra(EXTRA_NUMBER_1, 0),
-                intent.getIntExtra(EXTRA_NUMBER_2, 0),
-                intent.getIntExtra(EXTRA_NUMBER_3, 0),
-                intent.getIntExtra(EXTRA_NUMBER_4, 0),
-                intent.getIntExtra(EXTRA_NUMBER_5, 0),
-                intent.getIntExtra(EXTRA_NUMBER_6, 0)
-            ))
+            setNumber(
+                NumberEntity(
+                    intent.getLongExtra(EXTRA_NUMBER_ID, 0.toLong()),
+                    intent.getIntExtra(EXTRA_NUMBER_1, 0),
+                    intent.getIntExtra(EXTRA_NUMBER_2, 0),
+                    intent.getIntExtra(EXTRA_NUMBER_3, 0),
+                    intent.getIntExtra(EXTRA_NUMBER_4, 0),
+                    intent.getIntExtra(EXTRA_NUMBER_5, 0),
+                    intent.getIntExtra(EXTRA_NUMBER_6, 0)
+                )
+            )
         }
 
         setDividerColor()
@@ -69,7 +71,7 @@ class EditNumberActivity : BaseActivity<ActivityEditNumberBinding>(R.layout.acti
     }
 
     fun onClick(view: View) {
-        when(view.id) {
+        when (view.id) {
             R.id.text_number1,
             R.id.text_number2,
             R.id.text_number3,
@@ -123,9 +125,9 @@ class EditNumberActivity : BaseActivity<ActivityEditNumberBinding>(R.layout.acti
 
     private fun showPicker(number: Int) {
         pickedNumber = number
-        val arr = Array(45) {""}.apply {
+        val arr = Array(45) { "" }.apply {
             for (i in indices) {
-                this[i] = "${i+1}"
+                this[i] = "${i + 1}"
             }
         }
         binding.picker.apply {
@@ -145,15 +147,17 @@ class EditNumberActivity : BaseActivity<ActivityEditNumberBinding>(R.layout.acti
         binding.apply {
             if (checkNumber("$pickedNumber", textNumber1, textNumber2, textNumber3, textNumber4, textNumber5, textNumber6)) {
                 this@EditNumberActivity.editNumberViewModel.apply {
-                    setNumber(NumberEntity(
-                        numberEntity.value!!.numberId,
-                        if (selectedTextView.id == R.id.text_number1) pickedNumber else numberEntity.value!!.number1,
-                        if (selectedTextView.id == R.id.text_number2) pickedNumber else numberEntity.value!!.number2,
-                        if (selectedTextView.id == R.id.text_number3) pickedNumber else numberEntity.value!!.number3,
-                        if (selectedTextView.id == R.id.text_number4) pickedNumber else numberEntity.value!!.number4,
-                        if (selectedTextView.id == R.id.text_number5) pickedNumber else numberEntity.value!!.number5,
-                        if (selectedTextView.id == R.id.text_number6) pickedNumber else numberEntity.value!!.number6
-                    ))
+                    setNumber(
+                        NumberEntity(
+                            numberEntity.value!!.numberId,
+                            if (selectedTextView.id == R.id.text_number1) pickedNumber else numberEntity.value!!.number1,
+                            if (selectedTextView.id == R.id.text_number2) pickedNumber else numberEntity.value!!.number2,
+                            if (selectedTextView.id == R.id.text_number3) pickedNumber else numberEntity.value!!.number3,
+                            if (selectedTextView.id == R.id.text_number4) pickedNumber else numberEntity.value!!.number4,
+                            if (selectedTextView.id == R.id.text_number5) pickedNumber else numberEntity.value!!.number5,
+                            if (selectedTextView.id == R.id.text_number6) pickedNumber else numberEntity.value!!.number6
+                        )
+                    )
                 }
             } else {
                 Toast.makeText(this@EditNumberActivity, R.string.msg_not_input_same_number, Toast.LENGTH_SHORT).show()
@@ -170,12 +174,12 @@ class EditNumberActivity : BaseActivity<ActivityEditNumberBinding>(R.layout.acti
         return true
     }
 
-    private fun <V : View> BottomSheetBehavior<V>.expand() : BottomSheetBehavior<V> {
+    private fun <V : View> BottomSheetBehavior<V>.expand(): BottomSheetBehavior<V> {
         state = BottomSheetBehavior.STATE_EXPANDED
         return this
     }
 
-    private fun <V : View> BottomSheetBehavior<V>.hide() : BottomSheetBehavior<V> {
+    private fun <V : View> BottomSheetBehavior<V>.hide(): BottomSheetBehavior<V> {
         state = BottomSheetBehavior.STATE_HIDDEN
         return this
     }

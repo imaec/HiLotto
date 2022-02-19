@@ -34,8 +34,11 @@ class WinFragment : BaseFragment<FragmentWinBinding>(R.layout.fragment_win) {
 
         winViewModel.setStatisticsNo(SharedPreferenceUtil.getInt(context!!, SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS, 20))
 
-        sharedViewModel.listResult.observe(activity!!, Observer {
-            winViewModel.setWinInfo(it)
-        })
+        sharedViewModel.listResult.observe(
+            activity!!,
+            Observer {
+                winViewModel.setWinInfo(it)
+            }
+        )
     }
 }

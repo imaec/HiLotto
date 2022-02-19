@@ -2,7 +2,6 @@ package com.imaec.hilotto.ui.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.imaec.hilotto.base.BaseAdapter

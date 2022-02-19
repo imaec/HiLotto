@@ -9,14 +9,19 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.ads.*
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.imaec.hilotto.R
 import com.imaec.hilotto.ui.view.dialog.ProgressDialog
-import java.util.*
+import java.util.Random
 
-abstract class BaseActivity<T : ViewDataBinding>(@LayoutRes private val layoutResId: Int) : AppCompatActivity() {
+abstract class BaseActivity<T : ViewDataBinding>(@LayoutRes private val layoutResId: Int) :
+    AppCompatActivity() {
 
     protected val TAG = this::class.java.simpleName
 
@@ -57,7 +62,7 @@ abstract class BaseActivity<T : ViewDataBinding>(@LayoutRes private val layoutRe
         FirebaseCrashlytics.getInstance().log("$TAG onActivityResult")
     }
 
-    protected fun <V : ViewModel> getViewModel(modelClass: Class<V>, vararg repository: Any) : V {
+    protected fun <V : ViewModel> getViewModel(modelClass: Class<V>, vararg repository: Any): V {
         return ViewModelProvider(this, BaseViewModelFactory(*repository)).get(modelClass)
     }
 
@@ -107,24 +112,32 @@ abstract class BaseActivity<T : ViewDataBinding>(@LayoutRes private val layoutRe
         if (isRandom) {
             val ran = Random().nextInt(4) + 1
             if (ran == 1) {
-                showAd(adId, { // onLoaded
-                    hideProgress()
-                }, { // onClosed
-                    hideProgress()
-                    onClosed()
-                })
+                showAd(
+                    adId = adId,
+                    onLoaded = {
+                        hideProgress()
+                    },
+                    onClosed = {
+                        hideProgress()
+                        onClosed()
+                    }
+                )
             } else {
                 hideProgress()
                 onClosed()
             }
         } else {
-            showAd(adId, {
-                hideProgress()
-                onLoaded()
-            }, {
-                hideProgress()
-                onClosed()
-            })
+            showAd(
+                adId = adId,
+                onLoaded = {
+                    hideProgress()
+                    onLoaded()
+                },
+                onClosed = {
+                    hideProgress()
+                    onClosed()
+                }
+            )
         }
     }
 }

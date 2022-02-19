@@ -11,7 +11,6 @@ import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.room.entity.NumberEntity
 import java.io.*
 
-
 class SettingViewModel : BaseViewModel() {
 
     private val _appVersion = MutableLiveData<String>("")
@@ -48,7 +47,7 @@ class SettingViewModel : BaseViewModel() {
                 try {
                     val jsonString = Gson().toJson(listNumber)
                     Log.d(TAG, "    ## json : $jsonString")
-                    BufferedWriter(FileWriter("${file}/myNumber.json", false)).apply {
+                    BufferedWriter(FileWriter("$file/myNumber.json", false)).apply {
                         write(jsonString)
                         flush()
                         close()

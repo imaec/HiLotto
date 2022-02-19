@@ -54,43 +54,56 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
             viewModel = this@MainActivity.mainViewModel
             bottomNavigation.setOnNavigationItemSelectedListener(this@MainActivity)
         }
-        showAd(R.string.ad_id_main_front, false, {
-            loadedCount++
-            if (loadedCount == 2) isLoaded.value = true
-        }, {
-            init()
-        })
+        showAd(
+            R.string.ad_id_main_front, false,
+            {
+                loadedCount++
+                if (loadedCount == 2) isLoaded.value = true
+            },
+            {
+                init()
+            }
+        )
 
         showProgress()
         val curDrwNo = SharedPreferenceUtil.getInt(this, SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO, 1)
         sharedViewModel.apply {
-            getLotto(curDrwNo, { isSuccess ->
-                hideProgress()
-                if (isSuccess) {
-                    loadedCount++
-                    if (loadedCount == 2) isLoaded.value = true
-                } else {
-                    Toast.makeText(this@MainActivity, R.string.msg_data_fail, Toast.LENGTH_SHORT).show()
+            getLotto(
+                curDrwNo,
+                { isSuccess ->
+                    hideProgress()
+                    if (isSuccess) {
+                        loadedCount++
+                        if (loadedCount == 2) isLoaded.value = true
+                    } else {
+                        Toast.makeText(this@MainActivity, R.string.msg_data_fail, Toast.LENGTH_SHORT).show()
+                    }
+                },
+                { // progress
+                    progress.value = it
                 }
-            }, { // progress
-                progress.value = it
-            })
+            )
             getStore()
-            this.curDrwNo.observe(this@MainActivity, Observer {
-                SharedPreferenceUtil.putValue(this@MainActivity, SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO, it)
-            })
+            this.curDrwNo.observe(
+                this@MainActivity,
+                Observer {
+                    SharedPreferenceUtil.putValue(this@MainActivity, SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO, it)
+                }
+            )
         }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        setFragment(when (item.itemId) {
-            R.id.navigation_home -> fragmentHome
-            R.id.navigation_statistics -> fragmentStatistics
-            R.id.navigation_recommend -> fragmentRecommend
-            R.id.navigation_my-> fragmentMy
-            R.id.navigation_setting -> fragmentSetting
-            else -> fragmentHome
-        })
+        setFragment(
+            when (item.itemId) {
+                R.id.navigation_home -> fragmentHome
+                R.id.navigation_statistics -> fragmentStatistics
+                R.id.navigation_recommend -> fragmentRecommend
+                R.id.navigation_my -> fragmentMy
+                R.id.navigation_setting -> fragmentSetting
+                else -> fragmentHome
+            }
+        )
         return true
     }
 
@@ -128,7 +141,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
                 fragmentSetting.onClick(view)
             }
             else -> {
-                
             }
         }
     }

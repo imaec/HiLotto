@@ -15,7 +15,12 @@ class StoreDecoration(
     private val offset1 = Utils.dp(context, offset1)
     private val offset2 = Utils.dp(context, offset2)
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
         val position = parent.getChildLayoutPosition(view)
         val size = if (parent.adapter != null) parent.adapter!!.itemCount else 0
 
@@ -25,7 +30,7 @@ class StoreDecoration(
         outRect.bottom = offset1
         when (position) {
             0 -> outRect.top = offset2
-            size-1 -> outRect.bottom = offset2
+            size - 1 -> outRect.bottom = offset2
         }
     }
 }

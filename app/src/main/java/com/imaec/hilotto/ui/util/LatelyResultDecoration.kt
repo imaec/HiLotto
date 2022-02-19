@@ -11,7 +11,12 @@ class LatelyResultDecoration(var context: Context) : RecyclerView.ItemDecoration
     private val offset1 = dp(context, 8)
     private val offset2 = dp(context, 16)
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
         val position = parent.getChildLayoutPosition(view)
         val size = if (parent.adapter != null) parent.adapter!!.itemCount else 0
 
@@ -20,7 +25,7 @@ class LatelyResultDecoration(var context: Context) : RecyclerView.ItemDecoration
         outRect.right = offset1
         when (position) {
             0 -> outRect.left = offset2
-            size-1 -> outRect.right = offset2
+            size - 1 -> outRect.right = offset2
         }
     }
 }

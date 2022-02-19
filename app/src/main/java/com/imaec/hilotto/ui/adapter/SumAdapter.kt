@@ -39,11 +39,14 @@ class SumAdapter : BaseAdapter() {
             val listSortedTemp = (listItem as ArrayList<SumDTO>).sortedWith(compareBy { it.sum })
             binding.apply {
                 this.item = item
-                progressSum.progressDrawable.setColorFilter(when (item.sum) {
-                    listSortedTemp[0].sum -> ContextCompat.getColor(itemView.context, android.R.color.holo_blue_dark) // 최소
-                    listSortedTemp[itemCount - 1].sum -> ContextCompat.getColor(itemView.context, android.R.color.holo_red_dark) // 최대
-                    else -> ContextCompat.getColor(itemView.context, android.R.color.black)
-                }, PorterDuff.Mode.SRC_IN)
+                progressSum.progressDrawable.setColorFilter(
+                    when (item.sum) {
+                        listSortedTemp[0].sum -> ContextCompat.getColor(itemView.context, android.R.color.holo_blue_dark) // 최소
+                        listSortedTemp[itemCount - 1].sum -> ContextCompat.getColor(itemView.context, android.R.color.holo_red_dark) // 최대
+                        else -> ContextCompat.getColor(itemView.context, android.R.color.black)
+                    },
+                    PorterDuff.Mode.SRC_IN
+                )
             }
         }
     }

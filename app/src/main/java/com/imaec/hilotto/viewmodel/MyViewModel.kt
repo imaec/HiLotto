@@ -46,7 +46,7 @@ class MyViewModel(
             val fitNumberDTO = FitNumberDTO()
             val listTemp = arrayListOf<Int>()
             arrayOf(it.number1, it.number2, it.number3, it.number4, it.number5, it.number6).forEach { myNumber ->
-                winNumbers.forEach {  winNumber ->
+                winNumbers.forEach { winNumber ->
                     if (winNumber == myNumber) {
                         listTemp.add(myNumber)
                     }

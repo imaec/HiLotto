@@ -137,7 +137,6 @@ object BindingAdapters {
                 }
             )
             textView.setTextColor(ContextCompat.getColor(textView.context, R.color.white))
-
         } catch (e: Exception) {
             textView.setBackgroundResource(0)
             textView.setTextColor(ContextCompat.getColor(textView.context, R.color.darkGray))

@@ -43,7 +43,7 @@ class WinHistoryViewModel : BaseViewModel() {
             val fitNumberDTO = FitNumberDTO()
             val listTemp = arrayListOf<Int>()
             arrayOf(_number.value?.number1, _number.value?.number2, _number.value?.number3, _number.value?.number4, _number.value?.number5, _number.value?.number6).forEach { myNumber ->
-                winNumbers.forEach {  winNumber ->
+                winNumbers.forEach { winNumber ->
                     if (winNumber == myNumber) {
                         listTemp.add(myNumber)
                     }

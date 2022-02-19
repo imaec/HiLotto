@@ -16,23 +16,29 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        MainActivity.progress.observe(this, Observer {
-            binding.apply {
-                progressHorizontal.progress = it
-                textLoading.text = "데이터를 가져오는 중입니다..(${it}%)"
-                if (it >= 100) {
-                    progressCircular.visibility = View.VISIBLE
-                    textLoading.text = "잠시만 기다려 주세요."
+        MainActivity.progress.observe(
+            this,
+            Observer {
+                binding.apply {
+                    progressHorizontal.progress = it
+                    textLoading.text = "데이터를 가져오는 중입니다..($it%)"
+                    if (it >= 100) {
+                        progressCircular.visibility = View.VISIBLE
+                        textLoading.text = "잠시만 기다려 주세요."
+                    }
+                }
+                Log.d(TAG, "    ## progress : $it%")
+            }
+        )
+        MainActivity.isLoaded.observe(
+            this,
+            Observer {
+                if (it) {
+                    setResult(RESULT_OK)
+                    finish()
                 }
             }
-            Log.d(TAG, "    ## progress : ${it}%")
-        })
-        MainActivity.isLoaded.observe(this, Observer {
-            if (it) {
-                setResult(RESULT_OK)
-                finish()
-            }
-        })
+        )
     }
 
     override fun onBackPressed() {

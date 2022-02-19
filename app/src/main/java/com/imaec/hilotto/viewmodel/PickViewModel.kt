@@ -91,7 +91,7 @@ class PickViewModel : BaseViewModel() {
         }
     }
 
-    private fun getPickMax() : Int {
+    private fun getPickMax(): Int {
         return arrayListOf(_pickedRange1.value!!, _pickedRange2.value!!, _pickedRange3.value!!, _pickedRange4.value!!, _pickedRange5.value!!).sortedDescending()[0]
     }
 

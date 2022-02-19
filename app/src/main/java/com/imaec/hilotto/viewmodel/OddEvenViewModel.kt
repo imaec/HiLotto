@@ -25,23 +25,23 @@ class OddEvenViewModel : BaseViewModel() {
 
     private fun getOdd(no1: Int, no2: Int, no3: Int, no4: Int, no5: Int, no6: Int): ArrayList<String> {
         val listOdd = ArrayList<String>()
-        if (no1%2 != 0) listOdd.add("$no1")
-        if (no2%2 != 0) listOdd.add("$no2")
-        if (no3%2 != 0) listOdd.add("$no3")
-        if (no4%2 != 0) listOdd.add("$no4")
-        if (no5%2 != 0) listOdd.add("$no5")
-        if (no6%2 != 0) listOdd.add("$no6")
+        if (no1 % 2 != 0) listOdd.add("$no1")
+        if (no2 % 2 != 0) listOdd.add("$no2")
+        if (no3 % 2 != 0) listOdd.add("$no3")
+        if (no4 % 2 != 0) listOdd.add("$no4")
+        if (no5 % 2 != 0) listOdd.add("$no5")
+        if (no6 % 2 != 0) listOdd.add("$no6")
         return listOdd
     }
 
     private fun getEven(no1: Int, no2: Int, no3: Int, no4: Int, no5: Int, no6: Int): ArrayList<String> {
         val listEven = ArrayList<String>()
-        if (no1%2 == 0) listEven.add("$no1")
-        if (no2%2 == 0) listEven.add("$no2")
-        if (no3%2 == 0) listEven.add("$no3")
-        if (no4%2 == 0) listEven.add("$no4")
-        if (no5%2 == 0) listEven.add("$no5")
-        if (no6%2 == 0) listEven.add("$no6")
+        if (no1 % 2 == 0) listEven.add("$no1")
+        if (no2 % 2 == 0) listEven.add("$no2")
+        if (no3 % 2 == 0) listEven.add("$no3")
+        if (no4 % 2 == 0) listEven.add("$no4")
+        if (no5 % 2 == 0) listEven.add("$no5")
+        if (no6 % 2 == 0) listEven.add("$no6")
         return listEven
     }
 

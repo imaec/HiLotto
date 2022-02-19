@@ -38,8 +38,11 @@ class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragme
 
         continuesViewModel.setStatisticsNo(SharedPreferenceUtil.getInt(context!!, SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS, 20))
 
-        sharedViewModel.listResult.observe(activity!!, Observer {
-            continuesViewModel.setPickedNum(it)
-        })
+        sharedViewModel.listResult.observe(
+            activity!!,
+            Observer {
+                continuesViewModel.setPickedNum(it)
+            }
+        )
     }
 }

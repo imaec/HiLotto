@@ -34,7 +34,7 @@ class SumViewModel : BaseViewModel() {
             it.forEach { dto ->
                 sum += dto.sum
             }
-            _sumAvg.value = "${it.size}회 합계 평균 : ${sum/it.size}"
+            _sumAvg.value = "${it.size}회 합계 평균 : ${sum / it.size}"
         }
     }
 

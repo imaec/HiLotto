@@ -28,17 +28,23 @@ class LatelyResultActivity : BaseActivity<ActivityLatelyResultBinding>(R.layout.
 
         binding.apply {
             lifecycleOwner = this@LatelyResultActivity
-            latelyResultViewModel =  this@LatelyResultActivity.latelyResultViewModel
+            latelyResultViewModel = this@LatelyResultActivity.latelyResultViewModel
             adView.loadAd(AdRequest.Builder().build())
         }
 
         latelyResultViewModel.apply {
             setListLatelyResult(intent.getSerializableExtra(EXTRA_LIST_LOTTO) as ArrayList<LottoDTO>)
-            listLatelyResult.observe(this@LatelyResultActivity, Observer {
-                Handler().postDelayed({
-                    binding.vpLatelyResult.currentItem = intent.getIntExtra(EXTRA_LATELY_RESULT_POSITION, 0)
-                }, 100)
-            })
+            listLatelyResult.observe(
+                this@LatelyResultActivity,
+                Observer {
+                    Handler().postDelayed(
+                        {
+                            binding.vpLatelyResult.currentItem = intent.getIntExtra(EXTRA_LATELY_RESULT_POSITION, 0)
+                        },
+                        100
+                    )
+                }
+            )
         }
     }
 
@@ -48,17 +54,19 @@ class LatelyResultActivity : BaseActivity<ActivityLatelyResultBinding>(R.layout.
                 InputDialog(this).apply {
                     setTitle(getString(R.string.search_round))
                     setHint(getString(R.string.msg_search_hint_round))
-                    setOnSearchClickListener(View.OnClickListener {
-                        val result = latelyResultViewModel.checkSearchRound(edit_search.text.toString())
-                        if (result == "OK") {
-                            val searchRound = edit_search.text.toString().toInt()
-                            val currentRound = latelyResultViewModel.listLatelyResult.value!![0].drwNo
-                            binding.vpLatelyResult.currentItem = currentRound - searchRound
-                        } else {
-                            Toast.makeText(this@LatelyResultActivity, result, Toast.LENGTH_SHORT).show()
+                    setOnSearchClickListener(
+                        View.OnClickListener {
+                            val result = latelyResultViewModel.checkSearchRound(edit_search.text.toString())
+                            if (result == "OK") {
+                                val searchRound = edit_search.text.toString().toInt()
+                                val currentRound = latelyResultViewModel.listLatelyResult.value!![0].drwNo
+                                binding.vpLatelyResult.currentItem = currentRound - searchRound
+                            } else {
+                                Toast.makeText(this@LatelyResultActivity, result, Toast.LENGTH_SHORT).show()
+                            }
+                            dismiss()
                         }
-                        dismiss()
-                    })
+                    )
                     show()
                 }
             }

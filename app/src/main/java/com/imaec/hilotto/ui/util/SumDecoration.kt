@@ -11,7 +11,12 @@ class SumDecoration(var context: Context) : RecyclerView.ItemDecoration() {
     private val offset1 = dp(context, 6)
     private val offset2 = dp(context, 12)
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
         val position = parent.getChildLayoutPosition(view)
         val size = if (parent.adapter != null) parent.adapter!!.itemCount else 0
 
@@ -19,7 +24,7 @@ class SumDecoration(var context: Context) : RecyclerView.ItemDecoration() {
         outRect.bottom = offset1
         when (position) {
             0 -> outRect.top = offset2
-            size-1 -> outRect.bottom = offset2
+            size - 1 -> outRect.bottom = offset2
         }
     }
 }

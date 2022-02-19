@@ -1,6 +1,5 @@
 package com.imaec.hilotto.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -54,7 +53,9 @@ class LatelyResultPageAdapter : BaseAdapter() {
                     "${item.firstPrzwnerCo} 명",
                     Lotto.getSumAvg(listOf(item)),
                     Lotto.getSequenceString(Lotto.getContinues(item.drwtNo1, item.drwtNo2, item.drwtNo3, item.drwtNo4, item.drwtNo5, item.drwtNo6)),
-                    "홀 ${Lotto.getOdd(item.drwtNo1, item.drwtNo2, item.drwtNo3, item.drwtNo4, item.drwtNo5, item.drwtNo6).size} / 짝 ${Lotto.getEven(item.drwtNo1, item.drwtNo2, item.drwtNo3, item.drwtNo4, item.drwtNo5, item.drwtNo6).size}"
+                    "홀 ${Lotto.getOdd(listOf(item.drwtNo1, item.drwtNo2, item.drwtNo3, item.drwtNo4, item.drwtNo5, item.drwtNo6)).size} / 짝 ${Lotto.getEven(
+                        listOf(item.drwtNo1, item.drwtNo2, item.drwtNo3, item.drwtNo4, item.drwtNo5, item.drwtNo6)
+                    ).size}"
                 )
             }
         }

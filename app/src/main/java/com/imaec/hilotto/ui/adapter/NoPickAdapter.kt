@@ -5,8 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.imaec.hilotto.base.BaseAdapter
 import com.imaec.hilotto.databinding.ItemNopickBinding
-import com.imaec.hilotto.databinding.ItemSumBinding
-import com.imaec.hilotto.model.SumDTO
 
 class NoPickAdapter : BaseAdapter() {
 

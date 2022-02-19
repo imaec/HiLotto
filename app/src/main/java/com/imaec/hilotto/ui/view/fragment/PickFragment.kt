@@ -56,13 +56,16 @@ class PickFragment : BaseFragment<FragmentPickBinding>(R.layout.fragment_pick) {
 
         pickViewModel.setStatisticsNo(SharedPreferenceUtil.getInt(context!!, SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS, 20))
 
-        sharedViewModel.listResult.observe(activity!!, Observer {
-            pickViewModel.setPickedNum(it)
-            pickViewModel.setNoPickNum(it)
-            binding.checkIncludeBonus.setOnCheckedChangeListener { compoundButton, b ->
-                pickViewModel.setPickedNum(it, b)
-                pickViewModel.setNoPickNum(it, b)
+        sharedViewModel.listResult.observe(
+            activity!!,
+            Observer {
+                pickViewModel.setPickedNum(it)
+                pickViewModel.setNoPickNum(it)
+                binding.checkIncludeBonus.setOnCheckedChangeListener { compoundButton, b ->
+                    pickViewModel.setPickedNum(it, b)
+                    pickViewModel.setNoPickNum(it, b)
+                }
             }
-        })
+        )
     }
 }

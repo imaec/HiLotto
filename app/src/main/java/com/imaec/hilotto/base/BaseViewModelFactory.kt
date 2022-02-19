@@ -5,7 +5,22 @@ import androidx.lifecycle.ViewModelProvider
 import com.imaec.hilotto.repository.FirebaseRepository
 import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.repository.NumberRepository
-import com.imaec.hilotto.viewmodel.*
+import com.imaec.hilotto.viewmodel.ContinuesViewModel
+import com.imaec.hilotto.viewmodel.EditNumberViewModel
+import com.imaec.hilotto.viewmodel.HomeViewModel
+import com.imaec.hilotto.viewmodel.LatelyResultViewModel
+import com.imaec.hilotto.viewmodel.LottoViewModel
+import com.imaec.hilotto.viewmodel.MainViewModel
+import com.imaec.hilotto.viewmodel.MyViewModel
+import com.imaec.hilotto.viewmodel.OddEvenViewModel
+import com.imaec.hilotto.viewmodel.PickViewModel
+import com.imaec.hilotto.viewmodel.RecommendViewModel
+import com.imaec.hilotto.viewmodel.SettingViewModel
+import com.imaec.hilotto.viewmodel.StatisticsViewModel
+import com.imaec.hilotto.viewmodel.StoreViewModel
+import com.imaec.hilotto.viewmodel.SumViewModel
+import com.imaec.hilotto.viewmodel.WinHistoryViewModel
+import com.imaec.hilotto.viewmodel.WinViewModel
 
 class BaseViewModelFactory(private vararg val repository: Any) : ViewModelProvider.Factory {
 

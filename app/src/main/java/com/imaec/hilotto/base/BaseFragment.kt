@@ -13,15 +13,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.google.android.gms.ads.*
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.imaec.hilotto.R
 import com.imaec.hilotto.ui.view.dialog.ProgressDialog
-import java.util.*
+import java.util.Random
 
-
-abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutResId: Int) : Fragment() {
+abstract class BaseFragment<T : ViewDataBinding>(
+    @LayoutRes private val layoutResId: Int
+) : Fragment() {
 
     protected val TAG = this::class.java.simpleName
 
@@ -31,7 +36,11 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRe
     private val progressDialog: ProgressDialog by lazy { ProgressDialog(context!!) }
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutResId, container, false)
         return binding.root
     }
@@ -43,9 +52,12 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRe
 
         FirebaseCrashlytics.getInstance().log("$TAG onViewCreated")
         FirebaseCrashlytics.getInstance().setCustomKey(getString(R.string.key_fragment), TAG)
-        logEvent(getString(R.string.event_screen_fragment), Bundle().apply {
-            putString(getString(R.string.key_screen_fragment), TAG)
-        })
+        logEvent(
+            getString(R.string.event_screen_fragment),
+            Bundle().apply {
+                putString(getString(R.string.key_screen_fragment), TAG)
+            }
+        )
     }
 
     override fun onResume() {
@@ -68,11 +80,15 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRe
         FirebaseCrashlytics.getInstance().log("$TAG onActivityResult")
     }
 
-    protected fun <T : ViewModel> getViewModel(modelClass: Class<T>, vararg repository: Any) : T {
+    protected fun <T : ViewModel> getViewModel(modelClass: Class<T>, vararg repository: Any): T {
         return ViewModelProvider(this, BaseViewModelFactory(*repository)).get(modelClass)
     }
 
-    protected fun <T : ViewModel> getViewModel(modelClass: Class<T>, owner: ViewModelStoreOwner = this, vararg repository: Any) : T {
+    protected fun <T : ViewModel> getViewModel(
+        modelClass: Class<T>,
+        owner: ViewModelStoreOwner = this,
+        vararg repository: Any
+    ): T {
         return ViewModelProvider(owner, BaseViewModelFactory(*repository)).get(modelClass)
     }
 
