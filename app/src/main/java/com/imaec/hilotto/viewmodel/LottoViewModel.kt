@@ -34,8 +34,8 @@ class LottoViewModel @Inject constructor(
     private val _curDrwNo = MutableLiveData(1)
     val curDrwNo: LiveData<Int> get() = _curDrwNo
 
-    private val _listResult = MutableLiveData<List<LottoDTO>>(ArrayList())
-    val listResult: LiveData<List<LottoDTO>> get() = _listResult
+    private val _lottoList = MutableLiveData<List<LottoDTO>>(ArrayList())
+    val lottoList: LiveData<List<LottoDTO>> get() = _lottoList
 
     private val _curNum1 = MutableLiveData(1)
     val curNum1: LiveData<Int> get() = _curNum1
@@ -67,8 +67,8 @@ class LottoViewModel @Inject constructor(
     private val _price = MutableLiveData<Long>(0)
     val price: LiveData<Long> get() = _price
 
-    private val _listStore = MutableLiveData<List<StoreDTO>>(ArrayList())
-    val listStore: LiveData<List<StoreDTO>> get() = _listStore
+    private val _storeList = MutableLiveData<List<StoreDTO>>(ArrayList())
+    val storeList: LiveData<List<StoreDTO>> get() = _storeList
 
     private fun setCurData(dto: LottoDTO) {
         dto.apply {
@@ -89,7 +89,7 @@ class LottoViewModel @Inject constructor(
     private fun getDatabaseData(callback: () -> Unit) {
         viewModelScope.launch {
             getLottoListUseCase {
-                _listResult.value = it
+                _lottoList.value = it
                 setCurData(it[0])
                 callback()
             }
@@ -121,7 +121,7 @@ class LottoViewModel @Inject constructor(
                                         listTemp.sortedBy { dto -> dto.drwNo }
                                     )
 
-                                    _listResult.value =
+                                    _lottoList.value =
                                         listTemp.sortedByDescending { dto -> dto.drwNo }
                                     setCurData(listTemp.sortedByDescending { dto -> dto.drwNo }[0])
                                     callback(true)
@@ -184,7 +184,7 @@ class LottoViewModel @Inject constructor(
                 Pair(
                     URL_STORE,
                     {
-                        launch(Dispatchers.Main) { _listStore.value = it }
+                        launch(Dispatchers.Main) { _storeList.value = it }
                     }
                 )
             )

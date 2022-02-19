@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:ads="http://schemas.android.com/apk/res-auto">
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="vm"
-            type="com.imaec.hilotto.viewmodel.StoreViewModel" />
+            type="com.imaec.hilotto.ui.store.StoreViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +16,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/text_title"
+            android:id="@+id/tv_title"
             style="@style/AppTheme.Toolbar"
             android:text="@string/store"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -23,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_round"
+            android:id="@+id/tv_round"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/lightGray3"
@@ -35,22 +36,27 @@
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_title"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:text="999회"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_store"
+            android:id="@+id/rv_store"
+            bindItemList="@{vm.storeList}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/lightGray3"
-            app:adapter="@{vm.adapter}"
-            app:items="@{vm.listStore}"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:clipToPadding="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_round"
-            app:layout_constraintBottom_toTopOf="@id/adView"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_round"
+            app:layout_constraintBottom_toTopOf="@id/ad_store"
+            tools:listitem="@layout/item_store" />
 
         <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
+            android:id="@+id/ad_store"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"

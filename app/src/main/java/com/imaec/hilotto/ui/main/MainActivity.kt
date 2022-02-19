@@ -12,7 +12,6 @@ import com.imaec.hilotto.databinding.ActivityMainBinding
 import com.imaec.hilotto.ui.view.activity.SplashActivity
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.viewmodel.LottoViewModel
-import com.imaec.hilotto.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

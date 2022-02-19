@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:ads="http://schemas.android.com/apk/res-auto">
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="vm"
-            type="com.imaec.hilotto.viewmodel.HomeViewModel" />
+            type="com.imaec.hilotto.ui.home.HomeViewModel" />
 
         <variable
             name="lottoVm"
@@ -22,14 +23,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/text_store">
+            app:layout_constraintBottom_toTopOf="@id/tv_store">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/text_date"
+                    android:id="@+id/tv_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
@@ -39,7 +40,7 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
-                    android:id="@+id/text_round"
+                    android:id="@+id/tv_round"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -50,68 +51,68 @@
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_date"/>
+                    app:layout_constraintTop_toBottomOf="@id/tv_date"/>
 
                 <TextView
                     style="@style/AppTheme.TextNumberAccent"
-                    android:id="@+id/text_number_1"
-                    android:layout_marginLeft="12dp"
+                    android:id="@+id/tv_number1"
+                    android:layout_marginStart="16dp"
                     android:text="@{lottoVm.curNum1.toString()}"
                     app:backgroundNumberCircle="@{lottoVm.curNum1}"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/text_number_2"
-                    app:layout_constraintTop_toBottomOf="@id/text_round"
+                    app:layout_constraintRight_toLeftOf="@id/tv_number2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_round"
                     app:layout_constraintDimensionRatio="1"/>
 
                 <TextView
                     style="@style/AppTheme.TextNumberAccent"
-                    android:id="@+id/text_number_2"
+                    android:id="@+id/tv_number2"
                     android:text="@{lottoVm.curNum2.toString()}"
                     app:backgroundNumberCircle="@{lottoVm.curNum2}"
-                    app:layout_constraintLeft_toRightOf="@id/text_number_1"
-                    app:layout_constraintRight_toLeftOf="@id/text_number_3"
-                    app:layout_constraintTop_toBottomOf="@id/text_round"
+                    app:layout_constraintLeft_toRightOf="@id/tv_number1"
+                    app:layout_constraintRight_toLeftOf="@id/tv_number3"
+                    app:layout_constraintTop_toBottomOf="@id/tv_round"
                     app:layout_constraintDimensionRatio="1"/>
 
                 <TextView
                     style="@style/AppTheme.TextNumberAccent"
-                    android:id="@+id/text_number_3"
+                    android:id="@+id/tv_number3"
                     android:text="@{lottoVm.curNum3.toString()}"
                     app:backgroundNumberCircle="@{lottoVm.curNum3}"
-                    app:layout_constraintLeft_toRightOf="@id/text_number_2"
-                    app:layout_constraintRight_toLeftOf="@id/text_number_4"
-                    app:layout_constraintTop_toBottomOf="@id/text_round"
+                    app:layout_constraintLeft_toRightOf="@id/tv_number2"
+                    app:layout_constraintRight_toLeftOf="@id/tv_number4"
+                    app:layout_constraintTop_toBottomOf="@id/tv_round"
                     app:layout_constraintDimensionRatio="1"/>
 
                 <TextView
                     style="@style/AppTheme.TextNumberAccent"
-                    android:id="@+id/text_number_4"
+                    android:id="@+id/tv_number4"
                     android:text="@{lottoVm.curNum4.toString()}"
                     app:backgroundNumberCircle="@{lottoVm.curNum4}"
-                    app:layout_constraintLeft_toRightOf="@id/text_number_3"
-                    app:layout_constraintRight_toLeftOf="@id/text_number_5"
-                    app:layout_constraintTop_toBottomOf="@id/text_round"
+                    app:layout_constraintLeft_toRightOf="@id/tv_number3"
+                    app:layout_constraintRight_toLeftOf="@id/tv_number5"
+                    app:layout_constraintTop_toBottomOf="@id/tv_round"
                     app:layout_constraintDimensionRatio="1"/>
 
                 <TextView
                     style="@style/AppTheme.TextNumberAccent"
-                    android:id="@+id/text_number_5"
+                    android:id="@+id/tv_number5"
                     android:text="@{lottoVm.curNum5.toString()}"
                     app:backgroundNumberCircle="@{lottoVm.curNum5}"
-                    app:layout_constraintLeft_toRightOf="@id/text_number_4"
-                    app:layout_constraintRight_toLeftOf="@id/text_number_6"
-                    app:layout_constraintTop_toBottomOf="@id/text_round"
+                    app:layout_constraintLeft_toRightOf="@id/tv_number4"
+                    app:layout_constraintRight_toLeftOf="@id/tv_number6"
+                    app:layout_constraintTop_toBottomOf="@id/tv_round"
                     app:layout_constraintDimensionRatio="1"/>
 
                 <TextView
                     style="@style/AppTheme.TextNumberAccent"
-                    android:id="@+id/text_number_6"
-                    android:layout_marginRight="12dp"
+                    android:id="@+id/tv_number6"
+                    android:layout_marginEnd="16dp"
                     android:text="@{lottoVm.curNum6.toString()}"
                     app:backgroundNumberCircle="@{lottoVm.curNum6}"
-                    app:layout_constraintLeft_toRightOf="@id/text_number_5"
+                    app:layout_constraintLeft_toRightOf="@id/tv_number5"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_round"
+                    app:layout_constraintTop_toBottomOf="@id/tv_round"
                     app:layout_constraintDimensionRatio="1"/>
 
                 <TextView
@@ -123,22 +124,22 @@
                     android:textSize="12sp"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="@id/text_number_5"
-                    app:layout_constraintRight_toRightOf="@id/text_number_5"
-                    app:layout_constraintTop_toBottomOf="@id/text_number_5"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_number5"
+                    app:layout_constraintRight_toRightOf="@id/tv_number5"
+                    app:layout_constraintTop_toBottomOf="@id/tv_number5"
                     app:layout_constraintDimensionRatio="1"/>
 
                 <TextView
                     style="@style/AppTheme.TextNumberAccent"
-                    android:id="@+id/text_number_bonus"
+                    android:id="@+id/tv_number_bonus"
                     android:layout_marginLeft="0dp"
                     android:layout_marginRight="0dp"
                     android:layout_marginTop="12dp"
                     android:text="@{lottoVm.curNumBonus.toString()}"
                     app:backgroundNumberCircle="@{lottoVm.curNumBonus}"
-                    app:layout_constraintLeft_toLeftOf="@id/text_number_6"
-                    app:layout_constraintRight_toRightOf="@id/text_number_6"
-                    app:layout_constraintTop_toBottomOf="@id/text_number_6"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_number6"
+                    app:layout_constraintRight_toRightOf="@id/tv_number6"
+                    app:layout_constraintTop_toBottomOf="@id/tv_number6"
                     app:layout_constraintDimensionRatio="1"/>
 
                 <View
@@ -148,10 +149,10 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:background="?attr/selectableItemBackground"
-                    app:layout_constraintLeft_toLeftOf="@id/text_number_1"
-                    app:layout_constraintRight_toRightOf="@id/text_number_6"
-                    app:layout_constraintTop_toTopOf="@id/text_round"
-                    app:layout_constraintBottom_toBottomOf="@id/text_number_bonus"/>
+                    app:layout_constraintLeft_toLeftOf="@id/tv_number1"
+                    app:layout_constraintRight_toRightOf="@id/tv_number6"
+                    app:layout_constraintTop_toTopOf="@id/tv_round"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_number_bonus"/>
 
                 <View
                     style="@style/AppTheme.ViewDivider"
@@ -159,7 +160,7 @@
                     android:layout_margin="16dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_number_bonus"/>
+                    app:layout_constraintTop_toBottomOf="@id/tv_number_bonus"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -169,12 +170,12 @@
                     android:text="@string/win_count_desc"
                     android:textSize="14sp"
                     android:textColor="@color/darkGray"
-                    app:layout_constraintRight_toLeftOf="@id/text_win_count"
-                    app:layout_constraintTop_toTopOf="@id/text_win_count"
-                    app:layout_constraintBottom_toBottomOf="@id/text_win_count"/>
+                    app:layout_constraintRight_toLeftOf="@id/tv_win_count"
+                    app:layout_constraintTop_toTopOf="@id/tv_win_count"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_win_count"/>
 
                 <TextView
-                    android:id="@+id/text_win_count"
+                    android:id="@+id/tv_win_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -191,8 +192,8 @@
                     android:orientation="horizontal"
                     android:layout_margin="4dp"
                     android:background="@drawable/bg_rounded_gray_stroke"
-                    app:layout_constraintRight_toLeftOf="@id/text_won"
-                    app:layout_constraintTop_toBottomOf="@id/text_win_count"
+                    app:layout_constraintRight_toLeftOf="@id/tv_won"
+                    app:layout_constraintTop_toBottomOf="@id/tv_win_count"
                     app:layout_constraintWidth_percent="0.7">
 
                     <TextView
@@ -206,7 +207,7 @@
                         android:textStyle="bold"/>
 
                     <TextView
-                        android:id="@+id/text_price"
+                        android:id="@+id/tv_price"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:padding="6dp"
@@ -217,17 +218,17 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/text_won"
+                    android:id="@+id/tv_won"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:gravity="center"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
                     android:text="원"
                     android:textSize="14sp"
                     android:textColor="@color/darkGray"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_win_count"/>
+                    app:layout_constraintTop_toBottomOf="@id/tv_win_count"/>
 
                 <View
                     style="@style/AppTheme.ViewDivider"
@@ -235,10 +236,10 @@
                     android:layout_margin="16dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_won"/>
+                    app:layout_constraintTop_toBottomOf="@id/tv_won"/>
 
                 <TextView
-                    android:id="@+id/text_lately_result"
+                    android:id="@+id/tv_lately_result"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -250,41 +251,48 @@
                     app:layout_constraintTop_toBottomOf="@id/view_divider_2"/>
 
                 <TextView
-                    android:id="@+id/text_lately_result_more"
+                    android:id="@+id/tv_lately_result_more"
+                    bindSingleClick="@{() -> vm.onClickMore(lottoVm.lottoList)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
                     android:background="?attr/selectableItemBackground"
                     android:onClick="onClick"
                     android:clickable="true"
                     android:focusable="true"
                     android:text="@string/more"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/text_lately_result"/>
+                    app:layout_constraintBottom_toBottomOf="@id/tv_lately_result"/>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_lately_result"
+                    android:id="@+id/rv_lately_result"
+                    bindItemList="@{vm.latelyResultList}"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    app:adapter="@{vm.adapter}"
-                    app:items="@{vm.listLatelyResult}"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingHorizontal="8dp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_lately_result"/>
+                    app:layout_constraintTop_toBottomOf="@id/tv_lately_result"
+                    tools:listitem="@layout/item_lately_result"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
         <TextView
             style="@style/AppTheme.TextPrimaryButton"
-            android:id="@+id/text_store"
+            bindSingleClick="@{() -> vm.onClickStore(lottoVm.curDrwNo, lottoVm.storeList)}"
+            android:id="@+id/tv_store"
             android:layout_margin="16dp"
             android:text="@string/store"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/adView"/>
+            app:layout_constraintBottom_toTopOf="@id/av_home"/>
 
         <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
+            android:id="@+id/av_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"

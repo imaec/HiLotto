@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.imaec.hilotto.model.LatelyResultDTO" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@{item.round}"
+                    android:textColor="@color/darkGray"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="999회"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@{item.date}"
+                    android:textColor="@color/darkGray"
+                    android:textSize="12sp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_title"
+                    tools:text="2022-01-22"/>
+
+                <TextView
+                    style="@style/AppTheme.TextNumberAccent"
+                    android:id="@+id/tv_number_1"
+                    android:layout_marginStart="8dp"
+                    app:textByInt="@{item.no1}"
+                    app:backgroundNumberCircle="@{item.no1}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/tv_number_2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title"
+                    app:layout_constraintDimensionRatio="1"
+                    tools:text="1"/>
+
+                <TextView
+                    style="@style/AppTheme.TextNumberAccent"
+                    android:id="@+id/tv_number_2"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    app:textByInt="@{item.no2}"
+                    app:backgroundNumberCircle="@{item.no2}"
+                    app:layout_constraintLeft_toRightOf="@id/tv_number_1"
+                    app:layout_constraintRight_toLeftOf="@id/tv_number_3"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title"
+                    app:layout_constraintDimensionRatio="1"
+                    tools:text="3"/>
+
+                <TextView
+                    style="@style/AppTheme.TextNumberAccent"
+                    android:id="@+id/tv_number_3"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    app:textByInt="@{item.no3}"
+                    app:backgroundNumberCircle="@{item.no3}"
+                    app:layout_constraintLeft_toRightOf="@id/tv_number_2"
+                    app:layout_constraintRight_toLeftOf="@id/tv_number_4"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title"
+                    app:layout_constraintDimensionRatio="1"
+                    tools:text="9"/>
+
+                <TextView
+                    style="@style/AppTheme.TextNumberAccent"
+                    android:id="@+id/tv_number_4"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    app:textByInt="@{item.no4}"
+                    app:backgroundNumberCircle="@{item.no4}"
+                    app:layout_constraintLeft_toRightOf="@id/tv_number_3"
+                    app:layout_constraintRight_toLeftOf="@id/tv_number_5"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title"
+                    app:layout_constraintDimensionRatio="1"
+                    tools:text="14"/>
+
+                <TextView
+                    style="@style/AppTheme.TextNumberAccent"
+                    android:id="@+id/tv_number_5"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    app:textByInt="@{item.no5}"
+                    app:backgroundNumberCircle="@{item.no5}"
+                    app:layout_constraintLeft_toRightOf="@id/tv_number_4"
+                    app:layout_constraintRight_toLeftOf="@id/tv_number_6"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title"
+                    app:layout_constraintDimensionRatio="1"
+                    tools:text="18"/>
+
+                <TextView
+                    style="@style/AppTheme.TextNumberAccent"
+                    android:id="@+id/tv_number_6"
+                    android:layout_marginEnd="8dp"
+                    app:textByInt="@{item.no6}"
+                    app:backgroundNumberCircle="@{item.no6}"
+                    app:layout_constraintLeft_toRightOf="@id/tv_number_5"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title"
+                    app:layout_constraintDimensionRatio="1"
+                    tools:text="28"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="12dp"
+                    android:gravity="end|center_vertical"
+                    android:text="@string/bonus"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_number_5"
+                    app:layout_constraintRight_toRightOf="@id/tv_number_5"
+                    app:layout_constraintTop_toBottomOf="@id/tv_number_5"
+                    app:layout_constraintDimensionRatio="1"/>
+
+                <TextView
+                    style="@style/AppTheme.TextNumberAccent"
+                    android:id="@+id/tv_number_bonus"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginTop="12dp"
+                    app:textByInt="@{item.noBonus}"
+                    app:backgroundNumberCircle="@{item.noBonus}"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_number_6"
+                    app:layout_constraintRight_toRightOf="@id/tv_number_6"
+                    app:layout_constraintTop_toBottomOf="@id/tv_number_6"
+                    app:layout_constraintDimensionRatio="1"
+                    tools:text="34"/>
+
+                <View
+                    android:id="@+id/view_divider1"
+                    style="@style/AppTheme.ViewDivider"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_number_bonus"/>
+
+                <TextView
+                    android:id="@+id/tv_win_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="1등 당첨 정보"
+                    android:textSize="18sp"
+                    android:textColor="@color/darkGray"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider1"/>
+
+                <TextView
+                    android:id="@+id/tv_prize_total_title"
+                    android:layout_width="61dp"
+                    android:layout_height="21dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/title_prize_total"
+                    android:textColor="@color/darkGray"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_win_info" />
+
+                <TextView
+                    android:id="@+id/tv_prize_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@{item.prizeTotal}"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_prize_total_title"
+                    tools:text="25,355,635,508원"/>
+
+                <TextView
+                    android:id="@+id/tv_win_count_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/title_win_count"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_prize_total_title"/>
+
+                <TextView
+                    android:id="@+id/tv_win_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@{item.winCount}"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_win_count_title"
+                    tools:text="14명"/>
+
+                <TextView
+                    android:id="@+id/tv_prize_by_one_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/title_prize_by_one"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_win_count_title"/>
+
+                <TextView
+                    android:id="@+id/tv_prize_by_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@{item.prizeByOne}"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_prize_by_one_title"
+                    tools:text="1,811,116,822원"/>
+
+                <View
+                    android:id="@+id/view_divider2"
+                    style="@style/AppTheme.ViewDivider"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_prize_by_one_title"/>
+
+                <TextView
+                    android:id="@+id/tv_statistics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="당첨 통계"
+                    android:textSize="18sp"
+                    android:textColor="@color/darkGray"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider2"/>
+
+                <TextView
+                    android:id="@+id/tv_sum_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="4dp"
+                    android:text="당첨번호 합계"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_statistics"/>
+
+                <TextView
+                    android:id="@+id/tv_sum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    app:textByInt="@{item.noSum}"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_sum_title"
+                    tools:text="73"/>
+
+                <TextView
+                    android:id="@+id/tv_continues_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="4dp"
+                    android:text="연속번호"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sum_title"/>
+
+                <TextView
+                    android:id="@+id/tv_continues"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@{item.noContinues}"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_continues_title"
+                    tools:text="0"/>
+
+                <TextView
+                    android:id="@+id/tv_odd_even_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="4dp"
+                    android:text="홀 수 : 짝 수"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_continues_title"/>
+
+                <TextView
+                    android:id="@+id/tv_odd_even"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@{item.noOddEven}"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_odd_even_title"
+                    tools:text="3:3"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

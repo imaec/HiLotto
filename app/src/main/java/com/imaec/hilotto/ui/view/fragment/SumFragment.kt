@@ -37,7 +37,7 @@ class SumFragment : BaseFragment<FragmentSumBinding>(R.layout.fragment_sum) {
             )
         )
 
-        lottoViewModel.listResult.observe(
+        lottoViewModel.lottoList.observe(
             requireActivity(),
             {
                 viewModel.setListSum(it)

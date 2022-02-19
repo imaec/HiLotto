@@ -138,34 +138,32 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                     setTitle(getString(R.string.setting_statistics))
                     setHint(getString(R.string.msg_setting_statistics_hint))
                     setSearch(getString(R.string.setting))
-                    setOnSearchClickListener(
-                        View.OnClickListener {
-                            val result = viewModel.checkSettingRound(
-                                edit_search.text.toString(),
-                                SharedPreferenceUtil.getInt(
-                                    context,
-                                    SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO,
-                                    1
-                                )
+                    setOnSearchClickListener {
+                        val result = viewModel.checkSettingRound(
+                            edit_search.text.toString(),
+                            SharedPreferenceUtil.getInt(
+                                context,
+                                SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO,
+                                1
                             )
-                            if (result == "OK") {
-                                SharedPreferenceUtil.putValue(
-                                    context,
-                                    SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
-                                    edit_search.text.toString().toInt()
-                                )
-                                viewModel.setSettingStatistics("${edit_search.text}회")
-                                Toast.makeText(
-                                    context,
-                                    R.string.msg_success_save_setting_statistics,
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            } else {
-                                Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
-                            }
-                            dismiss()
+                        )
+                        if (result == "OK") {
+                            SharedPreferenceUtil.putValue(
+                                context,
+                                SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
+                                edit_search.text.toString().toInt()
+                            )
+                            viewModel.setSettingStatistics("${edit_search.text}회")
+                            Toast.makeText(
+                                context,
+                                R.string.msg_success_save_setting_statistics,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
                         }
-                    )
+                        dismiss()
+                    }
                     show()
                 }
             }

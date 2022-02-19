@@ -33,7 +33,7 @@ class WinFragment : BaseFragment<FragmentWinBinding>(R.layout.fragment_win) {
             )
         )
 
-        lottoViewModel.listResult.observe(
+        lottoViewModel.lottoList.observe(
             requireActivity(),
             {
                 viewModel.setWinInfo(it)

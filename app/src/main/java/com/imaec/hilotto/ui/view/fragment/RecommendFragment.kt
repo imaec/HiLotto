@@ -105,7 +105,7 @@ class RecommendFragment :
                 })
         }
 
-        lottoViewModel.listResult.observe(
+        lottoViewModel.lottoList.observe(
             requireActivity(),
             {
                 viewModel.setListResult(it)

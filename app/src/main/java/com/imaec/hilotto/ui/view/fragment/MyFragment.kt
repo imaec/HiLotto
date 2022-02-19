@@ -53,7 +53,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
             listNumber.observe(
                 requireActivity(),
                 {
-                    lottoViewModel.listResult.value?.let {
+                    lottoViewModel.lottoList.value?.let {
                         checkWin(it[0])
                     }
                 }
@@ -63,7 +63,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
                     Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
                     return@setOnNumberClickListener
                 }
-                lottoViewModel.listResult.value?.let {
+                lottoViewModel.lottoList.value?.let {
                     showAd(R.string.ad_id_history_front, true) {
                         startActivity(
                             Intent(context, WinHistoryActivity::class.java).apply {

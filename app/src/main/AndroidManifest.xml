@@ -43,11 +43,11 @@
             android:screenOrientation="portrait"
             android:exported="true"/>
 
-        <activity android:name=".ui.view.activity.LatelyResultActivity"
+        <activity android:name=".ui.lately.LatelyResultActivity"
             android:screenOrientation="portrait"
             android:exported="true"/>
 
-        <activity android:name=".ui.view.activity.StoreActivity"
+        <activity android:name=".ui.store.StoreActivity"
             android:screenOrientation="portrait"
             android:exported="true"/>
 

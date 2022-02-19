@@ -36,7 +36,7 @@ class OddEvenFragment : BaseFragment<FragmentOddEvenBinding>(R.layout.fragment_o
             )
         )
 
-        lottoViewModel.listResult.observe(
+        lottoViewModel.lottoList.observe(
             requireActivity(),
             {
                 viewModel.setOddEven(it)

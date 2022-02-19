@@ -3,7 +3,7 @@ package com.imaec.hilotto.ui.main
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.imaec.hilotto.ui.view.fragment.HomeFragment
+import com.imaec.hilotto.ui.home.HomeFragment
 import com.imaec.hilotto.ui.view.fragment.MyFragment
 import com.imaec.hilotto.ui.view.fragment.RecommendFragment
 import com.imaec.hilotto.ui.view.fragment.SettingFragment

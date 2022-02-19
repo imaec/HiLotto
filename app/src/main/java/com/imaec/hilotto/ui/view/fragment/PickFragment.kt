@@ -55,7 +55,7 @@ class PickFragment : BaseFragment<FragmentPickBinding>(R.layout.fragment_pick) {
             )
         )
 
-        lottoViewModel.listResult.observe(
+        lottoViewModel.lottoList.observe(
             requireActivity(),
             {
                 viewModel.setPickedNum(it)

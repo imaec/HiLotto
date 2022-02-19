@@ -5,14 +5,24 @@
     <data>
 
         <variable
+            name="vm"
+            type="com.imaec.hilotto.ui.home.HomeViewModel" />
+
+        <variable
+            name="lottoVm"
+            type="com.imaec.hilotto.viewmodel.LottoViewModel" />
+
+        <variable
             name="item"
             type="com.imaec.hilotto.model.LottoDTO" />
     </data>
 
     <LinearLayout
+        bindSingleClick="@{() -> vm.onClickLately(item, lottoVm.lottoList)}"
         android:layout_width="180dp"
         android:layout_height="120dp"
         android:orientation="vertical"
+        android:layout_marginHorizontal="8dp"
         android:background="@drawable/bg_rounded_gray_stroke"
         android:clickable="true"
         android:focusable="true"

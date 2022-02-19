@@ -22,7 +22,7 @@ class InputDialog(context: Context) : Dialog(context) {
     private var hint = ""
     private var search = ""
     private var cancel = ""
-    private lateinit var listenerSearch: View.OnClickListener
+    private lateinit var listenerSearch: (String) -> Unit
     private lateinit var listenerCancel: View.OnClickListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +54,9 @@ class InputDialog(context: Context) : Dialog(context) {
         text_search.text = search
         text_cancel.text = cancel
 
-        if (::listenerSearch.isInitialized) text_search.setOnClickListener(listenerSearch)
+        if (::listenerSearch.isInitialized) text_search.setOnClickListener {
+            listenerSearch(edit_search.text.toString())
+        }
         else text_search.setOnClickListener { dismiss() }
 
         if (::listenerCancel.isInitialized) text_cancel.setOnClickListener(listenerCancel)
@@ -85,11 +87,15 @@ class InputDialog(context: Context) : Dialog(context) {
         this.cancel = cancel
     }
 
-    fun setOnSearchClickListener(listener: View.OnClickListener) {
+    fun setOnSearchClickListener(listener: (String) -> Unit) {
         listenerSearch = listener
     }
 
     fun setOnCancelClickListener(listener: View.OnClickListener) {
         listenerCancel = listener
+    }
+
+    interface OnClickSearchListener {
+        fun onClick(keyword: String)
     }
 }

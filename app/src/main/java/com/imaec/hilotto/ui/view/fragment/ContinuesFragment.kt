@@ -37,7 +37,7 @@ class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragme
             )
         )
 
-        lottoViewModel.listResult.observe(
+        lottoViewModel.lottoList.observe(
             requireActivity(),
             {
                 viewModel.setPickedNum(it)
