@@ -2,42 +2,41 @@ package com.imaec.hilotto.ui.view.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentWinBinding
-import com.imaec.hilotto.repository.FirebaseRepository
-import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.viewmodel.LottoViewModel
 import com.imaec.hilotto.viewmodel.WinViewModel
 
 class WinFragment : BaseFragment<FragmentWinBinding>(R.layout.fragment_win) {
 
-    private lateinit var winViewModel: WinViewModel
-    private lateinit var sharedViewModel: LottoViewModel
-
-    private val lottoRepository = LottoRepository()
-    private val firebaseRepository = FirebaseRepository()
+    private val viewModel by viewModels<WinViewModel>()
+    private val lottoViewModel by activityViewModels<LottoViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        winViewModel = getViewModel(WinViewModel::class.java)
-        sharedViewModel = getViewModel(LottoViewModel::class.java, activity!!, lottoRepository, firebaseRepository)
-
         binding.apply {
             lifecycleOwner = this@WinFragment
-            winViewModel = this@WinFragment.winViewModel
-            sharedViewModel = this@WinFragment.sharedViewModel
+            vm = this@WinFragment.viewModel
+            lottoVm = this@WinFragment.lottoViewModel
         }
 
-        winViewModel.setStatisticsNo(SharedPreferenceUtil.getInt(context!!, SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS, 20))
+        viewModel.setStatisticsNo(
+            SharedPreferenceUtil.getInt(
+                requireContext(),
+                SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
+                20
+            )
+        )
 
-        sharedViewModel.listResult.observe(
-            activity!!,
-            Observer {
-                winViewModel.setWinInfo(it)
+        lottoViewModel.listResult.observe(
+            requireActivity(),
+            {
+                viewModel.setWinInfo(it)
             }
         )
     }

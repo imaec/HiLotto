@@ -2,13 +2,12 @@ package com.imaec.hilotto.ui.view.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentContinuesBinding
-import com.imaec.hilotto.repository.FirebaseRepository
-import com.imaec.hilotto.repository.LottoRepository
 import com.imaec.hilotto.ui.util.NumbersDecoration
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.viewmodel.ContinuesViewModel
@@ -16,32 +15,32 @@ import com.imaec.hilotto.viewmodel.LottoViewModel
 
 class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragment_continues) {
 
-    private lateinit var continuesViewModel: ContinuesViewModel
-    private lateinit var sharedViewModel: LottoViewModel
-
-    private val lottoRepository = LottoRepository()
-    private val firebaseRepository = FirebaseRepository()
+    private val viewModel by viewModels<ContinuesViewModel>()
+    private val lottoViewModel by activityViewModels<LottoViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        continuesViewModel = getViewModel(ContinuesViewModel::class.java)
-        sharedViewModel = getViewModel(LottoViewModel::class.java, activity!!, lottoRepository, firebaseRepository)
-
         binding.apply {
             lifecycleOwner = this@ContinuesFragment
-            continuesViewModel = this@ContinuesFragment.continuesViewModel
-            sharedViewModel = this@ContinuesFragment.sharedViewModel
+            vm = viewModel
+            lottoVm = lottoViewModel
             recyclerContinues.layoutManager = LinearLayoutManager(context)
-            recyclerContinues.addItemDecoration(NumbersDecoration(context!!))
+            recyclerContinues.addItemDecoration(NumbersDecoration(requireContext()))
         }
 
-        continuesViewModel.setStatisticsNo(SharedPreferenceUtil.getInt(context!!, SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS, 20))
+        viewModel.setStatisticsNo(
+            SharedPreferenceUtil.getInt(
+                requireContext(),
+                SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
+                20
+            )
+        )
 
-        sharedViewModel.listResult.observe(
-            activity!!,
-            Observer {
-                continuesViewModel.setPickedNum(it)
+        lottoViewModel.listResult.observe(
+            requireActivity(),
+            {
+                viewModel.setPickedNum(it)
             }
         )
     }

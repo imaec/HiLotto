@@ -5,11 +5,11 @@
     <data>
 
         <variable
-            name="winViewModel"
+            name="vm"
             type="com.imaec.hilotto.viewmodel.WinViewModel" />
 
         <variable
-            name="sharedViewModel"
+            name="lottoVm"
             type="com.imaec.hilotto.viewmodel.LottoViewModel" />
     </data>
 
@@ -28,7 +28,7 @@
                 android:paddingRight="12dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:text="@{winViewModel.winAvgTitle}"
+                android:text="@{vm.winAvgTitle}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -46,7 +46,7 @@
                 android:id="@+id/text_prize_total"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                app:decimalAndUnit="@{winViewModel.priceTotal}"
+                app:decimalAndUnit="@{vm.priceTotal}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_prize_total_title"/>
 
@@ -65,7 +65,7 @@
                 android:id="@+id/text_prize_by_one"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                app:decimalAndUnit="@{winViewModel.price}"
+                app:decimalAndUnit="@{vm.price}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_prize_by_one_title"/>
 
@@ -84,7 +84,7 @@
                 android:id="@+id/text_win_count"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:text="@{winViewModel.winCount}"
+                android:text="@{vm.winCount}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_win_count_title"/>
 
@@ -106,7 +106,7 @@
                 android:paddingRight="12dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:text="@{winViewModel.winStatisticsTitle}"
+                android:text="@{vm.winStatisticsTitle}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_divider1"/>
 
@@ -124,7 +124,7 @@
                 android:id="@+id/text_win_prize_max"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:text="@{winViewModel.priceMax}"
+                android:text="@{vm.priceMax}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_win_prize_max_title"/>
 
@@ -143,7 +143,7 @@
                 android:id="@+id/text_win_prize_min"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:text="@{winViewModel.priceMin}"
+                android:text="@{vm.priceMin}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_win_prize_min_title"/>
 
@@ -162,7 +162,7 @@
                 android:id="@+id/text_win_count_max"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:text="@{winViewModel.winCountMax}"
+                android:text="@{vm.winCountMax}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_win_count_max_title"/>
 
@@ -181,7 +181,7 @@
                 android:id="@+id/text_win_count_min"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:text="@{winViewModel.winCountMin}"
+                android:text="@{vm.winCountMin}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_win_count_min_title"/>
         </androidx.constraintlayout.widget.ConstraintLayout>

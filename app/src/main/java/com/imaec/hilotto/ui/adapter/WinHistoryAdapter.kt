@@ -27,7 +27,8 @@ class WinHistoryAdapter : BaseAdapter() {
         this.listFit = listFit
     }
 
-    inner class ItemViewHolder(private val binding: ItemWinHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ItemViewHolder(private val binding: ItemWinHistoryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(item: NumberEntity, fitNumberDTO: FitNumberDTO) {
             fitNumberDTO.apply {
@@ -39,7 +40,14 @@ class WinHistoryAdapter : BaseAdapter() {
                     if (item.number5 == it) isFitNo5 = true
                     if (item.number6 == it) isFitNo6 = true
                 }
-                arrayOf(item.number1, item.number2, item.number3, item.number4, item.number5, item.number6).forEachIndexed { index, number ->
+                arrayOf(
+                    item.number1,
+                    item.number2,
+                    item.number3,
+                    item.number4,
+                    item.number5,
+                    item.number6
+                ).forEachIndexed { index, number ->
                     listIsFitBonus.add(numberBonus == number)
                 }
             }

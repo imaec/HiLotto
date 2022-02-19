@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="settingViewModel"
+            name="vm"
             type="com.imaec.hilotto.viewmodel.SettingViewModel" />
     </data>
 
@@ -44,7 +44,7 @@
             style="@style/TextSettingContent"
             android:id="@+id/text_setting_statistics"
             android:layout_marginTop="8dp"
-            android:text="@{settingViewModel.settingStatistics}"
+            android:text="@{vm.settingStatistics}"
             app:layout_constraintLeft_toRightOf="@id/text_setting_statistics_title"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_app_setting"
@@ -146,7 +146,7 @@
             style="@style/TextSettingContent"
             android:id="@+id/text_app_version"
             android:layout_marginTop="8dp"
-            android:text="@{settingViewModel.appVersion}"
+            android:text="@{vm.appVersion}"
             app:layout_constraintLeft_toRightOf="@id/text_app_version_title"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_app_info"

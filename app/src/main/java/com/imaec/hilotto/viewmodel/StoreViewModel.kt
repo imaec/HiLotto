@@ -5,8 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.model.StoreDTO
 import com.imaec.hilotto.ui.adapter.StoreAdapter
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class StoreViewModel : BaseViewModel() {
+@HiltViewModel
+class StoreViewModel @Inject constructor() : BaseViewModel() {
 
     init {
         adapter = StoreAdapter()

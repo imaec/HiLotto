@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="recommendViewModel"
+            name="vm"
             type="com.imaec.hilotto.viewmodel.RecommendViewModel" />
     </data>
 
@@ -138,7 +138,7 @@
                 android:id="@+id/recycler_not_included"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                app:items="@{recommendViewModel.listNotIncludeNumber}"
+                app:items="@{vm.listNotIncludeNumber}"
                 app:layout_constraintLeft_toRightOf="@id/text_not_included"
                 app:layout_constraintRight_toLeftOf="@id/image_not_included_add"
                 app:layout_constraintTop_toTopOf="@id/text_not_included"/>
@@ -160,7 +160,7 @@
                 style="@style/AppTheme.TextNumberInput"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="36dp"
-                android:text="@{recommendViewModel.listIncludeNumber[0]}"
+                android:text="@{vm.listIncludeNumber[0]}"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/text_number2"
@@ -169,7 +169,7 @@
             <TextView
                 android:id="@+id/text_number2"
                 style="@style/AppTheme.TextNumberInput"
-                android:text="@{recommendViewModel.listIncludeNumber[1]}"
+                android:text="@{vm.listIncludeNumber[1]}"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintLeft_toRightOf="@id/text_number1"
                 app:layout_constraintRight_toLeftOf="@id/text_number3"
@@ -178,7 +178,7 @@
             <TextView
                 android:id="@+id/text_number3"
                 style="@style/AppTheme.TextNumberInput"
-                android:text="@{recommendViewModel.listIncludeNumber[2]}"
+                android:text="@{vm.listIncludeNumber[2]}"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintLeft_toRightOf="@id/text_number2"
                 app:layout_constraintRight_toLeftOf="@id/text_number4"
@@ -187,7 +187,7 @@
             <TextView
                 android:id="@+id/text_number4"
                 style="@style/AppTheme.TextNumberInput"
-                android:text="@{recommendViewModel.listIncludeNumber[3]}"
+                android:text="@{vm.listIncludeNumber[3]}"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintLeft_toRightOf="@id/text_number3"
                 app:layout_constraintRight_toLeftOf="@id/text_number5"
@@ -196,7 +196,7 @@
             <TextView
                 android:id="@+id/text_number5"
                 style="@style/AppTheme.TextNumberInput"
-                android:text="@{recommendViewModel.listIncludeNumber[4]}"
+                android:text="@{vm.listIncludeNumber[4]}"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintLeft_toRightOf="@id/text_number4"
                 app:layout_constraintRight_toLeftOf="@id/text_number6"
@@ -206,7 +206,7 @@
                 android:id="@+id/text_number6"
                 style="@style/AppTheme.TextNumberInput"
                 android:layout_marginRight="12dp"
-                android:text="@{recommendViewModel.listIncludeNumber[5]}"
+                android:text="@{vm.listIncludeNumber[5]}"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintLeft_toRightOf="@id/text_number5"
                 app:layout_constraintRight_toRightOf="parent"
@@ -219,7 +219,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="16dp"
-                app:textCreateToggle="@{recommendViewModel.listIncludeNumber}"
+                app:textCreateToggle="@{vm.listIncludeNumber}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/text_save" />
@@ -243,7 +243,7 @@
             android:layout_height="match_parent"
             android:background="@color/bgAlpha"
             android:onClick="onClick"
-            app:isVisible="@{recommendViewModel.isVisible}"
+            app:isVisible="@{vm.isVisible}"
             app:layout_anchor="@+id/constraintLayout"
             app:layout_anchorGravity="center" />
 

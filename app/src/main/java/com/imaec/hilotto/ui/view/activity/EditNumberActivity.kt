@@ -7,22 +7,27 @@ import android.widget.LinearLayout
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.imaec.hilotto.*
+import com.imaec.hilotto.EXTRA_NUMBER_1
+import com.imaec.hilotto.EXTRA_NUMBER_2
+import com.imaec.hilotto.EXTRA_NUMBER_3
+import com.imaec.hilotto.EXTRA_NUMBER_4
+import com.imaec.hilotto.EXTRA_NUMBER_5
+import com.imaec.hilotto.EXTRA_NUMBER_6
+import com.imaec.hilotto.EXTRA_NUMBER_ID
+import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
 import com.imaec.hilotto.databinding.ActivityEditNumberBinding
-import com.imaec.hilotto.repository.NumberRepository
-import com.imaec.hilotto.room.AppDatabase
-import com.imaec.hilotto.room.dao.NumberDao
 import com.imaec.hilotto.room.entity.NumberEntity
 import com.imaec.hilotto.viewmodel.EditNumberViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditNumberActivity : BaseActivity<ActivityEditNumberBinding>(R.layout.activity_edit_number) {
 
-    private lateinit var editNumberViewModel: EditNumberViewModel
+    private val viewModel by viewModels<EditNumberViewModel>()
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
-    private lateinit var numberDao: NumberDao
-    private lateinit var numberRepository: NumberRepository
 
     private lateinit var selectedTextView: TextView
 
@@ -31,24 +36,20 @@ class EditNumberActivity : BaseActivity<ActivityEditNumberBinding>(R.layout.acti
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        init()
-
-        editNumberViewModel = getViewModel(EditNumberViewModel::class.java, numberRepository)
-
         binding.apply {
-            lifecycleOwner = this@EditNumberActivity
-            editNumberViewModel = this@EditNumberActivity.editNumberViewModel
+            vm = this@EditNumberActivity.viewModel
             bottomSheetBehavior = BottomSheetBehavior.from(linearBottomSheet).hide()
-            bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+            bottomSheetBehavior.addBottomSheetCallback(object :
+                    BottomSheetBehavior.BottomSheetCallback() {
+                    override fun onSlide(bottomSheet: View, slideOffset: Float) {}
 
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    this@EditNumberActivity.editNumberViewModel.setVisible(newState != BottomSheetBehavior.STATE_HIDDEN)
-                }
-            })
+                    override fun onStateChanged(bottomSheet: View, newState: Int) {
+                        viewModel.setVisible(newState != BottomSheetBehavior.STATE_HIDDEN)
+                    }
+                })
         }
 
-        editNumberViewModel.apply {
+        viewModel.apply {
             setNumber(
                 NumberEntity(
                     intent.getLongExtra(EXTRA_NUMBER_ID, 0.toLong()),
@@ -63,11 +64,6 @@ class EditNumberActivity : BaseActivity<ActivityEditNumberBinding>(R.layout.acti
         }
 
         setDividerColor()
-    }
-
-    private fun init() {
-        numberDao = AppDatabase.getInstance(this).numberDao()
-        numberRepository = NumberRepository(numberDao)
     }
 
     fun onClick(view: View) {
@@ -96,7 +92,7 @@ class EditNumberActivity : BaseActivity<ActivityEditNumberBinding>(R.layout.acti
                 finish()
             }
             R.id.text_save -> {
-                editNumberViewModel.update { isSuccess ->
+                viewModel.update { isSuccess ->
                     if (isSuccess) {
                         setResult(RESULT_OK)
                         finish()
@@ -145,22 +141,41 @@ class EditNumberActivity : BaseActivity<ActivityEditNumberBinding>(R.layout.acti
 
     private fun setNumber() {
         binding.apply {
-            if (checkNumber("$pickedNumber", textNumber1, textNumber2, textNumber3, textNumber4, textNumber5, textNumber6)) {
-                this@EditNumberActivity.editNumberViewModel.apply {
+            if (checkNumber(
+                    "$pickedNumber",
+                    textNumber1,
+                    textNumber2,
+                    textNumber3,
+                    textNumber4,
+                    textNumber5,
+                    textNumber6
+                )
+            ) {
+                this@EditNumberActivity.viewModel.apply {
                     setNumber(
                         NumberEntity(
                             numberEntity.value!!.numberId,
-                            if (selectedTextView.id == R.id.text_number1) pickedNumber else numberEntity.value!!.number1,
-                            if (selectedTextView.id == R.id.text_number2) pickedNumber else numberEntity.value!!.number2,
-                            if (selectedTextView.id == R.id.text_number3) pickedNumber else numberEntity.value!!.number3,
-                            if (selectedTextView.id == R.id.text_number4) pickedNumber else numberEntity.value!!.number4,
-                            if (selectedTextView.id == R.id.text_number5) pickedNumber else numberEntity.value!!.number5,
-                            if (selectedTextView.id == R.id.text_number6) pickedNumber else numberEntity.value!!.number6
+                            if (selectedTextView.id == R.id.text_number1) pickedNumber
+                            else numberEntity.value!!.number1,
+                            if (selectedTextView.id == R.id.text_number2) pickedNumber
+                            else numberEntity.value!!.number2,
+                            if (selectedTextView.id == R.id.text_number3) pickedNumber
+                            else numberEntity.value!!.number3,
+                            if (selectedTextView.id == R.id.text_number4) pickedNumber
+                            else numberEntity.value!!.number4,
+                            if (selectedTextView.id == R.id.text_number5) pickedNumber
+                            else numberEntity.value!!.number5,
+                            if (selectedTextView.id == R.id.text_number6) pickedNumber
+                            else numberEntity.value!!.number6
                         )
                     )
                 }
             } else {
-                Toast.makeText(this@EditNumberActivity, R.string.msg_not_input_same_number, Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@EditNumberActivity,
+                    R.string.msg_not_input_same_number,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

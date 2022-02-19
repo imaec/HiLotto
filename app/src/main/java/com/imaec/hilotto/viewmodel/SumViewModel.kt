@@ -6,8 +6,11 @@ import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.model.SumDTO
 import com.imaec.hilotto.ui.adapter.SumAdapter
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SumViewModel : BaseViewModel() {
+@HiltViewModel
+class SumViewModel @Inject constructor() : BaseViewModel() {
 
     init {
         adapter = SumAdapter()
@@ -45,8 +48,32 @@ class SumViewModel : BaseViewModel() {
     fun setListSum(listResult: List<LottoDTO>, isInclude: Boolean = false) {
         val listTemp = ArrayList<SumDTO>()
         listResult.subList(0, statisticsNo.value ?: 20).forEach {
-            if (isInclude) listTemp.add(SumDTO("${it.drwNo}회", it.drwtNo1 + it.drwtNo2 + it.drwtNo3 + it.drwtNo4 + it.drwtNo5 + it.drwtNo6 + it.bnusNo))
-            else listTemp.add(SumDTO("${it.drwNo}회", it.drwtNo1 + it.drwtNo2 + it.drwtNo3 + it.drwtNo4 + it.drwtNo5 + it.drwtNo6))
+            if (isInclude) {
+                listTemp.add(
+                    SumDTO(
+                        round = "${it.drwNo}회",
+                        sum = it.drwtNo1 +
+                            it.drwtNo2 +
+                            it.drwtNo3 +
+                            it.drwtNo4 +
+                            it.drwtNo5 +
+                            it.drwtNo6 +
+                            it.bnusNo
+                    )
+                )
+            } else {
+                listTemp.add(
+                    SumDTO(
+                        round = "${it.drwNo}회",
+                        sum = it.drwtNo1 +
+                            it.drwtNo2 +
+                            it.drwtNo3 +
+                            it.drwtNo4 +
+                            it.drwtNo5 +
+                            it.drwtNo6
+                    )
+                )
+            }
         }
 
         _sumMin.value = if (isInclude) 28 else 21

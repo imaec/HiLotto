@@ -27,7 +27,8 @@ class NumberAdapter(
         this.listContinues.addAll(listContinues)
     }
 
-    inner class ItemViewHolder(val binding: ItemNumberBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ItemViewHolder(val binding: ItemNumberBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(item: String) {
             binding.apply {

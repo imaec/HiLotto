@@ -2,16 +2,24 @@ package com.imaec.hilotto.viewmodel
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.room.entity.NumberEntity
-import java.io.*
+import dagger.hilt.android.lifecycle.HiltViewModel
+import java.io.BufferedReader
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
+import javax.inject.Inject
 
-class SettingViewModel : BaseViewModel() {
+@HiltViewModel
+class SettingViewModel @Inject constructor() : BaseViewModel() {
 
     private val _appVersion = MutableLiveData<String>("")
     val appVersion: LiveData<String> get() = _appVersion
@@ -38,7 +46,6 @@ class SettingViewModel : BaseViewModel() {
     }
 
     fun export(listNumber: List<NumberEntity>, file: File): Int {
-        Log.d(TAG, "    ## file : $file")
         return when {
             listNumber.isEmpty() -> R.string.msg_empty_my_number
             else -> {
@@ -46,14 +53,12 @@ class SettingViewModel : BaseViewModel() {
 
                 try {
                     val jsonString = Gson().toJson(listNumber)
-                    Log.d(TAG, "    ## json : $jsonString")
                     BufferedWriter(FileWriter("$file/myNumber.json", false)).apply {
                         write(jsonString)
                         flush()
                         close()
                     }
                 } catch (e: IOException) {
-                    Log.e(TAG, "    ## IO Exception : ${Log.getStackTraceString(e)}")
                     return R.string.msg_fail_export_my_number
                 }
                 R.string.msg_success_export_my_number
@@ -72,7 +77,6 @@ class SettingViewModel : BaseViewModel() {
             }
             R.string.msg_success_export_my_number
         } catch (e: IOException) {
-            Log.e(TAG, "    ## IO Exception : ${Log.getStackTraceString(e)}")
             R.string.msg_fail_export_my_number
         }
     }
@@ -89,7 +93,6 @@ class SettingViewModel : BaseViewModel() {
             }
             Gson().fromJson(stringBuilder.toString(), Array<NumberEntity>::class.java)
         } catch (e: IOException) {
-            Log.e(TAG, "    ## IO Exception : ${Log.getStackTraceString(e)}")
             null
         }
     }

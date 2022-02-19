@@ -2,7 +2,6 @@ package com.imaec.hilotto.base
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,6 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
@@ -24,16 +20,16 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.ui.view.dialog.ProgressDialog
 import java.util.Random
 
-abstract class BaseFragment<T : ViewDataBinding>(
+abstract class BaseFragment<VDB : ViewDataBinding>(
     @LayoutRes private val layoutResId: Int
 ) : Fragment() {
 
     protected val TAG = this::class.java.simpleName
 
-    protected lateinit var binding: T
+    protected lateinit var binding: VDB
     private lateinit var interstitialAd: InterstitialAd
 
-    private val progressDialog: ProgressDialog by lazy { ProgressDialog(context!!) }
+    private val progressDialog: ProgressDialog by lazy { ProgressDialog(requireContext()) }
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreateView(
@@ -41,7 +37,15 @@ abstract class BaseFragment<T : ViewDataBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, layoutResId, container, false)
+        binding = DataBindingUtil.inflate<VDB>(
+            inflater,
+            layoutResId,
+            container,
+            false
+        ).apply {
+            lifecycleOwner = viewLifecycleOwner
+        }
+
         return binding.root
     }
 
@@ -80,18 +84,6 @@ abstract class BaseFragment<T : ViewDataBinding>(
         FirebaseCrashlytics.getInstance().log("$TAG onActivityResult")
     }
 
-    protected fun <T : ViewModel> getViewModel(modelClass: Class<T>, vararg repository: Any): T {
-        return ViewModelProvider(this, BaseViewModelFactory(*repository)).get(modelClass)
-    }
-
-    protected fun <T : ViewModel> getViewModel(
-        modelClass: Class<T>,
-        owner: ViewModelStoreOwner = this,
-        vararg repository: Any
-    ): T {
-        return ViewModelProvider(owner, BaseViewModelFactory(*repository)).get(modelClass)
-    }
-
     protected fun showProgress() {
         if (!progressDialog.isShowing) progressDialog.show()
     }
@@ -106,7 +98,7 @@ abstract class BaseFragment<T : ViewDataBinding>(
 
     private fun init() {
         MobileAds.initialize(context) {}
-        firebaseAnalytics = FirebaseAnalytics.getInstance(context!!)
+        firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
     }
 
     private fun showAd(adId: Int, callback: () -> Unit) {
@@ -119,7 +111,6 @@ abstract class BaseFragment<T : ViewDataBinding>(
 
                 override fun onAdFailedToLoad(p0: LoadAdError?) {
                     super.onAdFailedToLoad(p0)
-                    Log.d(TAG, "    ## ad failed to load : $p0")
                     callback()
                 }
 

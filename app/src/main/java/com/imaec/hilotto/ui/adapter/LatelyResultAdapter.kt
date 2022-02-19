@@ -20,7 +20,8 @@ class LatelyResultAdapter : BaseAdapter() {
         }
     }
 
-    inner class ItemViewHolder(private val binding: ItemLatelyResultBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ItemViewHolder(private val binding: ItemLatelyResultBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(item: LottoDTO) {
             binding.apply {

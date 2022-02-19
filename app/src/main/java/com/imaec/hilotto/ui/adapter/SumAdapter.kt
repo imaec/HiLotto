@@ -31,7 +31,8 @@ class SumAdapter : BaseAdapter() {
     }
 
     @Suppress("UNCHECKED_CAST")
-    inner class ItemViewHolder(val binding: ItemSumBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ItemViewHolder(val binding: ItemSumBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(item: SumDTO) {
             item.sumMax = sumMax
@@ -41,8 +42,14 @@ class SumAdapter : BaseAdapter() {
                 this.item = item
                 progressSum.progressDrawable.setColorFilter(
                     when (item.sum) {
-                        listSortedTemp[0].sum -> ContextCompat.getColor(itemView.context, android.R.color.holo_blue_dark) // 최소
-                        listSortedTemp[itemCount - 1].sum -> ContextCompat.getColor(itemView.context, android.R.color.holo_red_dark) // 최대
+                        listSortedTemp[0].sum -> ContextCompat.getColor(
+                            itemView.context,
+                            android.R.color.holo_blue_dark
+                        ) // 최소
+                        listSortedTemp[itemCount - 1].sum -> ContextCompat.getColor(
+                            itemView.context,
+                            android.R.color.holo_red_dark
+                        ) // 최대
                         else -> ContextCompat.getColor(itemView.context, android.R.color.black)
                     },
                     PorterDuff.Mode.SRC_IN

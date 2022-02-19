@@ -20,7 +20,8 @@ class StoreAdapter : BaseAdapter() {
         }
     }
 
-    inner class ItemViewHolder(private val binding: ItemStoreBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ItemViewHolder(private val binding: ItemStoreBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(item: StoreDTO) {
             binding.apply {

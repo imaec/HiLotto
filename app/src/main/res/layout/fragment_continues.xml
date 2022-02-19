@@ -5,11 +5,11 @@
     <data>
 
         <variable
-            name="continuesViewModel"
+            name="vm"
             type="com.imaec.hilotto.viewmodel.ContinuesViewModel" />
 
         <variable
-            name="sharedViewModel"
+            name="lottoVm"
             type="com.imaec.hilotto.viewmodel.LottoViewModel" />
     </data>
 
@@ -21,7 +21,7 @@
             android:id="@+id/recycler_continues"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:adapter="@{continuesViewModel.adapter}"
-            app:items="@{continuesViewModel.listContinues}"/>
+            app:adapter="@{vm.adapter}"
+            app:items="@{vm.listContinues}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

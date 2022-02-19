@@ -5,18 +5,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.ads.AdRequest
-import com.imaec.hilotto.*
+import com.imaec.hilotto.EXTRA_LIST_LOTTO
+import com.imaec.hilotto.EXTRA_MY_NUMBER
+import com.imaec.hilotto.EXTRA_NUMBER_1
+import com.imaec.hilotto.EXTRA_NUMBER_2
+import com.imaec.hilotto.EXTRA_NUMBER_3
+import com.imaec.hilotto.EXTRA_NUMBER_4
+import com.imaec.hilotto.EXTRA_NUMBER_5
+import com.imaec.hilotto.EXTRA_NUMBER_6
+import com.imaec.hilotto.EXTRA_NUMBER_ID
+import com.imaec.hilotto.R
+import com.imaec.hilotto.REQUEST_EDIT_NUMBER
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentMyBinding
 import com.imaec.hilotto.model.LottoDTO
-import com.imaec.hilotto.repository.FirebaseRepository
-import com.imaec.hilotto.repository.LottoRepository
-import com.imaec.hilotto.repository.NumberRepository
-import com.imaec.hilotto.room.AppDatabase
-import com.imaec.hilotto.room.dao.NumberDao
 import com.imaec.hilotto.room.entity.NumberEntity
 import com.imaec.hilotto.ui.util.NumbersDecoration
 import com.imaec.hilotto.ui.view.activity.EditNumberActivity
@@ -25,50 +31,46 @@ import com.imaec.hilotto.ui.view.dialog.CommonDialog
 import com.imaec.hilotto.ui.view.dialog.EditDialog
 import com.imaec.hilotto.viewmodel.LottoViewModel
 import com.imaec.hilotto.viewmodel.MyViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
 
-    private lateinit var myViewModel: MyViewModel
-    private lateinit var sharedViewModel: LottoViewModel
-    private lateinit var numberDao: NumberDao
-    private lateinit var numberRepository: NumberRepository
-
-    private val lottoRepository = LottoRepository()
-    private val firebaseRepository = FirebaseRepository()
+    private val viewModel by viewModels<MyViewModel>()
+    private val lottoViewModel by activityViewModels<LottoViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        init()
-
-        myViewModel = getViewModel(MyViewModel::class.java, numberRepository)
-        sharedViewModel = getViewModel(LottoViewModel::class.java, activity!!, lottoRepository, firebaseRepository)
-
         binding.apply {
-            lifecycleOwner = this@MyFragment
-            myViewModel = this@MyFragment.myViewModel
+            vm = viewModel
             recyclerMyNumbers.layoutManager = LinearLayoutManager(context)
-            recyclerMyNumbers.addItemDecoration(NumbersDecoration(context!!, 6, 12))
+            recyclerMyNumbers.addItemDecoration(NumbersDecoration(requireContext(), 6, 12))
             adView.loadAd(AdRequest.Builder().build())
         }
 
-        myViewModel.apply {
-            listNumber.observe(activity!!, Observer {
-                sharedViewModel.listResult.value?.let {
-                    checkWin(it[0])
+        viewModel.apply {
+            listNumber.observe(
+                requireActivity(),
+                {
+                    lottoViewModel.listResult.value?.let {
+                        checkWin(it[0])
+                    }
                 }
-            })
+            )
             setOnNumberClickListener { entity ->
                 if (entity !is NumberEntity) {
                     Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
                     return@setOnNumberClickListener
                 }
-                sharedViewModel.listResult.value?.let {
+                lottoViewModel.listResult.value?.let {
                     showAd(R.string.ad_id_history_front, true) {
-                        startActivity(Intent(context, WinHistoryActivity::class.java).apply {
-                            putExtra(EXTRA_LIST_LOTTO, it as ArrayList<LottoDTO>)
-                            putExtra(EXTRA_MY_NUMBER, entity)
-                        })
+                        startActivity(
+                            Intent(context, WinHistoryActivity::class.java).apply {
+                                putExtra(EXTRA_LIST_LOTTO, it as ArrayList<LottoDTO>)
+                                putExtra(EXTRA_MY_NUMBER, entity)
+                            }
+                        )
                     }
                 }
             }
@@ -77,30 +79,37 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
                     Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
                     return@setOnNumberLongClickListener
                 }
-                EditDialog(context!!).apply {
+                EditDialog(requireContext()).apply {
                     setTitle(context.getString(R.string.edit))
-                    setOnEditClickListener(View.OnClickListener {
-                        dismiss()
-                        startActivityForResult(Intent(context, EditNumberActivity::class.java).apply {
-                            putExtra(EXTRA_NUMBER_ID, entity.numberId)
-                            putExtra(EXTRA_NUMBER_1, entity.number1)
-                            putExtra(EXTRA_NUMBER_2, entity.number2)
-                            putExtra(EXTRA_NUMBER_3, entity.number3)
-                            putExtra(EXTRA_NUMBER_4, entity.number4)
-                            putExtra(EXTRA_NUMBER_5, entity.number5)
-                            putExtra(EXTRA_NUMBER_6, entity.number6)
-                        }, REQUEST_EDIT_NUMBER)
-                    })
-                    setOnDeleteClickListener(View.OnClickListener {
+                    setOnEditClickListener(
+                        View.OnClickListener {
+                            dismiss()
+                            startActivityForResult(
+                                Intent(context, EditNumberActivity::class.java).apply {
+                                    putExtra(EXTRA_NUMBER_ID, entity.numberId)
+                                    putExtra(EXTRA_NUMBER_1, entity.number1)
+                                    putExtra(EXTRA_NUMBER_2, entity.number2)
+                                    putExtra(EXTRA_NUMBER_3, entity.number3)
+                                    putExtra(EXTRA_NUMBER_4, entity.number4)
+                                    putExtra(EXTRA_NUMBER_5, entity.number5)
+                                    putExtra(EXTRA_NUMBER_6, entity.number6)
+                                },
+                                REQUEST_EDIT_NUMBER
+                            )
+                        }
+                    )
+                    setOnDeleteClickListener {
                         dismiss()
                         CommonDialog(context, context.getString(R.string.msg_remove_number)).apply {
-                            setOnOkClickListener(View.OnClickListener {
-                                myViewModel.deleteNumber(entity)
-                                dismiss()
-                            })
+                            setOnOkClickListener(
+                                View.OnClickListener {
+                                    viewModel.deleteNumber(entity)
+                                    dismiss()
+                                }
+                            )
                             show()
                         }
-                    })
+                    }
                     show()
                 }
             }
@@ -111,7 +120,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
         super.onHiddenChanged(hidden)
 
         if (!hidden) {
-            myViewModel.getNumbers()
+            viewModel.getNumbers()
         }
     }
 
@@ -121,20 +130,14 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
         if (resultCode != RESULT_OK) return
 
         if (requestCode == REQUEST_EDIT_NUMBER) {
-            myViewModel.getNumbers()
+            viewModel.getNumbers()
         }
     }
 
     fun onClick(view: View) {
         when (view.id) {
             R.id.image_setting -> {
-
             }
         }
-    }
-
-    private fun init() {
-        numberDao = AppDatabase.getInstance(context!!).numberDao()
-        numberRepository = NumberRepository(numberDao)
     }
 }

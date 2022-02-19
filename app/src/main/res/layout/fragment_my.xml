@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="myViewModel"
+            name="vm"
             type="com.imaec.hilotto.viewmodel.MyViewModel" />
     </data>
 
@@ -41,9 +41,9 @@
             android:background="@color/lightGray3"
             app:layout_constraintTop_toBottomOf="@id/text_title"
             app:layout_constraintBottom_toTopOf="@id/adView"
-            app:adapter="@{myViewModel.adapter}"
-            app:items="@{myViewModel.listNumber}"
-            app:fit="@{myViewModel.listFitNumbers}"/>
+            app:adapter="@{vm.adapter}"
+            app:items="@{vm.listNumber}"
+            app:fit="@{vm.listFitNumbers}"/>
 
         <TextView
             android:id="@+id/text_empty"
@@ -52,7 +52,7 @@
             android:padding="12dp"
             android:gravity="center"
             android:text="@string/msg_numbers_empty"
-            app:isVisible="@{myViewModel.listNumber.size() == 0}"
+            app:isVisible="@{vm.listNumber.size() == 0}"
             app:layout_constraintTop_toBottomOf="@id/text_title"/>
 
         <com.google.android.gms.ads.AdView

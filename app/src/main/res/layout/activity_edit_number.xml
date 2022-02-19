@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="editNumberViewModel"
+            name="vm"
             type="com.imaec.hilotto.viewmodel.EditNumberViewModel" />
     </data>
 
@@ -48,7 +48,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/text_selected_number2"
                 app:layout_constraintTop_toBottomOf="@id/text_selected_number"
-                app:textByInt="@{editNumberViewModel.number.number1}" />
+                app:textByInt="@{vm.number.number1}" />
 
             <TextView
                 android:id="@+id/text_selected_number2"
@@ -57,7 +57,7 @@
                 app:layout_constraintLeft_toRightOf="@id/text_selected_number1"
                 app:layout_constraintRight_toLeftOf="@id/text_selected_number3"
                 app:layout_constraintTop_toBottomOf="@id/text_selected_number"
-                app:textByInt="@{editNumberViewModel.number.number2}" />
+                app:textByInt="@{vm.number.number2}" />
 
             <TextView
                 android:id="@+id/text_selected_number3"
@@ -66,7 +66,7 @@
                 app:layout_constraintLeft_toRightOf="@id/text_selected_number2"
                 app:layout_constraintRight_toLeftOf="@id/text_selected_number4"
                 app:layout_constraintTop_toBottomOf="@id/text_selected_number"
-                app:textByInt="@{editNumberViewModel.number.number3}" />
+                app:textByInt="@{vm.number.number3}" />
 
             <TextView
                 android:id="@+id/text_selected_number4"
@@ -75,7 +75,7 @@
                 app:layout_constraintLeft_toRightOf="@id/text_selected_number3"
                 app:layout_constraintRight_toLeftOf="@id/text_selected_number5"
                 app:layout_constraintTop_toBottomOf="@id/text_selected_number"
-                app:textByInt="@{editNumberViewModel.number.number4}" />
+                app:textByInt="@{vm.number.number4}" />
 
             <TextView
                 android:id="@+id/text_selected_number5"
@@ -84,7 +84,7 @@
                 app:layout_constraintLeft_toRightOf="@id/text_selected_number4"
                 app:layout_constraintRight_toLeftOf="@id/text_selected_number6"
                 app:layout_constraintTop_toBottomOf="@id/text_selected_number"
-                app:textByInt="@{editNumberViewModel.number.number5}" />
+                app:textByInt="@{vm.number.number5}" />
 
             <TextView
                 android:id="@+id/text_selected_number6"
@@ -94,7 +94,7 @@
                 app:layout_constraintLeft_toRightOf="@id/text_selected_number5"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_selected_number"
-                app:textByInt="@{editNumberViewModel.number.number6}" />
+                app:textByInt="@{vm.number.number6}" />
 
             <View
                 android:id="@+id/view_divider"
@@ -127,7 +127,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/text_number2"
                 app:layout_constraintTop_toBottomOf="@id/text_edit_number"
-                app:textByInt="@{editNumberViewModel.numberEntity.number1}" />
+                app:textByInt="@{vm.numberEntity.number1}" />
 
             <TextView
                 android:id="@+id/text_number2"
@@ -136,7 +136,7 @@
                 app:layout_constraintLeft_toRightOf="@id/text_number1"
                 app:layout_constraintRight_toLeftOf="@id/text_number3"
                 app:layout_constraintTop_toTopOf="@id/text_number1"
-                app:textByInt="@{editNumberViewModel.numberEntity.number2}" />
+                app:textByInt="@{vm.numberEntity.number2}" />
 
             <TextView
                 android:id="@+id/text_number3"
@@ -145,7 +145,7 @@
                 app:layout_constraintLeft_toRightOf="@id/text_number2"
                 app:layout_constraintRight_toLeftOf="@id/text_number4"
                 app:layout_constraintTop_toTopOf="@id/text_number1"
-                app:textByInt="@{editNumberViewModel.numberEntity.number3}" />
+                app:textByInt="@{vm.numberEntity.number3}" />
 
             <TextView
                 android:id="@+id/text_number4"
@@ -154,7 +154,7 @@
                 app:layout_constraintLeft_toRightOf="@id/text_number3"
                 app:layout_constraintRight_toLeftOf="@id/text_number5"
                 app:layout_constraintTop_toTopOf="@id/text_number1"
-                app:textByInt="@{editNumberViewModel.numberEntity.number4}" />
+                app:textByInt="@{vm.numberEntity.number4}" />
 
             <TextView
                 android:id="@+id/text_number5"
@@ -163,7 +163,7 @@
                 app:layout_constraintLeft_toRightOf="@id/text_number4"
                 app:layout_constraintRight_toLeftOf="@id/text_number6"
                 app:layout_constraintTop_toTopOf="@id/text_number1"
-                app:textByInt="@{editNumberViewModel.numberEntity.number5}" />
+                app:textByInt="@{vm.numberEntity.number5}" />
 
             <TextView
                 android:id="@+id/text_number6"
@@ -173,7 +173,7 @@
                 app:layout_constraintLeft_toRightOf="@id/text_number5"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@id/text_number1"
-                app:textByInt="@{editNumberViewModel.numberEntity.number6}" />
+                app:textByInt="@{vm.numberEntity.number6}" />
 
             <TextView
                 android:id="@+id/text_cancel"
@@ -206,7 +206,7 @@
             android:layout_height="match_parent"
             android:background="@color/bgAlpha"
             android:onClick="onClick"
-            app:isVisible="@{editNumberViewModel.isVisible}"
+            app:isVisible="@{vm.isVisible}"
             app:layout_anchor="@id/constraintLayout"
             app:layout_anchorGravity="center" />
 

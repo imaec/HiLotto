@@ -199,7 +199,9 @@ object Lotto {
         var sequence6 = 0
 
         // 6연속
-        if (no6 - no5 == 1 && no5 - no4 == 1 && no4 - no3 == 1 && no3 - no2 == 1 && no2 - no1 == 1) {
+        if (no6 - no5 == 1 && no5 - no4 == 1 && no4 - no3 == 1 &&
+            no3 - no2 == 1 && no2 - no1 == 1
+        ) {
             sequence6 = 1
         } else {
             // 5연속, 123456
@@ -283,7 +285,9 @@ object Lotto {
                         }
                     } else {
                         // 2연속
-                        if (no6 - no5 == 1 || no5 - no4 == 1 || no4 - no3 == 1 || no3 - no2 == 1 || no2 - no1 == 1) {
+                        if (no6 - no5 == 1 || no5 - no4 == 1 || no4 - no3 == 1 ||
+                            no3 - no2 == 1 || no2 - no1 == 1
+                        ) {
                             sequence2 = 1
                             // 나머지 4개숫자에서 2연속
                             // 2연속 + 2연속
@@ -366,13 +370,22 @@ object Lotto {
         return sequenceString
     }
 
-    fun getSequenceNumber(no1: Int, no2: Int, no3: Int, no4: Int, no5: Int, no6: Int): Array<ArrayList<Int>> {
+    fun getSequenceNumber(
+        no1: Int,
+        no2: Int,
+        no3: Int,
+        no4: Int,
+        no5: Int,
+        no6: Int
+    ): Array<ArrayList<Int>> {
         var list1 = ArrayList<Int>()
         var list2 = ArrayList<Int>()
         var list3 = ArrayList<Int>()
 
         // 6연속
-        if (no6 - no5 == 1 && no5 - no4 == 1 && no4 - no3 == 1 && no3 - no2 == 1 && no2 - no1 == 1) {
+        if (no6 - no5 == 1 && no5 - no4 == 1 && no4 - no3 == 1 &&
+            no3 - no2 == 1 && no2 - no1 == 1
+        ) {
             list1 = arrayListOf(no1, no2, no3, no4, no5, no6)
         } else {
             // 5연속, 123456
@@ -474,7 +487,9 @@ object Lotto {
                         }
                     } else {
                         // 2연속
-                        if (no6 - no5 == 1 || no5 - no4 == 1 || no4 - no3 == 1 || no3 - no2 == 1 || no2 - no1 == 1) {
+                        if (no6 - no5 == 1 || no5 - no4 == 1 || no4 - no3 == 1 ||
+                            no3 - no2 == 1 || no2 - no1 == 1
+                        ) {
                             when {
                                 no6 - no5 == 1 -> list1 = arrayListOf(no5, no6)
                                 no5 - no4 == 1 -> list1 = arrayListOf(no4, no5)

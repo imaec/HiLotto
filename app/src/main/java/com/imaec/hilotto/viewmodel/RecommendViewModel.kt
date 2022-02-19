@@ -1,28 +1,34 @@
 package com.imaec.hilotto.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.imaec.hilotto.base.BaseViewModel
+import com.imaec.hilotto.domain.successOr
+import com.imaec.hilotto.domain.usecase.number.InsertUseCase
 import com.imaec.hilotto.model.LottoDTO
-import com.imaec.hilotto.repository.NumberRepository
+import com.imaec.hilotto.domain.usecase.number.SelectByNumbersUseCase
 import com.imaec.hilotto.room.entity.NumberEntity
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RecommendViewModel(
-    private val repository: NumberRepository
+@HiltViewModel
+class RecommendViewModel @Inject constructor(
+    private val selectByNumbersUseCase: SelectByNumbersUseCase,
+    private val insertUseCase: InsertUseCase
 ) : BaseViewModel() {
 
-    private val _isVisible = MutableLiveData<Boolean>().set(false)
+    private val _isVisible = MutableLiveData(false)
     val isVisible: LiveData<Boolean> get() = _isVisible
 
-    private val _listIncludeNumber = MutableLiveData<ArrayList<String>>(arrayListOf("", "", "", "", "", ""))
+    private val _listIncludeNumber = MutableLiveData(arrayListOf("", "", "", "", "", ""))
     val listIncludeNumber: LiveData<ArrayList<String>> get() = _listIncludeNumber
 
     private val _listNotIncludeNumber = MutableLiveData<ArrayList<String>>(arrayListOf())
     val listNotIncludeNumber: LiveData<ArrayList<String>> get() = _listNotIncludeNumber
 
-    private val _listResult = MutableLiveData<List<LottoDTO>>().set(ArrayList())
+    private val _listResult = MutableLiveData<List<LottoDTO>>(ArrayList())
     val listResult: LiveData<List<LottoDTO>> get() = _listResult
 
     fun setVisible(visible: Boolean) {
@@ -78,18 +84,17 @@ class RecommendViewModel(
     }
 
     fun setListResult(list: List<LottoDTO>) {
-        Log.d(TAG, "    ## list : $list")
         _listResult.value = list
     }
 
     fun saveNumber(entity: NumberEntity, callback: (Boolean) -> Unit) {
         viewModelScope.launch {
-            if (repository.selectByNumbers(entity) > 0) {
+            if (selectByNumbersUseCase(entity).successOr(0) > 0) {
                 // ALREADY EXIST
                 callback(false)
                 return@launch
             }
-            repository.insert(entity)
+            insertUseCase(entity)
             callback(true)
             _listIncludeNumber.value = arrayListOf("", "", "", "", "", "")
         }

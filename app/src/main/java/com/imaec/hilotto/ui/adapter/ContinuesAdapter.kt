@@ -24,7 +24,8 @@ class ContinuesAdapter : BaseAdapter() {
         }
     }
 
-    inner class ItemViewHolder(val binding: ItemContinuesBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ItemViewHolder(val binding: ItemContinuesBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(item: ContinueDTO) {
             val listTemp = ArrayList<String>()
@@ -38,7 +39,8 @@ class ContinuesAdapter : BaseAdapter() {
                 recyclerItemNum.adapter = NumberAdapter(true).apply {
                     setListContinues(listTemp)
                 }
-                recyclerItemNum.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+                recyclerItemNum.layoutManager =
+                    LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
                 recyclerItemNum.removeItemDecoration(itemDecoration)
                 recyclerItemNum.addItemDecoration(itemDecoration)
                 this.item = item

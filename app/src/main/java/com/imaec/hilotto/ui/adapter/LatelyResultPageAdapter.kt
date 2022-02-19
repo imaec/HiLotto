@@ -14,7 +14,8 @@ import kotlin.math.roundToLong
 class LatelyResultPageAdapter : BaseAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        binding = PageLatelyResultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding =
+            PageLatelyResultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PageViewHolder(binding as PageLatelyResultBinding)
     }
 
@@ -24,7 +25,8 @@ class LatelyResultPageAdapter : BaseAdapter() {
         }
     }
 
-    inner class PageViewHolder(private val binding: PageLatelyResultBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class PageViewHolder(private val binding: PageLatelyResultBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(item: LottoDTO) {
             val prizeTotal = if (item.firstAccumamnt > 100000000) {
@@ -39,7 +41,7 @@ class LatelyResultPageAdapter : BaseAdapter() {
             }
             binding.apply {
                 this.item = LatelyResultDTO(
-                    "${item.drwNo}회 당첨번호",
+                    round = "${item.drwNo}회 당첨번호",
                     item.drwNoDate,
                     item.drwtNo1,
                     item.drwtNo2,
@@ -50,12 +52,41 @@ class LatelyResultPageAdapter : BaseAdapter() {
                     item.bnusNo,
                     prizeTotal,
                     prizeByOne,
-                    "${item.firstPrzwnerCo} 명",
+                    winCount = "${item.firstPrzwnerCo} 명",
                     Lotto.getSumAvg(listOf(item)),
-                    Lotto.getSequenceString(Lotto.getContinues(item.drwtNo1, item.drwtNo2, item.drwtNo3, item.drwtNo4, item.drwtNo5, item.drwtNo6)),
-                    "홀 ${Lotto.getOdd(listOf(item.drwtNo1, item.drwtNo2, item.drwtNo3, item.drwtNo4, item.drwtNo5, item.drwtNo6)).size} / 짝 ${Lotto.getEven(
-                        listOf(item.drwtNo1, item.drwtNo2, item.drwtNo3, item.drwtNo4, item.drwtNo5, item.drwtNo6)
-                    ).size}"
+                    Lotto.getSequenceString(
+                        Lotto.getContinues(
+                            item.drwtNo1,
+                            item.drwtNo2,
+                            item.drwtNo3,
+                            item.drwtNo4,
+                            item.drwtNo5,
+                            item.drwtNo6
+                        )
+                    ),
+                    noOddEven = "홀 ${
+                    Lotto.getOdd(
+                        listOf(
+                            item.drwtNo1,
+                            item.drwtNo2,
+                            item.drwtNo3,
+                            item.drwtNo4,
+                            item.drwtNo5,
+                            item.drwtNo6
+                        )
+                    ).size
+                    } / 짝 ${
+                    Lotto.getEven(
+                        listOf(
+                            item.drwtNo1,
+                            item.drwtNo2,
+                            item.drwtNo3,
+                            item.drwtNo4,
+                            item.drwtNo5,
+                            item.drwtNo6
+                        )
+                    ).size
+                    }"
                 )
             }
         }

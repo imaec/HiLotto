@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="winHistoryViewModel"
+            name="vm"
             type="com.imaec.hilotto.viewmodel.WinHistoryViewModel" />
     </data>
 
@@ -50,8 +50,8 @@
             android:id="@+id/text_selected_number1"
             style="@style/AppTheme.TextNumberAccent"
             android:layout_marginLeft="12dp"
-            app:textByInt="@{winHistoryViewModel.number.number1}"
-            app:backgroundNumberCircle="@{winHistoryViewModel.number.number1}"
+            app:textByInt="@{vm.number.number1}"
+            app:backgroundNumberCircle="@{vm.number.number1}"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/text_selected_number2"
@@ -60,8 +60,8 @@
         <TextView
             android:id="@+id/text_selected_number2"
             style="@style/AppTheme.TextNumberAccent"
-            app:textByInt="@{winHistoryViewModel.number.number2}"
-            app:backgroundNumberCircle="@{winHistoryViewModel.number.number2}"
+            app:textByInt="@{vm.number.number2}"
+            app:backgroundNumberCircle="@{vm.number.number2}"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintLeft_toRightOf="@id/text_selected_number1"
             app:layout_constraintRight_toLeftOf="@id/text_selected_number3"
@@ -70,8 +70,8 @@
         <TextView
             android:id="@+id/text_selected_number3"
             style="@style/AppTheme.TextNumberAccent"
-            app:textByInt="@{winHistoryViewModel.number.number3}"
-            app:backgroundNumberCircle="@{winHistoryViewModel.number.number3}"
+            app:textByInt="@{vm.number.number3}"
+            app:backgroundNumberCircle="@{vm.number.number3}"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintLeft_toRightOf="@id/text_selected_number2"
             app:layout_constraintRight_toLeftOf="@id/text_selected_number4"
@@ -80,8 +80,8 @@
         <TextView
             android:id="@+id/text_selected_number4"
             style="@style/AppTheme.TextNumberAccent"
-            app:textByInt="@{winHistoryViewModel.number.number4}"
-            app:backgroundNumberCircle="@{winHistoryViewModel.number.number4}"
+            app:textByInt="@{vm.number.number4}"
+            app:backgroundNumberCircle="@{vm.number.number4}"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintLeft_toRightOf="@id/text_selected_number3"
             app:layout_constraintRight_toLeftOf="@id/text_selected_number5"
@@ -90,8 +90,8 @@
         <TextView
             android:id="@+id/text_selected_number5"
             style="@style/AppTheme.TextNumberAccent"
-            app:textByInt="@{winHistoryViewModel.number.number5}"
-            app:backgroundNumberCircle="@{winHistoryViewModel.number.number5}"
+            app:textByInt="@{vm.number.number5}"
+            app:backgroundNumberCircle="@{vm.number.number5}"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintLeft_toRightOf="@id/text_selected_number4"
             app:layout_constraintRight_toLeftOf="@id/text_selected_number6"
@@ -101,8 +101,8 @@
             android:id="@+id/text_selected_number6"
             style="@style/AppTheme.TextNumberAccent"
             android:layout_marginRight="12dp"
-            app:textByInt="@{winHistoryViewModel.number.number6}"
-            app:backgroundNumberCircle="@{winHistoryViewModel.number.number6}"
+            app:textByInt="@{vm.number.number6}"
+            app:backgroundNumberCircle="@{vm.number.number6}"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintLeft_toRightOf="@id/text_selected_number5"
             app:layout_constraintRight_toRightOf="parent"
@@ -121,9 +121,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/lightGray3"
-            app:adapter="@{winHistoryViewModel.adapter}"
-            app:items="@{winHistoryViewModel.listWin}"
-            app:fit="@{winHistoryViewModel.listFitNumbers}"
+            app:adapter="@{vm.adapter}"
+            app:items="@{vm.listWin}"
+            app:fit="@{vm.listFitNumbers}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_divider"

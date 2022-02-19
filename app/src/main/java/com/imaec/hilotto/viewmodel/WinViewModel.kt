@@ -4,10 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.model.LottoDTO
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.DecimalFormat
+import javax.inject.Inject
 import kotlin.math.roundToLong
 
-class WinViewModel : BaseViewModel() {
+@HiltViewModel
+class WinViewModel @Inject constructor() : BaseViewModel() {
 
     private val _statisticsNo = MutableLiveData<Int>(20)
     val statisticsNo: LiveData<Int> get() = _statisticsNo
@@ -72,9 +75,12 @@ class WinViewModel : BaseViewModel() {
         }
 
         val countMaxRound = list.sortedByDescending { it.firstPrzwnerCo }[0].drwNo
-        _winCountMax.value = "${countMaxRound}회 : ${list.sortedByDescending { it.firstPrzwnerCo }[0].firstPrzwnerCo}명"
+        _winCountMax.value =
+            "${countMaxRound}회 : " +
+            "${list.sortedByDescending { it.firstPrzwnerCo }[0].firstPrzwnerCo}명"
         val countMinRound = list.sortedBy { it.firstPrzwnerCo }[0].drwNo
-        _winCountMin.value = "${countMinRound}회 : ${list.sortedBy { it.firstPrzwnerCo }[0].firstPrzwnerCo}명"
+        _winCountMin.value =
+            "${countMinRound}회 : ${list.sortedBy { it.firstPrzwnerCo }[0].firstPrzwnerCo}명"
     }
 
     fun setStatisticsNo(no: Int) {

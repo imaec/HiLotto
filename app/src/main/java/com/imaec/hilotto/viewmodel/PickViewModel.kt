@@ -1,13 +1,15 @@
 package com.imaec.hilotto.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.ui.adapter.NoPickAdapter
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class PickViewModel : BaseViewModel() {
+@HiltViewModel
+class PickViewModel @Inject constructor() : BaseViewModel() {
 
     val noPickAdapter1 = NoPickAdapter()
     val noPickAdapter2 = NoPickAdapter()
@@ -15,25 +17,25 @@ class PickViewModel : BaseViewModel() {
     val noPickAdapter4 = NoPickAdapter()
     val noPickAdapter5 = NoPickAdapter()
 
-    private val _statisticsNo = MutableLiveData<Int>(20)
+    private val _statisticsNo = MutableLiveData(20)
     val statisticsNo: LiveData<Int> get() = _statisticsNo
 
-    private val _pickedRange1 = MutableLiveData<Int>(0)
+    private val _pickedRange1 = MutableLiveData(0)
     val pickedRange1: LiveData<Int> get() = _pickedRange1
 
-    private val _pickedRange2 = MutableLiveData<Int>(0)
+    private val _pickedRange2 = MutableLiveData(0)
     val pickedRange2: LiveData<Int> get() = _pickedRange2
 
-    private val _pickedRange3 = MutableLiveData<Int>(0)
+    private val _pickedRange3 = MutableLiveData(0)
     val pickedRange3: LiveData<Int> get() = _pickedRange3
 
-    private val _pickedRange4 = MutableLiveData<Int>(0)
+    private val _pickedRange4 = MutableLiveData(0)
     val pickedRange4: LiveData<Int> get() = _pickedRange4
 
-    private val _pickedRange5 = MutableLiveData<Int>(0)
+    private val _pickedRange5 = MutableLiveData(0)
     val pickedRange5: LiveData<Int> get() = _pickedRange5
 
-    private val _pickMax = MutableLiveData<Int>(0)
+    private val _pickMax = MutableLiveData(0)
     val pickMax: LiveData<Int> get() = _pickMax
 
     private val _listNoPick1 = MutableLiveData<List<Int>>(ArrayList())
@@ -92,7 +94,13 @@ class PickViewModel : BaseViewModel() {
     }
 
     private fun getPickMax(): Int {
-        return arrayListOf(_pickedRange1.value!!, _pickedRange2.value!!, _pickedRange3.value!!, _pickedRange4.value!!, _pickedRange5.value!!).sortedDescending()[0]
+        return arrayListOf(
+            _pickedRange1.value!!,
+            _pickedRange2.value!!,
+            _pickedRange3.value!!,
+            _pickedRange4.value!!,
+            _pickedRange5.value!!
+        ).sortedDescending()[0]
     }
 
     private fun initNoPickNum() {
@@ -109,7 +117,6 @@ class PickViewModel : BaseViewModel() {
         val listTemp4 = ArrayList<Int>()
         val listTemp5 = ArrayList<Int>()
         listNoPick.forEach { number ->
-            Log.d(TAG, "    ## number : $number")
             when (number) {
                 in 1..10 -> listTemp1.add(number)
                 in 11..20 -> listTemp2.add(number)

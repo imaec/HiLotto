@@ -32,7 +32,8 @@ class OutlineTextView(context: Context, attrs: AttributeSet) : AppCompatTextView
     }
 
     private fun initView(context: Context, attrs: AttributeSet) {
-        @SuppressLint("Recycle") val typeArray = context.obtainStyledAttributes(attrs, R.styleable.OutlineTextView)
+        @SuppressLint("Recycle") val typeArray =
+            context.obtainStyledAttributes(attrs, R.styleable.OutlineTextView)
         hasStroke = typeArray.getBoolean(R.styleable.OutlineTextView_textStroke, false)
         mStrokeWidth = typeArray.getDimension(R.styleable.OutlineTextView_textStrokeWidth, 0.0f)
         mStrokeColor = typeArray.getColor(R.styleable.OutlineTextView_textStrokeColor, -0x1)

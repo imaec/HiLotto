@@ -2,16 +2,21 @@ package com.imaec.hilotto.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.imaec.hilotto.base.BaseViewModel
-import com.imaec.hilotto.repository.NumberRepository
+import com.imaec.hilotto.domain.successOr
+import com.imaec.hilotto.domain.usecase.number.UpdateUseCase
 import com.imaec.hilotto.room.entity.NumberEntity
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EditNumberViewModel(
-    private val repository: NumberRepository
+@HiltViewModel
+class EditNumberViewModel @Inject constructor(
+    private val updateUseCase: UpdateUseCase
 ) : BaseViewModel() {
 
-    private val _isVisible = MutableLiveData<Boolean>().set(false)
+    private val _isVisible = MutableLiveData<Boolean>(false)
     val isVisible: LiveData<Boolean> get() = _isVisible
 
     private val _numberEntity = MutableLiveData<NumberEntity>(NumberEntity())
@@ -62,7 +67,7 @@ class EditNumberViewModel(
     fun update(callback: (Boolean) -> Unit) {
         sortNumber()
         viewModelScope.launch {
-            callback(repository.update(_numberEntity.value!!))
+            callback(updateUseCase(numberEntity.value!!).successOr(false))
         }
     }
 

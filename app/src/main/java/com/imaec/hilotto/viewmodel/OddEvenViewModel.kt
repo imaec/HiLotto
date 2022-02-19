@@ -6,8 +6,11 @@ import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.model.OddEvenDTO
 import com.imaec.hilotto.ui.adapter.OddEvenAdapter
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class OddEvenViewModel : BaseViewModel() {
+@HiltViewModel
+class OddEvenViewModel @Inject constructor() : BaseViewModel() {
 
     init {
         adapter = OddEvenAdapter()
@@ -23,7 +26,14 @@ class OddEvenViewModel : BaseViewModel() {
         _statisticsNo.value = no
     }
 
-    private fun getOdd(no1: Int, no2: Int, no3: Int, no4: Int, no5: Int, no6: Int): ArrayList<String> {
+    private fun getOdd(
+        no1: Int,
+        no2: Int,
+        no3: Int,
+        no4: Int,
+        no5: Int,
+        no6: Int
+    ): ArrayList<String> {
         val listOdd = ArrayList<String>()
         if (no1 % 2 != 0) listOdd.add("$no1")
         if (no2 % 2 != 0) listOdd.add("$no2")
@@ -34,7 +44,14 @@ class OddEvenViewModel : BaseViewModel() {
         return listOdd
     }
 
-    private fun getEven(no1: Int, no2: Int, no3: Int, no4: Int, no5: Int, no6: Int): ArrayList<String> {
+    private fun getEven(
+        no1: Int,
+        no2: Int,
+        no3: Int,
+        no4: Int,
+        no5: Int,
+        no6: Int
+    ): ArrayList<String> {
         val listEven = ArrayList<String>()
         if (no1 % 2 == 0) listEven.add("$no1")
         if (no2 % 2 == 0) listEven.add("$no2")
@@ -48,8 +65,10 @@ class OddEvenViewModel : BaseViewModel() {
     fun setOddEven(listResult: List<LottoDTO>) {
         val listTemp = ArrayList<OddEvenDTO>()
         listResult.subList(0, statisticsNo.value ?: 20).forEach {
-            val listOdd = getOdd(it.drwtNo1, it.drwtNo2, it.drwtNo3, it.drwtNo4, it.drwtNo5, it.drwtNo6)
-            val listEven = getEven(it.drwtNo1, it.drwtNo2, it.drwtNo3, it.drwtNo4, it.drwtNo5, it.drwtNo6)
+            val listOdd =
+                getOdd(it.drwtNo1, it.drwtNo2, it.drwtNo3, it.drwtNo4, it.drwtNo5, it.drwtNo6)
+            val listEven =
+                getEven(it.drwtNo1, it.drwtNo2, it.drwtNo3, it.drwtNo4, it.drwtNo5, it.drwtNo6)
             val listOddEven = ArrayList<String>().apply {
                 addAll(listOdd)
                 add(":")

@@ -17,4 +17,4 @@ data class LottoDTO(
     var firstWinamnt: Long = 0,
     var returnValue: String = "",
     var totSellamnt: Long = 0
-): Serializable
+) : Serializable

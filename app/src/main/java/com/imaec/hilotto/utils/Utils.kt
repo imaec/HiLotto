@@ -12,7 +12,7 @@ class Utils {
             return (dpValue * d).toInt()
         }
 
-        fun getVersion(context: Context) : String {
+        fun getVersion(context: Context): String {
             var version = "Unknown"
             val packageInfo: PackageInfo
 

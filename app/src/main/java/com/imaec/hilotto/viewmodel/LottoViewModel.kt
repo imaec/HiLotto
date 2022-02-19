@@ -1,62 +1,73 @@
 package com.imaec.hilotto.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.imaec.hilotto.URL_LOTTO
 import com.imaec.hilotto.URL_STORE
 import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.model.StoreDTO
-import com.imaec.hilotto.repository.FirebaseRepository
-import com.imaec.hilotto.repository.LottoRepository
+import com.imaec.hilotto.domain.usecase.firebase.GetLottoListUseCase
+import com.imaec.hilotto.domain.usecase.firebase.SetLottoListUseCase
+import com.imaec.hilotto.domain.usecase.firebase.SetWeekUseCase
+import com.imaec.hilotto.domain.usecase.lotto.GetCurDrwNoUseCase
+import com.imaec.hilotto.domain.usecase.lotto.GetDataUseCase
+import com.imaec.hilotto.domain.usecase.lotto.GetStoreUseCase
 import com.imaec.hilotto.utils.DateUtil
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class LottoViewModel(
-    private val lottoRepository: LottoRepository,
-    private val firebaseRepository: FirebaseRepository
+@HiltViewModel
+class LottoViewModel @Inject constructor(
+    private val getDataUseCase: GetDataUseCase,
+    private val getCurDrwNoUseCase: GetCurDrwNoUseCase,
+    private val getStoreUseCase: GetStoreUseCase,
+    private val getLottoListUseCase: GetLottoListUseCase,
+    private val setLottoListUseCase: SetLottoListUseCase,
+    private val setWeekUseCase: SetWeekUseCase
 ) : BaseViewModel() {
 
-    private val _curDrwNo = MutableLiveData<Int>().set(1)
+    private val _curDrwNo = MutableLiveData(1)
     val curDrwNo: LiveData<Int> get() = _curDrwNo
 
-    private val _listResult = MutableLiveData<List<LottoDTO>>().set(ArrayList())
+    private val _listResult = MutableLiveData<List<LottoDTO>>(ArrayList())
     val listResult: LiveData<List<LottoDTO>> get() = _listResult
 
-    private val _curNum1 = MutableLiveData<Int>().set(1)
+    private val _curNum1 = MutableLiveData(1)
     val curNum1: LiveData<Int> get() = _curNum1
 
-    private val _curNum2 = MutableLiveData<Int>().set(2)
+    private val _curNum2 = MutableLiveData(2)
     val curNum2: LiveData<Int> get() = _curNum2
 
-    private val _curNum3 = MutableLiveData<Int>().set(3)
+    private val _curNum3 = MutableLiveData(3)
     val curNum3: LiveData<Int> get() = _curNum3
 
-    private val _curNum4 = MutableLiveData<Int>().set(4)
+    private val _curNum4 = MutableLiveData(4)
     val curNum4: LiveData<Int> get() = _curNum4
 
-    private val _curNum5 = MutableLiveData<Int>().set(5)
+    private val _curNum5 = MutableLiveData(5)
     val curNum5: LiveData<Int> get() = _curNum5
 
-    private val _curNum6 = MutableLiveData<Int>().set(6)
+    private val _curNum6 = MutableLiveData(6)
     val curNum6: LiveData<Int> get() = _curNum6
 
-    private val _curNumBonus = MutableLiveData<Int>().set(45)
+    private val _curNumBonus = MutableLiveData(45)
     val curNumBonus: LiveData<Int> get() = _curNumBonus
 
-    private val _drwDate = MutableLiveData<String>().set(DateUtil.getDate("yyyy-MM-dd"))
+    private val _drwDate = MutableLiveData(DateUtil.getDate("yyyy-MM-dd"))
     val drwDate: LiveData<String> get() = _drwDate
 
-    private val _winCount = MutableLiveData<Int>().set(0)
+    private val _winCount = MutableLiveData(0)
     val winCount: LiveData<Int> get() = _winCount
 
-    private val _price = MutableLiveData<Long>().set(0)
+    private val _price = MutableLiveData<Long>(0)
     val price: LiveData<Long> get() = _price
 
-    private val _listStore = MutableLiveData<List<StoreDTO>>().set(ArrayList())
+    private val _listStore = MutableLiveData<List<StoreDTO>>(ArrayList())
     val listStore: LiveData<List<StoreDTO>> get() = _listStore
 
     private fun setCurData(dto: LottoDTO) {
@@ -76,10 +87,12 @@ class LottoViewModel(
     }
 
     private fun getDatabaseData(callback: () -> Unit) {
-        firebaseRepository.getLottoList {
-            _listResult.value = it
-            setCurData(it[0])
-            callback()
+        viewModelScope.launch {
+            getLottoListUseCase {
+                _listResult.value = it
+                setCurData(it[0])
+                callback()
+            }
         }
     }
 
@@ -94,55 +107,72 @@ class LottoViewModel(
         for (drwNo in (curDrwNo)..curDrwNoReal) {
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
-                    lottoRepository.getData(
-                        drwNo,
-                        {
-                            listTemp.add(it)
-                            callbackProgress((listTemp.size * 100) / curDrwNoReal)
+                    getDataUseCase(
+                        Triple(
+                            drwNo,
+                            {
+                                listTemp.add(it)
+                                callbackProgress((listTemp.size * 100) / curDrwNoReal)
 
-                            if (listTemp.size == gap + 1) {
-                                // 모든 리스트 DB에 저장
-                                firebaseRepository.setWeek(curDrwNoReal)
-                                firebaseRepository.setLottoList(listTemp.sortedBy { dto -> dto.drwNo })
+                                if (listTemp.size == gap + 1) {
+                                    // 모든 리스트 DB에 저장
+                                    saveLottoList(
+                                        curDrwNoReal,
+                                        listTemp.sortedBy { dto -> dto.drwNo }
+                                    )
 
-                                _listResult.value = listTemp.sortedByDescending { dto -> dto.drwNo }
-                                setCurData(listTemp.sortedByDescending { dto -> dto.drwNo }[0])
-                                callback(true)
-
-                                getDatabaseData {
+                                    _listResult.value =
+                                        listTemp.sortedByDescending { dto -> dto.drwNo }
+                                    setCurData(listTemp.sortedByDescending { dto -> dto.drwNo }[0])
                                     callback(true)
+
+                                    getDatabaseData {
+                                        callback(true)
+                                    }
                                 }
+                            },
+                            {
+                                callback(false)
                             }
-                        },
-                        {
-                            callback(false)
-                        }
+                        )
                     )
                 }
             }
         }
     }
 
+    private fun saveLottoList(curDrwNoReal: Int, lottoList: List<LottoDTO>) {
+        viewModelScope.launch {
+            setWeekUseCase(curDrwNoReal)
+            setLottoListUseCase(lottoList)
+        }
+    }
+
     private fun getCurDrwNo(callback: (Int) -> Unit) {
         viewModelScope.launch {
-            lottoRepository.getCurDrwNo(URL_LOTTO) { curDrwNo ->
-                launch(Dispatchers.Main) { callback(curDrwNo) }
-            }
+            getCurDrwNoUseCase(
+                Pair(
+                    URL_LOTTO,
+                    { curDrwNo ->
+                        launch(Dispatchers.Main) { callback(curDrwNo) }
+                    }
+                )
+            )
         }
     }
 
     fun getLotto(curDrwNo: Int, callback: (Boolean) -> Unit, callbackProgress: (Int) -> Unit) {
         getCurDrwNo {
             _curDrwNo.value = it
-            firebaseRepository.setWeek(it)
+            viewModelScope.launch {
+                setWeekUseCase(it)
+            }
             if (it == curDrwNo) {
-                Log.e(TAG, "    ## getLotto > true")
                 // Preferences.setValue(this, getString(R.string.WEEK), curDrwNo)
                 getDatabaseData {
                     callback(true)
                 }
             } else if (it > curDrwNo) {
-                Log.e(TAG, "    ## getLotto > false")
                 getLottoSiteData(it, curDrwNo, callback, callbackProgress)
             }
         }
@@ -150,9 +180,14 @@ class LottoViewModel(
 
     fun getStore() {
         viewModelScope.launch {
-            lottoRepository.getStore(URL_STORE) {
-                launch(Dispatchers.Main) { _listStore.value = it }
-            }
+            getStoreUseCase(
+                Pair(
+                    URL_STORE,
+                    {
+                        launch(Dispatchers.Main) { _listStore.value = it }
+                    }
+                )
+            )
         }
     }
 }

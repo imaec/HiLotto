@@ -7,14 +7,17 @@ import com.imaec.hilotto.model.FitNumberDTO
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.room.entity.NumberEntity
 import com.imaec.hilotto.ui.adapter.WinHistoryAdapter
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class WinHistoryViewModel : BaseViewModel() {
+@HiltViewModel
+class WinHistoryViewModel @Inject constructor() : BaseViewModel() {
 
     init {
         adapter = WinHistoryAdapter()
     }
 
-    private val _listLotto = MutableLiveData<List<LottoDTO>>().set(ArrayList())
+    private val _listLotto = MutableLiveData<List<LottoDTO>>(ArrayList())
     val listLotto: LiveData<List<LottoDTO>> get() = _listLotto
 
     private val _number = MutableLiveData<NumberEntity>(NumberEntity())
@@ -23,7 +26,7 @@ class WinHistoryViewModel : BaseViewModel() {
     private val _listWin = MutableLiveData<List<NumberEntity>>(emptyList())
     val listWin: LiveData<List<NumberEntity>> get() = _listWin
 
-    private val _listFitNumbers = MutableLiveData<List<FitNumberDTO>>().set(emptyList())
+    private val _listFitNumbers = MutableLiveData<List<FitNumberDTO>>(emptyList())
     val listFitNumbers: LiveData<List<FitNumberDTO>> get() = _listFitNumbers
 
     fun setListLotto(list: List<LottoDTO>) {
@@ -38,11 +41,25 @@ class WinHistoryViewModel : BaseViewModel() {
         val listWinTemp = arrayListOf<NumberEntity>()
         val listFitTemp = arrayListOf<FitNumberDTO>()
         _listLotto.value?.forEach { result ->
-            val winNumbers = arrayOf(result.drwtNo1, result.drwtNo2, result.drwtNo3, result.drwtNo4, result.drwtNo5, result.drwtNo6)
+            val winNumbers = arrayOf(
+                result.drwtNo1,
+                result.drwtNo2,
+                result.drwtNo3,
+                result.drwtNo4,
+                result.drwtNo5,
+                result.drwtNo6
+            )
 
             val fitNumberDTO = FitNumberDTO()
             val listTemp = arrayListOf<Int>()
-            arrayOf(_number.value?.number1, _number.value?.number2, _number.value?.number3, _number.value?.number4, _number.value?.number5, _number.value?.number6).forEach { myNumber ->
+            arrayOf(
+                _number.value?.number1,
+                _number.value?.number2,
+                _number.value?.number3,
+                _number.value?.number4,
+                _number.value?.number5,
+                _number.value?.number6
+            ).forEach { myNumber ->
                 winNumbers.forEach { winNumber ->
                     if (winNumber == myNumber) {
                         listTemp.add(myNumber)
@@ -77,7 +94,8 @@ class WinHistoryViewModel : BaseViewModel() {
     fun sort(isAcs: Boolean = false, isWinSort: Boolean = false) {
         _listFitNumbers.value =
             if (isWinSort) {
-                _listFitNumbers.value!!.sortedByDescending { it.round.split("회")[0].toInt() }.sortedBy { it.rank }
+                _listFitNumbers.value!!.sortedByDescending { it.round.split("회")[0].toInt() }
+                    .sortedBy { it.rank }
             } else {
                 if (isAcs)
                     _listFitNumbers.value!!.sortedBy { it.round.split("회")[0].toInt() }

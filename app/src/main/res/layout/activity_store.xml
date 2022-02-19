@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="storeViewModel"
+            name="vm"
             type="com.imaec.hilotto.viewmodel.StoreViewModel" />
     </data>
 
@@ -30,7 +30,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingTop="8dp"
-            android:text="@{storeViewModel.round}"
+            android:text="@{vm.round}"
             android:textSize="16sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -42,8 +42,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/lightGray3"
-            app:adapter="@{storeViewModel.adapter}"
-            app:items="@{storeViewModel.listStore}"
+            app:adapter="@{vm.adapter}"
+            app:items="@{vm.listStore}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_round"

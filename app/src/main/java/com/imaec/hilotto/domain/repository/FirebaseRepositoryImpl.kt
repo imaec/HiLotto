@@ -1,28 +1,31 @@
-package com.imaec.hilotto.repository
+package com.imaec.hilotto.domain.repository
 
-import android.util.Log
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.imaec.hilotto.data.repository.FirebaseRepository
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.utils.DateUtil
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.util.HashMap
 
-class FirebaseRepository {
+class FirebaseRepositoryImpl(
+    private val ref: DatabaseReference
+) : FirebaseRepository {
 
     private val TAG = this::class.java.simpleName
 
-    private var database = FirebaseDatabase.getInstance()
-    private var ref = database.reference
-
-    fun setWeek(curDrwNo: Int) {
+    override fun setWeek(curDrwNo: Int) {
         ref.child("week").setValue(curDrwNo)
     }
 
-    fun getLottoList(callback: (List<LottoDTO>) -> Unit) {
+    override fun getLottoList(callback: (List<LottoDTO>) -> Unit) {
         ref.child("number").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
-                ref.child("error").child(DateUtil.getDate("yyyy-MM-dd HH:mm:ss")).child("getLottoList()").setValue(databaseError.message)
+                ref.child("error")
+                    .child(DateUtil.getDate("yyyy-MM-dd HH:mm:ss"))
+                    .child("getLottoList()")
+                    .setValue(databaseError.message)
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -56,7 +59,7 @@ class FirebaseRepository {
         })
     }
 
-    fun setLottoList(list: List<LottoDTO>) {
+    override fun setLottoList(list: List<LottoDTO>) {
         for (lotto in list) {
             ref.child("number").child(lotto.drwNo.toString()).apply {
                 child("date").setValue(lotto.drwNoDate)

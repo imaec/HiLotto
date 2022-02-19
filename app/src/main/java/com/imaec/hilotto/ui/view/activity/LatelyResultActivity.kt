@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.activity.viewModels
 import com.google.android.gms.ads.AdRequest
 import com.imaec.hilotto.EXTRA_LATELY_RESULT_POSITION
 import com.imaec.hilotto.EXTRA_LIST_LOTTO
@@ -14,32 +14,36 @@ import com.imaec.hilotto.databinding.ActivityLatelyResultBinding
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.ui.view.dialog.InputDialog
 import com.imaec.hilotto.viewmodel.LatelyResultViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.dialog_search.*
 
 @Suppress("UNCHECKED_CAST")
-class LatelyResultActivity : BaseActivity<ActivityLatelyResultBinding>(R.layout.activity_lately_result) {
+@AndroidEntryPoint
+class LatelyResultActivity :
+    BaseActivity<ActivityLatelyResultBinding>(R.layout.activity_lately_result) {
 
-    private lateinit var latelyResultViewModel: LatelyResultViewModel
+    private val viewModel by viewModels<LatelyResultViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        latelyResultViewModel = getViewModel(LatelyResultViewModel::class.java)
-
         binding.apply {
             lifecycleOwner = this@LatelyResultActivity
-            latelyResultViewModel = this@LatelyResultActivity.latelyResultViewModel
+            vm = this@LatelyResultActivity.viewModel
             adView.loadAd(AdRequest.Builder().build())
         }
 
-        latelyResultViewModel.apply {
-            setListLatelyResult(intent.getSerializableExtra(EXTRA_LIST_LOTTO) as ArrayList<LottoDTO>)
+        viewModel.apply {
+            setListLatelyResult(
+                intent.getSerializableExtra(EXTRA_LIST_LOTTO) as ArrayList<LottoDTO>
+            )
             listLatelyResult.observe(
                 this@LatelyResultActivity,
-                Observer {
+                {
                     Handler().postDelayed(
                         {
-                            binding.vpLatelyResult.currentItem = intent.getIntExtra(EXTRA_LATELY_RESULT_POSITION, 0)
+                            binding.vpLatelyResult.currentItem =
+                                intent.getIntExtra(EXTRA_LATELY_RESULT_POSITION, 0)
                         },
                         100
                     )
@@ -54,19 +58,18 @@ class LatelyResultActivity : BaseActivity<ActivityLatelyResultBinding>(R.layout.
                 InputDialog(this).apply {
                     setTitle(getString(R.string.search_round))
                     setHint(getString(R.string.msg_search_hint_round))
-                    setOnSearchClickListener(
-                        View.OnClickListener {
-                            val result = latelyResultViewModel.checkSearchRound(edit_search.text.toString())
-                            if (result == "OK") {
-                                val searchRound = edit_search.text.toString().toInt()
-                                val currentRound = latelyResultViewModel.listLatelyResult.value!![0].drwNo
-                                binding.vpLatelyResult.currentItem = currentRound - searchRound
-                            } else {
-                                Toast.makeText(this@LatelyResultActivity, result, Toast.LENGTH_SHORT).show()
-                            }
-                            dismiss()
+                    setOnSearchClickListener {
+                        val result = viewModel.checkSearchRound(edit_search.text.toString())
+                        if (result == "OK") {
+                            val searchRound = edit_search.text.toString().toInt()
+                            val currentRound = viewModel.listLatelyResult.value!![0].drwNo
+                            binding.vpLatelyResult.currentItem = currentRound - searchRound
+                        } else {
+                            Toast.makeText(this@LatelyResultActivity, result, Toast.LENGTH_SHORT)
+                                .show()
                         }
-                    )
+                        dismiss()
+                    }
                     show()
                 }
             }

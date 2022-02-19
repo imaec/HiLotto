@@ -2,13 +2,10 @@ package com.imaec.hilotto.base
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
@@ -20,12 +17,13 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.ui.view.dialog.ProgressDialog
 import java.util.Random
 
-abstract class BaseActivity<T : ViewDataBinding>(@LayoutRes private val layoutResId: Int) :
-    AppCompatActivity() {
+abstract class BaseActivity<VDB : ViewDataBinding>(
+    @LayoutRes private val layoutResId: Int
+) : AppCompatActivity() {
 
     protected val TAG = this::class.java.simpleName
 
-    protected lateinit var binding: T
+    protected lateinit var binding: VDB
     protected lateinit var interstitialAd: InterstitialAd
 
     private val progressDialog: ProgressDialog by lazy { ProgressDialog(this) }
@@ -34,7 +32,9 @@ abstract class BaseActivity<T : ViewDataBinding>(@LayoutRes private val layoutRe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, layoutResId)
+        binding = DataBindingUtil.setContentView<VDB>(this, layoutResId).apply {
+            lifecycleOwner = this@BaseActivity
+        }
 
         init()
 
@@ -60,10 +60,6 @@ abstract class BaseActivity<T : ViewDataBinding>(@LayoutRes private val layoutRe
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         FirebaseCrashlytics.getInstance().log("$TAG onActivityResult")
-    }
-
-    protected fun <V : ViewModel> getViewModel(modelClass: Class<V>, vararg repository: Any): V {
-        return ViewModelProvider(this, BaseViewModelFactory(*repository)).get(modelClass)
     }
 
     protected fun showProgress() {
@@ -93,7 +89,6 @@ abstract class BaseActivity<T : ViewDataBinding>(@LayoutRes private val layoutRe
 
                 override fun onAdFailedToLoad(p0: LoadAdError?) {
                     super.onAdFailedToLoad(p0)
-                    Log.d(TAG, "    ## ad failed to load : $p0")
                     onClosed()
                 }
 

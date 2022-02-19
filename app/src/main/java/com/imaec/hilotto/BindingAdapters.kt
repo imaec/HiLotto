@@ -93,7 +93,11 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter(value = ["app:backgroundContinues", "app:isContinues"], requireAll = false)
-    fun setBackgroundContinues(textView: TextView, listContinues: List<String>, isContinues: Boolean = false) {
+    fun setBackgroundContinues(
+        textView: TextView,
+        listContinues: List<String>,
+        isContinues: Boolean = false
+    ) {
         if (!isContinues) return
 
         try {
@@ -193,7 +197,10 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("adapter")
-    fun setAdapter(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
+    fun setAdapter(
+        recyclerView: RecyclerView,
+        adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
+    ) {
         recyclerView.adapter = adapter
     }
 
@@ -209,7 +216,11 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter(value = ["app:items", "app:fit"], requireAll = true)
-    fun setItemsAndFit(recyclerView: RecyclerView, items: List<Any>, fitNumbers: List<FitNumberDTO>) {
+    fun setItemsAndFit(
+        recyclerView: RecyclerView,
+        items: List<Any>,
+        fitNumbers: List<FitNumberDTO>
+    ) {
         val adapter = recyclerView.adapter
         if (adapter is MyNumberAdapter) {
             adapter.apply {

@@ -24,12 +24,14 @@ class OddEvenAdapter : BaseAdapter() {
         }
     }
 
-    inner class ItemViewHolder(val binding: ItemOddEvenBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ItemViewHolder(val binding: ItemOddEvenBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(item: OddEvenDTO) {
             binding.apply {
                 recyclerItemNum.adapter = NumberAdapter()
-                recyclerItemNum.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+                recyclerItemNum.layoutManager =
+                    LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
                 recyclerItemNum.removeItemDecoration(itemDecoration)
                 recyclerItemNum.addItemDecoration(itemDecoration)
                 this.item = item

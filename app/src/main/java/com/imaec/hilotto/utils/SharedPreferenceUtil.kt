@@ -17,17 +17,17 @@ class SharedPreferenceUtil {
 
         private const val NAME = "HiLotto"
 
-        fun getString(context: Context, key: KEY, def: String = "") : String {
+        fun getString(context: Context, key: KEY, def: String = ""): String {
             val pref = context.getSharedPreferences(NAME, Context.MODE_PRIVATE)
             return pref.getString(key.name, def) ?: ""
         }
 
-        fun getInt(context: Context, key: KEY, def: Int = 0) : Int {
+        fun getInt(context: Context, key: KEY, def: Int = 0): Int {
             val pref = context.getSharedPreferences(NAME, Context.MODE_PRIVATE)
             return pref.getInt(key.name, def)
         }
 
-        fun getBool(context: Context, key: KEY, def: Boolean = false) : Boolean {
+        fun getBool(context: Context, key: KEY, def: Boolean = false): Boolean {
             val pref = context.getSharedPreferences(NAME, Context.MODE_PRIVATE)
             return pref.getBoolean(key.name, def)
         }

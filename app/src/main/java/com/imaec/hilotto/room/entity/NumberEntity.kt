@@ -14,4 +14,4 @@ data class NumberEntity(
     @ColumnInfo var number4: Int = 0,
     @ColumnInfo var number5: Int = 0,
     @ColumnInfo var number6: Int = 0
-): Serializable
+) : Serializable
