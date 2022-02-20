@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseViewModel
+import com.imaec.hilotto.model.MyNumberDTO
 import com.imaec.hilotto.room.entity.NumberEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.BufferedReader
@@ -45,7 +46,7 @@ class SettingViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
-    fun export(listNumber: List<NumberEntity>, file: File): Int {
+    fun export(listNumber: List<MyNumberDTO>, file: File): Int {
         return when {
             listNumber.isEmpty() -> R.string.msg_empty_my_number
             else -> {
@@ -66,7 +67,7 @@ class SettingViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
-    fun export(context: Context, listNumber: List<NumberEntity>, uri: Uri): Int {
+    fun export(context: Context, listNumber: List<MyNumberDTO>, uri: Uri): Int {
         return try {
             val jsonString = Gson().toJson(listNumber)
             val outputStream = context.contentResolver.openOutputStream(uri)

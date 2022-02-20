@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:ads="http://schemas.android.com/apk/res-auto">
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="vm"
-            type="com.imaec.hilotto.viewmodel.MyViewModel" />
+            type="com.imaec.hilotto.ui.my.MyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +16,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/text_title"
+            android:id="@+id/tv_title"
             style="@style/AppTheme.Toolbar"
             android:text="@string/my"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -23,40 +24,41 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/image_setting"
+            android:id="@+id/iv_setting"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:src="@drawable/ic_setting"
-            android:onClick="onClick"
             android:visibility="gone"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_title"
-            app:layout_constraintBottom_toBottomOf="@id/text_title"/>
+            app:layout_constraintTop_toTopOf="@id/tv_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_title"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_my_numbers"
+            android:id="@+id/rv_my_numbers"
+            bindItemList="@{vm.myNumberList}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/lightGray3"
-            app:layout_constraintTop_toBottomOf="@id/text_title"
-            app:layout_constraintBottom_toTopOf="@id/adView"
-            app:adapter="@{vm.adapter}"
-            app:items="@{vm.listNumber}"
-            app:fit="@{vm.listFitNumbers}"/>
+            android:paddingVertical="12dp"
+            android:clipToPadding="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintBottom_toTopOf="@id/ad_my"
+            tools:listitem="@layout/item_my_number"/>
 
         <TextView
-            android:id="@+id/text_empty"
-            bindVisible="@{vm.listNumber.size() == 0}"
+            android:id="@+id/tv_empty"
+            bindVisible="@{vm.myNumberList.size() == 0}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:gravity="center"
             android:text="@string/msg_numbers_empty"
-            app:layout_constraintTop_toBottomOf="@id/text_title"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_title"/>
 
         <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
+            android:id="@+id/ad_my"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"

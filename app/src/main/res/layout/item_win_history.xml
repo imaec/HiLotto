@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -35,7 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/lightGray3"
-            android:paddingLeft="7dp"
+            android:paddingStart="7dp"
             android:text="@{fitNumberDTO.round}"
             android:textSize="15sp"
             android:textColor="@color/darkGray"
@@ -46,15 +47,17 @@
 
         <TextView
             android:id="@+id/text_rank"
+            bindRank="@{fitNumberDTO}"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:paddingLeft="7dp"
+            android:paddingStart="7dp"
             android:paddingTop="3dp"
             android:text="0"
             android:textColor="@color/white"
-            app:rank="@{fitNumberDTO}"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_round"/>
+            app:layout_constraintTop_toBottomOf="@id/text_round"
+            tools:text="5"
+            tools:background="@drawable/bg_triangle"/>
 
         <View
             android:id="@+id/view_dot_1"
@@ -62,12 +65,12 @@
             bindVisibleMode="@{1}"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="6dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="6dp"
             android:layout_marginBottom="6dp"
             android:background="@drawable/dot_primary"
             android:visibility="gone"
-            app:backgroundDot="@{fitNumberDTO.listIsFitBonus[0]}"
+            bindBackgroundDot="@{fitNumberDTO.listIsFitBonus[0]}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/text_number_2"
             app:layout_constraintBottom_toTopOf="@id/text_number_1"/>
@@ -75,15 +78,15 @@
         <TextView
             style="@style/AppTheme.TextNumberAccent"
             android:id="@+id/text_number_1"
-            android:layout_marginLeft="24dp"
+            bindNumber="@{item.number1}"
+            bindFitNumber="@{fitNumberDTO}"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            app:textByInt="@{item.number1}"
-            app:fitNumber="@{fitNumberDTO}"
-            app:backgroundNumberCircle="@{item.number1}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/text_number_2"
             app:layout_constraintTop_toBottomOf="@id/text_round"
-            app:layout_constraintDimensionRatio="1"/>
+            app:layout_constraintDimensionRatio="1"
+            tools:text="1"/>
 
         <View
             android:id="@+id/view_dot_2"
@@ -91,12 +94,12 @@
             bindVisibleMode="@{1}"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:layout_marginBottom="6dp"
             android:background="@drawable/dot_primary"
             android:visibility="gone"
-            app:backgroundDot="@{fitNumberDTO.listIsFitBonus[1]}"
+            bindBackgroundDot="@{fitNumberDTO.listIsFitBonus[1]}"
             app:layout_constraintLeft_toRightOf="@id/text_number_1"
             app:layout_constraintRight_toLeftOf="@id/text_number_3"
             app:layout_constraintBottom_toTopOf="@id/text_number_2"/>
@@ -104,14 +107,14 @@
         <TextView
             style="@style/AppTheme.TextNumberAccent"
             android:id="@+id/text_number_2"
+            bindNumber="@{item.number2}"
+            bindFitNumber="@{fitNumberDTO}"
             android:layout_marginTop="0dp"
-            app:textByInt="@{item.number2}"
-            app:fitNumber="@{fitNumberDTO}"
-            app:backgroundNumberCircle="@{item.number2}"
             app:layout_constraintLeft_toRightOf="@id/text_number_1"
             app:layout_constraintRight_toLeftOf="@id/text_number_3"
             app:layout_constraintTop_toTopOf="@id/text_number_1"
-            app:layout_constraintDimensionRatio="1"/>
+            app:layout_constraintDimensionRatio="1"
+            tools:text="2"/>
 
         <View
             android:id="@+id/view_dot_3"
@@ -119,12 +122,12 @@
             bindVisibleMode="@{1}"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:layout_marginBottom="6dp"
             android:background="@drawable/dot_primary"
             android:visibility="gone"
-            app:backgroundDot="@{fitNumberDTO.listIsFitBonus[2]}"
+            bindBackgroundDot="@{fitNumberDTO.listIsFitBonus[2]}"
             app:layout_constraintLeft_toRightOf="@id/text_number_2"
             app:layout_constraintRight_toLeftOf="@id/text_number_4"
             app:layout_constraintBottom_toTopOf="@id/text_number_3"/>
@@ -132,14 +135,14 @@
         <TextView
             style="@style/AppTheme.TextNumberAccent"
             android:id="@+id/text_number_3"
+            bindNumber="@{item.number3}"
+            bindFitNumber="@{fitNumberDTO}"
             android:layout_marginTop="0dp"
-            app:textByInt="@{item.number3}"
-            app:fitNumber="@{fitNumberDTO}"
-            app:backgroundNumberCircle="@{item.number3}"
             app:layout_constraintLeft_toRightOf="@id/text_number_2"
             app:layout_constraintRight_toLeftOf="@id/text_number_4"
             app:layout_constraintTop_toTopOf="@id/text_number_1"
-            app:layout_constraintDimensionRatio="1"/>
+            app:layout_constraintDimensionRatio="1"
+            tools:text="3"/>
 
         <View
             android:id="@+id/view_dot_4"
@@ -147,12 +150,12 @@
             bindVisibleMode="@{1}"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:layout_marginBottom="6dp"
             android:background="@drawable/dot_primary"
             android:visibility="gone"
-            app:backgroundDot="@{fitNumberDTO.listIsFitBonus[3]}"
+            bindBackgroundDot="@{fitNumberDTO.listIsFitBonus[3]}"
             app:layout_constraintLeft_toRightOf="@id/text_number_3"
             app:layout_constraintRight_toLeftOf="@id/text_number_5"
             app:layout_constraintBottom_toTopOf="@id/text_number_4"/>
@@ -160,14 +163,14 @@
         <TextView
             style="@style/AppTheme.TextNumberAccent"
             android:id="@+id/text_number_4"
+            bindNumber="@{item.number4}"
+            bindFitNumber="@{fitNumberDTO}"
             android:layout_marginTop="0dp"
-            app:textByInt="@{item.number4}"
-            app:fitNumber="@{fitNumberDTO}"
-            app:backgroundNumberCircle="@{item.number4}"
             app:layout_constraintLeft_toRightOf="@id/text_number_3"
             app:layout_constraintRight_toLeftOf="@id/text_number_5"
             app:layout_constraintTop_toTopOf="@id/text_number_1"
-            app:layout_constraintDimensionRatio="1"/>
+            app:layout_constraintDimensionRatio="1"
+            tools:text="4"/>
 
         <View
             android:id="@+id/view_dot_5"
@@ -175,12 +178,12 @@
             bindVisibleMode="@{1}"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:layout_marginBottom="6dp"
             android:background="@drawable/dot_primary"
             android:visibility="gone"
-            app:backgroundDot="@{fitNumberDTO.listIsFitBonus[4]}"
+            bindBackgroundDot="@{fitNumberDTO.listIsFitBonus[4]}"
             app:layout_constraintLeft_toRightOf="@id/text_number_4"
             app:layout_constraintRight_toLeftOf="@id/text_number_6"
             app:layout_constraintBottom_toTopOf="@id/text_number_5"/>
@@ -188,14 +191,14 @@
         <TextView
             style="@style/AppTheme.TextNumberAccent"
             android:id="@+id/text_number_5"
+            bindNumber="@{item.number5}"
+            bindFitNumber="@{fitNumberDTO}"
             android:layout_marginTop="0dp"
-            app:textByInt="@{item.number5}"
-            app:fitNumber="@{fitNumberDTO}"
-            app:backgroundNumberCircle="@{item.number5}"
             app:layout_constraintLeft_toRightOf="@id/text_number_4"
             app:layout_constraintRight_toLeftOf="@id/text_number_6"
             app:layout_constraintTop_toTopOf="@id/text_number_1"
-            app:layout_constraintDimensionRatio="1"/>
+            app:layout_constraintDimensionRatio="1"
+            tools:text="5"/>
 
         <View
             android:id="@+id/view_dot_6"
@@ -203,12 +206,12 @@
             bindVisibleMode="@{1}"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="6dp"
             android:background="@drawable/dot_primary"
             android:visibility="gone"
-            app:backgroundDot="@{fitNumberDTO.listIsFitBonus[5]}"
+            bindBackgroundDot="@{fitNumberDTO.listIsFitBonus[5]}"
             app:layout_constraintLeft_toRightOf="@id/text_number_5"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@id/text_number_6"/>
@@ -216,14 +219,14 @@
         <TextView
             style="@style/AppTheme.TextNumberAccent"
             android:id="@+id/text_number_6"
-            android:layout_marginRight="24dp"
+            bindNumber="@{item.number6}"
+            bindFitNumber="@{fitNumberDTO}"
+            android:layout_marginEnd="24dp"
             android:layout_marginTop="0dp"
-            app:textByInt="@{item.number6}"
-            app:fitNumber="@{fitNumberDTO}"
-            app:backgroundNumberCircle="@{item.number6}"
             app:layout_constraintLeft_toRightOf="@id/text_number_5"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_number_1"
-            app:layout_constraintDimensionRatio="1"/>
+            app:layout_constraintDimensionRatio="1"
+            tools:text="6"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

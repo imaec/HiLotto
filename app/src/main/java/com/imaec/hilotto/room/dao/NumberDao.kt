@@ -1,5 +1,6 @@
 package com.imaec.hilotto.room.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -25,7 +26,7 @@ interface NumberDao {
     ): Int
 
     @Query("SELECT * FROM numberEntity")
-    fun selectAll(): List<NumberEntity>
+    fun selectAll(): LiveData<List<NumberEntity>>
 
     @Insert
     fun insert(entity: NumberEntity)
@@ -38,4 +39,7 @@ interface NumberDao {
 
     @Delete
     fun delete(entity: NumberEntity)
+
+    @Query("DELETE FROM numberEntity WHERE numberId = :numberId")
+    fun deleteById(numberId: Long)
 }

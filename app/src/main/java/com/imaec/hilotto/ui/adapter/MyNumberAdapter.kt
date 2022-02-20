@@ -53,8 +53,8 @@ class MyNumberAdapter : BaseAdapter() {
             }
 
             binding.apply {
-                this.item = item
-                this.fitNumberDTO = fitNumberDTO
+//                this.item = item
+//                this.fitNumberDTO = fitNumberDTO
                 root.setOnClickListener { onClick(item) }
                 root.setOnLongClickListener {
                     onLongClick(item)

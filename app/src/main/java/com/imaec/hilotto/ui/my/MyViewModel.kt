@@ -1,52 +1,41 @@
-package com.imaec.hilotto.viewmodel
+package com.imaec.hilotto.ui.my
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.domain.successOr
-import com.imaec.hilotto.domain.usecase.number.DeleteUseCase
+import com.imaec.hilotto.domain.usecase.number.DeleteByIdUseCase
 import com.imaec.hilotto.domain.usecase.number.InsertAllUseCase
 import com.imaec.hilotto.domain.usecase.number.SelectAllUseCase
 import com.imaec.hilotto.domain.usecase.number.SelectByNumbersUseCase
 import com.imaec.hilotto.model.FitNumberDTO
 import com.imaec.hilotto.model.LottoDTO
+import com.imaec.hilotto.model.MyNumberDTO
 import com.imaec.hilotto.room.entity.NumberEntity
-import com.imaec.hilotto.ui.adapter.MyNumberAdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MyViewModel @Inject constructor(
-    private val selectAllUseCase: SelectAllUseCase,
+    selectAllUseCase: SelectAllUseCase,
     private val selectByNumbersUseCase: SelectByNumbersUseCase,
     private val insertAllUseCase: InsertAllUseCase,
-    private val deleteUseCase: DeleteUseCase,
+    private val deleteByIdUseCase: DeleteByIdUseCase
 ) : BaseViewModel() {
 
-    init {
-        adapter = MyNumberAdapter().apply {
-            setHasStableIds(true)
-        }
-    }
+    private val _state = MutableLiveData<MyState>()
+    val state: LiveData<MyState> get() = _state
 
-    private val _listNumber = MutableLiveData<List<NumberEntity>>(emptyList())
-    val listNumber: LiveData<List<NumberEntity>> get() = _listNumber
+    val numberEntityList = selectAllUseCase.execute()
 
-    private val _listFitNumbers = MutableLiveData<List<FitNumberDTO>>(emptyList())
-    val listFitNumbers: LiveData<List<FitNumberDTO>> get() = _listFitNumbers
+    private val _myNumberList = MutableLiveData<List<MyNumberDTO>>()
+    val myNumberList: LiveData<List<MyNumberDTO>> get() = _myNumberList
 
-    fun getNumbers() {
+    fun deleteNumber(myNumber: MyNumberDTO) {
         viewModelScope.launch {
-            _listNumber.value = selectAllUseCase().successOr(emptyList())
-        }
-    }
-
-    fun deleteNumber(entity: NumberEntity) {
-        viewModelScope.launch {
-            deleteUseCase(entity)
-            _listNumber.value = selectAllUseCase().successOr(emptyList())
+            deleteByIdUseCase(myNumber.numberId)
         }
     }
 
@@ -59,8 +48,7 @@ class MyViewModel @Inject constructor(
             result.drwtNo5,
             result.drwtNo6
         )
-        val listFitTemp = arrayListOf<FitNumberDTO>()
-        _listNumber.value!!.forEach {
+        _myNumberList.value = numberEntityList.value?.map {
             val fitNumberDTO = FitNumberDTO()
             val listTemp = arrayListOf<Int>()
             arrayOf(
@@ -82,6 +70,24 @@ class MyViewModel @Inject constructor(
             }
             fitNumberDTO.apply {
                 listFitNumber.addAll(listTemp)
+                listFitNumber.forEach { fitNumber ->
+                    if (it.number1 == fitNumber) isFitNo1 = true
+                    if (it.number2 == fitNumber) isFitNo2 = true
+                    if (it.number3 == fitNumber) isFitNo3 = true
+                    if (it.number4 == fitNumber) isFitNo4 = true
+                    if (it.number5 == fitNumber) isFitNo5 = true
+                    if (it.number6 == fitNumber) isFitNo6 = true
+                }
+                arrayOf(
+                    it.number1,
+                    it.number2,
+                    it.number3,
+                    it.number4,
+                    it.number5,
+                    it.number6
+                ).forEach { number ->
+                    listIsFitBonus.add(numberBonus == number)
+                }
                 rank = when (fitNumberDTO.listFitNumber.size) {
                     6 -> 1
                     5 -> if (fitNumberDTO.numberBonus > 0) 2 else 3
@@ -90,17 +96,26 @@ class MyViewModel @Inject constructor(
                     else -> 0
                 }
             }
-            listFitTemp.add(fitNumberDTO)
+            MyNumberDTO(
+                numberId = it.numberId,
+                number1 = it.number1,
+                number2 = it.number2,
+                number3 = it.number3,
+                number4 = it.number4,
+                number5 = it.number5,
+                number6 = it.number6,
+                fitNumber = fitNumberDTO
+            )
         }
-        _listFitNumbers.value = listFitTemp
     }
 
-    fun setOnNumberClickListener(onClick: (Any) -> Unit) {
-        adapter.addOnClickListener { onClick(it) }
+    fun onClickNumber(myNumber: MyNumberDTO) {
+        _state.value = MyState.OnClickNumber(myNumber)
     }
 
-    fun setOnNumberLongClickListener(onClick: (Any) -> Unit) {
-        adapter.addOnLongClickListener { onClick(it) }
+    fun onLongClickNumber(myNumber: MyNumberDTO): Boolean {
+        _state.value = MyState.OnLongClickNumber(myNumber)
+        return true
     }
 
     fun saveNumbers(list: List<NumberEntity>, callback: () -> Unit) {

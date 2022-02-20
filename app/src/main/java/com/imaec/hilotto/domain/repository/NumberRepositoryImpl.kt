@@ -25,37 +25,23 @@ class NumberRepositoryImpl(
         return count
     }
 
-    override suspend fun selectAll(): List<NumberEntity>? {
-        var listResult: List<NumberEntity>? = null
-        withContext(Dispatchers.IO) {
-            listResult = dao.selectAll()
-        }
-        return listResult
-    }
+    override fun selectAll() = dao.selectAll()
 
     override suspend fun insert(entity: NumberEntity) {
-        withContext(Dispatchers.IO) {
-            dao.insert(entity)
-        }
+        dao.insert(entity)
     }
 
     override suspend fun insertAll(entities: List<NumberEntity>) {
-        withContext(Dispatchers.IO) {
-            dao.insertAll(entities)
-        }
+        dao.insertAll(entities)
     }
 
-    override suspend fun update(entity: NumberEntity): Boolean {
-        var result = 0
-        withContext(Dispatchers.IO) {
-            result = dao.update(entity)
-        }
-        return result > 0
-    }
+    override suspend fun update(entity: NumberEntity): Boolean = dao.update(entity) > 0
 
     override suspend fun delete(entity: NumberEntity) {
-        withContext(Dispatchers.IO) {
-            dao.delete(entity)
-        }
+        dao.delete(entity)
+    }
+
+    override suspend fun deleteById(id: Long) {
+        dao.deleteById(id)
     }
 }

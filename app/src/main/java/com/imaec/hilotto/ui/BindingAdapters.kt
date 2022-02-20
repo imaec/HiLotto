@@ -35,12 +35,56 @@ fun View.bindSingleClick(clickListener: View.OnClickListener?) {
     } ?: setOnClickListener(null)
 }
 
+@BindingAdapter("backgroundNumberCircle")
+fun View.setBackgroundNumberCircle(number: Int) {
+    setBackgroundResource(
+        when (number) {
+            in 1..10 -> R.drawable.bg_circle_1
+            in 11..20 -> R.drawable.bg_circle_2
+            in 21..30 -> R.drawable.bg_circle_3
+            in 31..40 -> R.drawable.bg_circle_4
+            in 41..45 -> R.drawable.bg_circle_5
+            else -> R.drawable.bg_circle_1
+        }
+    )
+}
+
+@BindingAdapter("bindBackgroundDot")
+fun View.bindBackgroundDot(isBonus: Boolean) {
+    setBackgroundResource(if (isBonus) R.drawable.dot_red else R.drawable.dot_primary)
+}
+
 @Suppress("UNCHECKED_CAST")
 @BindingAdapter("bindItemList")
 fun RecyclerView.bindItemList(itemList: List<Any>?) {
     (adapter as? BaseSingleViewAdapter<Any>)?.run {
         submitList(itemList)
     }
+}
+
+@BindingAdapter(value = ["bindNumber", "bindFitNumber"], requireAll = false)
+fun TextView.bindFitNumber(number: Int, fitNumber: FitNumberDTO?) {
+    text = number.toString()
+    setTextColor(ContextCompat.getColor(context, R.color.white))
+    setBackgroundNumberCircle(number)
+
+    fitNumber ?: return
+    fitNumber.listFitNumber.forEach {
+        if (text.toString().toInt() == it) {
+            setTextColor(ContextCompat.getColor(context, R.color.darkGray))
+        }
+    }
+    if (text.toString().toInt() == fitNumber.numberBonus) {
+        setTextColor(ContextCompat.getColor(context, R.color.darkGray))
+    }
+}
+
+@BindingAdapter("bindRank")
+fun TextView.bindRank(fitNumber: FitNumberDTO?) {
+    fitNumber ?: return
+
+    setBackgroundResource(if (fitNumber.rank > 0) R.drawable.bg_triangle else 0)
+    text = if (fitNumber.rank > 0) "${fitNumber.rank}" else ""
 }
 
 @BindingAdapter("textByInt")
@@ -84,25 +128,6 @@ fun setTextCreateToggle(textView: TextView, listInclude: List<String>) {
         }
     }
     textView.text = str
-}
-
-@BindingAdapter("fitNumber")
-fun setFitNumber(textView: TextView, fitNumberDTO: FitNumberDTO) {
-    textView.setTextColor(ContextCompat.getColor(textView.context, R.color.white))
-    fitNumberDTO.listFitNumber.forEach {
-        if (textView.text.toString().toInt() == it) {
-            textView.setTextColor(ContextCompat.getColor(textView.context, R.color.darkGray))
-        }
-    }
-    if (textView.text.toString().toInt() == fitNumberDTO.numberBonus) {
-        textView.setTextColor(ContextCompat.getColor(textView.context, R.color.darkGray))
-    }
-}
-
-@BindingAdapter("rank")
-fun setRank(textView: TextView, fitNumberDTO: FitNumberDTO) {
-    textView.setBackgroundResource(if (fitNumberDTO.rank > 0) R.drawable.bg_triangle else 0)
-    textView.text = if (fitNumberDTO.rank > 0) "${fitNumberDTO.rank}" else ""
 }
 
 @BindingAdapter("rank")
@@ -263,25 +288,6 @@ fun setItems(viewPager2: ViewPager2, items: List<Any>) {
         addItems(items)
         notifyDataSetChanged()
     }
-}
-
-@BindingAdapter("backgroundDot")
-fun setBackgroundDot(view: View, isBonus: Boolean) {
-    view.setBackgroundResource(if (isBonus) R.drawable.dot_red else R.drawable.dot_primary)
-}
-
-@BindingAdapter("backgroundNumberCircle")
-fun setBackgroundNumberCircle(view: View, number: Int) {
-    view.setBackgroundResource(
-        when (number) {
-            in 1..10 -> R.drawable.bg_circle_1
-            in 11..20 -> R.drawable.bg_circle_2
-            in 21..30 -> R.drawable.bg_circle_3
-            in 31..40 -> R.drawable.bg_circle_4
-            in 41..45 -> R.drawable.bg_circle_5
-            else -> R.drawable.bg_circle_1
-        }
-    )
 }
 
 class OnSingleClickListener(

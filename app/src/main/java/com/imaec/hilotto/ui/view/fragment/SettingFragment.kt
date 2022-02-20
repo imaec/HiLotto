@@ -25,7 +25,7 @@ import com.imaec.hilotto.ui.view.dialog.InputDialog
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.utils.Utils
 import com.imaec.hilotto.utils.toast
-import com.imaec.hilotto.viewmodel.MyViewModel
+import com.imaec.hilotto.ui.my.MyViewModel
 import com.imaec.hilotto.viewmodel.SettingViewModel
 import com.kakao.kakaolink.v2.KakaoLinkResponse
 import com.kakao.kakaolink.v2.KakaoLinkService
@@ -71,7 +71,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                 if (resultCode == RESULT_OK) {
                     data?.data?.let {
                         val result =
-                            viewModel.export(requireContext(), myViewModel.listNumber.value!!, it)
+                            viewModel.export(requireContext(), myViewModel.myNumberList.value!!, it)
                         toast(result)
                     } ?: run {
                         toast(R.string.msg_unknown_error)
@@ -99,7 +99,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
 
-        if (!hidden) myViewModel.getNumbers()
+//        if (!hidden) myViewModel.getNumbers()
     }
 
     override fun onRequestPermissionsResult(
@@ -220,7 +220,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
     }
 
     private fun export() {
-        myViewModel.listNumber.value?.let {
+        myViewModel.myNumberList.value?.let {
             if (Build.VERSION.SDK_INT < 29) {
                 val result = viewModel.export(
                     it,

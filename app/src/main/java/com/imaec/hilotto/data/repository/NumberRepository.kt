@@ -1,12 +1,13 @@
 package com.imaec.hilotto.data.repository
 
+import androidx.lifecycle.LiveData
 import com.imaec.hilotto.room.entity.NumberEntity
 
 interface NumberRepository {
 
     suspend fun selectByNumbers(entity: NumberEntity): Int
 
-    suspend fun selectAll(): List<NumberEntity>?
+    fun selectAll(): LiveData<List<NumberEntity>>
 
     suspend fun insert(entity: NumberEntity)
 
@@ -15,4 +16,6 @@ interface NumberRepository {
     suspend fun update(entity: NumberEntity): Boolean
 
     suspend fun delete(entity: NumberEntity)
+
+    suspend fun deleteById(id: Long)
 }
