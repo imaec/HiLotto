@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.imaec.hilotto.ui.view.fragment.ContinuesFragment
 import com.imaec.hilotto.ui.view.fragment.OddEvenFragment
-import com.imaec.hilotto.ui.view.fragment.PickFragment
+import com.imaec.hilotto.ui.statistics.pick.PickFragment
 import com.imaec.hilotto.ui.statistics.sum.SumFragment
 import com.imaec.hilotto.ui.view.fragment.WinFragment
 

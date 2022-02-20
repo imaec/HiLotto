@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="vm"
-            type="com.imaec.hilotto.viewmodel.PickViewModel" />
+            type="com.imaec.hilotto.ui.statistics.pick.PickViewModel" />
 
         <variable
             name="lottoVm"
@@ -18,23 +19,27 @@
         android:layout_height="match_parent">
 
         <ProgressBar
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:id="@+id/progress0"
+            style="@style/AppTheme.PickProgress1"
+            android:id="@+id/pb0"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:theme="@style/AppTheme.PickProgress1"
             android:max="@{vm.pickMax}"
             android:visibility="gone"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintLeft_toRightOf="@id/tv_range1"
+            app:layout_constraintRight_toLeftOf="@id/tv_sum1"
+            app:layout_constraintTop_toTopOf="@id/tv_range1"
+            app:layout_constraintBottom_toBottomOf="@id/tv_range1"
+            tools:progress="27"
+            tools:max="30"/>
 
         <TextView
-            android:id="@+id/text_temp"
+            android:id="@+id/tv_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             android:text=""
@@ -42,7 +47,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <CheckBox
-            android:id="@+id/check_include_bonus"
+            android:id="@+id/cb_include_bonus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
@@ -50,8 +55,8 @@
             android:theme="@style/AppTheme.BlackAccent"
             android:text="@string/include_bonus"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_temp"
-            app:layout_constraintBottom_toBottomOf="@id/text_temp"/>
+            app:layout_constraintTop_toTopOf="@id/tv_empty"
+            app:layout_constraintBottom_toBottomOf="@id/tv_empty"/>
 
         <View
             style="@style/AppTheme.ViewDivider"
@@ -60,13 +65,13 @@
             android:layout_marginRight="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_temp"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_empty"/>
 
         <TextView
             style="@style/AppTheme.StatisticsTitle"
-            android:id="@+id/text_pick_count"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
+            android:id="@+id/tv_pick_count"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             android:text="@string/title_pick_count"
@@ -74,189 +79,199 @@
             app:layout_constraintTop_toBottomOf="@id/view_divider1"/>
 
         <TextView
-            android:id="@+id/text_range1"
+            android:id="@+id/tv_range1"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:text="@string/pick_range1"
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_pick_count"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_pick_count"/>
 
         <ProgressBar
             style="@style/AppTheme.PickProgress1"
-            android:id="@+id/progress1"
+            android:id="@+id/pb1"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:theme="@style/AppTheme.PickProgress1"
             android:progress="@{vm.pickedRange1}"
             android:max="@{vm.pickMax}"
-            app:layout_constraintLeft_toRightOf="@id/text_range1"
-            app:layout_constraintRight_toLeftOf="@id/text_sum1"
-            app:layout_constraintTop_toTopOf="@id/text_range1"
-            app:layout_constraintBottom_toBottomOf="@id/text_range1"/>
+            app:layout_constraintLeft_toRightOf="@id/tv_range1"
+            app:layout_constraintRight_toLeftOf="@id/tv_sum1"
+            app:layout_constraintTop_toTopOf="@id/tv_range1"
+            app:layout_constraintBottom_toBottomOf="@id/tv_range1"
+            tools:progress="27"
+            tools:max="30"/>
 
         <TextView
-            android:id="@+id/text_sum1"
+            android:id="@+id/tv_sum1"
             android:layout_width="70dp"
             android:layout_height="0dp"
             android:gravity="center"
-            android:text="@string/sum_empty"
-            app:textByInt="@{vm.pickedRange1}"
+            android:text="@{Integer.toString(vm.pickedRange1)}"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_range1"
-            app:layout_constraintBottom_toBottomOf="@id/text_range1"/>
+            app:layout_constraintTop_toTopOf="@id/tv_range1"
+            app:layout_constraintBottom_toBottomOf="@id/tv_range1"
+            tools:text="27"/>
 
         <TextView
-            android:id="@+id/text_range2"
+            android:id="@+id/tv_range2"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:text="@string/pick_range2"
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_range1"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_range1"/>
 
         <ProgressBar
             style="@style/AppTheme.PickProgress2"
-            android:id="@+id/progress2"
+            android:id="@+id/pb2"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:theme="@style/AppTheme.PickProgress2"
             android:progress="@{vm.pickedRange2}"
             android:max="@{vm.pickMax}"
-            app:layout_constraintLeft_toRightOf="@id/text_range2"
-            app:layout_constraintRight_toLeftOf="@id/text_sum2"
-            app:layout_constraintTop_toTopOf="@id/text_range2"
-            app:layout_constraintBottom_toBottomOf="@id/text_range2"/>
+            app:layout_constraintLeft_toRightOf="@id/tv_range2"
+            app:layout_constraintRight_toLeftOf="@id/tv_sum2"
+            app:layout_constraintTop_toTopOf="@id/tv_range2"
+            app:layout_constraintBottom_toBottomOf="@id/tv_range2"
+            tools:progress="30"
+            tools:max="30"/>
 
         <TextView
-            android:id="@+id/text_sum2"
+            android:id="@+id/tv_sum2"
             android:layout_width="70dp"
             android:layout_height="0dp"
             android:gravity="center"
-            android:text="@string/sum_empty"
-            app:textByInt="@{vm.pickedRange2}"
+            android:text="@{Integer.toString(vm.pickedRange2)}"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_range2"
-            app:layout_constraintBottom_toBottomOf="@id/text_range2"/>
+            app:layout_constraintTop_toTopOf="@id/tv_range2"
+            app:layout_constraintBottom_toBottomOf="@id/tv_range2"
+            tools:text="30"/>
 
         <TextView
-            android:id="@+id/text_range3"
+            android:id="@+id/tv_range3"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:text="@string/pick_range3"
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_range2"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_range2"/>
 
         <ProgressBar
             style="@style/AppTheme.PickProgress3"
-            android:id="@+id/progress3"
+            android:id="@+id/pb3"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:theme="@style/AppTheme.PickProgress3"
             android:progress="@{vm.pickedRange3}"
             android:max="@{vm.pickMax}"
-            app:layout_constraintLeft_toRightOf="@id/text_range3"
-            app:layout_constraintRight_toLeftOf="@id/text_sum3"
-            app:layout_constraintTop_toTopOf="@id/text_range3"
-            app:layout_constraintBottom_toBottomOf="@id/text_range3"/>
+            app:layout_constraintLeft_toRightOf="@id/tv_range3"
+            app:layout_constraintRight_toLeftOf="@id/tv_sum3"
+            app:layout_constraintTop_toTopOf="@id/tv_range3"
+            app:layout_constraintBottom_toBottomOf="@id/tv_range3"
+            tools:progress="25"
+            tools:max="30"/>
 
         <TextView
-            android:id="@+id/text_sum3"
+            android:id="@+id/tv_sum3"
             android:layout_width="70dp"
             android:layout_height="0dp"
             android:gravity="center"
-            android:text="@string/sum_empty"
-            app:textByInt="@{vm.pickedRange3}"
+            android:text="@{Integer.toString(vm.pickedRange3)}"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_range3"
-            app:layout_constraintBottom_toBottomOf="@id/text_range3"/>
+            app:layout_constraintTop_toTopOf="@id/tv_range3"
+            app:layout_constraintBottom_toBottomOf="@id/tv_range3"
+            tools:text="25"/>
 
         <TextView
-            android:id="@+id/text_range4"
+            android:id="@+id/tv_range4"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:text="@string/pick_range4"
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_range3"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_range3"/>
 
         <ProgressBar
             style="@style/AppTheme.PickProgress4"
-            android:id="@+id/progress4"
+            android:id="@+id/pb4"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:theme="@style/AppTheme.PickProgress4"
             android:progress="@{vm.pickedRange4}"
             android:max="@{vm.pickMax}"
-            app:layout_constraintLeft_toRightOf="@id/text_range4"
-            app:layout_constraintRight_toLeftOf="@id/text_sum4"
-            app:layout_constraintTop_toTopOf="@id/text_range4"
-            app:layout_constraintBottom_toBottomOf="@id/text_range4"/>
+            app:layout_constraintLeft_toRightOf="@id/tv_range4"
+            app:layout_constraintRight_toLeftOf="@id/tv_sum4"
+            app:layout_constraintTop_toTopOf="@id/tv_range4"
+            app:layout_constraintBottom_toBottomOf="@id/tv_range4"
+            tools:progress="22"
+            tools:max="30"/>
 
         <TextView
-            android:id="@+id/text_sum4"
+            android:id="@+id/tv_sum4"
             android:layout_width="70dp"
             android:layout_height="0dp"
             android:gravity="center"
-            android:text="@string/sum_empty"
-            app:textByInt="@{vm.pickedRange4}"
+            android:text="@{Integer.toString(vm.pickedRange4)}"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_range4"
-            app:layout_constraintBottom_toBottomOf="@id/text_range4"/>
+            app:layout_constraintTop_toTopOf="@id/tv_range4"
+            app:layout_constraintBottom_toBottomOf="@id/tv_range4"
+            tools:text="22"/>
 
         <TextView
-            android:id="@+id/text_range5"
+            android:id="@+id/tv_range5"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:text="@string/pick_range5"
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_range4"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_range4"/>
 
         <ProgressBar
             style="@style/AppTheme.PickProgress5"
-            android:id="@+id/progress5"
+            android:id="@+id/pb5"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:theme="@style/AppTheme.PickProgress5"
             android:progress="@{vm.pickedRange5}"
             android:max="@{vm.pickMax}"
-            app:layout_constraintLeft_toRightOf="@id/text_range5"
-            app:layout_constraintRight_toLeftOf="@id/text_sum5"
-            app:layout_constraintTop_toTopOf="@id/text_range5"
-            app:layout_constraintBottom_toBottomOf="@id/text_range5"/>
+            app:layout_constraintLeft_toRightOf="@id/tv_range5"
+            app:layout_constraintRight_toLeftOf="@id/tv_sum5"
+            app:layout_constraintTop_toTopOf="@id/tv_range5"
+            app:layout_constraintBottom_toBottomOf="@id/tv_range5"
+            tools:progress="16"
+            tools:max="30"/>
 
         <TextView
-            android:id="@+id/text_sum5"
+            android:id="@+id/tv_sum5"
             android:layout_width="70dp"
             android:layout_height="0dp"
             android:gravity="center"
-            android:text="@string/sum_empty"
-            app:textByInt="@{vm.pickedRange5}"
+            android:text="@{Integer.toString(vm.pickedRange5)}"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_range5"
-            app:layout_constraintBottom_toBottomOf="@id/text_range5"/>
+            app:layout_constraintTop_toTopOf="@id/tv_range5"
+            app:layout_constraintBottom_toBottomOf="@id/tv_range5"
+            tools:text="16"/>
 
         <View
             style="@style/AppTheme.ViewDivider"
@@ -266,14 +281,14 @@
             android:layout_marginTop="24dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_range5"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_range5"/>
 
         <TextView
             style="@style/AppTheme.StatisticsTitle"
-            android:id="@+id/text_nopick_num"
+            android:id="@+id/tv_nopick_num"
             android:layout_marginTop="12dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             android:text="@string/title_nopick_num"
@@ -281,123 +296,148 @@
             app:layout_constraintTop_toBottomOf="@id/view_divider2"/>
 
         <TextView
-            android:id="@+id/text_nopick_range1"
+            android:id="@+id/tv_nopick_range1"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:text="@string/pick_range1"
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_nopick_num"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_nopick_num"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_nopick1"
+            android:id="@+id/rv_nopick1"
+            bindItemList="@{vm.noPickList1}"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:adapter="@{vm.noPickAdapter1}"
-            app:items="@{vm.listNoPick1}"
-            app:layout_constraintLeft_toRightOf="@id/text_nopick_range1"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="-2dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintLeft_toRightOf="@id/tv_nopick_range1"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_nopick_range1"
-            app:layout_constraintBottom_toBottomOf="@id/text_nopick_range1"/>
+            app:layout_constraintTop_toTopOf="@id/tv_nopick_range1"
+            app:layout_constraintBottom_toBottomOf="@id/tv_nopick_range1"
+            tools:listitem="@layout/item_nopick"
+            tools:itemCount="3"/>
 
         <TextView
-            android:id="@+id/text_nopick_range2"
+            android:id="@+id/tv_nopick_range2"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:text="@string/pick_range2"
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_nopick_range1"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_nopick_range1"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_nopick2"
+            android:id="@+id/rv_nopick2"
+            bindItemList="@{vm.noPickList2}"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:adapter="@{vm.noPickAdapter2}"
-            app:items="@{vm.listNoPick2}"
-            app:layout_constraintLeft_toRightOf="@id/text_nopick_range2"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="-2dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintLeft_toRightOf="@id/tv_nopick_range2"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_nopick_range2"
-            app:layout_constraintBottom_toBottomOf="@id/text_nopick_range2"/>
+            app:layout_constraintTop_toTopOf="@id/tv_nopick_range2"
+            app:layout_constraintBottom_toBottomOf="@id/tv_nopick_range2"
+            tools:listitem="@layout/item_nopick"
+            tools:itemCount="5"/>
 
         <TextView
-            android:id="@+id/text_nopick_range3"
+            android:id="@+id/tv_nopick_range3"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:text="@string/pick_range3"
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_nopick_range2"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_nopick_range2"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_nopick3"
+            android:id="@+id/rv_nopick3"
+            bindItemList="@{vm.noPickList3}"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:adapter="@{vm.noPickAdapter3}"
-            app:items="@{vm.listNoPick3}"
-            app:layout_constraintLeft_toRightOf="@id/text_nopick_range3"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="-2dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintLeft_toRightOf="@id/tv_nopick_range3"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_nopick_range3"
-            app:layout_constraintBottom_toBottomOf="@id/text_nopick_range3"/>
+            app:layout_constraintTop_toTopOf="@id/tv_nopick_range3"
+            app:layout_constraintBottom_toBottomOf="@id/tv_nopick_range3"
+            tools:listitem="@layout/item_nopick"
+            tools:itemCount="2"/>
 
         <TextView
-            android:id="@+id/text_nopick_range4"
+            android:id="@+id/tv_nopick_range4"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:text="@string/pick_range4"
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_nopick_range3"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_nopick_range3"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_nopick4"
+            android:id="@+id/rv_nopick4"
+            bindItemList="@{vm.noPickList4}"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:adapter="@{vm.noPickAdapter4}"
-            app:items="@{vm.listNoPick4}"
-            app:layout_constraintLeft_toRightOf="@id/text_nopick_range4"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="-2dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintLeft_toRightOf="@id/tv_nopick_range4"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_nopick_range4"
-            app:layout_constraintBottom_toBottomOf="@id/text_nopick_range4"/>
+            app:layout_constraintTop_toTopOf="@id/tv_nopick_range4"
+            app:layout_constraintBottom_toBottomOf="@id/tv_nopick_range4"
+            tools:listitem="@layout/item_nopick"
+            tools:itemCount="1"/>
 
         <TextView
-            android:id="@+id/text_nopick_range5"
+            android:id="@+id/tv_nopick_range5"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:text="@string/pick_range5"
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_nopick_range4"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_nopick_range4"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_nopick5"
+            android:id="@+id/rv_nopick5"
+            bindItemList="@{vm.noPickList5}"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:adapter="@{vm.noPickAdapter5}"
-            app:items="@{vm.listNoPick5}"
-            app:layout_constraintLeft_toRightOf="@id/text_nopick_range5"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="-2dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintLeft_toRightOf="@id/tv_nopick_range5"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_nopick_range5"
-            app:layout_constraintBottom_toBottomOf="@id/text_nopick_range5"/>
+            app:layout_constraintTop_toTopOf="@id/tv_nopick_range5"
+            app:layout_constraintBottom_toBottomOf="@id/tv_nopick_range5"
+            tools:listitem="@layout/item_nopick"
+            tools:itemCount="5"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

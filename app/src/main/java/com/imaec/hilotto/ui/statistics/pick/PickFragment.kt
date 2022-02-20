@@ -1,4 +1,4 @@
-package com.imaec.hilotto.ui.statistics.sum
+package com.imaec.hilotto.ui.statistics.pick
 
 import android.os.Bundle
 import android.view.View
@@ -10,14 +10,13 @@ import com.imaec.hilotto.BR
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.base.BaseSingleViewAdapter
-import com.imaec.hilotto.databinding.FragmentSumBinding
-import com.imaec.hilotto.model.SumDTO
+import com.imaec.hilotto.databinding.FragmentPickBinding
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.ui.main.LottoViewModel
 
-class SumFragment : BaseFragment<FragmentSumBinding>(R.layout.fragment_sum) {
+class PickFragment : BaseFragment<FragmentPickBinding>(R.layout.fragment_pick) {
 
-    private val viewModel by viewModels<SumViewModel>()
+    private val viewModel by viewModels<PickViewModel>()
     private val lottoViewModel by activityViewModels<LottoViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,32 +37,35 @@ class SumFragment : BaseFragment<FragmentSumBinding>(R.layout.fragment_sum) {
     }
 
     private fun setupRecyclerView() {
-        with(binding.rvSum) {
-            val diffUtil = object : DiffUtil.ItemCallback<SumDTO>() {
-                override fun areItemsTheSame(oldItem: SumDTO, newItem: SumDTO): Boolean =
-                    oldItem.round == newItem.round
+        with(binding) {
+            listOf(rvNopick1, rvNopick2, rvNopick3, rvNopick4, rvNopick5).forEach {
+                val diffUtil = object : DiffUtil.ItemCallback<Int>() {
+                    override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean =
+                        oldItem == newItem
 
-                override fun areContentsTheSame(oldItem: SumDTO, newItem: SumDTO): Boolean =
-                    oldItem == newItem
+                    override fun areContentsTheSame(oldItem: Int, newItem: Int): Boolean =
+                        oldItem == newItem
+                }
+
+                val animator = it.itemAnimator
+                if (animator is SimpleItemAnimator) {
+                    animator.supportsChangeAnimations = false
+                }
+
+                it.adapter = BaseSingleViewAdapter(
+                    layoutResId = R.layout.item_nopick,
+                    bindingItemId = BR.item,
+                    viewModel = mapOf(),
+                    diffUtil = diffUtil
+                )
             }
-
-            val animator = itemAnimator
-            if (animator is SimpleItemAnimator) {
-                animator.supportsChangeAnimations = false
-            }
-
-            adapter = BaseSingleViewAdapter(
-                layoutResId = R.layout.item_sum,
-                bindingItemId = BR.item,
-                viewModel = mapOf(BR.vm to viewModel),
-                diffUtil = diffUtil
-            )
         }
     }
 
     private fun setupListener() {
         binding.cbIncludeBonus.setOnCheckedChangeListener { _, b ->
-            viewModel.setListSum(lottoViewModel.lottoList.value, b)
+            viewModel.setPickedNum(lottoViewModel.lottoList.value, b)
+            viewModel.setNoPickNum(lottoViewModel.lottoList.value, b)
         }
     }
 
@@ -79,7 +81,8 @@ class SumFragment : BaseFragment<FragmentSumBinding>(R.layout.fragment_sum) {
 
     private fun setupObserver() {
         lottoViewModel.lottoList.observe(viewLifecycleOwner) {
-            viewModel.setListSum(it)
+            viewModel.setPickedNum(it)
+            viewModel.setNoPickNum(it)
         }
     }
 }

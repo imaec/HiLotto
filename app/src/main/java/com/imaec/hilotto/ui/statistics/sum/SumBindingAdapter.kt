@@ -5,7 +5,6 @@ import android.widget.ProgressBar
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.imaec.hilotto.model.SumDTO
-import timber.log.Timber
 
 @BindingAdapter(value = ["bindSumItem", "bindSumList"], requireAll = true)
 fun ProgressBar.bindProgressColor(item: SumDTO, sumList: List<SumDTO>) {
@@ -29,6 +28,5 @@ fun ProgressBar.bindProgressColor(item: SumDTO, sumList: List<SumDTO>) {
 
 @BindingAdapter("bindSumMax")
 fun ProgressBar.bindSumMax(sumMax: Int) {
-    Timber.i("  ## bindSumMax : $sumMax")
     max = sumMax
 }
