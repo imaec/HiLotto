@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="vm"
-            type="com.imaec.hilotto.viewmodel.ContinuesViewModel" />
+            type="com.imaec.hilotto.ui.statistics.continues.ContinuesViewModel" />
 
         <variable
             name="lottoVm"
@@ -18,10 +19,13 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_continues"
+            android:id="@+id/rv_continues"
+            bindItemList="@{vm.continuesList}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:adapter="@{vm.adapter}"
-            app:items="@{vm.listContinues}"/>
+            android:paddingVertical="8dp"
+            android:clipToPadding="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_continues" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

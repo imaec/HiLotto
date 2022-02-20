@@ -32,9 +32,9 @@ class NumberAdapter(
 
         fun onBind(item: String) {
             binding.apply {
-                this.item = item
-                this.listContinues = this@NumberAdapter.listContinues
-                this.isContinues = this@NumberAdapter.isContinues
+//                this.item = item
+//                this.listContinues = this@NumberAdapter.listContinues
+//                this.isContinues = this@NumberAdapter.isContinues
                 root.setOnClickListener {
                     onClick(item)
                 }

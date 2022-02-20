@@ -1,4 +1,4 @@
-package com.imaec.hilotto.viewmodel
+package com.imaec.hilotto.ui.statistics.continues
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,22 +6,17 @@ import com.imaec.hilotto.Lotto
 import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.model.ContinueDTO
 import com.imaec.hilotto.model.LottoDTO
-import com.imaec.hilotto.ui.adapter.ContinuesAdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class ContinuesViewModel @Inject constructor() : BaseViewModel() {
 
-    init {
-        adapter = ContinuesAdapter()
-    }
-
     private val _statisticsNo = MutableLiveData(20)
     val statisticsNo: LiveData<Int> get() = _statisticsNo
 
-    private val _listContinues = MutableLiveData<List<ContinueDTO>>(ArrayList())
-    val listContinues: LiveData<List<ContinueDTO>> get() = _listContinues
+    private val _continuesList = MutableLiveData<List<ContinueDTO>>(ArrayList())
+    val continuesList: LiveData<List<ContinueDTO>> get() = _continuesList
 
     fun setStatisticsNo(no: Int) {
         _statisticsNo.value = no
@@ -49,8 +44,8 @@ class ContinuesViewModel @Inject constructor() : BaseViewModel() {
             )
 
             val dto = ContinueDTO(
-                "${it.drwNo}회",
-                arrayListOf(
+                no = "${it.drwNo}회",
+                list = arrayListOf(
                     "${it.drwtNo1}",
                     "${it.drwtNo2}",
                     "${it.drwtNo3}",
@@ -58,12 +53,12 @@ class ContinuesViewModel @Inject constructor() : BaseViewModel() {
                     "${it.drwtNo5}",
                     "${it.drwtNo6}"
                 ),
-                continueString,
-                continueNum
+                content = continueString,
+                continueNum = continueNum
             )
 
             listTemp.add(dto)
         }
-        _listContinues.value = listTemp
+        _continuesList.value = listTemp
     }
 }
