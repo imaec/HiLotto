@@ -29,11 +29,11 @@ class OddEvenAdapter : BaseAdapter() {
 
         fun onBind(item: OddEvenDTO) {
             binding.apply {
-                recyclerItemNum.adapter = NumberAdapter()
-                recyclerItemNum.layoutManager =
+                rvItemNum.adapter = NumberAdapter()
+                rvItemNum.layoutManager =
                     LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
-                recyclerItemNum.removeItemDecoration(itemDecoration)
-                recyclerItemNum.addItemDecoration(itemDecoration)
+                rvItemNum.removeItemDecoration(itemDecoration)
+                rvItemNum.addItemDecoration(itemDecoration)
                 this.item = item
             }
         }

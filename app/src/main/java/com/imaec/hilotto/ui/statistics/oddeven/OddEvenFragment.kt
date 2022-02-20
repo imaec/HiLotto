@@ -1,4 +1,4 @@
-package com.imaec.hilotto.ui.statistics.continues
+package com.imaec.hilotto.ui.statistics.oddeven
 
 import android.os.Bundle
 import android.view.View
@@ -10,14 +10,14 @@ import com.imaec.hilotto.BR
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.base.BaseSingleViewAdapter
-import com.imaec.hilotto.databinding.FragmentContinuesBinding
-import com.imaec.hilotto.model.ContinueDTO
-import com.imaec.hilotto.ui.main.LottoViewModel
+import com.imaec.hilotto.databinding.FragmentOddEvenBinding
+import com.imaec.hilotto.model.OddEvenDTO
 import com.imaec.hilotto.utils.SharedPreferenceUtil
+import com.imaec.hilotto.ui.main.LottoViewModel
 
-class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragment_continues) {
+class OddEvenFragment : BaseFragment<FragmentOddEvenBinding>(R.layout.fragment_odd_even) {
 
-    private val viewModel by viewModels<ContinuesViewModel>()
+    private val viewModel by viewModels<OddEvenViewModel>()
     private val lottoViewModel by activityViewModels<LottoViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,14 +37,14 @@ class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragme
     }
 
     private fun setupRecyclerView() {
-        with(binding.rvContinues) {
-            val diffUtil = object : DiffUtil.ItemCallback<ContinueDTO>() {
-                override fun areItemsTheSame(oldItem: ContinueDTO, newItem: ContinueDTO): Boolean =
+        with(binding.rvOddEven) {
+            val diffUtil = object : DiffUtil.ItemCallback<OddEvenDTO>() {
+                override fun areItemsTheSame(oldItem: OddEvenDTO, newItem: OddEvenDTO): Boolean =
                     oldItem == newItem
 
                 override fun areContentsTheSame(
-                    oldItem: ContinueDTO,
-                    newItem: ContinueDTO
+                    oldItem: OddEvenDTO,
+                    newItem: OddEvenDTO
                 ): Boolean = oldItem == newItem
             }
 
@@ -54,9 +54,9 @@ class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragme
             }
 
             adapter = BaseSingleViewAdapter(
-                layoutResId = R.layout.item_continues,
+                layoutResId = R.layout.item_odd_even,
                 bindingItemId = BR.item,
-                viewModel = mapOf(),
+                viewModel = mapOf(BR.vm to viewModel),
                 diffUtil = diffUtil
             )
         }
@@ -74,7 +74,7 @@ class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragme
 
     private fun setupObserver() {
         lottoViewModel.lottoList.observe(viewLifecycleOwner) {
-            viewModel.setPickedNum(it)
+            viewModel.setOddEven(it)
         }
     }
 }

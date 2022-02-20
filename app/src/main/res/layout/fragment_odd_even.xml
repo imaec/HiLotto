@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="vm"
-            type="com.imaec.hilotto.viewmodel.OddEvenViewModel" />
+            type="com.imaec.hilotto.ui.statistics.oddeven.OddEvenViewModel" />
 
         <variable
             name="lottoVm"
@@ -18,10 +19,13 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_odd_even"
+            android:id="@+id/rv_odd_even"
+            bindItemList="@{vm.oddEvenList}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:adapter="@{vm.adapter}"
-            app:items="@{vm.listOddEven}"/>
+            android:paddingVertical="8dp"
+            android:clipToPadding="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_odd_even"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

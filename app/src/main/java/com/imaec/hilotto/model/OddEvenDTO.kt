@@ -1,9 +1,9 @@
 package com.imaec.hilotto.model
 
 data class OddEvenDTO(
-    var no: String,
-    var listOdd: ArrayList<String>,
-    var listEven: ArrayList<String>,
-    var listOddEven: ArrayList<String>,
-    var content: String
+    val no: String,
+    val oddList: ArrayList<String>,
+    val evenList: ArrayList<String>,
+    val oddEvenList: ArrayList<String>,
+    val content: String
 )

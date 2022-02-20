@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="vm"
-            type="com.imaec.hilotto.ui.statistics.continues.ContinuesViewModel" />
-
-        <variable
             name="item"
             type="com.imaec.hilotto.model.ContinueDTO" />
     </data>
@@ -46,6 +42,8 @@
             bindContinuesNumbers="@{item.continueNum}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="-2dp"
+            android:clipToPadding="false"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toRightOf="@id/tv_item_round"
