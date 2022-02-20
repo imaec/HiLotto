@@ -7,7 +7,7 @@ import com.imaec.hilotto.ui.statistics.continues.ContinuesFragment
 import com.imaec.hilotto.ui.statistics.oddeven.OddEvenFragment
 import com.imaec.hilotto.ui.statistics.pick.PickFragment
 import com.imaec.hilotto.ui.statistics.sum.SumFragment
-import com.imaec.hilotto.ui.view.fragment.WinFragment
+import com.imaec.hilotto.ui.statistics.win.WinFragment
 
 class StatisticsPagerAdapter(
     fragmentActivity: FragmentActivity

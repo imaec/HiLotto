@@ -1,4 +1,4 @@
-package com.imaec.hilotto.ui.view.fragment
+package com.imaec.hilotto.ui.statistics.win
 
 import android.os.Bundle
 import android.view.View
@@ -9,7 +9,6 @@ import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentWinBinding
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.ui.main.LottoViewModel
-import com.imaec.hilotto.viewmodel.WinViewModel
 
 class WinFragment : BaseFragment<FragmentWinBinding>(R.layout.fragment_win) {
 
@@ -19,25 +18,31 @@ class WinFragment : BaseFragment<FragmentWinBinding>(R.layout.fragment_win) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.apply {
-            lifecycleOwner = this@WinFragment
-            vm = this@WinFragment.viewModel
-            lottoVm = this@WinFragment.lottoViewModel
-        }
+        setupBinding()
+        setupData()
+        setupObserver()
+    }
 
+    private fun setupBinding() {
+        with(binding) {
+            vm = viewModel
+            lottoVm = lottoViewModel
+        }
+    }
+
+    private fun setupData() {
         viewModel.setStatisticsNo(
             SharedPreferenceUtil.getInt(
-                requireContext(),
-                SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
-                20
+                context = requireContext(),
+                key = SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
+                def = 20
             )
         )
+    }
 
-        lottoViewModel.lottoList.observe(
-            requireActivity(),
-            {
-                viewModel.setWinInfo(it)
-            }
-        )
+    private fun setupObserver() {
+        lottoViewModel.lottoList.observe(viewLifecycleOwner) {
+            viewModel.setWinInfo(it)
+        }
     }
 }

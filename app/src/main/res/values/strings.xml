@@ -6,7 +6,7 @@
     <string name="recommend">추천 번호</string>
     <string name="my">내 번호</string>
     <string name="setting">설정</string>
-    
+
     <!-- 통계 탭 이름 -->
     <string-array name="tabs_statistics">
         <item>합계</item>
@@ -102,7 +102,7 @@
     <string name="prize_total_empty">0원 (약 0원)</string>
     <string name="prize_by_one_empty">0원 (약 0원)</string>
     <string name="title_win_prize_max">1게임 최고 당첨금</string>
-    <string name="title_win_prize_min">1게임 최저 당첨금</string>
+    <string name="title_win_prize_min">1게임 최소 당첨금</string>
     <string name="title_win_count_max">최대 당첨자 수</string>
     <string name="title_win_count_min">최소 당첨자 수</string>
     <string name="win_prize_max">000회 : 0원 (약 0원)</string>

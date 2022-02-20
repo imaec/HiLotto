@@ -1,4 +1,4 @@
-package com.imaec.hilotto.viewmodel
+package com.imaec.hilotto.ui.statistics.win
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,10 +12,10 @@ import kotlin.math.roundToLong
 @HiltViewModel
 class WinViewModel @Inject constructor() : BaseViewModel() {
 
-    private val _statisticsNo = MutableLiveData<Int>(20)
+    private val _statisticsNo = MutableLiveData(20)
     val statisticsNo: LiveData<Int> get() = _statisticsNo
 
-    private val _winAvgTitle = MutableLiveData<String>("1등 당첨 평균(20회)")
+    private val _winAvgTitle = MutableLiveData("1등 당첨 평균(20회)")
     val winAvgTitle: LiveData<String> get() = _winAvgTitle
 
     private val _priceTotal = MutableLiveData<Long>(0)
@@ -24,28 +24,37 @@ class WinViewModel @Inject constructor() : BaseViewModel() {
     private val _price = MutableLiveData<Long>(0)
     val price: LiveData<Long> get() = _price
 
-    private val _winCount = MutableLiveData<String>("0명")
+    private val _winCount = MutableLiveData("0명")
     val winCount: LiveData<String> get() = _winCount
 
-    private val _winStatisticsTitle = MutableLiveData<String>("1등 당첨 통계(20회)")
+    private val _winStatisticsTitle = MutableLiveData("1등 당첨 통계(20회)")
     val winStatisticsTitle: LiveData<String> get() = _winStatisticsTitle
 
-    private val _priceMax = MutableLiveData<String>("000회 : 0원")
+    private val _priceMax = MutableLiveData("000회 : 0원")
     val priceMax: LiveData<String> get() = _priceMax
 
-    private val _priceMin = MutableLiveData<String>("000회 : 0원")
+    private val _priceMin = MutableLiveData("000회 : 0원")
     val priceMin: LiveData<String> get() = _priceMin
 
-    private val _winCountMax = MutableLiveData<String>("000회 : 0명")
+    private val _winCountMax = MutableLiveData("000회 : 0명")
     val winCountMax: LiveData<String> get() = _winCountMax
 
-    private val _winCountMin = MutableLiveData<String>("000회 : 0명")
+    private val _winCountMin = MutableLiveData("000회 : 0명")
     val winCountMin: LiveData<String> get() = _winCountMin
 
-    private fun getWinInfo(list: List<LottoDTO>) {
+    fun setStatisticsNo(no: Int) {
+        _statisticsNo.value = no
+        _winAvgTitle.value = "1등 당첨 평균(${no}회)"
+        _winStatisticsTitle.value = "1등 당첨 통계(${no}회)"
+    }
+
+    fun setWinInfo(lottoList: List<LottoDTO>) {
+        val list = lottoList.subList(0, statisticsNo.value ?: 20)
+
+        // 총 당첨금, 1등 당첨금, 1등 당첨자 수
         var sumPriceTotal: Long = 0
         var sumPrice: Long = 0
-        var sumCount: Float = 0f
+        var sumCount = 0f
         list.forEach {
             sumPriceTotal += it.firstAccumamnt
             sumPrice += it.firstWinamnt
@@ -55,6 +64,7 @@ class WinViewModel @Inject constructor() : BaseViewModel() {
         _price.value = sumPrice / list.size
         _winCount.value = "${sumCount / list.size}명"
 
+        // 최대 당첨금, 회차
         val priceMax = list.sortedByDescending { it.firstWinamnt }[0].firstWinamnt
         val priceMaxRound = list.sortedByDescending { it.firstWinamnt }[0].drwNo
         var decimal = DecimalFormat("###,###").format(priceMax)
@@ -64,6 +74,8 @@ class WinViewModel @Inject constructor() : BaseViewModel() {
         } else {
             "${priceMaxRound}회 : $decimal"
         }
+
+        // 최소 당첨금, 회차
         val priceMin = list.sortedBy { it.firstWinamnt }[0].firstWinamnt
         val priceMinRound = list.sortedBy { it.firstWinamnt }[0].drwNo
         decimal = DecimalFormat("###,###").format(priceMin)
@@ -74,27 +86,15 @@ class WinViewModel @Inject constructor() : BaseViewModel() {
             "${priceMinRound}회 : $decimal"
         }
 
+        // 최대 당첨자 수, 회차
         val countMaxRound = list.sortedByDescending { it.firstPrzwnerCo }[0].drwNo
         _winCountMax.value =
             "${countMaxRound}회 : " +
             "${list.sortedByDescending { it.firstPrzwnerCo }[0].firstPrzwnerCo}명"
+
+        // 최소 당첨자 수, 회차
         val countMinRound = list.sortedBy { it.firstPrzwnerCo }[0].drwNo
         _winCountMin.value =
             "${countMinRound}회 : ${list.sortedBy { it.firstPrzwnerCo }[0].firstPrzwnerCo}명"
-    }
-
-    fun setStatisticsNo(no: Int) {
-        _statisticsNo.value = no
-        _winAvgTitle.value = "1등 당첨 평균(${no}회)"
-        _winStatisticsTitle.value = "1등 당첨 통계(${no}회)"
-    }
-
-    fun setWinInfo(listResult: List<LottoDTO>) {
-        val listTemp = ArrayList<LottoDTO>()
-        listResult.subList(0, statisticsNo.value ?: 20).forEach {
-            listTemp.add(it)
-        }
-
-        getWinInfo(listTemp)
     }
 }
