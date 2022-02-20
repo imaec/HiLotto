@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="com.imaec.hilotto.viewmodel.StatisticsViewModel" />
+            type="com.imaec.hilotto.ui.statistics.StatisticsViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -19,7 +19,7 @@
             app:elevation="0dp">
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_statistics"
+                android:id="@+id/tl_statistics"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 android:background="@color/darkGray"
@@ -35,7 +35,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/pager_statistics"
+            android:id="@+id/vp_statistics"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"

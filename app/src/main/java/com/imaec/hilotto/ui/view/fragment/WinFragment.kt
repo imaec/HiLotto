@@ -8,7 +8,7 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentWinBinding
 import com.imaec.hilotto.utils.SharedPreferenceUtil
-import com.imaec.hilotto.viewmodel.LottoViewModel
+import com.imaec.hilotto.ui.main.LottoViewModel
 import com.imaec.hilotto.viewmodel.WinViewModel
 
 class WinFragment : BaseFragment<FragmentWinBinding>(R.layout.fragment_win) {

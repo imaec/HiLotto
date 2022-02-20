@@ -47,12 +47,12 @@
 
         <TextView
             android:id="@+id/text_empty"
+            bindVisible="@{vm.listNumber.size() == 0}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:gravity="center"
             android:text="@string/msg_numbers_empty"
-            app:isVisible="@{vm.listNumber.size() == 0}"
             app:layout_constraintTop_toBottomOf="@id/text_title"/>
 
         <com.google.android.gms.ads.AdView

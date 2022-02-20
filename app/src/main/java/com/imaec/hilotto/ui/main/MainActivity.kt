@@ -9,9 +9,8 @@ import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
 import com.imaec.hilotto.databinding.ActivityMainBinding
-import com.imaec.hilotto.ui.view.activity.SplashActivity
+import com.imaec.hilotto.ui.splash.SplashActivity
 import com.imaec.hilotto.utils.SharedPreferenceUtil
-import com.imaec.hilotto.viewmodel.LottoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -29,7 +29,7 @@ import com.imaec.hilotto.ui.view.activity.EditNumberActivity
 import com.imaec.hilotto.ui.view.activity.WinHistoryActivity
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
 import com.imaec.hilotto.ui.view.dialog.EditDialog
-import com.imaec.hilotto.viewmodel.LottoViewModel
+import com.imaec.hilotto.ui.main.LottoViewModel
 import com.imaec.hilotto.viewmodel.MyViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

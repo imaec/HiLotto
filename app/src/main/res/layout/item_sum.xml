@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="vm"
+            type="com.imaec.hilotto.ui.statistics.sum.SumViewModel" />
 
         <variable
             name="item"
@@ -20,39 +25,43 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/text_item_round"
+            android:id="@+id/tv_item_round"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:gravity="center"
             android:text="@{item.round}"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="999회"/>
 
         <ProgressBar
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:id="@+id/progress_sum"
+            bindSumItem="@{item}"
+            bindSumList="@{vm.sumList}"
+            bindSumMax="@{vm.sumMax}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:progress="@{item.sum}"
-            android:max="255"
-            app:layout_constraintLeft_toRightOf="@id/text_item_round"
-            app:layout_constraintRight_toLeftOf="@id/text_item_sum"
-            app:layout_constraintTop_toTopOf="@id/text_item_round"
-            app:layout_constraintBottom_toBottomOf="@id/text_item_round"/>
+            app:layout_constraintLeft_toRightOf="@id/tv_item_round"
+            app:layout_constraintRight_toLeftOf="@id/tv_item_sum"
+            app:layout_constraintTop_toTopOf="@id/tv_item_round"
+            app:layout_constraintBottom_toBottomOf="@id/tv_item_round"
+            tools:progress="125"/>
 
         <TextView
-            android:id="@+id/text_item_sum"
+            android:id="@+id/tv_item_sum"
             android:layout_width="60dp"
             android:layout_height="0dp"
             android:gravity="end"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:text="255"
+            android:text="@{Integer.toString(item.sum)}"
             android:textColor="@color/gray"
-            app:textByInt="@{item.sum}"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_item_round"
-            app:layout_constraintBottom_toBottomOf="@id/text_item_round"/>
+            app:layout_constraintTop_toTopOf="@id/tv_item_round"
+            app:layout_constraintBottom_toBottomOf="@id/tv_item_round"
+            tools:text="255"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,4 +1,4 @@
-package com.imaec.hilotto.viewmodel
+package com.imaec.hilotto.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

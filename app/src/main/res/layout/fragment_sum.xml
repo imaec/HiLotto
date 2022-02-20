@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="vm"
-            type="com.imaec.hilotto.viewmodel.SumViewModel" />
+            type="com.imaec.hilotto.ui.statistics.sum.SumViewModel" />
 
         <variable
             name="lottoVm"
-            type="com.imaec.hilotto.viewmodel.LottoViewModel" />
+            type="com.imaec.hilotto.ui.main.LottoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +19,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/text_sum_avg"
+            android:id="@+id/tv_sum_avg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -31,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <CheckBox
-            android:id="@+id/check_include_bonus"
+            android:id="@+id/cb_include_bonus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
@@ -39,8 +40,8 @@
             android:theme="@style/AppTheme.BlackAccent"
             android:text="@string/include_bonus"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_sum_avg"
-            app:layout_constraintBottom_toBottomOf="@id/text_sum_avg"/>
+            app:layout_constraintTop_toTopOf="@id/tv_sum_avg"
+            app:layout_constraintBottom_toBottomOf="@id/tv_sum_avg"/>
 
         <View
             style="@style/AppTheme.ViewDivider"
@@ -49,18 +50,19 @@
             android:layout_marginRight="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_sum_avg"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_sum_avg"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_sum"
+            android:id="@+id/rv_sum"
+            bindItemList="@{vm.sumList}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:overScrollMode="never"
-            app:adapter="@{vm.adapter}"
-            app:items="@{vm.listSum}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/view_divider"
-            app:layout_constraintBottom_toTopOf="@id/text_sum_min"/>
+            app:layout_constraintBottom_toTopOf="@id/tv_sum_min"
+            tools:listitem="@layout/item_sum" />
 
         <View
             android:id="@+id/view_temp"
@@ -76,38 +78,38 @@
             android:background="@color/darkGray"
             app:layout_constraintLeft_toRightOf="@id/view_temp"
             app:layout_constraintTop_toBottomOf="@id/view_divider"
-            app:layout_constraintBottom_toTopOf="@id/text_sum_min"/>
+            app:layout_constraintBottom_toTopOf="@id/tv_sum_min"/>
 
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="@color/darkGray"
             app:layout_constraintLeft_toRightOf="@id/view_temp"
-            app:layout_constraintRight_toRightOf="@id/text_sum_max"
-            app:layout_constraintBottom_toTopOf="@id/text_sum_min"/>
+            app:layout_constraintRight_toRightOf="@id/tv_sum_max"
+            app:layout_constraintBottom_toTopOf="@id/tv_sum_min"/>
 
         <TextView
-            android:id="@+id/text_sum_min"
+            android:id="@+id/tv_sum_min"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="@string/sum_min"
+            android:text="@{vm.sumMin.toString()}"
             android:textSize="16sp"
-            app:textByInt="@{vm.sumMin}"
             app:layout_constraintLeft_toRightOf="@id/view_temp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="21"/>
 
         <TextView
-            android:id="@+id/text_sum_max"
+            android:id="@+id/tv_sum_max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/sum_max"
+            android:text="@{vm.sumMax.toString()}"
             android:textSize="16sp"
-            app:textByInt="@{vm.sumMax}"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="255"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

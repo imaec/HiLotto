@@ -11,7 +11,7 @@ import com.imaec.hilotto.databinding.FragmentContinuesBinding
 import com.imaec.hilotto.ui.util.NumbersDecoration
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.viewmodel.ContinuesViewModel
-import com.imaec.hilotto.viewmodel.LottoViewModel
+import com.imaec.hilotto.ui.main.LottoViewModel
 
 class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragment_continues) {
 

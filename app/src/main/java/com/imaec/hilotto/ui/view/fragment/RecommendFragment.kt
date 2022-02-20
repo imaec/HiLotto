@@ -24,7 +24,7 @@ import com.imaec.hilotto.ui.adapter.NumberAdapter
 import com.imaec.hilotto.ui.util.NumberDecoration
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
 import com.imaec.hilotto.utils.SharedPreferenceUtil
-import com.imaec.hilotto.viewmodel.LottoViewModel
+import com.imaec.hilotto.ui.main.LottoViewModel
 import com.imaec.hilotto.viewmodel.RecommendViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

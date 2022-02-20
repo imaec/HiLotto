@@ -12,7 +12,7 @@
 
         <variable
             name="lottoVm"
-            type="com.imaec.hilotto.viewmodel.LottoViewModel" />
+            type="com.imaec.hilotto.ui.main.LottoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

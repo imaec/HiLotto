@@ -1,4 +1,4 @@
-package com.imaec.hilotto
+package com.imaec.hilotto.ui
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseAdapter
 import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.model.FitNumberDTO
@@ -15,6 +16,17 @@ import com.imaec.hilotto.ui.adapter.WinHistoryAdapter
 import java.text.DecimalFormat
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.roundToLong
+
+@BindingAdapter(value = ["bindVisible", "bindVisibleMode"], requireAll = false)
+fun View.bindVisible(isVisible: Boolean, visibleMode: Int = 0) {
+    visibility = if (visibleMode == 0) {
+        // VISIBLE, GONE
+        if (isVisible) View.VISIBLE else View.GONE
+    } else {
+        // VISIBLE, INVISIBLE
+        if (isVisible) View.VISIBLE else View.INVISIBLE
+    }
+}
 
 @BindingAdapter("bindSingleClick")
 fun View.bindSingleClick(clickListener: View.OnClickListener?) {
@@ -250,21 +262,6 @@ fun setItems(viewPager2: ViewPager2, items: List<Any>) {
         clearItem()
         addItems(items)
         notifyDataSetChanged()
-    }
-}
-
-//
-//    @BindingAdapter("isVisible")
-//    fun isVisible(view: View, isVisible: Boolean) {
-//        view.visibility = if (isVisible) View.VISIBLE else View.GONE
-//    }
-
-@BindingAdapter(value = ["app:isVisible", "app:visibleMode"], requireAll = false)
-fun isVisible(view: View, isVisible: Boolean, visibleMode: Int = 0) {
-    if (visibleMode == 0) { // VISIBLE, GONE
-        view.visibility = if (isVisible) View.VISIBLE else View.GONE
-    } else { // VISIBLE, INVISIBLE
-        view.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
     }
 }
 

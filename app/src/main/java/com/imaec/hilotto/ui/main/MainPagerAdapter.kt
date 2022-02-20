@@ -7,7 +7,7 @@ import com.imaec.hilotto.ui.home.HomeFragment
 import com.imaec.hilotto.ui.view.fragment.MyFragment
 import com.imaec.hilotto.ui.view.fragment.RecommendFragment
 import com.imaec.hilotto.ui.view.fragment.SettingFragment
-import com.imaec.hilotto.ui.view.fragment.StatisticsFragment
+import com.imaec.hilotto.ui.statistics.StatisticsFragment
 
 class MainPagerAdapter(
     fragmentActivity: FragmentActivity

@@ -16,7 +16,7 @@ import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.ui.lately.LatelyResultActivity
 import com.imaec.hilotto.ui.store.StoreActivity
 import com.imaec.hilotto.utils.startActivity
-import com.imaec.hilotto.viewmodel.LottoViewModel
+import com.imaec.hilotto.ui.main.LottoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

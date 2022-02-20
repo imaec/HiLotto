@@ -10,7 +10,7 @@ import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentPickBinding
 import com.imaec.hilotto.ui.util.NumberDecoration
 import com.imaec.hilotto.utils.SharedPreferenceUtil
-import com.imaec.hilotto.viewmodel.LottoViewModel
+import com.imaec.hilotto.ui.main.LottoViewModel
 import com.imaec.hilotto.viewmodel.PickViewModel
 
 class PickFragment : BaseFragment<FragmentPickBinding>(R.layout.fragment_pick) {

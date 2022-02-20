@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.view.activity.SplashActivity"
+        <activity android:name=".ui.splash.SplashActivity"
             android:screenOrientation="portrait"
             android:exported="true"/>
 
