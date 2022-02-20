@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.DiffUtil
@@ -17,6 +16,7 @@ import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.ActivityStoreBinding
 import com.imaec.hilotto.model.StoreDTO
 import com.imaec.hilotto.ui.view.dialog.CopyDialog
+import com.imaec.hilotto.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -93,11 +93,7 @@ class StoreActivity : BaseActivity<ActivityStoreBinding>(R.layout.activity_store
     private fun copy(title: String, text: String) {
         (getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
             .setPrimaryClip(ClipData.newPlainText(title, text))
-        Toast.makeText(
-            this@StoreActivity,
-            "[$text]이(가)\n복사되었습니다.",
-            Toast.LENGTH_SHORT
-        ).show()
+        toast("[$text]이(가)\n복사되었습니다.")
     }
 
     companion object {

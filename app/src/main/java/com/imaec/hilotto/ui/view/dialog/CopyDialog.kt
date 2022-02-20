@@ -8,8 +8,8 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import com.imaec.hilotto.R
+import com.imaec.hilotto.utils.toast
 import kotlinx.android.synthetic.main.dialog_copy.*
 
 class CopyDialog(context: Context) : Dialog(context) {
@@ -39,7 +39,7 @@ class CopyDialog(context: Context) : Dialog(context) {
             text_copy_store.setOnClickListener(listenerStore)
         } else {
             text_copy_store.setOnClickListener {
-                Toast.makeText(context, R.string.msg_copy_store_click, Toast.LENGTH_SHORT).show()
+                context.toast(R.string.msg_copy_store_click)
                 dismiss()
             }
         }
@@ -48,7 +48,7 @@ class CopyDialog(context: Context) : Dialog(context) {
             text_copy_address.setOnClickListener(listenerAddress)
         } else {
             text_copy_address.setOnClickListener {
-                Toast.makeText(context, R.string.msg_copy_address_click, Toast.LENGTH_SHORT).show()
+                context.toast(R.string.msg_copy_address_click)
                 dismiss()
             }
         }

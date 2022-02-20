@@ -3,7 +3,6 @@ package com.imaec.hilotto.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.R
@@ -11,6 +10,7 @@ import com.imaec.hilotto.base.BaseActivity
 import com.imaec.hilotto.databinding.ActivityMainBinding
 import com.imaec.hilotto.ui.splash.SplashActivity
 import com.imaec.hilotto.utils.SharedPreferenceUtil
+import com.imaec.hilotto.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -114,11 +114,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         loadedCount++
                         if (loadedCount == 2) isLoaded.value = true
                     } else {
-                        Toast.makeText(
-                            this@MainActivity,
-                            R.string.msg_data_fail,
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        toast(R.string.msg_data_fail)
                     }
                 },
                 callbackProgress = { // progress

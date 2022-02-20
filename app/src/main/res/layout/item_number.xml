@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="recommendVm"
+            type="com.imaec.hilotto.ui.recommend.RecommendViewModel" />
+
+        <variable
             name="item"
             type="com.imaec.hilotto.model.NumberDTO" />
     </data>
@@ -17,6 +21,8 @@
 
         <TextView
             android:id="@+id/tv_item_no"
+            bindNumberClick="@{recommendVm}"
+            bindNumber="@{item.no}"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:gravity="center"

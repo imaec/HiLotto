@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="vm"
-            type="com.imaec.hilotto.viewmodel.RecommendViewModel" />
+            type="com.imaec.hilotto.ui.recommend.RecommendViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -14,12 +15,12 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+            android:id="@+id/cl_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/text_title"
+                android:id="@+id/tv_title"
                 style="@style/AppTheme.Toolbar"
                 android:text="@string/recommend"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -27,228 +28,247 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/image_setting"
+                android:id="@+id/iv_setting"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_setting"
-                android:onClick="onClick"
                 android:visibility="gone"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/text_title"
-                app:layout_constraintBottom_toBottomOf="@id/text_title"/>
+                app:layout_constraintTop_toTopOf="@id/tv_title"
+                app:layout_constraintBottom_toBottomOf="@id/tv_title"/>
 
             <TextView
-                android:id="@+id/text_condition1"
+                android:id="@+id/tv_condition1"
                 style="@style/AppTheme.ConditionTitle"
                 android:text="@string/condition_sum"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_title" />
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switch_condition1"
-                android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
                 style="@style/AppTheme.BlackAccent.ConditionSwitch"
+                android:id="@+id/sm_condition1"
+                android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
+                android:checked="@={vm.conditionSum}"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_title" />
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
             <TextView
-                android:id="@+id/text_condition2"
+                android:id="@+id/tv_condition2"
                 style="@style/AppTheme.ConditionTitle"
                 android:text="@string/condition_pick"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_condition1" />
+                app:layout_constraintTop_toBottomOf="@id/tv_condition1" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switch_condition2"
-                android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
                 style="@style/AppTheme.BlackAccent.ConditionSwitch"
+                android:id="@+id/sm_condition2"
+                android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
+                android:checked="@={vm.conditionPick}"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_condition1" />
+                app:layout_constraintTop_toBottomOf="@id/tv_condition1" />
 
             <TextView
-                android:id="@+id/text_condition3"
+                android:id="@+id/tv_condition3"
                 style="@style/AppTheme.ConditionTitle"
                 android:text="@string/condition_odd_even"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_condition2" />
+                app:layout_constraintTop_toBottomOf="@id/tv_condition2" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switch_condition3"
-                android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
                 style="@style/AppTheme.BlackAccent.ConditionSwitch"
+                android:id="@+id/sm_condition3"
+                android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
+                android:checked="@={vm.conditionOddEven}"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_condition2" />
+                app:layout_constraintTop_toBottomOf="@id/tv_condition2" />
 
             <View
                 android:id="@+id/view_divider"
                 style="@style/AppTheme.ViewDivider"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/switch_condition3" />
+                app:layout_constraintTop_toBottomOf="@id/sm_condition3" />
 
             <TextView
-                android:id="@+id/text_condition_all"
+                android:id="@+id/tv_condition_all"
                 style="@style/AppTheme.ConditionTitle"
                 android:text="@string/condition_all"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_divider" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switch_condition_all"
-                android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
                 style="@style/AppTheme.BlackAccent.ConditionSwitch"
+                android:id="@+id/sm_condition_all"
+                android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
+                android:checked="@={vm.conditionAll}"
+                android:onClick="@{() -> vm.onClickConditionAll()}"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_divider" />
 
             <TextView
-                android:id="@+id/text_included"
+                android:id="@+id/tv_included"
                 style="@style/AppTheme.ConditionTitle"
                 android:layout_width="0dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/included_numbers"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_condition_all" />
+                app:layout_constraintTop_toBottomOf="@id/tv_condition_all" />
 
             <ImageView
-                android:id="@+id/image_included_add"
+                android:id="@+id/iv_included_add"
+                bindSingleClick="@{() -> vm.onClickInclude()}"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_add"
-                android:onClick="onClick"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/text_included" />
+                app:layout_constraintTop_toTopOf="@id/tv_included" />
 
             <TextView
-                android:id="@+id/text_not_included"
+                android:id="@+id/tv_not_included"
                 style="@style/AppTheme.ConditionTitle"
                 android:layout_width="0dp"
                 android:text="@string/not_included_numbers"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_included"
+                app:layout_constraintTop_toBottomOf="@id/tv_included"
                 app:layout_constraintWidth_percent="0.25" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_not_included"
+                android:id="@+id/rv_not_included"
+                bindItemList="@{vm.listNotIncludeNumber}"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
-                app:items="@{vm.listNotIncludeNumber}"
-                app:layout_constraintLeft_toRightOf="@id/text_not_included"
-                app:layout_constraintRight_toLeftOf="@id/image_not_included_add"
-                app:layout_constraintTop_toTopOf="@id/text_not_included"/>
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="-2dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintLeft_toRightOf="@id/tv_not_included"
+                app:layout_constraintRight_toLeftOf="@id/iv_not_included_add"
+                app:layout_constraintTop_toTopOf="@id/tv_not_included"
+                app:layout_constraintBottom_toBottomOf="@id/tv_not_included"
+                tools:listitem="@layout/item_number"
+                tools:itemCount="6"/>
 
             <ImageView
-                android:id="@+id/image_not_included_add"
+                android:id="@+id/iv_not_included_add"
+                bindSingleClick="@{() -> vm.onClickNotInclude()}"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_add"
-                android:onClick="onClick"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/text_not_included" />
+                app:layout_constraintTop_toTopOf="@id/tv_not_included" />
 
             <TextView
-                android:id="@+id/text_number1"
                 style="@style/AppTheme.TextNumberInput"
-                android:layout_marginLeft="12dp"
+                android:id="@+id/tv_number1"
+                bindSingleClick="@{() -> vm.onClickNumber(0)}"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="36dp"
                 android:text="@{vm.listIncludeNumber[0]}"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/text_number2"
-                app:layout_constraintTop_toBottomOf="@id/text_not_included" />
+                app:layout_constraintRight_toLeftOf="@id/tv_number2"
+                app:layout_constraintTop_toBottomOf="@id/tv_not_included" />
 
             <TextView
-                android:id="@+id/text_number2"
                 style="@style/AppTheme.TextNumberInput"
+                android:id="@+id/tv_number2"
+                bindSingleClick="@{() -> vm.onClickNumber(1)}"
                 android:text="@{vm.listIncludeNumber[1]}"
                 app:layout_constraintDimensionRatio="1"
-                app:layout_constraintLeft_toRightOf="@id/text_number1"
-                app:layout_constraintRight_toLeftOf="@id/text_number3"
-                app:layout_constraintTop_toTopOf="@id/text_number1" />
+                app:layout_constraintLeft_toRightOf="@id/tv_number1"
+                app:layout_constraintRight_toLeftOf="@id/tv_number3"
+                app:layout_constraintTop_toTopOf="@id/tv_number1" />
 
             <TextView
-                android:id="@+id/text_number3"
                 style="@style/AppTheme.TextNumberInput"
+                android:id="@+id/tv_number3"
+                bindSingleClick="@{() -> vm.onClickNumber(2)}"
                 android:text="@{vm.listIncludeNumber[2]}"
                 app:layout_constraintDimensionRatio="1"
-                app:layout_constraintLeft_toRightOf="@id/text_number2"
-                app:layout_constraintRight_toLeftOf="@id/text_number4"
-                app:layout_constraintTop_toTopOf="@id/text_number1" />
+                app:layout_constraintLeft_toRightOf="@id/tv_number2"
+                app:layout_constraintRight_toLeftOf="@id/tv_number4"
+                app:layout_constraintTop_toTopOf="@id/tv_number1" />
 
             <TextView
-                android:id="@+id/text_number4"
                 style="@style/AppTheme.TextNumberInput"
+                android:id="@+id/tv_number4"
+                bindSingleClick="@{() -> vm.onClickNumber(3)}"
                 android:text="@{vm.listIncludeNumber[3]}"
                 app:layout_constraintDimensionRatio="1"
-                app:layout_constraintLeft_toRightOf="@id/text_number3"
-                app:layout_constraintRight_toLeftOf="@id/text_number5"
-                app:layout_constraintTop_toTopOf="@id/text_number1" />
+                app:layout_constraintLeft_toRightOf="@id/tv_number3"
+                app:layout_constraintRight_toLeftOf="@id/tv_number5"
+                app:layout_constraintTop_toTopOf="@id/tv_number1" />
 
             <TextView
-                android:id="@+id/text_number5"
                 style="@style/AppTheme.TextNumberInput"
+                android:id="@+id/tv_number5"
+                bindSingleClick="@{() -> vm.onClickNumber(4)}"
                 android:text="@{vm.listIncludeNumber[4]}"
                 app:layout_constraintDimensionRatio="1"
-                app:layout_constraintLeft_toRightOf="@id/text_number4"
-                app:layout_constraintRight_toLeftOf="@id/text_number6"
-                app:layout_constraintTop_toTopOf="@id/text_number1" />
+                app:layout_constraintLeft_toRightOf="@id/tv_number4"
+                app:layout_constraintRight_toLeftOf="@id/tv_number6"
+                app:layout_constraintTop_toTopOf="@id/tv_number1" />
 
             <TextView
-                android:id="@+id/text_number6"
                 style="@style/AppTheme.TextNumberInput"
-                android:layout_marginRight="12dp"
+                android:id="@+id/tv_number6"
+                bindSingleClick="@{() -> vm.onClickNumber(5)}"
+                android:layout_marginEnd="12dp"
                 android:text="@{vm.listIncludeNumber[5]}"
                 app:layout_constraintDimensionRatio="1"
-                app:layout_constraintLeft_toRightOf="@id/text_number5"
+                app:layout_constraintLeft_toRightOf="@id/tv_number5"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/text_number1" />
+                app:layout_constraintTop_toTopOf="@id/tv_number1" />
 
             <TextView
-                android:id="@+id/text_create"
                 style="@style/AppTheme.TextPrimaryButton"
+                android:id="@+id/tv_create"
+                bindSingleClick="@{() -> vm.onClickCreate()}"
                 android:layout_width="0dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 app:textCreateToggle="@{vm.listIncludeNumber}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/text_save" />
+                app:layout_constraintRight_toLeftOf="@id/tv_save" />
 
             <TextView
-                android:id="@+id/text_save"
                 style="@style/AppTheme.TextPrimaryButton"
+                android:id="@+id/tv_save"
+                bindSingleClick="@{() -> vm.onClickSave()}"
                 android:layout_width="0dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/save_numbers"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/text_create"
+                app:layout_constraintLeft_toRightOf="@id/tv_create"
                 app:layout_constraintRight_toRightOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/view_bg"
-            bindVisible="@{vm.isVisible}"
+            bindVisible="@{vm.visibleBg}"
+            bindSingleClick="@{() -> vm.onClickBg()}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bgAlpha"
-            android:onClick="onClick"
-            app:layout_anchor="@+id/constraintLayout"
+            app:layout_anchor="@+id/cl_root"
             app:layout_anchorGravity="center" />
 
         <LinearLayout
-            android:id="@+id/linear_bottom_sheet"
+            android:id="@+id/ll_bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -270,13 +290,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/text_include_cancel"
+                    android:id="@+id/tv_include_cancel"
+                    bindSingleClick="@{() -> vm.onClickCancel()}"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:onClick="onClick"
                     android:text="취소"
                     android:textSize="16sp"
                     android:textColor="@color/white"
@@ -288,13 +308,13 @@
                     android:background="@color/white"/>
 
                 <TextView
-                    android:id="@+id/text_include_confirm"
+                    android:id="@+id/tv_include_confirm"
+                    bindSingleClick="@{() -> vm.onClickOk()}"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:onClick="onClick"
                     android:text="확인"
                     android:textSize="16sp"
                     android:textColor="@color/white"

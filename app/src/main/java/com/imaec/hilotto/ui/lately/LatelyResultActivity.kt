@@ -3,7 +3,6 @@ package com.imaec.hilotto.ui.lately
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.DiffUtil
@@ -18,6 +17,7 @@ import com.imaec.hilotto.databinding.ActivityLatelyResultBinding
 import com.imaec.hilotto.model.LatelyResultDTO
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.ui.view.dialog.InputDialog
+import com.imaec.hilotto.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -96,9 +96,7 @@ class LatelyResultActivity :
                         binding.rvLatelyResult.scrollToPosition(it.position)
                     }
                     is LatelyState.FailCheck -> {
-                        Toast
-                            .makeText(this@LatelyResultActivity, it.message, Toast.LENGTH_SHORT)
-                            .show()
+                        toast(it.message)
                     }
                 }
             }

@@ -9,7 +9,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -25,6 +24,7 @@ import com.imaec.hilotto.ui.view.dialog.InfoDialog
 import com.imaec.hilotto.ui.view.dialog.InputDialog
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.utils.Utils
+import com.imaec.hilotto.utils.toast
 import com.imaec.hilotto.viewmodel.MyViewModel
 import com.imaec.hilotto.viewmodel.SettingViewModel
 import com.kakao.kakaolink.v2.KakaoLinkResponse
@@ -72,10 +72,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                     data?.data?.let {
                         val result =
                             viewModel.export(requireContext(), myViewModel.listNumber.value!!, it)
-                        Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
+                        toast(result)
                     } ?: run {
-                        Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT)
-                            .show()
+                        toast(R.string.msg_unknown_error)
                     }
                 }
             }
@@ -84,22 +83,13 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                     data?.data?.let {
                         viewModel.import(requireContext(), it)?.let { entities ->
                             myViewModel.saveNumbers(entities.toList()) {
-                                Toast.makeText(
-                                    context,
-                                    R.string.msg_success_import_my_number,
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                toast(R.string.msg_success_import_my_number)
                             }
                         } ?: run {
-                            Toast.makeText(
-                                context,
-                                R.string.msg_fail_import_my_number,
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            toast(R.string.msg_fail_import_my_number)
                         }
                     } ?: run {
-                        Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT)
-                            .show()
+                        toast(R.string.msg_unknown_error)
                     }
                 }
             }
@@ -154,13 +144,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                                 edit_search.text.toString().toInt()
                             )
                             viewModel.setSettingStatistics("${edit_search.text}회")
-                            Toast.makeText(
-                                context,
-                                R.string.msg_success_save_setting_statistics,
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            toast(R.string.msg_success_save_setting_statistics)
                         } else {
-                            Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
+                            toast(result)
                         }
                         dismiss()
                     }
@@ -213,8 +199,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                             }
 
                             override fun onFailure(errorResult: ErrorResult?) {
-                                Toast.makeText(context, R.string.msg_share_fail, Toast.LENGTH_SHORT)
-                                    .show()
+                                toast(R.string.msg_share_fail)
                             }
                         }
                     )
@@ -244,7 +229,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                             "${Environment.DIRECTORY_DOWNLOADS}"
                     )
                 )
-                Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
+                toast(result)
             } else {
                 startActivityForResult(
                     Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
@@ -255,7 +240,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                 )
             }
         } ?: run {
-            Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
+            toast(R.string.msg_unknown_error)
         }
     }
 
@@ -271,15 +256,10 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                 )
             )?.let { entities ->
                 myViewModel.saveNumbers(entities.toList()) {
-                    Toast.makeText(
-                        context,
-                        R.string.msg_success_import_my_number,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    toast(R.string.msg_success_import_my_number)
                 }
             } ?: run {
-                Toast.makeText(context, R.string.msg_fail_import_my_number, Toast.LENGTH_SHORT)
-                    .show()
+                toast(R.string.msg_fail_import_my_number)
             }
         } else {
             startActivityForResult(

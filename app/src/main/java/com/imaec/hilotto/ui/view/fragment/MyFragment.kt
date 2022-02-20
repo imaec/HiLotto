@@ -4,7 +4,6 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +29,7 @@ import com.imaec.hilotto.ui.view.activity.WinHistoryActivity
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
 import com.imaec.hilotto.ui.view.dialog.EditDialog
 import com.imaec.hilotto.ui.main.LottoViewModel
+import com.imaec.hilotto.utils.toast
 import com.imaec.hilotto.viewmodel.MyViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -60,7 +60,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
             )
             setOnNumberClickListener { entity ->
                 if (entity !is NumberEntity) {
-                    Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
+                    toast(R.string.msg_unknown_error)
                     return@setOnNumberClickListener
                 }
                 lottoViewModel.lottoList.value?.let {
@@ -76,7 +76,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
             }
             setOnNumberLongClickListener { entity ->
                 if (entity !is NumberEntity) {
-                    Toast.makeText(context, R.string.msg_unknown_error, Toast.LENGTH_SHORT).show()
+                    toast(R.string.msg_unknown_error)
                     return@setOnNumberLongClickListener
                 }
                 EditDialog(requireContext()).apply {

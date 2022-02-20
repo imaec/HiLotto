@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.NumberPicker
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.imaec.hilotto.EXTRA_NUMBER_1
@@ -20,6 +19,7 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
 import com.imaec.hilotto.databinding.ActivityEditNumberBinding
 import com.imaec.hilotto.room.entity.NumberEntity
+import com.imaec.hilotto.utils.toast
 import com.imaec.hilotto.viewmodel.EditNumberViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -97,7 +97,7 @@ class EditNumberActivity : BaseActivity<ActivityEditNumberBinding>(R.layout.acti
                         setResult(RESULT_OK)
                         finish()
                     } else {
-                        Toast.makeText(this, R.string.msg_edit_fail, Toast.LENGTH_SHORT).show()
+                        toast(R.string.msg_edit_fail)
                     }
                 }
             }
@@ -171,11 +171,7 @@ class EditNumberActivity : BaseActivity<ActivityEditNumberBinding>(R.layout.acti
                     )
                 }
             } else {
-                Toast.makeText(
-                    this@EditNumberActivity,
-                    R.string.msg_not_input_same_number,
-                    Toast.LENGTH_SHORT
-                ).show()
+                toast(R.string.msg_not_input_same_number)
             }
         }
     }

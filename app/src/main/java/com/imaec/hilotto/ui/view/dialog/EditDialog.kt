@@ -8,8 +8,8 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import com.imaec.hilotto.R
+import com.imaec.hilotto.utils.toast
 import kotlinx.android.synthetic.main.dialog_edit.*
 
 class EditDialog(context: Context) : Dialog(context) {
@@ -39,7 +39,7 @@ class EditDialog(context: Context) : Dialog(context) {
             text_edit.setOnClickListener(listenerEdit)
         } else {
             text_edit.setOnClickListener {
-                Toast.makeText(context, R.string.msg_edit_click, Toast.LENGTH_SHORT).show()
+                context.toast(R.string.msg_edit_click)
                 dismiss()
             }
         }
@@ -48,7 +48,7 @@ class EditDialog(context: Context) : Dialog(context) {
             text_delete.setOnClickListener(listenerDelete)
         } else {
             text_delete.setOnClickListener {
-                Toast.makeText(context, R.string.msg_delete_click, Toast.LENGTH_SHORT).show()
+                context.toast(R.string.msg_delete_click)
                 dismiss()
             }
         }
