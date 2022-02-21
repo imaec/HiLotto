@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.google.android.gms.ads.AdRequest
 import com.imaec.hilotto.BR
-import com.imaec.hilotto.EXTRA_LIST_LOTTO
-import com.imaec.hilotto.EXTRA_MY_NUMBER
 import com.imaec.hilotto.EXTRA_NUMBER_1
 import com.imaec.hilotto.EXTRA_NUMBER_2
 import com.imaec.hilotto.EXTRA_NUMBER_3
@@ -24,13 +22,13 @@ import com.imaec.hilotto.REQUEST_EDIT_NUMBER
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.FragmentMyBinding
-import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.model.MyNumberDTO
 import com.imaec.hilotto.ui.view.activity.EditNumberActivity
-import com.imaec.hilotto.ui.view.activity.WinHistoryActivity
+import com.imaec.hilotto.ui.winhistory.WinHistoryActivity
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
 import com.imaec.hilotto.ui.view.dialog.EditDialog
 import com.imaec.hilotto.ui.main.LottoViewModel
+import com.imaec.hilotto.utils.startActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -104,11 +102,11 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
                     is MyState.OnClickNumber -> {
                         lottoViewModel.lottoList.value?.let { list ->
                             showAd(R.string.ad_id_history_front, true) {
-                                startActivity(
-                                    Intent(context, WinHistoryActivity::class.java).apply {
-                                        putExtra(EXTRA_LIST_LOTTO, list as ArrayList<LottoDTO>)
-                                        putExtra(EXTRA_MY_NUMBER, it.myNumber)
-                                    }
+                                startActivity<WinHistoryActivity>(
+                                    WinHistoryActivity.createBundle(
+                                        lottoList = list,
+                                        myNumber = it.myNumber
+                                    )
                                 )
                             }
                         }

@@ -5,16 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.model.OddEvenDTO
-import com.imaec.hilotto.ui.adapter.OddEvenAdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class OddEvenViewModel @Inject constructor() : BaseViewModel() {
-
-    init {
-        adapter = OddEvenAdapter()
-    }
 
     private val _statisticsNo = MutableLiveData(20)
     val statisticsNo: LiveData<Int> get() = _statisticsNo

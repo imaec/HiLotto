@@ -55,7 +55,7 @@
             android:screenOrientation="portrait"
             android:exported="true"/>
 
-        <activity android:name=".ui.view.activity.WinHistoryActivity"
+        <activity android:name=".ui.winhistory.WinHistoryActivity"
             android:screenOrientation="portrait"
             android:exported="true"/>
 

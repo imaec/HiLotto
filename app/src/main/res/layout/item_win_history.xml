@@ -6,22 +6,19 @@
     <data>
 
         <variable
+            name="vm"
+            type="com.imaec.hilotto.ui.winhistory.WinHistoryViewModel" />
+
+        <variable
             name="item"
-            type="com.imaec.hilotto.room.entity.NumberEntity" />
-
-        <variable
-            name="fitNumberDTO"
-            type="com.imaec.hilotto.model.FitNumberDTO" />
-
-        <variable
-            name="rank"
-            type="Integer" />
+            type="com.imaec.hilotto.model.MyNumberDTO" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:layout_marginVertical="6dp"
         android:paddingBottom="24dp">
 
         <View
@@ -37,17 +34,18 @@
             android:layout_height="wrap_content"
             android:background="@color/lightGray3"
             android:paddingStart="7dp"
-            android:text="@{fitNumberDTO.round}"
+            android:text="@{item.fitNumber.round}"
             android:textSize="15sp"
             android:textColor="@color/darkGray"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="999회"/>
 
         <TextView
             android:id="@+id/text_rank"
-            bindRank="@{fitNumberDTO}"
+            bindRank="@{item.fitNumber}"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:paddingStart="7dp"
@@ -61,7 +59,7 @@
 
         <View
             android:id="@+id/view_dot_1"
-            bindVisible="@{fitNumberDTO.fitNo1 || fitNumberDTO.listIsFitBonus[0]}"
+            bindVisible="@{item.fitNumber.fitNo1 || item.fitNumber.listIsFitBonus[0]}"
             bindVisibleMode="@{1}"
             android:layout_width="10dp"
             android:layout_height="10dp"
@@ -70,7 +68,7 @@
             android:layout_marginBottom="6dp"
             android:background="@drawable/dot_primary"
             android:visibility="gone"
-            bindBackgroundDot="@{fitNumberDTO.listIsFitBonus[0]}"
+            bindBackgroundDot="@{item.fitNumber.listIsFitBonus[0]}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/text_number_2"
             app:layout_constraintBottom_toTopOf="@id/text_number_1"/>
@@ -79,7 +77,7 @@
             style="@style/AppTheme.TextNumberAccent"
             android:id="@+id/text_number_1"
             bindNumber="@{item.number1}"
-            bindFitNumber="@{fitNumberDTO}"
+            bindFitNumber="@{item.fitNumber}"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -90,7 +88,7 @@
 
         <View
             android:id="@+id/view_dot_2"
-            bindVisible="@{fitNumberDTO.fitNo2 || fitNumberDTO.listIsFitBonus[1]}"
+            bindVisible="@{item.fitNumber.fitNo2 || item.fitNumber.listIsFitBonus[1]}"
             bindVisibleMode="@{1}"
             android:layout_width="10dp"
             android:layout_height="10dp"
@@ -99,7 +97,7 @@
             android:layout_marginBottom="6dp"
             android:background="@drawable/dot_primary"
             android:visibility="gone"
-            bindBackgroundDot="@{fitNumberDTO.listIsFitBonus[1]}"
+            bindBackgroundDot="@{item.fitNumber.listIsFitBonus[1]}"
             app:layout_constraintLeft_toRightOf="@id/text_number_1"
             app:layout_constraintRight_toLeftOf="@id/text_number_3"
             app:layout_constraintBottom_toTopOf="@id/text_number_2"/>
@@ -108,7 +106,7 @@
             style="@style/AppTheme.TextNumberAccent"
             android:id="@+id/text_number_2"
             bindNumber="@{item.number2}"
-            bindFitNumber="@{fitNumberDTO}"
+            bindFitNumber="@{item.fitNumber}"
             android:layout_marginTop="0dp"
             app:layout_constraintLeft_toRightOf="@id/text_number_1"
             app:layout_constraintRight_toLeftOf="@id/text_number_3"
@@ -118,7 +116,7 @@
 
         <View
             android:id="@+id/view_dot_3"
-            bindVisible="@{fitNumberDTO.fitNo3 || fitNumberDTO.listIsFitBonus[2]}"
+            bindVisible="@{item.fitNumber.fitNo3 || item.fitNumber.listIsFitBonus[2]}"
             bindVisibleMode="@{1}"
             android:layout_width="10dp"
             android:layout_height="10dp"
@@ -127,7 +125,7 @@
             android:layout_marginBottom="6dp"
             android:background="@drawable/dot_primary"
             android:visibility="gone"
-            bindBackgroundDot="@{fitNumberDTO.listIsFitBonus[2]}"
+            bindBackgroundDot="@{item.fitNumber.listIsFitBonus[2]}"
             app:layout_constraintLeft_toRightOf="@id/text_number_2"
             app:layout_constraintRight_toLeftOf="@id/text_number_4"
             app:layout_constraintBottom_toTopOf="@id/text_number_3"/>
@@ -136,7 +134,7 @@
             style="@style/AppTheme.TextNumberAccent"
             android:id="@+id/text_number_3"
             bindNumber="@{item.number3}"
-            bindFitNumber="@{fitNumberDTO}"
+            bindFitNumber="@{item.fitNumber}"
             android:layout_marginTop="0dp"
             app:layout_constraintLeft_toRightOf="@id/text_number_2"
             app:layout_constraintRight_toLeftOf="@id/text_number_4"
@@ -146,7 +144,7 @@
 
         <View
             android:id="@+id/view_dot_4"
-            bindVisible="@{fitNumberDTO.fitNo4 || fitNumberDTO.listIsFitBonus[3]}"
+            bindVisible="@{item.fitNumber.fitNo4 || item.fitNumber.listIsFitBonus[3]}"
             bindVisibleMode="@{1}"
             android:layout_width="10dp"
             android:layout_height="10dp"
@@ -155,7 +153,7 @@
             android:layout_marginBottom="6dp"
             android:background="@drawable/dot_primary"
             android:visibility="gone"
-            bindBackgroundDot="@{fitNumberDTO.listIsFitBonus[3]}"
+            bindBackgroundDot="@{item.fitNumber.listIsFitBonus[3]}"
             app:layout_constraintLeft_toRightOf="@id/text_number_3"
             app:layout_constraintRight_toLeftOf="@id/text_number_5"
             app:layout_constraintBottom_toTopOf="@id/text_number_4"/>
@@ -164,7 +162,7 @@
             style="@style/AppTheme.TextNumberAccent"
             android:id="@+id/text_number_4"
             bindNumber="@{item.number4}"
-            bindFitNumber="@{fitNumberDTO}"
+            bindFitNumber="@{item.fitNumber}"
             android:layout_marginTop="0dp"
             app:layout_constraintLeft_toRightOf="@id/text_number_3"
             app:layout_constraintRight_toLeftOf="@id/text_number_5"
@@ -174,7 +172,7 @@
 
         <View
             android:id="@+id/view_dot_5"
-            bindVisible="@{fitNumberDTO.fitNo5 || fitNumberDTO.listIsFitBonus[4]}"
+            bindVisible="@{item.fitNumber.fitNo5 || item.fitNumber.listIsFitBonus[4]}"
             bindVisibleMode="@{1}"
             android:layout_width="10dp"
             android:layout_height="10dp"
@@ -183,7 +181,7 @@
             android:layout_marginBottom="6dp"
             android:background="@drawable/dot_primary"
             android:visibility="gone"
-            bindBackgroundDot="@{fitNumberDTO.listIsFitBonus[4]}"
+            bindBackgroundDot="@{item.fitNumber.listIsFitBonus[4]}"
             app:layout_constraintLeft_toRightOf="@id/text_number_4"
             app:layout_constraintRight_toLeftOf="@id/text_number_6"
             app:layout_constraintBottom_toTopOf="@id/text_number_5"/>
@@ -192,7 +190,7 @@
             style="@style/AppTheme.TextNumberAccent"
             android:id="@+id/text_number_5"
             bindNumber="@{item.number5}"
-            bindFitNumber="@{fitNumberDTO}"
+            bindFitNumber="@{item.fitNumber}"
             android:layout_marginTop="0dp"
             app:layout_constraintLeft_toRightOf="@id/text_number_4"
             app:layout_constraintRight_toLeftOf="@id/text_number_6"
@@ -202,7 +200,7 @@
 
         <View
             android:id="@+id/view_dot_6"
-            bindVisible="@{fitNumberDTO.fitNo6 || fitNumberDTO.listIsFitBonus[5]}"
+            bindVisible="@{item.fitNumber.fitNo6 || item.fitNumber.listIsFitBonus[5]}"
             bindVisibleMode="@{1}"
             android:layout_width="10dp"
             android:layout_height="10dp"
@@ -211,7 +209,7 @@
             android:layout_marginBottom="6dp"
             android:background="@drawable/dot_primary"
             android:visibility="gone"
-            bindBackgroundDot="@{fitNumberDTO.listIsFitBonus[5]}"
+            bindBackgroundDot="@{item.fitNumber.listIsFitBonus[5]}"
             app:layout_constraintLeft_toRightOf="@id/text_number_5"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@id/text_number_6"/>
@@ -220,7 +218,7 @@
             style="@style/AppTheme.TextNumberAccent"
             android:id="@+id/text_number_6"
             bindNumber="@{item.number6}"
-            bindFitNumber="@{fitNumberDTO}"
+            bindFitNumber="@{item.fitNumber}"
             android:layout_marginEnd="24dp"
             android:layout_marginTop="0dp"
             app:layout_constraintLeft_toRightOf="@id/text_number_5"

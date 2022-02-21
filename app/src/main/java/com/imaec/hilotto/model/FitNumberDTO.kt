@@ -1,5 +1,7 @@
 package com.imaec.hilotto.model
 
+import java.io.Serializable
+
 data class FitNumberDTO(
     var listFitNumber: ArrayList<Int> = ArrayList(),
     var numberBonus: Int = 0,
@@ -12,4 +14,4 @@ data class FitNumberDTO(
     var isFitNo5: Boolean = false,
     var isFitNo6: Boolean = false,
     var listIsFitBonus: ArrayList<Boolean> = ArrayList()
-)
+) : Serializable

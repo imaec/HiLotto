@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="vm"
-            type="com.imaec.hilotto.viewmodel.WinHistoryViewModel" />
+            type="com.imaec.hilotto.ui.winhistory.WinHistoryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +15,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/text_title"
+            android:id="@+id/tv_title"
             style="@style/AppTheme.Toolbar"
             android:text="@string/win_history"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -22,18 +23,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/image_sort"
+            android:id="@+id/iv_sort"
+            bindSingleClick="@{() -> vm.onClickSort()}"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:src="@drawable/ic_sort"
-            android:onClick="onClick"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_title"
-            app:layout_constraintBottom_toBottomOf="@id/text_title"/>
+            app:layout_constraintTop_toTopOf="@id/tv_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_title"/>
 
         <TextView
-            android:id="@+id/text_selected_number"
+            android:id="@+id/tv_selected_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
@@ -44,69 +45,69 @@
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
         <TextView
-            android:id="@+id/text_selected_number1"
+            android:id="@+id/tv_selected_number1"
             style="@style/AppTheme.TextNumberAccent"
-            android:layout_marginLeft="12dp"
-            app:textByInt="@{vm.number.number1}"
-            app:backgroundNumberCircle="@{vm.number.number1}"
+            bindNumber="@{vm.myNumber.number1}"
+            android:layout_marginStart="12dp"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/text_selected_number2"
-            app:layout_constraintTop_toBottomOf="@id/text_selected_number" />
+            app:layout_constraintRight_toLeftOf="@id/tv_selected_number2"
+            app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
+            tools:text="1"/>
 
         <TextView
-            android:id="@+id/text_selected_number2"
+            android:id="@+id/tv_selected_number2"
             style="@style/AppTheme.TextNumberAccent"
-            app:textByInt="@{vm.number.number2}"
-            app:backgroundNumberCircle="@{vm.number.number2}"
+            bindNumber="@{vm.myNumber.number2}"
             app:layout_constraintDimensionRatio="1"
-            app:layout_constraintLeft_toRightOf="@id/text_selected_number1"
-            app:layout_constraintRight_toLeftOf="@id/text_selected_number3"
-            app:layout_constraintTop_toBottomOf="@id/text_selected_number" />
+            app:layout_constraintLeft_toRightOf="@id/tv_selected_number1"
+            app:layout_constraintRight_toLeftOf="@id/tv_selected_number3"
+            app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
+            tools:text="2" />
 
         <TextView
-            android:id="@+id/text_selected_number3"
+            android:id="@+id/tv_selected_number3"
             style="@style/AppTheme.TextNumberAccent"
-            app:textByInt="@{vm.number.number3}"
-            app:backgroundNumberCircle="@{vm.number.number3}"
+            bindNumber="@{vm.myNumber.number3}"
             app:layout_constraintDimensionRatio="1"
-            app:layout_constraintLeft_toRightOf="@id/text_selected_number2"
-            app:layout_constraintRight_toLeftOf="@id/text_selected_number4"
-            app:layout_constraintTop_toBottomOf="@id/text_selected_number" />
+            app:layout_constraintLeft_toRightOf="@id/tv_selected_number2"
+            app:layout_constraintRight_toLeftOf="@id/tv_selected_number4"
+            app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
+            tools:text="3" />
 
         <TextView
-            android:id="@+id/text_selected_number4"
+            android:id="@+id/tv_selected_number4"
             style="@style/AppTheme.TextNumberAccent"
-            app:textByInt="@{vm.number.number4}"
-            app:backgroundNumberCircle="@{vm.number.number4}"
+            bindNumber="@{vm.myNumber.number4}"
             app:layout_constraintDimensionRatio="1"
-            app:layout_constraintLeft_toRightOf="@id/text_selected_number3"
-            app:layout_constraintRight_toLeftOf="@id/text_selected_number5"
-            app:layout_constraintTop_toBottomOf="@id/text_selected_number" />
+            app:layout_constraintLeft_toRightOf="@id/tv_selected_number3"
+            app:layout_constraintRight_toLeftOf="@id/tv_selected_number5"
+            app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
+            tools:text="4" />
 
         <TextView
-            android:id="@+id/text_selected_number5"
+            android:id="@+id/tv_selected_number5"
             style="@style/AppTheme.TextNumberAccent"
-            app:textByInt="@{vm.number.number5}"
-            app:backgroundNumberCircle="@{vm.number.number5}"
+            bindNumber="@{vm.myNumber.number5}"
             app:layout_constraintDimensionRatio="1"
-            app:layout_constraintLeft_toRightOf="@id/text_selected_number4"
-            app:layout_constraintRight_toLeftOf="@id/text_selected_number6"
-            app:layout_constraintTop_toBottomOf="@id/text_selected_number" />
+            app:layout_constraintLeft_toRightOf="@id/tv_selected_number4"
+            app:layout_constraintRight_toLeftOf="@id/tv_selected_number6"
+            app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
+            tools:text="5" />
 
         <TextView
-            android:id="@+id/text_selected_number6"
+            android:id="@+id/tv_selected_number6"
             style="@style/AppTheme.TextNumberAccent"
-            android:layout_marginRight="12dp"
-            app:textByInt="@{vm.number.number6}"
-            app:backgroundNumberCircle="@{vm.number.number6}"
+            bindNumber="@{vm.myNumber.number6}"
+            android:layout_marginEnd="12dp"
             app:layout_constraintDimensionRatio="1"
-            app:layout_constraintLeft_toRightOf="@id/text_selected_number5"
+            app:layout_constraintLeft_toRightOf="@id/tv_selected_number5"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_selected_number" />
+            app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
+            tools:text="6" />
 
         <View
             android:id="@+id/view_divider"
@@ -114,19 +115,21 @@
             android:layout_margin="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_selected_number6" />
+            app:layout_constraintTop_toBottomOf="@id/tv_selected_number6" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_win_history"
+            android:id="@+id/rv_win_history"
+            bindItemList="@{vm.winList}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/lightGray3"
-            app:adapter="@{vm.adapter}"
-            app:items="@{vm.listWin}"
-            app:fit="@{vm.listFitNumbers}"
+            android:paddingVertical="6dp"
+            android:clipToPadding="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_divider"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_win_history"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

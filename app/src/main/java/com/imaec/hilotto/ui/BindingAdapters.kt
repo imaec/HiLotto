@@ -6,13 +6,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.imaec.hilotto.R
-import com.imaec.hilotto.base.BaseAdapter
 import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.model.FitNumberDTO
-import com.imaec.hilotto.ui.adapter.MyNumberAdapter
-import com.imaec.hilotto.ui.adapter.WinHistoryAdapter
 import java.text.DecimalFormat
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.roundToLong
@@ -93,7 +89,6 @@ fun setTextByInt(textView: TextView, value: Int) {
 }
 
 @SuppressLint("SetTextI18n")
-
 @BindingAdapter("decimalAndUnit")
 fun setDecimal(textView: TextView, value: Long) {
     val decimal = DecimalFormat("###,###").format(value)
@@ -128,12 +123,6 @@ fun setTextCreateToggle(textView: TextView, listInclude: List<String>) {
         }
     }
     textView.text = str
-}
-
-@BindingAdapter("rank")
-fun setRank(textView: TextView, rank: Int) {
-    textView.setBackgroundResource(if (rank > 0) R.drawable.bg_triangle else 0)
-    textView.text = if (rank > 0) "$rank" else ""
 }
 
 @BindingAdapter(value = ["app:backgroundContinues", "app:isContinues"], requireAll = false)
@@ -233,61 +222,6 @@ fun setBackgroundRoundedRightTop(textView: TextView, number: Int) {
         }
     )
     textView.setTextColor(ContextCompat.getColor(textView.context, R.color.white))
-}
-
-@BindingAdapter("adapter")
-fun setAdapter(
-    recyclerView: RecyclerView,
-    adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
-) {
-    recyclerView.adapter = adapter
-}
-
-@BindingAdapter("items")
-fun setItems(recyclerView: RecyclerView, items: List<Any>) {
-    (recyclerView.adapter as BaseAdapter).apply {
-        clearItem()
-        addItems(items)
-        notifyDataSetChanged()
-    }
-}
-
-@BindingAdapter(value = ["app:items", "app:fit"], requireAll = true)
-fun setItemsAndFit(
-    recyclerView: RecyclerView,
-    items: List<Any>,
-    fitNumbers: List<FitNumberDTO>
-) {
-    val adapter = recyclerView.adapter
-    if (adapter is MyNumberAdapter) {
-        adapter.apply {
-            clearItem()
-            addItems(items)
-            setFitNumbers(fitNumbers)
-            notifyDataSetChanged()
-        }
-    } else if (adapter is WinHistoryAdapter) {
-        adapter.apply {
-            clearItem()
-            addItems(items)
-            setFitNumbers(fitNumbers)
-            notifyDataSetChanged()
-        }
-    }
-}
-
-@BindingAdapter("adapter")
-fun setAdapter(viewPager2: ViewPager2, adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
-    viewPager2.adapter = adapter
-}
-
-@BindingAdapter("items")
-fun setItems(viewPager2: ViewPager2, items: List<Any>) {
-    (viewPager2.adapter as BaseAdapter).apply {
-        clearItem()
-        addItems(items)
-        notifyDataSetChanged()
-    }
 }
 
 class OnSingleClickListener(
