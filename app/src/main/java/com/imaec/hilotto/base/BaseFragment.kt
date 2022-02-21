@@ -127,7 +127,7 @@ abstract class BaseFragment<VDB : ViewDataBinding>(
         showProgress()
 
         if (isRandom) {
-            val ran = Random().nextInt(4) + 1
+            val ran = Random().nextInt(9) + 1
             if (ran == 1) {
                 showAd(adId) {
                     hideProgress()
