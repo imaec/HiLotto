@@ -94,10 +94,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                 field.isAccessible = true
                 try {
                     val colorDrawable = ColorDrawable(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.colorPrimary
-                        )
+                        ContextCompat.getColor(requireContext(), R.color.colorPrimary)
                     )
                     field.set(binding.picker, colorDrawable)
                 } catch (e: Exception) {

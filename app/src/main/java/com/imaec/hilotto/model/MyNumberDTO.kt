@@ -1,5 +1,6 @@
 package com.imaec.hilotto.model
 
+import com.imaec.hilotto.room.entity.NumberEntity
 import java.io.Serializable
 
 data class MyNumberDTO(
@@ -11,4 +12,8 @@ data class MyNumberDTO(
     val number5: Int = 0,
     val number6: Int = 0,
     val fitNumber: FitNumberDTO? = null
-) : Serializable
+) : Serializable {
+    fun toEntity(): NumberEntity = NumberEntity(
+        numberId, number1, number2, number3, number4, number5, number6
+    )
+}
