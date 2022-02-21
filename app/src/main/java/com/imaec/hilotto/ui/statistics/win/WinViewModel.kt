@@ -48,7 +48,9 @@ class WinViewModel @Inject constructor() : BaseViewModel() {
         _winStatisticsTitle.value = "1등 당첨 통계(${no}회)"
     }
 
-    fun setWinInfo(lottoList: List<LottoDTO>) {
+    fun setWinInfo(lottoList: List<LottoDTO>?) {
+        lottoList ?: return
+
         val list = lottoList.subList(0, statisticsNo.value ?: 20)
 
         // 총 당첨금, 1등 당첨금, 1등 당첨자 수

@@ -1,4 +1,4 @@
-package com.imaec.hilotto.ui.view
+package com.imaec.hilotto.ui
 
 import android.annotation.SuppressLint
 import android.content.Context

@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.imaec.hilotto.ui.home.HomeFragment
 import com.imaec.hilotto.ui.my.MyFragment
 import com.imaec.hilotto.ui.recommend.RecommendFragment
-import com.imaec.hilotto.ui.view.fragment.SettingFragment
+import com.imaec.hilotto.ui.setting.SettingFragment
 import com.imaec.hilotto.ui.statistics.StatisticsFragment
 
 class MainPagerAdapter(

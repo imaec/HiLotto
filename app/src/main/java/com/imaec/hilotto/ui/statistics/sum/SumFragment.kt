@@ -26,7 +26,6 @@ class SumFragment : BaseFragment<FragmentSumBinding>(R.layout.fragment_sum) {
         setupBinding()
         setupRecyclerView()
         setupListener()
-        setupData()
         setupObserver()
     }
 
@@ -63,23 +62,20 @@ class SumFragment : BaseFragment<FragmentSumBinding>(R.layout.fragment_sum) {
 
     private fun setupListener() {
         binding.cbIncludeBonus.setOnCheckedChangeListener { _, b ->
-            viewModel.setListSum(lottoViewModel.lottoList.value, b)
+            viewModel.setSumList(lottoViewModel.lottoList.value, b)
         }
-    }
-
-    private fun setupData() {
-        viewModel.setStatisticsNo(
-            SharedPreferenceUtil.getInt(
-                context = requireContext(),
-                key = SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
-                def = 20
-            )
-        )
     }
 
     private fun setupObserver() {
         lottoViewModel.lottoList.observe(viewLifecycleOwner) {
-            viewModel.setListSum(it)
+            viewModel.setStatisticsNo(
+                SharedPreferenceUtil.getInt(
+                    context = requireContext(),
+                    key = SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
+                    def = 20
+                )
+            )
+            viewModel.setSumList(it)
         }
     }
 }

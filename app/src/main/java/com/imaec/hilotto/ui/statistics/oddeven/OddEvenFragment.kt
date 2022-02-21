@@ -25,7 +25,6 @@ class OddEvenFragment : BaseFragment<FragmentOddEvenBinding>(R.layout.fragment_o
 
         setupBinding()
         setupRecyclerView()
-        setupData()
         setupObserver()
     }
 
@@ -62,18 +61,15 @@ class OddEvenFragment : BaseFragment<FragmentOddEvenBinding>(R.layout.fragment_o
         }
     }
 
-    private fun setupData() {
-        viewModel.setStatisticsNo(
-            SharedPreferenceUtil.getInt(
-                context = requireContext(),
-                key = SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
-                def = 20
-            )
-        )
-    }
-
     private fun setupObserver() {
         lottoViewModel.lottoList.observe(viewLifecycleOwner) {
+            viewModel.setStatisticsNo(
+                SharedPreferenceUtil.getInt(
+                    context = requireContext(),
+                    key = SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
+                    def = 20
+                )
+            )
             viewModel.setOddEven(it)
         }
     }

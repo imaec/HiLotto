@@ -30,7 +30,7 @@ class SumViewModel @Inject constructor() : BaseViewModel() {
         _statisticsNo.value = no
     }
 
-    fun setListSum(lottoList: List<LottoDTO>?, isInclude: Boolean = false) {
+    fun setSumList(lottoList: List<LottoDTO>?, isInclude: Boolean = false) {
         lottoList ?: return
 
         val listTemp = mutableListOf<SumDTO>()

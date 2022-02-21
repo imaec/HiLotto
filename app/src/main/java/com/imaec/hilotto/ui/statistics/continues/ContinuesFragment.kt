@@ -25,7 +25,6 @@ class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragme
 
         setupBinding()
         setupRecyclerView()
-        setupData()
         setupObserver()
     }
 
@@ -62,18 +61,15 @@ class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragme
         }
     }
 
-    private fun setupData() {
-        viewModel.setStatisticsNo(
-            SharedPreferenceUtil.getInt(
-                context = requireContext(),
-                key = SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
-                def = 20
-            )
-        )
-    }
-
     private fun setupObserver() {
         lottoViewModel.lottoList.observe(viewLifecycleOwner) {
+            viewModel.setStatisticsNo(
+                SharedPreferenceUtil.getInt(
+                    context = requireContext(),
+                    key = SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
+                    def = 20
+                )
+            )
             viewModel.setPickedNum(it)
         }
     }

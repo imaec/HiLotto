@@ -2,7 +2,6 @@ package com.imaec.hilotto.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.R
@@ -126,6 +125,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun setupObserver() {
+        viewModel.settingChanged.observe(this) {
+            if (it) {
+                setupData()
+                viewModel.init()
+            }
+        }
         lottoViewModel.curDrwNo.observe(this) {
             SharedPreferenceUtil.putValue(
                 context = this@MainActivity,
@@ -133,24 +138,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 value = it
             )
         }
-    }
-
-    fun onClick(view: View) {
-//        when (activeFragment) {
-//            is HomeFragment -> {
-//                fragmentHome.onClick(view)
-//            }
-//            is RecommendFragment -> {
-//                fragmentRecommend.onClick(view)
-//            }
-//            is MyFragment -> {
-//                fragmentMy.onClick(view)
-//            }
-//            is SettingFragment -> {
-//                fragmentSetting.onClick(view)
-//            }
-//            else -> {
-//            }
-//        }
     }
 }

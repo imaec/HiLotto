@@ -1,4 +1,4 @@
-package com.imaec.hilotto.viewmodel
+package com.imaec.hilotto.ui.setting
 
 import android.content.Context
 import android.net.Uri
@@ -22,18 +22,21 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingViewModel @Inject constructor() : BaseViewModel() {
 
-    private val _appVersion = MutableLiveData<String>("")
+    private val _state = MutableLiveData<SettingState>()
+    val state: LiveData<SettingState> get() = _state
+
+    private val _appVersion = MutableLiveData("")
     val appVersion: LiveData<String> get() = _appVersion
 
-    private val _settingStatistics = MutableLiveData<String>("20회")
+    private val _settingStatistics = MutableLiveData("20회")
     val settingStatistics: LiveData<String> get() = _settingStatistics
 
     fun setAppVersion(appVersion: String) {
         _appVersion.value = appVersion
     }
 
-    fun setSettingStatistics(settingStatistics: String) {
-        _settingStatistics.value = settingStatistics
+    fun setSettingStatistics(settingStatistics: Int) {
+        _settingStatistics.value = "${settingStatistics}회"
     }
 
     fun checkSettingRound(keyword: String, curDrwNo: Int): String {
@@ -96,5 +99,29 @@ class SettingViewModel @Inject constructor() : BaseViewModel() {
         } catch (e: IOException) {
             null
         }
+    }
+
+    fun onClickSettingStatistics() {
+        _state.value = SettingState.OnClickSettingStatistics
+    }
+
+    fun onClickExport() {
+        _state.value = SettingState.OnClickExport
+    }
+
+    fun onClickExportInfo() {
+        _state.value = SettingState.OnClickExportInfo
+    }
+
+    fun onClickImport() {
+        _state.value = SettingState.OnClickImport
+    }
+
+    fun onClickImportInfo() {
+        _state.value = SettingState.OnClickImportInfo
+    }
+
+    fun onClickShare() {
+        _state.value = SettingState.OnClickShare
     }
 }

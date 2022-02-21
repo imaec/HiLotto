@@ -19,7 +19,6 @@ class WinFragment : BaseFragment<FragmentWinBinding>(R.layout.fragment_win) {
         super.onViewCreated(view, savedInstanceState)
 
         setupBinding()
-        setupData()
         setupObserver()
     }
 
@@ -30,18 +29,15 @@ class WinFragment : BaseFragment<FragmentWinBinding>(R.layout.fragment_win) {
         }
     }
 
-    private fun setupData() {
-        viewModel.setStatisticsNo(
-            SharedPreferenceUtil.getInt(
-                context = requireContext(),
-                key = SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
-                def = 20
-            )
-        )
-    }
-
     private fun setupObserver() {
         lottoViewModel.lottoList.observe(viewLifecycleOwner) {
+            viewModel.setStatisticsNo(
+                SharedPreferenceUtil.getInt(
+                    context = requireContext(),
+                    key = SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
+                    def = 20
+                )
+            )
             viewModel.setWinInfo(it)
         }
     }

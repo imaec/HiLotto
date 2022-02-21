@@ -22,9 +22,11 @@ class ContinuesViewModel @Inject constructor() : BaseViewModel() {
         _statisticsNo.value = no
     }
 
-    fun setPickedNum(listResult: List<LottoDTO>) {
+    fun setPickedNum(lottoList: List<LottoDTO>?) {
+        lottoList ?: return
+
         val listTemp = ArrayList<ContinueDTO>()
-        listResult.subList(0, statisticsNo.value ?: 20).forEach {
+        lottoList.subList(0, statisticsNo.value ?: 20).forEach {
             val continues = Lotto.getContinues(
                 it.drwtNo1,
                 it.drwtNo2,

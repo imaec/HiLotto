@@ -21,7 +21,9 @@ class OddEvenViewModel @Inject constructor() : BaseViewModel() {
         _statisticsNo.value = no
     }
 
-    fun setOddEven(lottoList: List<LottoDTO>) {
+    fun setOddEven(lottoList: List<LottoDTO>?) {
+        lottoList ?: return
+
         val tempList = ArrayList<OddEvenDTO>()
         lottoList.subList(0, statisticsNo.value ?: 20).forEach {
             val listOdd =

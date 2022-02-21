@@ -1,4 +1,4 @@
-package com.imaec.hilotto.ui.view.fragment
+package com.imaec.hilotto.ui.setting
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
+import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -19,48 +20,36 @@ import com.imaec.hilotto.REQUEST_PERMISSION_EXPORT
 import com.imaec.hilotto.REQUEST_PERMISSION_IMPORT
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentSettingBinding
+import com.imaec.hilotto.ui.main.MainViewModel
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
-import com.imaec.hilotto.ui.view.dialog.InfoDialog
 import com.imaec.hilotto.ui.view.dialog.InputDialog
 import com.imaec.hilotto.utils.SharedPreferenceUtil
-import com.imaec.hilotto.utils.Utils
 import com.imaec.hilotto.utils.toast
 import com.imaec.hilotto.ui.my.MyViewModel
-import com.imaec.hilotto.viewmodel.SettingViewModel
+import com.imaec.hilotto.utils.getVersion
+import com.imaec.hilotto.utils.showInfoDialog
 import com.kakao.kakaolink.v2.KakaoLinkResponse
 import com.kakao.kakaolink.v2.KakaoLinkService
 import com.kakao.network.ErrorResult
 import com.kakao.network.callback.ResponseCallback
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.dialog_search.*
+import timber.log.Timber
 import java.io.File
 
 @AndroidEntryPoint
 class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_setting) {
 
     private val viewModel by viewModels<SettingViewModel>()
+    private val mainViewModel by activityViewModels<MainViewModel>()
     private val myViewModel by activityViewModels<MyViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.apply {
-            lifecycleOwner = this@SettingFragment
-            vm = this@SettingFragment.viewModel
-        }
-
-        viewModel.apply {
-            setSettingStatistics(
-                "${
-                SharedPreferenceUtil.getInt(
-                    requireContext(),
-                    SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
-                    20
-                )
-                }회"
-            )
-            setAppVersion(Utils.getVersion(requireContext()))
-        }
+        setupBinding()
+        setupData()
+        setupObserver()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -96,12 +85,6 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
         }
     }
 
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-
-//        if (!hidden) myViewModel.getNumbers()
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -121,95 +104,103 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
         }
     }
 
-    fun onClick(view: View) {
-        when (view.id) {
-            R.id.view_setting_statistics -> {
-                InputDialog(requireContext()).apply {
-                    setTitle(getString(R.string.setting_statistics))
-                    setHint(getString(R.string.msg_setting_statistics_hint))
-                    setSearch(getString(R.string.setting))
-                    setOnSearchClickListener {
-                        val result = viewModel.checkSettingRound(
-                            edit_search.text.toString(),
-                            SharedPreferenceUtil.getInt(
-                                context,
-                                SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO,
-                                1
-                            )
-                        )
-                        if (result == "OK") {
-                            SharedPreferenceUtil.putValue(
-                                context,
-                                SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
-                                edit_search.text.toString().toInt()
-                            )
-                            viewModel.setSettingStatistics("${edit_search.text}회")
-                            toast(R.string.msg_success_save_setting_statistics)
-                        } else {
-                            toast(result)
-                        }
-                        dismiss()
-                    }
-                    show()
-                }
-            }
-            R.id.image_export_info -> InfoDialog(
-                requireContext(),
-                getString(R.string.msg_export_description)
-            ).show()
-            R.id.text_export_my_number -> {
-                if (!checkPermission(REQUEST_PERMISSION_EXPORT)) return
+    private fun setupBinding() {
+        with(binding) {
+            vm = viewModel
+        }
+    }
 
-                CommonDialog(requireContext(), getString(R.string.msg_export_info)).apply {
-                    setTitle(getString(R.string.export_my_number))
-                    setOnOkClickListener(
-                        View.OnClickListener {
+    private fun setupData() {
+        with(viewModel) {
+            setSettingStatistics(
+                SharedPreferenceUtil.getInt(
+                    context = requireContext(),
+                    key = SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
+                    def = 20
+                )
+            )
+            setAppVersion(getVersion())
+        }
+    }
+
+    private fun setupObserver() {
+        viewModel.state.observe(this) {
+            when (it) {
+                SettingState.OnClickSettingStatistics -> {
+                    showInputDialog()
+                }
+                SettingState.OnClickExport -> {
+                    if (!checkPermission(REQUEST_PERMISSION_EXPORT)) return@observe
+
+                    CommonDialog(requireContext(), getString(R.string.msg_export_info)).apply {
+                        setTitle(getString(R.string.export_my_number))
+                        setOnOkClickListener {
                             export()
                             dismiss()
                         }
-                    )
-                    show()
+                        show()
+                    }
                 }
-            }
-            R.id.image_import_info -> InfoDialog(
-                requireContext(),
-                getString(R.string.msg_import_description)
-            ).show()
-            R.id.text_import_my_number -> {
-                if (!checkPermission(REQUEST_PERMISSION_IMPORT)) return
+                SettingState.OnClickExportInfo -> {
+                    showInfoDialog(getString(R.string.msg_export_description))
+                }
+                SettingState.OnClickImport -> {
+                    if (!checkPermission(REQUEST_PERMISSION_IMPORT)) return@observe
 
-                CommonDialog(requireContext(), getString(R.string.msg_import_info)).apply {
-                    setTitle(getString(R.string.import_my_number))
-                    setOnOkClickListener(
-                        View.OnClickListener {
+                    CommonDialog(requireContext(), getString(R.string.msg_import_info)).apply {
+                        setTitle(getString(R.string.import_my_number))
+                        setOnOkClickListener {
                             import()
                             dismiss()
                         }
-                    )
-                    show()
+                        show()
+                    }
+                }
+                SettingState.OnClickImportInfo -> {
+                    showInfoDialog(getString(R.string.msg_import_description))
+                }
+                SettingState.OnClickShare -> {
+                    share()
                 }
             }
-            R.id.text_share -> {
-                KakaoLinkService.getInstance()
-                    .sendCustom(
-                        context, getString(R.string.template_id_app), null,
-                        object : ResponseCallback<KakaoLinkResponse>() {
-                            override fun onSuccess(result: KakaoLinkResponse?) {
-                                logEvent(FirebaseAnalytics.Event.SHARE, Bundle())
-                            }
+        }
+    }
 
-                            override fun onFailure(errorResult: ErrorResult?) {
-                                toast(R.string.msg_share_fail)
-                            }
-                        }
+    private fun showInputDialog() {
+        InputDialog(requireContext()).apply {
+            setTitle(getString(R.string.setting_statistics))
+            setHint(getString(R.string.msg_setting_statistics_hint))
+            setSearch(getString(R.string.setting))
+            setOnSearchClickListener {
+                val result = viewModel.checkSettingRound(
+                    edit_search.text.toString(),
+                    SharedPreferenceUtil.getInt(
+                        context,
+                        SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO,
+                        1
                     )
+                )
+                if (result == "OK") {
+                    SharedPreferenceUtil.putValue(
+                        context,
+                        SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
+                        edit_search.text.toString().toInt()
+                    )
+                    viewModel.setSettingStatistics(edit_search.text.toString().toInt())
+                    mainViewModel.changeSetting(true)
+                    toast(R.string.msg_success_save_setting_statistics)
+                } else {
+                    toast(result)
+                }
+                dismiss()
             }
+            show()
         }
     }
 
     private fun checkPermission(requestCode: Int): Boolean {
         return if (
-            requireActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
             == PackageManager.PERMISSION_GRANTED
         ) {
             true
@@ -269,5 +260,22 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                 REQUEST_OPEN_DOCUMENT
             )
         }
+    }
+
+    private fun share() {
+        KakaoLinkService.getInstance()
+            .sendCustom(
+                context, getString(R.string.template_id_app), null,
+                object : ResponseCallback<KakaoLinkResponse>() {
+                    override fun onSuccess(result: KakaoLinkResponse?) {
+                        logEvent(FirebaseAnalytics.Event.SHARE, Bundle())
+                    }
+
+                    override fun onFailure(errorResult: ErrorResult?) {
+                        Timber.e("  ## share error : $errorResult")
+                        toast(R.string.msg_share_fail)
+                    }
+                }
+            )
     }
 }
