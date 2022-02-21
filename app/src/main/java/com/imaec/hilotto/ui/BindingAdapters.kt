@@ -1,7 +1,10 @@
 package com.imaec.hilotto.ui
 
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
@@ -50,14 +53,6 @@ fun View.bindBackgroundDot(isBonus: Boolean) {
     setBackgroundResource(if (isBonus) R.drawable.dot_red else R.drawable.dot_primary)
 }
 
-@Suppress("UNCHECKED_CAST")
-@BindingAdapter("bindItemList")
-fun RecyclerView.bindItemList(itemList: List<Any>?) {
-    (adapter as? BaseSingleViewAdapter<Any>)?.run {
-        submitList(itemList)
-    }
-}
-
 @BindingAdapter(value = ["bindNumber", "bindFitNumber"], requireAll = false)
 fun TextView.bindFitNumber(number: Int, fitNumber: FitNumberDTO?) {
     text = number.toString()
@@ -81,6 +76,31 @@ fun TextView.bindRank(fitNumber: FitNumberDTO?) {
 
     setBackgroundResource(if (fitNumber.rank > 0) R.drawable.bg_triangle else 0)
     text = if (fitNumber.rank > 0) "${fitNumber.rank}" else ""
+}
+
+@Suppress("UNCHECKED_CAST")
+@BindingAdapter("bindItemList")
+fun RecyclerView.bindItemList(itemList: List<Any>?) {
+    (adapter as? BaseSingleViewAdapter<Any>)?.run {
+        submitList(itemList)
+    }
+}
+
+@BindingAdapter(value = ["bindProgress", "bindMax"])
+fun ProgressBar.bindSumProgress(sumProgress: Int, sumMax: Int) {
+    max = sumMax
+
+    with(ValueAnimator.ofInt(0, sumProgress)) {
+        interpolator =
+            AnimationUtils.loadInterpolator(context, android.R.anim.decelerate_interpolator)
+        startDelay = 0
+        duration = 500
+        addUpdateListener { valueAnimator ->
+            val value = valueAnimator.animatedValue as Int
+            progress = value
+        }
+        start()
+    }
 }
 
 @BindingAdapter("textByInt")

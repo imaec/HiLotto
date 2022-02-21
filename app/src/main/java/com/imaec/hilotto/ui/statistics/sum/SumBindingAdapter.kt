@@ -25,8 +25,3 @@ fun ProgressBar.bindProgressColor(item: SumDTO, sumList: List<SumDTO>) {
         PorterDuff.Mode.SRC_IN
     )
 }
-
-@BindingAdapter("bindSumMax")
-fun ProgressBar.bindSumMax(sumMax: Int) {
-    max = sumMax
-}
