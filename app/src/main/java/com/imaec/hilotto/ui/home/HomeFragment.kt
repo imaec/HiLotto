@@ -42,7 +42,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun setupAd() {
-        binding.avHome.loadAd(AdRequest.Builder().build())
+        binding.adHome.loadAd(AdRequest.Builder().build())
     }
 
     private fun setupRecyclerView() {
