@@ -16,184 +16,168 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/bgGray">
 
-            <TextView
-                style="@style/AppTheme.StatisticsTitle"
-                android:id="@+id/tv_avg_title"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
-                android:text="@{vm.winAvgTitle}"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="1등 당첨금 평균(20회)"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="24dp"
+                android:background="@drawable/bg_bottom_corner_white"
+                android:elevation="2dp"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                style="@style/AppTheme.WinSubTitle"
-                android:id="@+id/tv_prize_total_title"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:text="@string/title_prize_total"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_avg_title"/>
+                <TextView
+                    style="@style/AppTheme.StatisticsTitle"
+                    android:id="@+id/tv_avg_title"
+                    android:layout_marginTop="8dp"
+                    android:text="@{vm.winAvgTitle}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1등 당첨금 평균 (20회)"/>
 
-            <TextView
-                style="@style/AppTheme.WinSubContent"
-                android:id="@+id/tv_prize_total"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                app:decimalAndUnit="@{vm.priceTotal}"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_prize_total_title"
-                tools:text="24,477,035,786 (약 244억)"/>
+                <TextView
+                    style="@style/AppTheme.WinSubTitle"
+                    android:id="@+id/tv_prize_total_title"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/title_prize_total"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_avg_title"/>
 
-            <TextView
-                style="@style/AppTheme.WinSubTitle"
-                android:id="@+id/tv_prize_by_one_title"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/title_prize_by_one"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_prize_total"/>
+                <TextView
+                    style="@style/AppTheme.WinSubContent"
+                    android:id="@+id/tv_prize_total"
+                    app:decimalAndUnit="@{vm.priceTotal}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_prize_total_title"
+                    tools:text="24,477,035,786 (약 244억)"/>
 
-            <TextView
-                style="@style/AppTheme.WinSubContent"
-                android:id="@+id/tv_prize_by_one"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                app:decimalAndUnit="@{vm.price}"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_prize_by_one_title"
-                tools:text="2,481,832,359 (약 25억)"/>
+                <TextView
+                    style="@style/AppTheme.WinSubTitle"
+                    android:id="@+id/tv_prize_by_one_title"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/title_prize_by_one"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_prize_total"/>
 
-            <TextView
-                style="@style/AppTheme.WinSubTitle"
-                android:id="@+id/tv_win_count_title"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/title_win_count"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_prize_by_one"/>
+                <TextView
+                    style="@style/AppTheme.WinSubContent"
+                    android:id="@+id/tv_prize_by_one"
+                    app:decimalAndUnit="@{vm.price}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_prize_by_one_title"
+                    tools:text="2,481,832,359 (약 25억)"/>
 
-            <TextView
-                style="@style/AppTheme.WinSubContent"
-                android:id="@+id/tv_win_count"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:text="@{vm.winCount}"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_win_count_title"
-                tools:text="11명"/>
+                <TextView
+                    style="@style/AppTheme.WinSubTitle"
+                    android:id="@+id/tv_win_count_title"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/title_win_count"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_prize_by_one"/>
 
-            <View
-                style="@style/AppTheme.ViewDivider"
-                android:id="@+id/view_divider1"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_win_count"/>
+                <TextView
+                    style="@style/AppTheme.WinSubContent"
+                    android:id="@+id/tv_win_count"
+                    android:text="@{vm.winCount}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_win_count_title"
+                    tools:text="11명"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                style="@style/AppTheme.StatisticsTitle"
-                android:id="@+id/tv_statistics_title"
-                android:layout_marginTop="12dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
-                android:text="@{vm.winStatisticsTitle}"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_divider1"
-                tools:text="1등 당첨 통계(20회)"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingHorizontal="12dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="24dp"
+                android:background="@drawable/bg_top_corner_white"
+                android:elevation="2dp"
+                app:layout_constraintTop_toBottomOf="@id/cl_top">
 
-            <TextView
-                style="@style/AppTheme.WinSubTitle"
-                android:id="@+id/tv_win_prize_max_title"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:text="@string/title_win_prize_max"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_statistics_title"/>
+                <TextView
+                    style="@style/AppTheme.StatisticsTitle"
+                    android:id="@+id/tv_statistics_title"
+                    android:layout_marginTop="8dp"
+                    android:text="@{vm.winStatisticsTitle}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1등 당첨 통계 (20회)"/>
 
-            <TextView
-                style="@style/AppTheme.WinSubContent"
-                android:id="@+id/tv_win_prize_max"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:text="@{vm.priceMax}"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_win_prize_max_title"
-                tools:text="989회 : 5,826,768,563 (약 58억)"/>
+                <TextView
+                    style="@style/AppTheme.WinSubTitle"
+                    android:id="@+id/tv_win_prize_max_title"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/title_win_prize_max"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_statistics_title"/>
 
-            <TextView
-                style="@style/AppTheme.WinSubTitle"
-                android:id="@+id/tv_win_prize_min_title"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/title_win_prize_min"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_win_prize_max"/>
+                <TextView
+                    style="@style/AppTheme.WinSubContent"
+                    android:id="@+id/tv_win_prize_max"
+                    android:text="@{vm.priceMax}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_win_prize_max_title"
+                    tools:text="989회 : 5,826,768,563 (약 58억)"/>
 
-            <TextView
-                style="@style/AppTheme.WinSubContent"
-                android:id="@+id/tv_win_prize_min"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:text="@{vm.priceMin}"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_win_prize_min_title"
-                tools:text="1000회 : 1,246,819,620 (약 12억)"/>
+                <TextView
+                    style="@style/AppTheme.WinSubTitle"
+                    android:id="@+id/tv_win_prize_min_title"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/title_win_prize_min"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_win_prize_max"/>
 
-            <TextView
-                style="@style/AppTheme.WinSubTitle"
-                android:id="@+id/tv_win_count_max_title"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/title_win_count_max"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_win_prize_min"/>
+                <TextView
+                    style="@style/AppTheme.WinSubContent"
+                    android:id="@+id/tv_win_prize_min"
+                    android:text="@{vm.priceMin}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_win_prize_min_title"
+                    tools:text="1000회 : 1,246,819,620 (약 12억)"/>
 
-            <TextView
-                style="@style/AppTheme.WinSubContent"
-                android:id="@+id/tv_win_count_max"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:text="@{vm.winCountMax}"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_win_count_max_title"
-                tools:text="1000회 : 22명"/>
+                <TextView
+                    style="@style/AppTheme.WinSubTitle"
+                    android:id="@+id/tv_win_count_max_title"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/title_win_count_max"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_win_prize_min"/>
 
-            <TextView
-                style="@style/AppTheme.WinSubTitle"
-                android:id="@+id/tv_win_count_min_title"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/title_win_count_min"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_win_count_max"/>
+                <TextView
+                    style="@style/AppTheme.WinSubContent"
+                    android:id="@+id/tv_win_count_max"
+                    android:text="@{vm.winCountMax}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_win_count_max_title"
+                    tools:text="1000회 : 22명"/>
 
-            <TextView
-                style="@style/AppTheme.WinSubContent"
-                android:id="@+id/tv_win_count_min"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:text="@{vm.winCountMin}"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_win_count_min_title"
-                tools:text="989회 : 4명"/>
+                <TextView
+                    style="@style/AppTheme.WinSubTitle"
+                    android:id="@+id/tv_win_count_min_title"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/title_win_count_min"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_win_count_max"/>
+
+                <TextView
+                    style="@style/AppTheme.WinSubContent"
+                    android:id="@+id/tv_win_count_min"
+                    android:text="@{vm.winCountMin}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_win_count_min_title"
+                    tools:text="989회 : 4명"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

@@ -16,7 +16,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/bgGray">
 
         <ProgressBar
             style="@style/AppTheme.PickProgress1"
@@ -26,418 +27,413 @@
             android:theme="@style/AppTheme.PickProgress1"
             android:max="@{vm.pickMax}"
             android:visibility="gone"
-            app:layout_constraintLeft_toRightOf="@id/tv_range1"
-            app:layout_constraintRight_toLeftOf="@id/tv_sum1"
-            app:layout_constraintTop_toTopOf="@id/tv_range1"
-            app:layout_constraintBottom_toBottomOf="@id/tv_range1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:progress="27"
             tools:max="30"/>
 
-        <TextView
-            android:id="@+id/tv_empty"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_top"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:text=""
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:paddingHorizontal="24dp"
+            android:background="@drawable/bg_bottom_corner_white"
+            android:elevation="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <CheckBox
-            android:id="@+id/cb_include_bonus"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingVertical="12dp"
+                android:text="@{vm.statisticsNo + `회 출현/미출현`}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="20회 출현/미출현"/>
+
+            <CheckBox
+                android:id="@+id/cb_include_bonus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.BlackAccent"
+                android:text="@string/include_bonus"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_empty"
+                app:layout_constraintBottom_toBottomOf="@id/tv_empty"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_middle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:theme="@style/AppTheme.BlackAccent"
-            android:text="@string/include_bonus"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_empty"
-            app:layout_constraintBottom_toBottomOf="@id/tv_empty"/>
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="12dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="24dp"
+            android:background="@drawable/bg_corner_white"
+            android:elevation="2dp"
+            app:layout_constraintTop_toBottomOf="@id/cl_top">
+
+            <TextView
+                style="@style/AppTheme.StatisticsTitle"
+                android:id="@+id/tv_pick_count"
+                android:text="@string/title_pick_count"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_range1"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingVertical="4dp"
+                android:text="@string/pick_range1"
+                android:textSize="15sp"
+                android:textColor="@color/darkGray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_pick_count"/>
+
+            <ProgressBar
+                style="@style/AppTheme.PickProgress1"
+                android:id="@+id/pb1"
+                bindProgress="@{vm.pickedRange1}"
+                bindMax="@{vm.pickMax}"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:theme="@style/AppTheme.PickProgress1"
+                app:layout_constraintLeft_toRightOf="@id/tv_range1"
+                app:layout_constraintRight_toLeftOf="@id/tv_sum1"
+                app:layout_constraintTop_toTopOf="@id/tv_range1"
+                app:layout_constraintBottom_toBottomOf="@id/tv_range1"
+                tools:progress="27"
+                tools:max="30"/>
+
+            <TextView
+                android:id="@+id/tv_sum1"
+                android:layout_width="62dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="@{Integer.toString(vm.pickedRange1)}"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_range1"
+                app:layout_constraintBottom_toBottomOf="@id/tv_range1"
+                tools:text="27"/>
+
+            <TextView
+                android:id="@+id/tv_range2"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="4dp"
+                android:text="@string/pick_range2"
+                android:textSize="15sp"
+                android:textColor="@color/darkGray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_range1"/>
+
+            <ProgressBar
+                style="@style/AppTheme.PickProgress2"
+                android:id="@+id/pb2"
+                bindProgress="@{vm.pickedRange2}"
+                bindMax="@{vm.pickMax}"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:theme="@style/AppTheme.PickProgress2"
+                app:layout_constraintLeft_toRightOf="@id/tv_range2"
+                app:layout_constraintRight_toLeftOf="@id/tv_sum2"
+                app:layout_constraintTop_toTopOf="@id/tv_range2"
+                app:layout_constraintBottom_toBottomOf="@id/tv_range2"
+                tools:progress="30"
+                tools:max="30"/>
+
+            <TextView
+                android:id="@+id/tv_sum2"
+                android:layout_width="62dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="@{Integer.toString(vm.pickedRange2)}"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_range2"
+                app:layout_constraintBottom_toBottomOf="@id/tv_range2"
+                tools:text="30"/>
+
+            <TextView
+                android:id="@+id/tv_range3"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="4dp"
+                android:text="@string/pick_range3"
+                android:textSize="15sp"
+                android:textColor="@color/darkGray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_range2"/>
+
+            <ProgressBar
+                style="@style/AppTheme.PickProgress3"
+                android:id="@+id/pb3"
+                bindProgress="@{vm.pickedRange3}"
+                bindMax="@{vm.pickMax}"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:theme="@style/AppTheme.PickProgress3"
+                app:layout_constraintLeft_toRightOf="@id/tv_range3"
+                app:layout_constraintRight_toLeftOf="@id/tv_sum3"
+                app:layout_constraintTop_toTopOf="@id/tv_range3"
+                app:layout_constraintBottom_toBottomOf="@id/tv_range3"
+                tools:progress="25"
+                tools:max="30"/>
+
+            <TextView
+                android:id="@+id/tv_sum3"
+                android:layout_width="62dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="@{Integer.toString(vm.pickedRange3)}"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_range3"
+                app:layout_constraintBottom_toBottomOf="@id/tv_range3"
+                tools:text="25"/>
+
+            <TextView
+                android:id="@+id/tv_range4"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="4dp"
+                android:text="@string/pick_range4"
+                android:textSize="15sp"
+                android:textColor="@color/darkGray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_range3"/>
+
+            <ProgressBar
+                style="@style/AppTheme.PickProgress4"
+                android:id="@+id/pb4"
+                bindProgress="@{vm.pickedRange4}"
+                bindMax="@{vm.pickMax}"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:theme="@style/AppTheme.PickProgress4"
+                app:layout_constraintLeft_toRightOf="@id/tv_range4"
+                app:layout_constraintRight_toLeftOf="@id/tv_sum4"
+                app:layout_constraintTop_toTopOf="@id/tv_range4"
+                app:layout_constraintBottom_toBottomOf="@id/tv_range4"
+                tools:progress="22"
+                tools:max="30"/>
+
+            <TextView
+                android:id="@+id/tv_sum4"
+                android:layout_width="62dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="@{Integer.toString(vm.pickedRange4)}"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_range4"
+                app:layout_constraintBottom_toBottomOf="@id/tv_range4"
+                tools:text="22"/>
+
+            <TextView
+                android:id="@+id/tv_range5"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="4dp"
+                android:text="@string/pick_range5"
+                android:textSize="15sp"
+                android:textColor="@color/darkGray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_range4"/>
+
+            <ProgressBar
+                style="@style/AppTheme.PickProgress5"
+                android:id="@+id/pb5"
+                bindProgress="@{vm.pickedRange5}"
+                bindMax="@{vm.pickMax}"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:theme="@style/AppTheme.PickProgress5"
+                app:layout_constraintLeft_toRightOf="@id/tv_range5"
+                app:layout_constraintRight_toLeftOf="@id/tv_sum5"
+                app:layout_constraintTop_toTopOf="@id/tv_range5"
+                app:layout_constraintBottom_toBottomOf="@id/tv_range5"
+                tools:progress="16"
+                tools:max="30"/>
+
+            <TextView
+                android:id="@+id/tv_sum5"
+                android:layout_width="62dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="@{Integer.toString(vm.pickedRange5)}"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_range5"
+                app:layout_constraintBottom_toBottomOf="@id/tv_range5"
+                tools:text="16"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="12dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="24dp"
+            android:background="@drawable/bg_top_corner_white"
+            android:elevation="2dp"
+            app:layout_constraintTop_toBottomOf="@id/cl_middle">
+
+            <TextView
+                style="@style/AppTheme.StatisticsTitle"
+                android:id="@+id/tv_nopick_num"
+                android:text="@string/title_nopick_num"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_nopick_range1"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingVertical="4dp"
+                android:text="@string/pick_range1"
+                android:textSize="15sp"
+                android:textColor="@color/darkGray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_nopick_num"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_nopick1"
+                bindItemList="@{vm.noPickList1}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="-2dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintLeft_toRightOf="@id/tv_nopick_range1"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_nopick_range1"
+                app:layout_constraintBottom_toBottomOf="@id/tv_nopick_range1"
+                tools:listitem="@layout/item_nopick"
+                tools:itemCount="3"/>
+
+            <TextView
+                android:id="@+id/tv_nopick_range2"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="4dp"
+                android:text="@string/pick_range2"
+                android:textSize="15sp"
+                android:textColor="@color/darkGray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_nopick_range1"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_nopick2"
+                bindItemList="@{vm.noPickList2}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="-2dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintLeft_toRightOf="@id/tv_nopick_range2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_nopick_range2"
+                app:layout_constraintBottom_toBottomOf="@id/tv_nopick_range2"
+                tools:listitem="@layout/item_nopick"
+                tools:itemCount="5"/>
+
+            <TextView
+                android:id="@+id/tv_nopick_range3"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="4dp"
+                android:text="@string/pick_range3"
+                android:textSize="15sp"
+                android:textColor="@color/darkGray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_nopick_range2"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_nopick3"
+                bindItemList="@{vm.noPickList3}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="-2dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintLeft_toRightOf="@id/tv_nopick_range3"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_nopick_range3"
+                app:layout_constraintBottom_toBottomOf="@id/tv_nopick_range3"
+                tools:listitem="@layout/item_nopick"
+                tools:itemCount="2"/>
+
+            <TextView
+                android:id="@+id/tv_nopick_range4"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="4dp"
+                android:text="@string/pick_range4"
+                android:textSize="15sp"
+                android:textColor="@color/darkGray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_nopick_range3"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_nopick4"
+                bindItemList="@{vm.noPickList4}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="-2dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintLeft_toRightOf="@id/tv_nopick_range4"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_nopick_range4"
+                app:layout_constraintBottom_toBottomOf="@id/tv_nopick_range4"
+                tools:listitem="@layout/item_nopick"
+                tools:itemCount="1"/>
+
+            <TextView
+                android:id="@+id/tv_nopick_range5"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="4dp"
+                android:text="@string/pick_range5"
+                android:textSize="15sp"
+                android:textColor="@color/darkGray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_nopick_range4"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_nopick5"
+                bindItemList="@{vm.noPickList5}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="-2dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintLeft_toRightOf="@id/tv_nopick_range5"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_nopick_range5"
+                app:layout_constraintBottom_toBottomOf="@id/tv_nopick_range5"
+                tools:listitem="@layout/item_nopick"
+                tools:itemCount="5"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            style="@style/AppTheme.ViewDivider"
-            android:id="@+id/view_divider1"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_empty"/>
-
-        <TextView
-            style="@style/AppTheme.StatisticsTitle"
-            android:id="@+id/tv_pick_count"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:text="@string/title_pick_count"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_divider1"/>
-
-        <TextView
-            android:id="@+id/tv_range1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/pick_range1"
-            android:textSize="15sp"
-            android:textColor="@color/darkGray"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_pick_count"/>
-
-        <ProgressBar
-            style="@style/AppTheme.PickProgress1"
-            android:id="@+id/pb1"
-            bindProgress="@{vm.pickedRange1}"
-            bindMax="@{vm.pickMax}"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:theme="@style/AppTheme.PickProgress1"
-            app:layout_constraintLeft_toRightOf="@id/tv_range1"
-            app:layout_constraintRight_toLeftOf="@id/tv_sum1"
-            app:layout_constraintTop_toTopOf="@id/tv_range1"
-            app:layout_constraintBottom_toBottomOf="@id/tv_range1"
-            tools:progress="27"
-            tools:max="30"/>
-
-        <TextView
-            android:id="@+id/tv_sum1"
-            android:layout_width="70dp"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:text="@{Integer.toString(vm.pickedRange1)}"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_range1"
-            app:layout_constraintBottom_toBottomOf="@id/tv_range1"
-            tools:text="27"/>
-
-        <TextView
-            android:id="@+id/tv_range2"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/pick_range2"
-            android:textSize="15sp"
-            android:textColor="@color/darkGray"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_range1"/>
-
-        <ProgressBar
-            style="@style/AppTheme.PickProgress2"
-            android:id="@+id/pb2"
-            bindProgress="@{vm.pickedRange2}"
-            bindMax="@{vm.pickMax}"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:theme="@style/AppTheme.PickProgress2"
-            app:layout_constraintLeft_toRightOf="@id/tv_range2"
-            app:layout_constraintRight_toLeftOf="@id/tv_sum2"
-            app:layout_constraintTop_toTopOf="@id/tv_range2"
-            app:layout_constraintBottom_toBottomOf="@id/tv_range2"
-            tools:progress="30"
-            tools:max="30"/>
-
-        <TextView
-            android:id="@+id/tv_sum2"
-            android:layout_width="70dp"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:text="@{Integer.toString(vm.pickedRange2)}"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_range2"
-            app:layout_constraintBottom_toBottomOf="@id/tv_range2"
-            tools:text="30"/>
-
-        <TextView
-            android:id="@+id/tv_range3"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/pick_range3"
-            android:textSize="15sp"
-            android:textColor="@color/darkGray"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_range2"/>
-
-        <ProgressBar
-            style="@style/AppTheme.PickProgress3"
-            android:id="@+id/pb3"
-            bindProgress="@{vm.pickedRange3}"
-            bindMax="@{vm.pickMax}"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:theme="@style/AppTheme.PickProgress3"
-            app:layout_constraintLeft_toRightOf="@id/tv_range3"
-            app:layout_constraintRight_toLeftOf="@id/tv_sum3"
-            app:layout_constraintTop_toTopOf="@id/tv_range3"
-            app:layout_constraintBottom_toBottomOf="@id/tv_range3"
-            tools:progress="25"
-            tools:max="30"/>
-
-        <TextView
-            android:id="@+id/tv_sum3"
-            android:layout_width="70dp"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:text="@{Integer.toString(vm.pickedRange3)}"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_range3"
-            app:layout_constraintBottom_toBottomOf="@id/tv_range3"
-            tools:text="25"/>
-
-        <TextView
-            android:id="@+id/tv_range4"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/pick_range4"
-            android:textSize="15sp"
-            android:textColor="@color/darkGray"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_range3"/>
-
-        <ProgressBar
-            style="@style/AppTheme.PickProgress4"
-            android:id="@+id/pb4"
-            bindProgress="@{vm.pickedRange4}"
-            bindMax="@{vm.pickMax}"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:theme="@style/AppTheme.PickProgress4"
-            app:layout_constraintLeft_toRightOf="@id/tv_range4"
-            app:layout_constraintRight_toLeftOf="@id/tv_sum4"
-            app:layout_constraintTop_toTopOf="@id/tv_range4"
-            app:layout_constraintBottom_toBottomOf="@id/tv_range4"
-            tools:progress="22"
-            tools:max="30"/>
-
-        <TextView
-            android:id="@+id/tv_sum4"
-            android:layout_width="70dp"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:text="@{Integer.toString(vm.pickedRange4)}"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_range4"
-            app:layout_constraintBottom_toBottomOf="@id/tv_range4"
-            tools:text="22"/>
-
-        <TextView
-            android:id="@+id/tv_range5"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/pick_range5"
-            android:textSize="15sp"
-            android:textColor="@color/darkGray"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_range4"/>
-
-        <ProgressBar
-            style="@style/AppTheme.PickProgress5"
-            android:id="@+id/pb5"
-            bindProgress="@{vm.pickedRange5}"
-            bindMax="@{vm.pickMax}"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:theme="@style/AppTheme.PickProgress5"
-            app:layout_constraintLeft_toRightOf="@id/tv_range5"
-            app:layout_constraintRight_toLeftOf="@id/tv_sum5"
-            app:layout_constraintTop_toTopOf="@id/tv_range5"
-            app:layout_constraintBottom_toBottomOf="@id/tv_range5"
-            tools:progress="16"
-            tools:max="30"/>
-
-        <TextView
-            android:id="@+id/tv_sum5"
-            android:layout_width="70dp"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:text="@{Integer.toString(vm.pickedRange5)}"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_range5"
-            app:layout_constraintBottom_toBottomOf="@id/tv_range5"
-            tools:text="16"/>
-
-        <View
-            style="@style/AppTheme.ViewDivider"
-            android:id="@+id/view_divider2"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_range5"/>
-
-        <TextView
-            style="@style/AppTheme.StatisticsTitle"
-            android:id="@+id/tv_nopick_num"
-            android:layout_marginTop="12dp"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:text="@string/title_nopick_num"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_divider2"/>
-
-        <TextView
-            android:id="@+id/tv_nopick_range1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/pick_range1"
-            android:textSize="15sp"
-            android:textColor="@color/darkGray"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_nopick_num"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_nopick1"
-            bindItemList="@{vm.noPickList1}"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="-2dp"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintLeft_toRightOf="@id/tv_nopick_range1"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_nopick_range1"
-            app:layout_constraintBottom_toBottomOf="@id/tv_nopick_range1"
-            tools:listitem="@layout/item_nopick"
-            tools:itemCount="3"/>
-
-        <TextView
-            android:id="@+id/tv_nopick_range2"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/pick_range2"
-            android:textSize="15sp"
-            android:textColor="@color/darkGray"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_nopick_range1"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_nopick2"
-            bindItemList="@{vm.noPickList2}"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="-2dp"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintLeft_toRightOf="@id/tv_nopick_range2"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_nopick_range2"
-            app:layout_constraintBottom_toBottomOf="@id/tv_nopick_range2"
-            tools:listitem="@layout/item_nopick"
-            tools:itemCount="5"/>
-
-        <TextView
-            android:id="@+id/tv_nopick_range3"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/pick_range3"
-            android:textSize="15sp"
-            android:textColor="@color/darkGray"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_nopick_range2"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_nopick3"
-            bindItemList="@{vm.noPickList3}"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="-2dp"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintLeft_toRightOf="@id/tv_nopick_range3"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_nopick_range3"
-            app:layout_constraintBottom_toBottomOf="@id/tv_nopick_range3"
-            tools:listitem="@layout/item_nopick"
-            tools:itemCount="2"/>
-
-        <TextView
-            android:id="@+id/tv_nopick_range4"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/pick_range4"
-            android:textSize="15sp"
-            android:textColor="@color/darkGray"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_nopick_range3"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_nopick4"
-            bindItemList="@{vm.noPickList4}"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="-2dp"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintLeft_toRightOf="@id/tv_nopick_range4"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_nopick_range4"
-            app:layout_constraintBottom_toBottomOf="@id/tv_nopick_range4"
-            tools:listitem="@layout/item_nopick"
-            tools:itemCount="1"/>
-
-        <TextView
-            android:id="@+id/tv_nopick_range5"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/pick_range5"
-            android:textSize="15sp"
-            android:textColor="@color/darkGray"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_nopick_range4"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_nopick5"
-            bindItemList="@{vm.noPickList5}"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="-2dp"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintLeft_toRightOf="@id/tv_nopick_range5"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_nopick_range5"
-            app:layout_constraintBottom_toBottomOf="@id/tv_nopick_range5"
-            tools:listitem="@layout/item_nopick"
-            tools:itemCount="5"/>
+            android:background="@color/white"
+            android:elevation="2dp"
+            app:layout_constraintTop_toBottomOf="@id/cl_bottom"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

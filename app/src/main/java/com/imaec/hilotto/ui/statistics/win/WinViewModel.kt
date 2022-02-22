@@ -15,7 +15,7 @@ class WinViewModel @Inject constructor() : BaseViewModel() {
     private val _statisticsNo = MutableLiveData(20)
     val statisticsNo: LiveData<Int> get() = _statisticsNo
 
-    private val _winAvgTitle = MutableLiveData("1등 당첨 평균(20회)")
+    private val _winAvgTitle = MutableLiveData("1등 당첨 평균 (20회)")
     val winAvgTitle: LiveData<String> get() = _winAvgTitle
 
     private val _priceTotal = MutableLiveData<Long>(0)
@@ -27,7 +27,7 @@ class WinViewModel @Inject constructor() : BaseViewModel() {
     private val _winCount = MutableLiveData("0명")
     val winCount: LiveData<String> get() = _winCount
 
-    private val _winStatisticsTitle = MutableLiveData("1등 당첨 통계(20회)")
+    private val _winStatisticsTitle = MutableLiveData("1등 당첨 통계 (20회)")
     val winStatisticsTitle: LiveData<String> get() = _winStatisticsTitle
 
     private val _priceMax = MutableLiveData("000회 : 0원")
@@ -44,8 +44,8 @@ class WinViewModel @Inject constructor() : BaseViewModel() {
 
     fun setStatisticsNo(no: Int) {
         _statisticsNo.value = no
-        _winAvgTitle.value = "1등 당첨 평균(${no}회)"
-        _winStatisticsTitle.value = "1등 당첨 통계(${no}회)"
+        _winAvgTitle.value = "1등 당첨 평균 (${no}회)"
+        _winStatisticsTitle.value = "1등 당첨 통계 (${no}회)"
     }
 
     fun setWinInfo(lottoList: List<LottoDTO>?) {
