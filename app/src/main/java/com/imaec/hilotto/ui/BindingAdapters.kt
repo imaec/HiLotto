@@ -62,11 +62,11 @@ fun TextView.bindFitNumber(number: Int, fitNumber: FitNumberDTO?) {
     fitNumber ?: return
     fitNumber.listFitNumber.forEach {
         if (text.toString().toInt() == it) {
-            setTextColor(ContextCompat.getColor(context, R.color.darkGray))
+            setShadowLayer(1.5f, 3f, 2f, ContextCompat.getColor(context, R.color.gray))
         }
     }
     if (text.toString().toInt() == fitNumber.numberBonus) {
-        setTextColor(ContextCompat.getColor(context, R.color.darkGray))
+        setShadowLayer(1.5f, 3f, 2f, ContextCompat.getColor(context, R.color.gray))
     }
 }
 

@@ -47,105 +47,110 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <com.imaec.hilotto.ui.OutlineTextView
+                    <TextView
                         android:id="@+id/text_item_no1"
                         android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:background="@drawable/bg_left_top_rounded_1"
-                        android:tag="OutlineTextView"
+                        android:shadowColor="@color/lightGray"
+                        android:shadowDx="3"
+                        android:shadowDy="2"
+                        android:shadowRadius="1.5"
                         android:includeFontPadding="false"
                         android:textSize="13sp"
                         android:textColor="@color/white"
-                        app:textStroke="true"
-                        app:textStrokeColor="@color/lightGray3"
-                        app:textStrokeWidth="1dp"
                         app:textByInt="@{item.drwtNo1}"
                         app:backgroundRoundedLeftTop="@{item.drwtNo1}"
                         tools:text="1" />
 
-                    <com.imaec.hilotto.ui.OutlineTextView
+                    <TextView
                         android:id="@+id/text_item_no2"
                         android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:background="@drawable/bg_square_2"
+                        android:shadowColor="@color/lightGray"
+                        android:shadowDx="3"
+                        android:shadowDy="2"
+                        android:shadowRadius="1.5"
                         android:includeFontPadding="false"
                         android:textSize="13sp"
                         android:textColor="@color/white"
-                        app:textStroke="true"
-                        app:textStrokeColor="@color/lightGray3"
-                        app:textStrokeWidth="1dp"
                         app:textByInt="@{item.drwtNo2}"
                         app:backgroundNumberSquare="@{item.drwtNo2}"
                         tools:text="2" />
 
-                    <com.imaec.hilotto.ui.OutlineTextView
+                    <TextView
                         android:id="@+id/text_item_no3"
                         android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:background="@drawable/bg_square_2"
+                        android:shadowColor="@color/lightGray"
+                        android:shadowDx="3"
+                        android:shadowDy="2"
+                        android:shadowRadius="1.5"
                         android:includeFontPadding="false"
                         android:textSize="13sp"
                         android:textColor="@color/white"
-                        app:textStroke="true"
-                        app:textStrokeColor="@color/lightGray3"
-                        app:textStrokeWidth="1dp"
                         app:textByInt="@{item.drwtNo3}"
                         app:backgroundNumberSquare="@{item.drwtNo3}"
                         tools:text="3" />
 
-                    <com.imaec.hilotto.ui.OutlineTextView
+                    <TextView
                         android:id="@+id/text_item_no4"
                         android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:background="@drawable/bg_square_3"
+                        android:shadowColor="@color/lightGray"
+                        android:shadowDx="3"
+                        android:shadowDy="2"
+                        android:shadowRadius="1.5"
                         android:includeFontPadding="false"
                         android:textSize="13sp"
                         android:textColor="@color/white"
-                        app:textStroke="true"
-                        app:textStrokeColor="@color/lightGray3"
-                        app:textStrokeWidth="1dp"
                         app:textByInt="@{item.drwtNo4}"
                         app:backgroundNumberSquare="@{item.drwtNo4}"
                         tools:text="4" />
 
-                    <com.imaec.hilotto.ui.OutlineTextView
+                    <TextView
                         android:id="@+id/text_item_no5"
                         android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:background="@drawable/bg_square_4"
+                        android:shadowColor="@color/lightGray"
+                        android:shadowDx="3"
+                        android:shadowDy="2"
+                        android:shadowRadius="1.5"
                         android:includeFontPadding="false"
                         android:textSize="13sp"
                         android:textColor="@color/white"
-                        app:textStroke="true"
-                        app:textStrokeColor="@color/lightGray3"
-                        app:textStrokeWidth="1dp"
                         app:textByInt="@{item.drwtNo5}"
                         app:backgroundNumberSquare="@{item.drwtNo5}"
                         tools:text="5" />
 
-                    <com.imaec.hilotto.ui.OutlineTextView
+                    <TextView
                         android:id="@+id/text_item_no6"
                         android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:background="@drawable/bg_right_top_rounded_5"
+                        android:shadowColor="@color/lightGray"
+                        android:shadowDx="3"
+                        android:shadowDy="2"
+                        android:shadowRadius="1.5"
                         android:includeFontPadding="false"
                         android:textSize="13sp"
                         android:textColor="@color/white"
-                        app:textStroke="true"
-                        app:textStrokeColor="@color/lightGray3"
-                        app:textStrokeWidth="1dp"
                         app:textByInt="@{item.drwtNo6}"
                         app:backgroundRoundedRightTop="@{item.drwtNo6}"
                         tools:text="6" />
@@ -172,7 +177,7 @@
                         android:textColor="@android:color/black"
                         android:textStyle="bold"/>
 
-                    <com.imaec.hilotto.ui.OutlineTextView
+                    <TextView
                         android:id="@+id/text_item_no_bonus"
                         android:layout_width="0dp"
                         android:layout_height="30dp"
@@ -180,12 +185,13 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:background="@drawable/bg_square_1"
+                        android:shadowColor="@color/lightGray"
+                        android:shadowDx="3"
+                        android:shadowDy="2"
+                        android:shadowRadius="1.5"
                         android:includeFontPadding="false"
                         android:textSize="13sp"
                         android:textColor="@color/white"
-                        app:textStroke="true"
-                        app:textStrokeColor="@color/lightGray3"
-                        app:textStrokeWidth="1dp"
                         app:textByInt="@{item.bnusNo}"
                         app:backgroundNumberSquare="@{item.bnusNo}"
                         tools:text="7" />

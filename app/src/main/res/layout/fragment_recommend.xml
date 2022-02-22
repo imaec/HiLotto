@@ -12,12 +12,14 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_root"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/bgGray">
 
             <TextView
                 android:id="@+id/tv_title"
@@ -38,197 +40,220 @@
                 app:layout_constraintTop_toTopOf="@id/tv_title"
                 app:layout_constraintBottom_toBottomOf="@id/tv_title"/>
 
-            <TextView
-                android:id="@+id/tv_condition1"
-                style="@style/AppTheme.ConditionTitle"
-                android:text="@string/condition_sum"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_title" />
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                style="@style/AppTheme.BlackAccent.ConditionSwitch"
-                android:id="@+id/sm_condition1"
-                android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
-                android:checked="@={vm.conditionSum}"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_title" />
-
-            <TextView
-                android:id="@+id/tv_condition2"
-                style="@style/AppTheme.ConditionTitle"
-                android:text="@string/condition_pick"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_condition1" />
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                style="@style/AppTheme.BlackAccent.ConditionSwitch"
-                android:id="@+id/sm_condition2"
-                android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
-                android:checked="@={vm.conditionPick}"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_condition1" />
-
-            <TextView
-                android:id="@+id/tv_condition3"
-                style="@style/AppTheme.ConditionTitle"
-                android:text="@string/condition_odd_even"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_condition2" />
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                style="@style/AppTheme.BlackAccent.ConditionSwitch"
-                android:id="@+id/sm_condition3"
-                android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
-                android:checked="@={vm.conditionOddEven}"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_condition2" />
-
-            <View
-                android:id="@+id/view_divider"
-                style="@style/AppTheme.ViewDivider"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sm_condition3" />
-
-            <TextView
-                android:id="@+id/tv_condition_all"
-                style="@style/AppTheme.ConditionTitle"
-                android:text="@string/condition_all"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_divider" />
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                style="@style/AppTheme.BlackAccent.ConditionSwitch"
-                android:id="@+id/sm_condition_all"
-                android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
-                android:checked="@={vm.conditionAll}"
-                android:onClick="@{() -> vm.onClickConditionAll()}"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_divider" />
-
-            <TextView
-                android:id="@+id/tv_included"
-                style="@style/AppTheme.ConditionTitle"
-                android:layout_width="0dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/included_numbers"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_condition_all" />
-
-            <ImageView
-                android:id="@+id/iv_included_add"
-                bindSingleClick="@{() -> vm.onClickInclude()}"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_add"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_included" />
-
-            <TextView
-                android:id="@+id/tv_not_included"
-                style="@style/AppTheme.ConditionTitle"
-                android:layout_width="0dp"
-                android:text="@string/not_included_numbers"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_included"
-                app:layout_constraintWidth_percent="0.25" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_not_included"
-                bindItemList="@{vm.listNotIncludeNumber}"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_top"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="-2dp"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintLeft_toRightOf="@id/tv_not_included"
-                app:layout_constraintRight_toLeftOf="@id/iv_not_included_add"
-                app:layout_constraintTop_toTopOf="@id/tv_not_included"
-                app:layout_constraintBottom_toBottomOf="@id/tv_not_included"
-                tools:listitem="@layout/item_number"
-                tools:itemCount="6"/>
+                android:paddingVertical="16dp"
+                android:background="@drawable/bg_bottom_corner_white"
+                android:elevation="2dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_title">
 
-            <ImageView
-                android:id="@+id/iv_not_included_add"
-                bindSingleClick="@{() -> vm.onClickNotInclude()}"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_add"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_not_included" />
+                <TextView
+                    android:id="@+id/tv_condition1"
+                    style="@style/AppTheme.ConditionTitle"
+                    android:text="@string/condition_sum"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                style="@style/AppTheme.TextNumberInput"
-                android:id="@+id/tv_number1"
-                bindSingleClick="@{() -> vm.onClickNumber(0)}"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="36dp"
-                android:text="@{vm.listIncludeNumber[0]}"
-                app:layout_constraintDimensionRatio="1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/tv_number2"
-                app:layout_constraintTop_toBottomOf="@id/tv_not_included" />
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    style="@style/AppTheme.BlackAccent.ConditionSwitch"
+                    android:id="@+id/sm_condition1"
+                    android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
+                    android:checked="@={vm.conditionSum}"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                style="@style/AppTheme.TextNumberInput"
-                android:id="@+id/tv_number2"
-                bindSingleClick="@{() -> vm.onClickNumber(1)}"
-                android:text="@{vm.listIncludeNumber[1]}"
-                app:layout_constraintDimensionRatio="1"
-                app:layout_constraintLeft_toRightOf="@id/tv_number1"
-                app:layout_constraintRight_toLeftOf="@id/tv_number3"
-                app:layout_constraintTop_toTopOf="@id/tv_number1" />
+                <TextView
+                    android:id="@+id/tv_condition2"
+                    style="@style/AppTheme.ConditionTitle"
+                    android:text="@string/condition_pick"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_condition1" />
 
-            <TextView
-                style="@style/AppTheme.TextNumberInput"
-                android:id="@+id/tv_number3"
-                bindSingleClick="@{() -> vm.onClickNumber(2)}"
-                android:text="@{vm.listIncludeNumber[2]}"
-                app:layout_constraintDimensionRatio="1"
-                app:layout_constraintLeft_toRightOf="@id/tv_number2"
-                app:layout_constraintRight_toLeftOf="@id/tv_number4"
-                app:layout_constraintTop_toTopOf="@id/tv_number1" />
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    style="@style/AppTheme.BlackAccent.ConditionSwitch"
+                    android:id="@+id/sm_condition2"
+                    android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
+                    android:checked="@={vm.conditionPick}"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_condition1" />
 
-            <TextView
-                style="@style/AppTheme.TextNumberInput"
-                android:id="@+id/tv_number4"
-                bindSingleClick="@{() -> vm.onClickNumber(3)}"
-                android:text="@{vm.listIncludeNumber[3]}"
-                app:layout_constraintDimensionRatio="1"
-                app:layout_constraintLeft_toRightOf="@id/tv_number3"
-                app:layout_constraintRight_toLeftOf="@id/tv_number5"
-                app:layout_constraintTop_toTopOf="@id/tv_number1" />
+                <TextView
+                    android:id="@+id/tv_condition3"
+                    style="@style/AppTheme.ConditionTitle"
+                    android:text="@string/condition_odd_even"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_condition2" />
 
-            <TextView
-                style="@style/AppTheme.TextNumberInput"
-                android:id="@+id/tv_number5"
-                bindSingleClick="@{() -> vm.onClickNumber(4)}"
-                android:text="@{vm.listIncludeNumber[4]}"
-                app:layout_constraintDimensionRatio="1"
-                app:layout_constraintLeft_toRightOf="@id/tv_number4"
-                app:layout_constraintRight_toLeftOf="@id/tv_number6"
-                app:layout_constraintTop_toTopOf="@id/tv_number1" />
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    style="@style/AppTheme.BlackAccent.ConditionSwitch"
+                    android:id="@+id/sm_condition3"
+                    android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
+                    android:checked="@={vm.conditionOddEven}"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_condition2" />
 
-            <TextView
-                style="@style/AppTheme.TextNumberInput"
-                android:id="@+id/tv_number6"
-                bindSingleClick="@{() -> vm.onClickNumber(5)}"
-                android:layout_marginEnd="12dp"
-                android:text="@{vm.listIncludeNumber[5]}"
-                app:layout_constraintDimensionRatio="1"
-                app:layout_constraintLeft_toRightOf="@id/tv_number5"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_number1" />
+                <View
+                    android:id="@+id/view_divider"
+                    style="@style/AppTheme.ViewDivider"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/sm_condition3" />
+
+                <TextView
+                    android:id="@+id/tv_condition_all"
+                    style="@style/AppTheme.ConditionTitle"
+                    android:text="@string/condition_all"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    style="@style/AppTheme.BlackAccent.ConditionSwitch"
+                    android:id="@+id/sm_condition_all"
+                    android:theme="@style/AppTheme.BlackAccent.ConditionSwitch"
+                    android:checked="@={vm.conditionAll}"
+                    android:onClick="@{() -> vm.onClickConditionAll()}"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:paddingBottom="24dp"
+                android:background="@drawable/bg_top_corner_white"
+                android:elevation="2dp"
+                app:layout_constraintTop_toBottomOf="@id/cl_top"
+                app:layout_constraintBottom_toTopOf="@id/tv_create">
+
+                <TextView
+                    android:id="@+id/tv_included"
+                    style="@style/AppTheme.ConditionTitle"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/included_numbers"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_included_add"
+                    bindSingleClick="@{() -> vm.onClickInclude()}"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_add"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_included" />
+
+                <TextView
+                    android:id="@+id/tv_not_included"
+                    style="@style/AppTheme.ConditionTitle"
+                    android:layout_width="0dp"
+                    android:text="@string/not_included_numbers"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_included"
+                    app:layout_constraintWidth_percent="0.25" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_not_included"
+                    bindItemList="@{vm.listNotIncludeNumber}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="-2dp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintLeft_toRightOf="@id/tv_not_included"
+                    app:layout_constraintRight_toLeftOf="@id/iv_not_included_add"
+                    app:layout_constraintTop_toTopOf="@id/tv_not_included"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_not_included"
+                    tools:listitem="@layout/item_number"
+                    tools:itemCount="6"/>
+
+                <ImageView
+                    android:id="@+id/iv_not_included_add"
+                    bindSingleClick="@{() -> vm.onClickNotInclude()}"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_add"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_not_included" />
+
+                <TextView
+                    style="@style/AppTheme.TextNumberInput"
+                    android:id="@+id/tv_number1"
+                    bindSingleClick="@{() -> vm.onClickNumber(0)}"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="36dp"
+                    android:text="@{vm.listIncludeNumber[0]}"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/tv_number2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_not_included" />
+
+                <TextView
+                    style="@style/AppTheme.TextNumberInput"
+                    android:id="@+id/tv_number2"
+                    bindSingleClick="@{() -> vm.onClickNumber(1)}"
+                    android:text="@{vm.listIncludeNumber[1]}"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintLeft_toRightOf="@id/tv_number1"
+                    app:layout_constraintRight_toLeftOf="@id/tv_number3"
+                    app:layout_constraintTop_toTopOf="@id/tv_number1" />
+
+                <TextView
+                    style="@style/AppTheme.TextNumberInput"
+                    android:id="@+id/tv_number3"
+                    bindSingleClick="@{() -> vm.onClickNumber(2)}"
+                    android:text="@{vm.listIncludeNumber[2]}"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintLeft_toRightOf="@id/tv_number2"
+                    app:layout_constraintRight_toLeftOf="@id/tv_number4"
+                    app:layout_constraintTop_toTopOf="@id/tv_number1" />
+
+                <TextView
+                    style="@style/AppTheme.TextNumberInput"
+                    android:id="@+id/tv_number4"
+                    bindSingleClick="@{() -> vm.onClickNumber(3)}"
+                    android:text="@{vm.listIncludeNumber[3]}"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintLeft_toRightOf="@id/tv_number3"
+                    app:layout_constraintRight_toLeftOf="@id/tv_number5"
+                    app:layout_constraintTop_toTopOf="@id/tv_number1" />
+
+                <TextView
+                    style="@style/AppTheme.TextNumberInput"
+                    android:id="@+id/tv_number5"
+                    bindSingleClick="@{() -> vm.onClickNumber(4)}"
+                    android:text="@{vm.listIncludeNumber[4]}"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintLeft_toRightOf="@id/tv_number4"
+                    app:layout_constraintRight_toLeftOf="@id/tv_number6"
+                    app:layout_constraintTop_toTopOf="@id/tv_number1" />
+
+                <TextView
+                    style="@style/AppTheme.TextNumberInput"
+                    android:id="@+id/tv_number6"
+                    bindSingleClick="@{() -> vm.onClickNumber(5)}"
+                    android:layout_marginEnd="12dp"
+                    android:text="@{vm.listIncludeNumber[5]}"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintLeft_toRightOf="@id/tv_number5"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_number1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 style="@style/AppTheme.TextPrimaryButton"
@@ -241,7 +266,8 @@
                 app:textCreateToggle="@{vm.listIncludeNumber}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/tv_save" />
+                app:layout_constraintRight_toLeftOf="@id/tv_save"
+                tools:text="번호 생성"/>
 
             <TextView
                 style="@style/AppTheme.TextPrimaryButton"
@@ -265,7 +291,8 @@
             android:layout_height="match_parent"
             android:background="@color/bgAlpha"
             app:layout_anchor="@+id/cl_root"
-            app:layout_anchorGravity="center" />
+            app:layout_anchorGravity="center"
+            tools:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/ll_bottom_sheet"
@@ -275,7 +302,8 @@
             android:background="@color/white"
             android:gravity="center"
             app:behavior_hideable="true"
-            app:layout_behavior="@string/bottom_sheet_behavior">
+            app:layout_behavior="@string/bottom_sheet_behavior"
+            tools:visibility="gone">
 
             <NumberPicker
                 android:id="@+id/picker"

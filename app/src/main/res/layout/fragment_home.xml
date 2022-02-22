@@ -68,27 +68,29 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="2022-02-19" />
 
-                    <com.imaec.hilotto.ui.OutlineTextView
+                    <TextView
                         style="@style/AppTheme.TextNumberAccent"
                         android:id="@+id/tv_number1"
                         android:text="@{lottoVm.curNum1.toString()}"
+                        android:shadowColor="@color/lightGray"
+                        android:shadowDx="3"
+                        android:shadowDy="2"
+                        android:shadowRadius="1.5"
                         app:backgroundNumberCircle="@{lottoVm.curNum1}"
-                        app:textStroke="true"
-                        app:textStrokeColor="@color/lightGray3"
-                        app:textStrokeWidth="1dp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toLeftOf="@id/tv_number2"
                         app:layout_constraintTop_toBottomOf="@id/tv_round"
                         app:layout_constraintDimensionRatio="1"
                         tools:text="1"/>
 
-                    <com.imaec.hilotto.ui.OutlineTextView
+                    <TextView
                         style="@style/AppTheme.TextNumberAccent"
                         android:id="@+id/tv_number2"
                         android:text="@{lottoVm.curNum2.toString()}"
-                        app:textStroke="true"
-                        app:textStrokeColor="@color/lightGray3"
-                        app:textStrokeWidth="1.5dp"
+                        android:shadowColor="@color/lightGray"
+                        android:shadowDx="3"
+                        android:shadowDy="2"
+                        android:shadowRadius="1.5"
                         app:backgroundNumberCircle="@{lottoVm.curNum2}"
                         app:layout_constraintLeft_toRightOf="@id/tv_number1"
                         app:layout_constraintRight_toLeftOf="@id/tv_number3"
@@ -96,13 +98,14 @@
                         app:layout_constraintDimensionRatio="1"
                         tools:text="2" />
 
-                    <com.imaec.hilotto.ui.OutlineTextView
+                    <TextView
                         style="@style/AppTheme.TextNumberAccent"
                         android:id="@+id/tv_number3"
                         android:text="@{lottoVm.curNum3.toString()}"
-                        app:textStroke="true"
-                        app:textStrokeColor="@color/lightGray3"
-                        app:textStrokeWidth="1.5dp"
+                        android:shadowColor="@color/lightGray"
+                        android:shadowDx="3"
+                        android:shadowDy="2"
+                        android:shadowRadius="1.5"
                         app:backgroundNumberCircle="@{lottoVm.curNum3}"
                         app:layout_constraintLeft_toRightOf="@id/tv_number2"
                         app:layout_constraintRight_toLeftOf="@id/tv_number4"
@@ -110,13 +113,14 @@
                         app:layout_constraintDimensionRatio="1"
                         tools:text="3" />
 
-                    <com.imaec.hilotto.ui.OutlineTextView
+                    <TextView
                         style="@style/AppTheme.TextNumberAccent"
                         android:id="@+id/tv_number4"
                         android:text="@{lottoVm.curNum4.toString()}"
-                        app:textStroke="true"
-                        app:textStrokeColor="@color/lightGray3"
-                        app:textStrokeWidth="1.5dp"
+                        android:shadowColor="@color/lightGray"
+                        android:shadowDx="3"
+                        android:shadowDy="2"
+                        android:shadowRadius="1.5"
                         app:backgroundNumberCircle="@{lottoVm.curNum4}"
                         app:layout_constraintLeft_toRightOf="@id/tv_number3"
                         app:layout_constraintRight_toLeftOf="@id/tv_number5"
@@ -124,13 +128,14 @@
                         app:layout_constraintDimensionRatio="1"
                         tools:text="4" />
 
-                    <com.imaec.hilotto.ui.OutlineTextView
+                    <TextView
                         style="@style/AppTheme.TextNumberAccent"
                         android:id="@+id/tv_number5"
                         android:text="@{lottoVm.curNum5.toString()}"
-                        app:textStroke="true"
-                        app:textStrokeColor="@color/lightGray3"
-                        app:textStrokeWidth="1.5dp"
+                        android:shadowColor="@color/lightGray"
+                        android:shadowDx="3"
+                        android:shadowDy="2"
+                        android:shadowRadius="1.5"
                         app:backgroundNumberCircle="@{lottoVm.curNum5}"
                         app:layout_constraintLeft_toRightOf="@id/tv_number4"
                         app:layout_constraintRight_toLeftOf="@id/tv_number6"
@@ -138,13 +143,14 @@
                         app:layout_constraintDimensionRatio="1"
                         tools:text="5" />
 
-                    <com.imaec.hilotto.ui.OutlineTextView
+                    <TextView
                         style="@style/AppTheme.TextNumberAccent"
                         android:id="@+id/tv_number6"
                         android:text="@{lottoVm.curNum6.toString()}"
-                        app:textStroke="true"
-                        app:textStrokeColor="@color/lightGray3"
-                        app:textStrokeWidth="1.5dp"
+                        android:shadowColor="@color/lightGray"
+                        android:shadowDx="3"
+                        android:shadowDy="2"
+                        android:shadowRadius="1.5"
                         app:backgroundNumberCircle="@{lottoVm.curNum6}"
                         app:layout_constraintLeft_toRightOf="@id/tv_number5"
                         app:layout_constraintRight_toRightOf="parent"
@@ -166,16 +172,17 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_number5"
                         app:layout_constraintDimensionRatio="1"/>
 
-                    <com.imaec.hilotto.ui.OutlineTextView
+                    <TextView
                         style="@style/AppTheme.TextNumberAccent"
                         android:id="@+id/tv_number_bonus"
                         android:layout_marginLeft="0dp"
                         android:layout_marginRight="0dp"
                         android:layout_marginTop="12dp"
                         android:text="@{lottoVm.curNumBonus.toString()}"
-                        app:textStroke="true"
-                        app:textStrokeColor="@color/lightGray3"
-                        app:textStrokeWidth="1.5dp"
+                        android:shadowColor="@color/lightGray"
+                        android:shadowDx="3"
+                        android:shadowDy="2"
+                        android:shadowRadius="1.5"
                         app:backgroundNumberCircle="@{lottoVm.curNumBonus}"
                         app:layout_constraintLeft_toLeftOf="@id/tv_number6"
                         app:layout_constraintRight_toRightOf="@id/tv_number6"

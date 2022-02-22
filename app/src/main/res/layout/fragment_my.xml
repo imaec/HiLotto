@@ -13,7 +13,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bgGray">
 
         <TextView
             android:id="@+id/tv_title"
@@ -39,7 +40,6 @@
             bindItemList="@{vm.myNumberList}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/lightGray3"
             android:paddingVertical="12dp"
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
