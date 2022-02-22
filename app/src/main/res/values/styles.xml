@@ -37,6 +37,23 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="AppTheme.TextShadowNumberAccent">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:background">@drawable/bg_circle_1</item>
+        <item name="android:shadowColor">@color/lightGray</item>
+        <item name="android:shadowDx">3</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">1.5</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="AppTheme.TextNumberInput">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
@@ -57,7 +74,7 @@
     <style name="AppTheme.ViewDivider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.5dp</item>
-        <item name="android:background">@color/lightGray</item>
+        <item name="android:background">@color/lightGray2</item>
     </style>
 
     <style name="AppTheme.TextPrimaryButton">

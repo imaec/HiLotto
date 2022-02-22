@@ -58,6 +58,7 @@ fun TextView.bindFitNumber(number: Int, fitNumber: FitNumberDTO?) {
     text = number.toString()
     setTextColor(ContextCompat.getColor(context, R.color.white))
     setBackgroundNumberCircle(number)
+    setShadowLayer(0f, 0f, 0f, 0)
 
     fitNumber ?: return
     fitNumber.listFitNumber.forEach {

@@ -12,7 +12,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bgGray">
 
         <TextView
             android:id="@+id/tv_title"
@@ -33,102 +34,109 @@
             app:layout_constraintTop_toTopOf="@id/tv_title"
             app:layout_constraintBottom_toBottomOf="@id/tv_title"/>
 
-        <TextView
-            android:id="@+id/tv_selected_number"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
+            android:paddingHorizontal="16dp"
             android:paddingTop="16dp"
-            android:paddingRight="16dp"
-            android:text="@string/selected_number"
-            android:textColor="@color/darkGray"
-            android:textSize="18sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            android:paddingBottom="24dp"
+            android:background="@drawable/bg_bottom_corner_white"
+            android:elevation="2dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_title">
 
-        <TextView
-            android:id="@+id/tv_selected_number1"
-            style="@style/AppTheme.TextNumberAccent"
-            bindNumber="@{vm.myNumber.number1}"
-            android:layout_marginStart="12dp"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/tv_selected_number2"
-            app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
-            tools:text="1"/>
+            <TextView
+                android:id="@+id/tv_selected_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/selected_number"
+                android:textColor="@color/darkGray"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_selected_number2"
-            style="@style/AppTheme.TextNumberAccent"
-            bindNumber="@{vm.myNumber.number2}"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintLeft_toRightOf="@id/tv_selected_number1"
-            app:layout_constraintRight_toLeftOf="@id/tv_selected_number3"
-            app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
-            tools:text="2" />
+            <TextView
+                android:id="@+id/tv_selected_number1"
+                style="@style/AppTheme.TextNumberAccent"
+                bindNumber="@{vm.myNumber.number1}"
+                android:layout_marginTop="16dp"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/tv_selected_number2"
+                app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
+                tools:text="1"/>
 
-        <TextView
-            android:id="@+id/tv_selected_number3"
-            style="@style/AppTheme.TextNumberAccent"
-            bindNumber="@{vm.myNumber.number3}"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintLeft_toRightOf="@id/tv_selected_number2"
-            app:layout_constraintRight_toLeftOf="@id/tv_selected_number4"
-            app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
-            tools:text="3" />
+            <TextView
+                android:id="@+id/tv_selected_number2"
+                style="@style/AppTheme.TextNumberAccent"
+                bindNumber="@{vm.myNumber.number2}"
+                android:layout_marginTop="16dp"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintLeft_toRightOf="@id/tv_selected_number1"
+                app:layout_constraintRight_toLeftOf="@id/tv_selected_number3"
+                app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
+                tools:text="2" />
 
-        <TextView
-            android:id="@+id/tv_selected_number4"
-            style="@style/AppTheme.TextNumberAccent"
-            bindNumber="@{vm.myNumber.number4}"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintLeft_toRightOf="@id/tv_selected_number3"
-            app:layout_constraintRight_toLeftOf="@id/tv_selected_number5"
-            app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
-            tools:text="4" />
+            <TextView
+                android:id="@+id/tv_selected_number3"
+                style="@style/AppTheme.TextNumberAccent"
+                bindNumber="@{vm.myNumber.number3}"
+                android:layout_marginTop="16dp"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintLeft_toRightOf="@id/tv_selected_number2"
+                app:layout_constraintRight_toLeftOf="@id/tv_selected_number4"
+                app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
+                tools:text="3" />
 
-        <TextView
-            android:id="@+id/tv_selected_number5"
-            style="@style/AppTheme.TextNumberAccent"
-            bindNumber="@{vm.myNumber.number5}"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintLeft_toRightOf="@id/tv_selected_number4"
-            app:layout_constraintRight_toLeftOf="@id/tv_selected_number6"
-            app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
-            tools:text="5" />
+            <TextView
+                android:id="@+id/tv_selected_number4"
+                style="@style/AppTheme.TextNumberAccent"
+                bindNumber="@{vm.myNumber.number4}"
+                android:layout_marginTop="16dp"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintLeft_toRightOf="@id/tv_selected_number3"
+                app:layout_constraintRight_toLeftOf="@id/tv_selected_number5"
+                app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
+                tools:text="4" />
 
-        <TextView
-            android:id="@+id/tv_selected_number6"
-            style="@style/AppTheme.TextNumberAccent"
-            bindNumber="@{vm.myNumber.number6}"
-            android:layout_marginEnd="12dp"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintLeft_toRightOf="@id/tv_selected_number5"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
-            tools:text="6" />
+            <TextView
+                android:id="@+id/tv_selected_number5"
+                style="@style/AppTheme.TextNumberAccent"
+                bindNumber="@{vm.myNumber.number5}"
+                android:layout_marginTop="16dp"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintLeft_toRightOf="@id/tv_selected_number4"
+                app:layout_constraintRight_toLeftOf="@id/tv_selected_number6"
+                app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
+                tools:text="5" />
 
-        <View
-            android:id="@+id/view_divider"
-            style="@style/AppTheme.ViewDivider"
-            android:layout_margin="16dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_selected_number6" />
+            <TextView
+                android:id="@+id/tv_selected_number6"
+                style="@style/AppTheme.TextNumberAccent"
+                bindNumber="@{vm.myNumber.number6}"
+                android:layout_marginTop="16dp"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintLeft_toRightOf="@id/tv_selected_number5"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_selected_number"
+                tools:text="6" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_win_history"
             bindItemList="@{vm.winList}"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/lightGray3"
             android:paddingVertical="6dp"
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_divider"
+            app:layout_constraintTop_toBottomOf="@id/cl_top"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/item_win_history"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
