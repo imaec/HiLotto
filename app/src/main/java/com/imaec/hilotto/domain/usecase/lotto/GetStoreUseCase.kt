@@ -10,8 +10,8 @@ import javax.inject.Inject
 class GetStoreUseCase @Inject constructor(
     private val repository: LottoRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
-) : UseCase<Pair<String, (List<StoreDTO>) -> Unit>, Unit>(coroutineDispatcher = dispatcher) {
+) : UseCase<Pair<Int, (List<StoreDTO>) -> Unit>, Unit>(coroutineDispatcher = dispatcher) {
 
-    override suspend fun execute(parameters: Pair<String, (List<StoreDTO>) -> Unit>) =
+    override suspend fun execute(parameters: Pair<Int, (List<StoreDTO>) -> Unit>) =
         repository.getStore(parameters.first, parameters.second)
 }

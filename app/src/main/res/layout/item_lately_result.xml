@@ -21,7 +21,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="185dp"
         android:layout_height="135dp"
-        android:layout_marginHorizontal="4dp">
+        android:layout_marginHorizontal="5dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="180dp"

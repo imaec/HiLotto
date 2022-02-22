@@ -13,8 +13,6 @@ class FirebaseRepositoryImpl(
     private val ref: DatabaseReference
 ) : FirebaseRepository {
 
-    private val TAG = this::class.java.simpleName
-
     override fun setWeek(curDrwNo: Int) {
         ref.child("week").setValue(curDrwNo)
     }

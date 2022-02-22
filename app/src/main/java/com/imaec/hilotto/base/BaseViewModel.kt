@@ -7,7 +7,5 @@ import javax.inject.Inject
 @HiltViewModel
 open class BaseViewModel @Inject constructor() : ViewModel() {
 
-    protected val TAG = this::class.java.simpleName
-
     lateinit var adapter: BaseAdapter
 }

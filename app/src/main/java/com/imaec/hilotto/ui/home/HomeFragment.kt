@@ -13,6 +13,7 @@ import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.FragmentHomeBinding
 import com.imaec.hilotto.model.LottoDTO
+import com.imaec.hilotto.model.StoreDTO
 import com.imaec.hilotto.ui.lately.LatelyResultActivity
 import com.imaec.hilotto.ui.store.StoreActivity
 import com.imaec.hilotto.utils.startActivity
@@ -67,6 +68,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     BR.vm to viewModel,
                     BR.lottoVm to lottoViewModel
                 ),
+                diffUtil = diffUtil
+            )
+        }
+
+        with(binding.rvStore) {
+            val diffUtil = object : DiffUtil.ItemCallback<StoreDTO>() {
+                override fun areItemsTheSame(oldItem: StoreDTO, newItem: StoreDTO): Boolean =
+                    oldItem == newItem
+
+                override fun areContentsTheSame(oldItem: StoreDTO, newItem: StoreDTO): Boolean =
+                    oldItem == newItem
+            }
+
+            val animator = itemAnimator
+            if (animator is SimpleItemAnimator) {
+                animator.supportsChangeAnimations = false
+            }
+
+            adapter = BaseSingleViewAdapter(
+                layoutResId = R.layout.item_store,
+                bindingItemId = BR.item,
+                viewModel = mapOf(),
                 diffUtil = diffUtil
             )
         }

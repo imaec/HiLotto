@@ -9,5 +9,5 @@ interface LottoRepository {
 
     fun getData(drwNo: Int, onResponse: (LottoDTO) -> Unit, onFailure: () -> Unit)
 
-    suspend fun getStore(strUrl: String, callback: (List<StoreDTO>) -> Unit)
+    suspend fun getStore(drwNo: Int, callback: (List<StoreDTO>) -> Unit)
 }

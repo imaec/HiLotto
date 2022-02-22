@@ -8,8 +8,6 @@ import kotlin.math.roundToInt
 
 object Lotto {
 
-    private val TAG = this::class.java.simpleName
-
     private var minRange = 25
     private var maxRange = 25
     private var count = 6
@@ -24,12 +22,6 @@ object Lotto {
 
     private fun getWeight(list: List<LottoDTO>): HashMap<Int, Int> {
         val w = HashMap<Int, Int>()
-//        if (!condPick) {
-//            (0..5).forEach {
-//                w[it] = 1
-//            }
-//            return w
-//        }
         val countSum = ArrayList<Int>().apply {
             (0..44).forEach { _ ->
                 add(0)

@@ -1,5 +1,6 @@
 package com.imaec.hilotto.domain.repository
 
+import com.imaec.hilotto.URL_STORE
 import com.imaec.hilotto.data.repository.LottoRepository
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.model.StoreDTO
@@ -13,8 +14,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LottoRepositoryImpl : LottoRepository {
-
-    private val TAG = this::class.java.simpleName
 
     override suspend fun getCurDrwNo(strUrl: String, callback: (Int) -> Unit) {
         withContext(Dispatchers.IO) {
@@ -47,11 +46,14 @@ class LottoRepositoryImpl : LottoRepository {
         })
     }
 
-    override suspend fun getStore(strUrl: String, callback: (List<StoreDTO>) -> Unit) {
+    override suspend fun getStore(drwNo: Int, callback: (List<StoreDTO>) -> Unit) {
         withContext(Dispatchers.IO) {
             val listStore = ArrayList<StoreDTO>()
             try {
-                val doc = Jsoup.connect(strUrl).get()
+                val doc = Jsoup.connect(URL_STORE)
+                    .data("gameNo", "5133")
+                    .data("drwNo", "$drwNo")
+                    .post()
                 val elements = doc.getElementsByClass("group_content")
                 val tbody = elements[0].getElementsByTag("tbody")[0]
                 val arrTr = tbody.getElementsByTag("tr")

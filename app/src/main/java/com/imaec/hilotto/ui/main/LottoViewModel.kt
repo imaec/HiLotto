@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.imaec.hilotto.URL_LOTTO
-import com.imaec.hilotto.URL_STORE
 import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.model.StoreDTO
@@ -168,7 +167,6 @@ class LottoViewModel @Inject constructor(
                 setWeekUseCase(it)
             }
             if (it == curDrwNo) {
-                // Preferences.setValue(this, getString(R.string.WEEK), curDrwNo)
                 getDatabaseData {
                     callback(true)
                 }
@@ -178,11 +176,11 @@ class LottoViewModel @Inject constructor(
         }
     }
 
-    fun getStore() {
+    fun getStore(drwNo: Int) {
         viewModelScope.launch {
             getStoreUseCase(
                 Pair(
-                    URL_STORE,
+                    drwNo,
                     {
                         launch(Dispatchers.Main) { _storeList.value = it }
                     }

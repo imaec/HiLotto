@@ -10,8 +10,6 @@ import com.imaec.hilotto.R
 
 class ProgressDialog(context: Context) : Dialog(context) {
 
-    private val TAG = this::class.java.simpleName
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_progress)
