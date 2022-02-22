@@ -52,10 +52,11 @@
             bindVisible="@{vm.myNumberList.size() == 0}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
+            android:padding="32dp"
             android:gravity="center"
             android:text="@string/msg_numbers_empty"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:visibility="gone"/>
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/ad_my"

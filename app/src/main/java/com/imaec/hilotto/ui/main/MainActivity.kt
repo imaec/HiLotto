@@ -9,6 +9,7 @@ import com.imaec.hilotto.base.BaseActivity
 import com.imaec.hilotto.databinding.ActivityMainBinding
 import com.imaec.hilotto.ui.splash.SplashActivity
 import com.imaec.hilotto.utils.SharedPreferenceUtil
+import com.imaec.hilotto.utils.setStatusBarColor
 import com.imaec.hilotto.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +27,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private var loadedCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setStatusBarColor(R.color.white, true)
         super.onCreate(savedInstanceState)
 
         startActivityForResult(Intent(this, SplashActivity::class.java), 0)
@@ -70,6 +72,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
         with(binding.bnvMain) {
             setOnItemSelectedListener {
+                if (it.itemId == R.id.nav_home) {
+                    setStatusBarColor(R.color.white, true)
+                } else {
+                    setStatusBarColor(R.color.colorPrimary, false)
+                }
                 binding.vpMain.setCurrentItem(
                     when (it.itemId) {
                         R.id.nav_home -> 0

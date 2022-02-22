@@ -124,6 +124,7 @@
     <string name="msg_success_save_number">번호를 저장하였습니다!</string>
     <string name="msg_numbers_is_exist">번호가 이미 저장되어 있습니다.</string>
     <string name="msg_check_win_click">당첨결과 확인 버튼이 동작하지 않습니다.\n관리자에게 문의해주세요.</string>
+    <string name="msg_store_empty">당첨점 정보가 없습니다.</string>
     <string name="msg_numbers_empty">저장된 번호가 없습니다.</string>
     <string name="msg_not_input_same_number">같은 숫자를 입력할 수 없습니다.</string>
     <string name="msg_edit_fail">수정에 실패 했습니다. 다시 시도해주세요.</string>

@@ -7,6 +7,7 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
 import com.imaec.hilotto.databinding.ActivitySplashBinding
 import com.imaec.hilotto.ui.main.MainActivity
+import com.imaec.hilotto.utils.setStatusBarColor
 import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("SetTextI18n")
@@ -15,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setStatusBarColor(R.color.white, true)
         super.onCreate(savedInstanceState)
 
         setupObserver()

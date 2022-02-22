@@ -118,7 +118,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     startActivity<StoreActivity>(
                         StoreActivity.createBundle(
                             curDrwNo = it.curDrwNo,
-                            storeList = it.storeList
+                            storeList = it.storeList,
+                            lottoList = it.lottoList
                         )
                     )
                 }

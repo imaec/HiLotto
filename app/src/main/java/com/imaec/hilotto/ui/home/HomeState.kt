@@ -9,5 +9,9 @@ sealed class HomeState {
 
     data class OnClickMore(val lottoList: List<LottoDTO>) : HomeState()
 
-    data class OnClickStore(val curDrwNo: Int, val storeList: List<StoreDTO>) : HomeState()
+    data class OnClickStore(
+        val curDrwNo: Int,
+        val storeList: List<StoreDTO>,
+        val lottoList: List<LottoDTO>
+    ) : HomeState()
 }

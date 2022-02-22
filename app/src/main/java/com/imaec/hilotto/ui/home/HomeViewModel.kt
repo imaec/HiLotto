@@ -15,9 +15,9 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
     private val _latelyResultList = MutableLiveData<List<LottoDTO>>(ArrayList())
     val latelyResultList: LiveData<List<LottoDTO>> get() = _latelyResultList
 
-    fun setListLatelyResult(listResult: List<LottoDTO>) {
-        listResult.takeIf { it.isNotEmpty() }?.let {
-            _latelyResultList.value = listResult.subList(1, 10)
+    fun setListLatelyResult(lottoList: List<LottoDTO>) {
+        lottoList.takeIf { it.isNotEmpty() }?.let {
+            _latelyResultList.value = lottoList.subList(1, 10)
         }
     }
 
@@ -29,7 +29,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
         _state.value = HomeState.OnClickMore(lottoList)
     }
 
-    fun onClickStore(curDrwNo: Int, storeList: List<StoreDTO>) {
-        _state.value = HomeState.OnClickStore(curDrwNo, storeList)
+    fun onClickStore(curDrwNo: Int, storeList: List<StoreDTO>, lottoList: List<LottoDTO>) {
+        _state.value = HomeState.OnClickStore(curDrwNo, storeList, lottoList)
     }
 }

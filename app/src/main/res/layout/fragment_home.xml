@@ -308,7 +308,7 @@
 
                     <TextView
                         android:id="@+id/tv_store_more"
-                        bindSingleClick="@{() -> vm.onClickStore(lottoVm.curDrwNo, lottoVm.storeList)}"
+                        bindSingleClick="@{() -> vm.onClickStore(lottoVm.curDrwNo, lottoVm.storeList, lottoVm.lottoList)}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
