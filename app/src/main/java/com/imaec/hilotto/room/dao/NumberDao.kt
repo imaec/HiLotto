@@ -28,6 +28,9 @@ interface NumberDao {
     @Query("SELECT * FROM numberEntity")
     fun selectAll(): LiveData<List<NumberEntity>>
 
+    @Query("SELECT * FROM numberEntity")
+    fun selectAllList(): List<NumberEntity>
+
     @Insert
     fun insert(entity: NumberEntity)
 

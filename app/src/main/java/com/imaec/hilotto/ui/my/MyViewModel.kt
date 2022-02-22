@@ -4,15 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.imaec.hilotto.base.BaseViewModel
-import com.imaec.hilotto.domain.successOr
 import com.imaec.hilotto.domain.usecase.number.DeleteByIdUseCase
-import com.imaec.hilotto.domain.usecase.number.InsertAllUseCase
 import com.imaec.hilotto.domain.usecase.number.SelectAllUseCase
-import com.imaec.hilotto.domain.usecase.number.SelectByNumbersUseCase
 import com.imaec.hilotto.model.FitNumberDTO
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.model.MyNumberDTO
-import com.imaec.hilotto.room.entity.NumberEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,8 +16,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MyViewModel @Inject constructor(
     selectAllUseCase: SelectAllUseCase,
-    private val selectByNumbersUseCase: SelectByNumbersUseCase,
-    private val insertAllUseCase: InsertAllUseCase,
     private val deleteByIdUseCase: DeleteByIdUseCase
 ) : BaseViewModel() {
 
@@ -116,21 +110,5 @@ class MyViewModel @Inject constructor(
     fun onLongClickNumber(myNumber: MyNumberDTO): Boolean {
         _state.value = MyState.OnLongClickNumber(myNumber)
         return true
-    }
-
-    fun saveNumbers(list: List<NumberEntity>, callback: () -> Unit) {
-        val listTemp = ArrayList<NumberEntity>().apply {
-            addAll(list)
-        }
-        viewModelScope.launch {
-            list.forEach { entity ->
-                if (selectByNumbersUseCase(entity).successOr(0) > 0) {
-                    // ALREADY EXIST
-                    listTemp.remove(entity)
-                }
-            }
-            if (listTemp.size > 0) insertAllUseCase(listTemp)
-            callback()
-        }
     }
 }

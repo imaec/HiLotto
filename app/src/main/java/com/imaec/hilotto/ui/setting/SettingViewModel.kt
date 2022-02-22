@@ -1,26 +1,33 @@
 package com.imaec.hilotto.ui.setting
 
-import android.content.Context
-import android.net.Uri
+import android.os.Build
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseViewModel
-import com.imaec.hilotto.model.MyNumberDTO
+import com.imaec.hilotto.domain.successOr
+import com.imaec.hilotto.domain.usecase.number.InsertAllUseCase
+import com.imaec.hilotto.domain.usecase.number.SelectAllListUseCase
+import com.imaec.hilotto.domain.usecase.number.SelectByNumbersUseCase
 import com.imaec.hilotto.room.entity.NumberEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 import java.io.IOException
+import java.io.InputStream
 import java.io.InputStreamReader
-import java.io.OutputStreamWriter
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingViewModel @Inject constructor() : BaseViewModel() {
+class SettingViewModel @Inject constructor(
+    private val selectAllListUseCase: SelectAllListUseCase,
+    private val selectByNumbersUseCase: SelectByNumbersUseCase,
+    private val insertAllUseCase: InsertAllUseCase,
+) : BaseViewModel() {
 
     private val _state = MutableLiveData<SettingState>()
     val state: LiveData<SettingState> get() = _state
@@ -30,6 +37,14 @@ class SettingViewModel @Inject constructor() : BaseViewModel() {
 
     private val _settingStatistics = MutableLiveData("20회")
     val settingStatistics: LiveData<String> get() = _settingStatistics
+
+    var numberList = emptyList<NumberEntity>()
+
+    init {
+        viewModelScope.launch {
+            numberList = selectAllListUseCase().successOr(emptyList())
+        }
+    }
 
     fun setAppVersion(appVersion: String) {
         _appVersion.value = appVersion
@@ -49,45 +64,38 @@ class SettingViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
-    fun export(listNumber: List<MyNumberDTO>, file: File): Int {
-        return when {
-            listNumber.isEmpty() -> R.string.msg_empty_my_number
-            else -> {
+    fun export(path: String) {
+        _state.value = if (Build.VERSION.SDK_INT >= 30) {
+            SettingState.ExportStep2
+        } else {
+            val file = File(path)
+            if (numberList.isNotEmpty()) {
                 if (!file.exists()) file.mkdir()
 
                 try {
-                    val jsonString = Gson().toJson(listNumber)
-                    BufferedWriter(FileWriter("$file/myNumber.json", false)).apply {
-                        write(jsonString)
+                    with(BufferedWriter(FileWriter("$file/myNumber.json", false))) {
+                        write(Gson().toJson(numberList))
                         flush()
                         close()
                     }
+                    SettingState.ShowToast("내 번호를 내부저장소에 저장하였습니다.")
                 } catch (e: IOException) {
-                    return R.string.msg_fail_export_my_number
+                    SettingState.ShowToast(
+                        "내 번호 내보내기에 실패하였습니다.\n관리자에게 문의해주시기 바랍니다."
+                    )
                 }
-                R.string.msg_success_export_my_number
+            } else {
+                SettingState.ShowToast("내 번호가 없습니다.")
             }
         }
     }
 
-    fun export(context: Context, listNumber: List<MyNumberDTO>, uri: Uri): Int {
-        return try {
-            val jsonString = Gson().toJson(listNumber)
-            val outputStream = context.contentResolver.openOutputStream(uri)
-            BufferedWriter(OutputStreamWriter(outputStream!!)).apply {
-                write(jsonString)
-                flush()
-                close()
-            }
-            R.string.msg_success_export_my_number
-        } catch (e: IOException) {
-            R.string.msg_fail_export_my_number
-        }
+    fun import() {
+        _state.value = SettingState.ImportStep2
     }
 
-    fun import(context: Context, uri: Uri): Array<NumberEntity>? {
-        return try {
-            val inputStream = context.contentResolver.openInputStream(uri)
+    fun import(inputStream: InputStream?) {
+        _state.value = try {
             val bufferReader = BufferedReader(InputStreamReader(inputStream!!))
 
             val stringBuilder = StringBuilder()
@@ -95,9 +103,28 @@ class SettingViewModel @Inject constructor() : BaseViewModel() {
             while (bufferReader.readLine().also { line = it } != null) {
                 stringBuilder.append(line)
             }
-            Gson().fromJson(stringBuilder.toString(), Array<NumberEntity>::class.java)
+            val list = Gson().fromJson(stringBuilder.toString(), Array<NumberEntity>::class.java)
+            saveNumbers(list.toList())
+            SettingState.ShowToast("내 번호를 내부저장소에서 가져왔습니다.")
         } catch (e: IOException) {
-            null
+            SettingState.ShowToast(
+                "내 번호 가져오기에 실패하였습니다.\nDownload 폴더에 myNumber.json 파일이 있는지 확인해주세요."
+            )
+        }
+    }
+
+    private fun saveNumbers(list: List<NumberEntity>) {
+        val listTemp = ArrayList<NumberEntity>().apply {
+            addAll(list)
+        }
+        viewModelScope.launch {
+            list.forEach { entity ->
+                if (selectByNumbersUseCase(entity).successOr(0) > 0) {
+                    // ALREADY EXIST
+                    listTemp.remove(entity)
+                }
+            }
+            if (listTemp.size > 0) insertAllUseCase(listTemp)
         }
     }
 

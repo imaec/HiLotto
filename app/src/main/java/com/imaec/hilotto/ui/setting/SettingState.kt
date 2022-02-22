@@ -13,4 +13,10 @@ sealed class SettingState {
     object OnClickShare : SettingState()
 
     object OnClickExportInfo : SettingState()
+
+    object ExportStep2 : SettingState()
+
+    object ImportStep2 : SettingState()
+
+    data class ShowToast(val message: String) : SettingState()
 }

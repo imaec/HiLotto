@@ -27,6 +27,8 @@ class NumberRepositoryImpl(
 
     override fun selectAll() = dao.selectAll()
 
+    override fun selectAllList() = dao.selectAllList()
+
     override suspend fun insert(entity: NumberEntity) {
         dao.insert(entity)
     }

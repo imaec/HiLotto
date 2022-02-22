@@ -9,6 +9,8 @@ interface NumberRepository {
 
     fun selectAll(): LiveData<List<NumberEntity>>
 
+    fun selectAllList(): List<NumberEntity>
+
     suspend fun insert(entity: NumberEntity)
 
     suspend fun insertAll(entities: List<NumberEntity>)

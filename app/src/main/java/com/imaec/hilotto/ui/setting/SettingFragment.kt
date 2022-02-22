@@ -2,6 +2,7 @@ package com.imaec.hilotto.ui.setting
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -13,6 +14,7 @@ import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.gson.Gson
 import com.imaec.hilotto.R
 import com.imaec.hilotto.REQUEST_CREATE_FILE
 import com.imaec.hilotto.REQUEST_OPEN_DOCUMENT
@@ -20,29 +22,29 @@ import com.imaec.hilotto.REQUEST_PERMISSION_EXPORT
 import com.imaec.hilotto.REQUEST_PERMISSION_IMPORT
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentSettingBinding
+import com.imaec.hilotto.room.entity.NumberEntity
 import com.imaec.hilotto.ui.main.MainViewModel
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
 import com.imaec.hilotto.ui.view.dialog.InputDialog
 import com.imaec.hilotto.utils.SharedPreferenceUtil
-import com.imaec.hilotto.utils.toast
-import com.imaec.hilotto.ui.my.MyViewModel
 import com.imaec.hilotto.utils.getVersion
 import com.imaec.hilotto.utils.showInfoDialog
-import com.kakao.kakaolink.v2.KakaoLinkResponse
-import com.kakao.kakaolink.v2.KakaoLinkService
-import com.kakao.network.ErrorResult
-import com.kakao.network.callback.ResponseCallback
+import com.imaec.hilotto.utils.toast
+import com.kakao.sdk.common.util.KakaoCustomTabsClient
+import com.kakao.sdk.link.LinkClient
+import com.kakao.sdk.link.WebSharerClient
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.dialog_search.*
-import timber.log.Timber
+import java.io.BufferedWriter
 import java.io.File
+import java.io.IOException
+import java.io.OutputStreamWriter
 
 @AndroidEntryPoint
 class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_setting) {
 
     private val viewModel by viewModels<SettingViewModel>()
     private val mainViewModel by activityViewModels<MainViewModel>()
-    private val myViewModel by activityViewModels<MyViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,8 +61,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
             REQUEST_CREATE_FILE -> {
                 if (resultCode == RESULT_OK) {
                     data?.data?.let {
-                        val result =
-                            viewModel.export(requireContext(), myViewModel.myNumberList.value!!, it)
+                        val result = export(viewModel.numberList, it)
                         toast(result)
                     } ?: run {
                         toast(R.string.msg_unknown_error)
@@ -70,13 +71,8 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
             REQUEST_OPEN_DOCUMENT -> {
                 if (resultCode == RESULT_OK) {
                     data?.data?.let {
-                        viewModel.import(requireContext(), it)?.let { entities ->
-                            myViewModel.saveNumbers(entities.toList()) {
-                                toast(R.string.msg_success_import_my_number)
-                            }
-                        } ?: run {
-                            toast(R.string.msg_fail_import_my_number)
-                        }
+                        val inputStream = requireContext().contentResolver.openInputStream(it)
+                        viewModel.import(inputStream)
                     } ?: run {
                         toast(R.string.msg_unknown_error)
                     }
@@ -98,8 +94,13 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
         }
         if (permissions.size == grantResult) {
             when (requestCode) {
-                REQUEST_PERMISSION_EXPORT -> export()
-                REQUEST_PERMISSION_IMPORT -> import()
+                REQUEST_PERMISSION_EXPORT -> viewModel.export(
+                    "${Environment.getExternalStorageDirectory().absolutePath}/" +
+                        Environment.DIRECTORY_DOWNLOADS
+                )
+                REQUEST_PERMISSION_IMPORT -> {
+                    import()
+                }
             }
         }
     }
@@ -135,11 +136,23 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                     CommonDialog(requireContext(), getString(R.string.msg_export_info)).apply {
                         setTitle(getString(R.string.export_my_number))
                         setOnOkClickListener {
-                            export()
+                            viewModel.export(
+                                "${Environment.getExternalStorageDirectory().absolutePath}/" +
+                                    Environment.DIRECTORY_DOWNLOADS
+                            )
                             dismiss()
                         }
                         show()
                     }
+                }
+                SettingState.ExportStep2 -> {
+                    startActivityForResult(
+                        Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                            type = "application/json"
+                            putExtra(Intent.EXTRA_TITLE, "myNumber.json")
+                        },
+                        REQUEST_CREATE_FILE
+                    )
                 }
                 SettingState.OnClickExportInfo -> {
                     showInfoDialog(getString(R.string.msg_export_description))
@@ -156,11 +169,22 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                         show()
                     }
                 }
+                SettingState.ImportStep2 -> {
+                    startActivityForResult(
+                        Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                            type = "application/json"
+                        },
+                        REQUEST_OPEN_DOCUMENT
+                    )
+                }
                 SettingState.OnClickImportInfo -> {
                     showInfoDialog(getString(R.string.msg_import_description))
                 }
                 SettingState.OnClickShare -> {
                     share()
+                }
+                is SettingState.ShowToast -> {
+                    toast(it.message)
                 }
             }
         }
@@ -210,72 +234,61 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
         }
     }
 
-    private fun export() {
-        myViewModel.myNumberList.value?.let {
-            if (Build.VERSION.SDK_INT < 29) {
-                val result = viewModel.export(
-                    it,
-                    File(
-                        "${Environment.getExternalStorageDirectory().absolutePath}/" +
-                            "${Environment.DIRECTORY_DOWNLOADS}"
-                    )
-                )
-                toast(result)
-            } else {
-                startActivityForResult(
-                    Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-                        type = "application/json"
-                        putExtra(Intent.EXTRA_TITLE, "myNumber.json")
-                    },
-                    REQUEST_CREATE_FILE
-                )
+    private fun export(numberList: List<NumberEntity>, uri: Uri): Int {
+        return try {
+            val jsonString = Gson().toJson(numberList)
+            val outputStream = requireContext().contentResolver.openOutputStream(uri)
+            BufferedWriter(OutputStreamWriter(outputStream!!)).apply {
+                write(jsonString)
+                flush()
+                close()
             }
-        } ?: run {
-            toast(R.string.msg_unknown_error)
+            R.string.msg_success_export_my_number
+        } catch (e: IOException) {
+            R.string.msg_fail_export_my_number
         }
     }
 
     private fun import() {
-        if (Build.VERSION.SDK_INT < 29) {
-            viewModel.import(
-                requireContext(),
-                Uri.parse(
-                    "file://${File(
-                        "${Environment.getExternalStorageDirectory().absolutePath}/" +
-                            "${Environment.DIRECTORY_DOWNLOADS}"
-                    ).path}/myNumber.json"
-                )
-            )?.let { entities ->
-                myViewModel.saveNumbers(entities.toList()) {
-                    toast(R.string.msg_success_import_my_number)
-                }
-            } ?: run {
-                toast(R.string.msg_fail_import_my_number)
-            }
+        if (Build.VERSION.SDK_INT >= 30) {
+            viewModel.import()
         } else {
-            startActivityForResult(
-                Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                    type = "application/json"
-                },
-                REQUEST_OPEN_DOCUMENT
+            val uri = Uri.parse(
+                "file://${File(
+                    "${Environment.getExternalStorageDirectory().absolutePath}/" +
+                        Environment.DIRECTORY_DOWNLOADS
+                ).path}/myNumber.json"
             )
+            val inputStream = requireContext().contentResolver.openInputStream(uri)
+            viewModel.import(inputStream)
         }
     }
 
     private fun share() {
-        KakaoLinkService.getInstance()
-            .sendCustom(
-                context, getString(R.string.template_id_app), null,
-                object : ResponseCallback<KakaoLinkResponse>() {
-                    override fun onSuccess(result: KakaoLinkResponse?) {
-                        logEvent(FirebaseAnalytics.Event.SHARE, Bundle())
-                    }
-
-                    override fun onFailure(errorResult: ErrorResult?) {
-                        Timber.e("  ## share error : $errorResult")
-                        toast(R.string.msg_share_fail)
-                    }
+        val templateId = getString(R.string.template_id_app).toLong()
+        if (LinkClient.instance.isKakaoLinkAvailable(requireContext())) {
+            LinkClient.instance.customTemplate(
+                context = requireContext(),
+                templateId = templateId
+            ) { linkResult, error ->
+                if (error != null) {
+                    toast(R.string.msg_share_fail)
+                } else if (linkResult != null) {
+                    startActivity(linkResult.intent)
+                    logEvent(FirebaseAnalytics.Event.SHARE, Bundle())
                 }
-            )
+            }
+        } else {
+            val sharerUrl = WebSharerClient.instance.customTemplateUri(templateId)
+            try {
+                KakaoCustomTabsClient.openWithDefault(requireContext(), sharerUrl)
+            } catch (e: UnsupportedOperationException) {
+                try {
+                    KakaoCustomTabsClient.open(requireContext(), sharerUrl)
+                } catch (e: ActivityNotFoundException) {
+                    toast(R.string.msg_share_fail)
+                }
+            }
+        }
     }
 }
