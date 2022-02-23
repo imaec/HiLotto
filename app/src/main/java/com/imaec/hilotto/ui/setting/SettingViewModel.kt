@@ -12,7 +12,6 @@ import com.imaec.hilotto.domain.usecase.number.SelectAllListUseCase
 import com.imaec.hilotto.room.entity.NumberEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.File
@@ -114,7 +113,6 @@ class SettingViewModel @Inject constructor(
     private fun saveNumbers(list: List<NumberEntity>) {
         if (list.isEmpty()) return
 
-        Timber.i("  ## list : $list")
         viewModelScope.launch {
             insertAllUseCase(list)
         }

@@ -92,19 +92,18 @@ dependencies {
         exclude group: 'stax', module: 'stax-api'
         exclude group: 'stax', module: 'stax'
     }
-    implementation 'com.squareup.okhttp3:okhttp:4.3.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.3.1'
-    implementation 'org.conscrypt:conscrypt-android:2.2.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+    implementation 'org.conscrypt:conscrypt-android:2.4.0'
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
     // Admob
-    implementation 'com.google.android.gms:play-services-ads:19.4.0'
-    // Firebase Cloud FireStore, Database
-    implementation 'com.google.firebase:firebase-database:19.7.0'
-    // Firebase Analytics
-    implementation 'com.google.firebase:firebase-analytics:18.0.3'
-    // Firebase Crashlytics
-    implementation 'com.google.firebase:firebase-crashlytics:17.4.1'
+    implementation 'com.google.android.gms:play-services-ads:20.5.0'
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:29.0.4')
+    implementation 'com.google.firebase:firebase-database-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
     // 카카오링크
     implementation "com.kakao.sdk:v2-link:2.8.6"
 

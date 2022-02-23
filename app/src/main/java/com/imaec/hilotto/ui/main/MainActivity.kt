@@ -52,7 +52,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == RESULT_OK) {
-                interstitialAd.show()
+                interstitialAd?.show(this)
                 isLoaded.value = false
             }
         }.launch(Intent(this, SplashActivity::class.java))
@@ -108,7 +108,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         val curDrwNo = SharedPreferenceUtil.getInt(
             context = this,
             key = SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO,
-            def = 1
+            def = 1003
         )
         with(lottoViewModel) {
             getLotto(

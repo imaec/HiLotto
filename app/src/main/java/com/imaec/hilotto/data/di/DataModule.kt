@@ -1,7 +1,8 @@
 package com.imaec.hilotto.data.di
 
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.imaec.hilotto.data.repository.FirebaseRepository
 import com.imaec.hilotto.data.repository.LottoRepository
 import com.imaec.hilotto.data.repository.NumberRepository
@@ -21,12 +22,7 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseDatabase(): FirebaseDatabase = FirebaseDatabase.getInstance()
-
-    @Provides
-    @Singleton
-    fun provideFirebaseReference(firebaseDatabase: FirebaseDatabase): DatabaseReference =
-        firebaseDatabase.reference
+    fun provideFirebaseDatabase(): DatabaseReference = Firebase.database.reference
 
     @Provides
     @Singleton

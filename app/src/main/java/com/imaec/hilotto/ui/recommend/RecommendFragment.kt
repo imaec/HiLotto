@@ -256,14 +256,21 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                                     number6 = sortedList[5].toInt()
                                 )
                             ) { isSuccess ->
-                                showAd(R.string.ad_id_recommend_front, true) {
-                                    if (isSuccess) {
-                                        toast(R.string.msg_success_save_number)
-                                        clearNumber()
-                                    } else {
-                                        toast(R.string.msg_numbers_is_exist)
+                                showAd(
+                                    adId = R.string.ad_id_recommend_front,
+                                    isRandom = true,
+                                    onLoaded = {
+                                        interstitialAd?.show(requireActivity())
+                                    },
+                                    onClosed = {
+                                        if (isSuccess) {
+                                            toast(R.string.msg_success_save_number)
+                                            clearNumber()
+                                        } else {
+                                            toast(R.string.msg_numbers_is_exist)
+                                        }
                                     }
-                                }
+                                )
                             }
                         }
                     }

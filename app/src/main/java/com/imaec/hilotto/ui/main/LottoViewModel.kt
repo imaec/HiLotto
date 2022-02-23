@@ -3,8 +3,8 @@ package com.imaec.hilotto.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.imaec.hilotto.URL_LOTTO
 import com.imaec.hilotto.base.BaseViewModel
+import com.imaec.hilotto.domain.data
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.model.StoreDTO
 import com.imaec.hilotto.domain.usecase.firebase.GetLottoListUseCase
@@ -15,9 +15,7 @@ import com.imaec.hilotto.domain.usecase.lotto.GetDataUseCase
 import com.imaec.hilotto.domain.usecase.lotto.GetStoreUseCase
 import com.imaec.hilotto.utils.DateUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -105,37 +103,35 @@ class LottoViewModel @Inject constructor(
         val gap = curDrwNoReal - curDrwNo
         for (drwNo in (curDrwNo)..curDrwNoReal) {
             viewModelScope.launch {
-                withContext(Dispatchers.IO) {
-                    getDataUseCase(
-                        Triple(
-                            drwNo,
-                            {
-                                listTemp.add(it)
-                                callbackProgress((listTemp.size * 100) / curDrwNoReal)
+                getDataUseCase(
+                    Triple(
+                        drwNo,
+                        {
+                            listTemp.add(it)
+                            callbackProgress((listTemp.size * 100) / curDrwNoReal)
 
-                                if (listTemp.size == gap + 1) {
-                                    // 모든 리스트 DB에 저장
-                                    saveLottoList(
-                                        curDrwNoReal,
-                                        listTemp.sortedBy { dto -> dto.drwNo }
-                                    )
+                            if (listTemp.size == gap + 1) {
+                                // 모든 리스트 DB에 저장
+                                saveLottoList(
+                                    curDrwNoReal,
+                                    listTemp.sortedBy { dto -> dto.drwNo }
+                                )
 
-                                    _lottoList.value =
-                                        listTemp.sortedByDescending { dto -> dto.drwNo }
-                                    setCurData(listTemp.sortedByDescending { dto -> dto.drwNo }[0])
+                                _lottoList.value =
+                                    listTemp.sortedByDescending { dto -> dto.drwNo }
+                                setCurData(listTemp.sortedByDescending { dto -> dto.drwNo }[0])
+                                callback(true)
+
+                                getDatabaseData {
                                     callback(true)
-
-                                    getDatabaseData {
-                                        callback(true)
-                                    }
                                 }
-                            },
-                            {
-                                callback(false)
                             }
-                        )
+                        },
+                        {
+                            callback(false)
+                        }
                     )
-                }
+                )
             }
         }
     }
@@ -147,45 +143,24 @@ class LottoViewModel @Inject constructor(
         }
     }
 
-    private fun getCurDrwNo(callback: (Int) -> Unit) {
-        viewModelScope.launch {
-            getCurDrwNoUseCase(
-                Pair(
-                    URL_LOTTO,
-                    { curDrwNo ->
-                        launch(Dispatchers.Main) { callback(curDrwNo) }
-                    }
-                )
-            )
-        }
-    }
-
     fun getLotto(curDrwNo: Int, callback: (Boolean) -> Unit, callbackProgress: (Int) -> Unit) {
-        getCurDrwNo {
-            _curDrwNo.value = it
-            viewModelScope.launch {
-                setWeekUseCase(it)
-            }
-            if (it == curDrwNo) {
+        viewModelScope.launch {
+            val realCurDrwNo = getCurDrwNoUseCase().data ?: curDrwNo
+            _curDrwNo.value = realCurDrwNo
+            setWeekUseCase(realCurDrwNo)
+            if (realCurDrwNo == curDrwNo) {
                 getDatabaseData {
                     callback(true)
                 }
-            } else if (it > curDrwNo) {
-                getLottoSiteData(it, curDrwNo, callback, callbackProgress)
+            } else if (realCurDrwNo > curDrwNo) {
+                getLottoSiteData(realCurDrwNo, curDrwNo, callback, callbackProgress)
             }
         }
     }
 
     fun getStore(drwNo: Int) {
         viewModelScope.launch {
-            getStoreUseCase(
-                Pair(
-                    drwNo,
-                    {
-                        launch(Dispatchers.Main) { _storeList.value = it }
-                    }
-                )
-            )
+            _storeList.value = getStoreUseCase(drwNo).data ?: emptyList()
         }
     }
 }

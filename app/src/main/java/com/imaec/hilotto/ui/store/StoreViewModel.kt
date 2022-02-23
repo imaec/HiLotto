@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.imaec.hilotto.base.BaseViewModel
+import com.imaec.hilotto.domain.successOr
 import com.imaec.hilotto.domain.usecase.lotto.GetStoreUseCase
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.model.StoreDTO
@@ -12,7 +13,6 @@ import com.imaec.hilotto.ui.store.StoreActivity.Companion.CUR_DRW_NO
 import com.imaec.hilotto.ui.store.StoreActivity.Companion.LOTTO_LIST
 import com.imaec.hilotto.ui.store.StoreActivity.Companion.STORE_LIST
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -55,17 +55,10 @@ class StoreViewModel @Inject constructor(
 
     fun getStore(drwNo: Int) {
         viewModelScope.launch {
-            getStoreUseCase(
-                Pair(
-                    drwNo,
-                    {
-                        launch(Dispatchers.Main) {
-                            _round.value = "<${drwNo}회>"
-                            _storeList.value = it
-                        }
-                    }
-                )
-            )
+            getStoreUseCase(drwNo).successOr(null)?.let {
+                _round.value = "<${drwNo}회>"
+                _storeList.value = it
+            }
         }
     }
 }

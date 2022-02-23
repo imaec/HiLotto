@@ -1,30 +1,28 @@
 package com.imaec.hilotto.domain.repository
 
+import com.imaec.hilotto.URL_LOTTO
 import com.imaec.hilotto.URL_STORE
 import com.imaec.hilotto.data.repository.LottoRepository
 import com.imaec.hilotto.model.LottoDTO
 import com.imaec.hilotto.model.StoreDTO
 import com.imaec.hilotto.retrofit.LottoService
 import com.imaec.hilotto.retrofit.RetrofitClient
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 
 class LottoRepositoryImpl : LottoRepository {
 
-    override suspend fun getCurDrwNo(strUrl: String, callback: (Int) -> Unit) {
-        withContext(Dispatchers.IO) {
-            try {
-                val doc = Jsoup.connect(strUrl).get()
-                val element = doc.getElementById("lottoDrwNo")
-                val curDrwNo = element.text().toInt()
-                callback(curDrwNo)
-            } catch (e: Exception) {
-                callback(-1)
-            }
+    override suspend fun getCurDrwNo(): Int {
+        return try {
+            val doc = Jsoup.connect(URL_LOTTO).timeout(10000).get()
+            val element = doc.getElementById("lottoDrwNo")
+            val curDrwNo = element.text().toInt()
+            curDrwNo
+        } catch (e: Exception) {
+            -1
         }
     }
 
@@ -46,29 +44,29 @@ class LottoRepositoryImpl : LottoRepository {
         })
     }
 
-    override suspend fun getStore(drwNo: Int, callback: (List<StoreDTO>) -> Unit) {
-        withContext(Dispatchers.IO) {
-            val listStore = ArrayList<StoreDTO>()
-            try {
-                val doc = Jsoup.connect(URL_STORE)
-                    .data("gameNo", "5133")
-                    .data("drwNo", "$drwNo")
-                    .post()
-                val elements = doc.getElementsByClass("group_content")
-                val tbody = elements[0].getElementsByTag("tbody")[0]
-                val arrTr = tbody.getElementsByTag("tr")
-                arrTr.forEach {
-                    listStore.add(
-                        StoreDTO(
-                            it.getElementsByTag("td")[1].text(),
-                            it.getElementsByTag("td")[2].text(),
-                            it.getElementsByTag("td")[3].text()
-                        )
+    override suspend fun getStore(drwNo: Int): List<StoreDTO> {
+        val listStore = mutableListOf<StoreDTO>()
+        try {
+            val doc = Jsoup.connect(URL_STORE)
+                .timeout(10000)
+                .data("gameNo", "5133")
+                .data("drwNo", "$drwNo")
+                .post()
+            val elements = doc.getElementsByClass("group_content")
+            val tbody = elements[0].getElementsByTag("tbody")[0]
+            val arrTr = tbody.getElementsByTag("tr")
+            arrTr.forEach {
+                listStore.add(
+                    StoreDTO(
+                        it.getElementsByTag("td")[1].text(),
+                        it.getElementsByTag("td")[2].text(),
+                        it.getElementsByTag("td")[3].text()
                     )
-                }
-            } catch (e: Exception) {
+                )
             }
-            callback(listStore)
+        } catch (e: Exception) {
+            Timber.e(e)
         }
+        return listStore
     }
 }

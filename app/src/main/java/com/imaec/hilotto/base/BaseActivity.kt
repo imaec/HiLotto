@@ -1,18 +1,21 @@
 package com.imaec.hilotto.base
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.ktx.Firebase
 import com.imaec.hilotto.R
 import com.imaec.hilotto.ui.view.dialog.ProgressDialog
 import java.util.Random
@@ -24,7 +27,7 @@ abstract class BaseActivity<VDB : ViewDataBinding>(
     protected val TAG = this::class.java.simpleName
 
     protected lateinit var binding: VDB
-    protected lateinit var interstitialAd: InterstitialAd
+    protected var interstitialAd: InterstitialAd? = null
 
     private val progressDialog: ProgressDialog by lazy { ProgressDialog(this) }
     private lateinit var firebaseAnalytics: FirebaseAnalytics
@@ -57,11 +60,6 @@ abstract class BaseActivity<VDB : ViewDataBinding>(
         FirebaseCrashlytics.getInstance().log("$TAG onDestroy")
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        FirebaseCrashlytics.getInstance().log("$TAG onActivityResult")
-    }
-
     protected fun showProgress() {
         if (!progressDialog.isShowing) progressDialog.show()
     }
@@ -76,29 +74,7 @@ abstract class BaseActivity<VDB : ViewDataBinding>(
 
     private fun init() {
         MobileAds.initialize(this) {}
-        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
-    }
-
-    private fun showAd(adId: Int, onLoaded: () -> Unit, onClosed: () -> Unit) {
-        interstitialAd = InterstitialAd(this).apply {
-            adUnitId = getString(adId)
-            adListener = object : AdListener() {
-                override fun onAdLoaded() {
-                    onLoaded()
-                }
-
-                override fun onAdFailedToLoad(p0: LoadAdError?) {
-                    super.onAdFailedToLoad(p0)
-                    onClosed()
-                }
-
-                override fun onAdClosed() {
-                    super.onAdClosed()
-                    onClosed()
-                }
-            }
-        }
-        interstitialAd.loadAd(AdRequest.Builder().build())
+        firebaseAnalytics = Firebase.analytics
     }
 
     fun showAd(adId: Int, isRandom: Boolean, onLoaded: () -> Unit, onClosed: () -> Unit) {
@@ -134,5 +110,33 @@ abstract class BaseActivity<VDB : ViewDataBinding>(
                 }
             )
         }
+    }
+
+    private fun showAd(adId: Int, onLoaded: () -> Unit, onClosed: () -> Unit) {
+        InterstitialAd.load(
+            this, getString(adId), AdRequest.Builder().build(),
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    interstitialAd = null
+                }
+
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    this@BaseActivity.interstitialAd = interstitialAd
+                    this@BaseActivity.interstitialAd?.fullScreenContentCallback =
+                        object : FullScreenContentCallback() {
+                            override fun onAdDismissedFullScreenContent() {
+                                super.onAdDismissedFullScreenContent()
+                                onClosed()
+                            }
+
+                            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                                super.onAdFailedToShowFullScreenContent(p0)
+                                onClosed()
+                            }
+                        }
+                    onLoaded()
+                }
+            }
+        )
     }
 }
