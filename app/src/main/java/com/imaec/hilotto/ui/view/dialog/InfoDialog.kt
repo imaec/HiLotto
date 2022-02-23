@@ -8,17 +8,22 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import androidx.databinding.DataBindingUtil
 import com.imaec.hilotto.R
-import kotlinx.android.synthetic.main.dialog_common.*
+import com.imaec.hilotto.databinding.DialogInfoBinding
 
 class InfoDialog(context: Context, private val message: String) : Dialog(context) {
+
+    private lateinit var binding: DialogInfoBinding
 
     private var ok = ""
     private lateinit var listenerOk: View.OnClickListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.dialog_info)
+
+        binding = DataBindingUtil.inflate(layoutInflater, R.layout.dialog_info, null, false)
+        setContentView(binding.root)
 
         val size = Point()
         window?.windowManager?.defaultDisplay?.getSize(size)
@@ -37,11 +42,11 @@ class InfoDialog(context: Context, private val message: String) : Dialog(context
     }
 
     private fun initLayout() {
-        text_message.text = message
-        text_ok.text = ok
+        binding.textMessage.text = message
+        binding.textOk.text = ok
 
-        if (::listenerOk.isInitialized) text_ok.setOnClickListener(listenerOk)
-        else text_ok.setOnClickListener { dismiss() }
+        if (::listenerOk.isInitialized) binding.textOk.setOnClickListener(listenerOk)
+        else binding.textOk.setOnClickListener { dismiss() }
     }
 
     fun setOk(ok: String) {

@@ -8,10 +8,13 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import androidx.databinding.DataBindingUtil
 import com.imaec.hilotto.R
-import kotlinx.android.synthetic.main.dialog_common.*
+import com.imaec.hilotto.databinding.DialogCommonBinding
 
 class CommonDialog(context: Context, private val message: String) : Dialog(context) {
+
+    private lateinit var binding: DialogCommonBinding
 
     private var ok = ""
     private var cancel = ""
@@ -20,7 +23,9 @@ class CommonDialog(context: Context, private val message: String) : Dialog(conte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.dialog_common)
+
+        binding = DataBindingUtil.inflate(layoutInflater, R.layout.dialog_common, null, false)
+        setContentView(binding.root)
 
         val size = Point()
         window?.windowManager?.defaultDisplay?.getSize(size)
@@ -40,15 +45,17 @@ class CommonDialog(context: Context, private val message: String) : Dialog(conte
     }
 
     private fun initLayout() {
-        text_message.text = message
-        text_ok.text = ok
-        text_cancel.text = cancel
+        with(binding) {
+            textMessage.text = message
+            textOk.text = ok
+            textCancel.text = cancel
 
-        if (::listenerOk.isInitialized) text_ok.setOnClickListener(listenerOk)
-        else text_ok.setOnClickListener { dismiss() }
+            if (::listenerOk.isInitialized) textOk.setOnClickListener(listenerOk)
+            else textOk.setOnClickListener { dismiss() }
 
-        if (::listenerCancel.isInitialized) text_cancel.setOnClickListener(listenerCancel)
-        else text_cancel.setOnClickListener { dismiss() }
+            if (::listenerCancel.isInitialized) textOk.setOnClickListener(listenerCancel)
+            else textOk.setOnClickListener { dismiss() }
+        }
     }
 
     fun setOk(ok: String) {

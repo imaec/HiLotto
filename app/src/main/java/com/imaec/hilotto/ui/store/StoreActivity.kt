@@ -20,7 +20,6 @@ import com.imaec.hilotto.ui.view.dialog.CopyDialog
 import com.imaec.hilotto.ui.view.dialog.InputDialog
 import com.imaec.hilotto.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_home.*
 
 @Suppress("UNCHECKED_CAST")
 @AndroidEntryPoint

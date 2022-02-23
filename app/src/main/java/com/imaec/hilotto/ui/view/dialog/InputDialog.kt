@@ -9,14 +9,13 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
+import androidx.databinding.DataBindingUtil
 import com.imaec.hilotto.R
-import kotlinx.android.synthetic.main.dialog_common.*
-import kotlinx.android.synthetic.main.dialog_common.text_cancel
-import kotlinx.android.synthetic.main.dialog_edit.text_title
-import kotlinx.android.synthetic.main.dialog_search.*
-import kotlinx.android.synthetic.main.dialog_search.view.*
+import com.imaec.hilotto.databinding.DialogSearchBinding
 
 class InputDialog(context: Context) : Dialog(context) {
+
+    private lateinit var binding: DialogSearchBinding
 
     private var title = ""
     private var hint = ""
@@ -27,7 +26,9 @@ class InputDialog(context: Context) : Dialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.dialog_search)
+
+        binding = DataBindingUtil.inflate(layoutInflater, R.layout.dialog_search, null, false)
+        setContentView(binding.root)
 
         val size = Point()
         window?.windowManager?.defaultDisplay?.getSize(size)
@@ -49,22 +50,22 @@ class InputDialog(context: Context) : Dialog(context) {
     }
 
     private fun initLayout() {
-        text_title.text = title
-        edit_search.hint = hint
-        text_search.text = search
-        text_cancel.text = cancel
+        binding.textTitle.text = title
+        binding.editSearch.hint = hint
+        binding.textSearch.text = search
+        binding.textCancel.text = cancel
 
-        if (::listenerSearch.isInitialized) text_search.setOnClickListener {
-            listenerSearch(edit_search.text.toString())
+        if (::listenerSearch.isInitialized) binding.textSearch.setOnClickListener {
+            listenerSearch(binding.editSearch.text.toString())
         }
-        else text_search.setOnClickListener { dismiss() }
+        else binding.textSearch.setOnClickListener { dismiss() }
 
-        if (::listenerCancel.isInitialized) text_cancel.setOnClickListener(listenerCancel)
-        else text_cancel.setOnClickListener { dismiss() }
+        if (::listenerCancel.isInitialized) binding.textCancel.setOnClickListener(listenerCancel)
+        else binding.textCancel.setOnClickListener { dismiss() }
 
-        edit_search.setOnEditorActionListener { textView, actionId, keyEvent ->
+        binding.editSearch.setOnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                text_search.performClick()
+                binding.textSearch.performClick()
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false

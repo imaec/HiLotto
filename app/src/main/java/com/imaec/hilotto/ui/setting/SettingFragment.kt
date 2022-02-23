@@ -31,7 +31,6 @@ import com.kakao.sdk.common.util.KakaoCustomTabsClient
 import com.kakao.sdk.link.LinkClient
 import com.kakao.sdk.link.WebSharerClient
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.dialog_search.*
 import java.io.BufferedWriter
 import java.io.File
 import java.io.IOException
@@ -139,9 +138,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
             setTitle(getString(R.string.setting_statistics))
             setHint(getString(R.string.msg_setting_statistics_hint))
             setSearch(getString(R.string.setting))
-            setOnSearchClickListener {
+            setOnSearchClickListener { keyword ->
                 val result = viewModel.checkSettingRound(
-                    edit_search.text.toString(),
+                    keyword,
                     SharedPreferenceUtil.getInt(
                         context = context,
                         key = SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO,
@@ -152,9 +151,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                     SharedPreferenceUtil.putValue(
                         context,
                         SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
-                        edit_search.text.toString().toInt()
+                        keyword.toInt()
                     )
-                    viewModel.setSettingStatistics(edit_search.text.toString().toInt())
+                    viewModel.setSettingStatistics(keyword.toInt())
                     mainViewModel.changeSetting(true)
                     toast(R.string.msg_success_save_setting_statistics)
                 } else {

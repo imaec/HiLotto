@@ -8,11 +8,14 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import androidx.databinding.DataBindingUtil
 import com.imaec.hilotto.R
+import com.imaec.hilotto.databinding.DialogEditBinding
 import com.imaec.hilotto.utils.toast
-import kotlinx.android.synthetic.main.dialog_edit.*
 
 class EditDialog(context: Context) : Dialog(context) {
+
+    private lateinit var binding: DialogEditBinding
 
     private var title = "안내"
     private lateinit var listenerEdit: View.OnClickListener
@@ -20,7 +23,9 @@ class EditDialog(context: Context) : Dialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.dialog_edit)
+
+        binding = DataBindingUtil.inflate(layoutInflater, R.layout.dialog_edit, null, false)
+        setContentView(binding.root)
 
         val size = Point()
         window?.windowManager?.defaultDisplay?.getSize(size)
@@ -33,21 +38,21 @@ class EditDialog(context: Context) : Dialog(context) {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
 
-        text_title.text = title
+        binding.textTitle.text = title
 
         if (::listenerEdit.isInitialized) {
-            text_edit.setOnClickListener(listenerEdit)
+            binding.textEdit.setOnClickListener(listenerEdit)
         } else {
-            text_edit.setOnClickListener {
+            binding.textEdit.setOnClickListener {
                 context.toast(R.string.msg_edit_click)
                 dismiss()
             }
         }
 
         if (::listenerDelete.isInitialized) {
-            text_delete.setOnClickListener(listenerDelete)
+            binding.textDelete.setOnClickListener(listenerDelete)
         } else {
-            text_delete.setOnClickListener {
+            binding.textDelete.setOnClickListener {
                 context.toast(R.string.msg_delete_click)
                 dismiss()
             }

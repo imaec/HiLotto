@@ -8,11 +8,14 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import androidx.databinding.DataBindingUtil
 import com.imaec.hilotto.R
+import com.imaec.hilotto.databinding.DialogCopyBinding
 import com.imaec.hilotto.utils.toast
-import kotlinx.android.synthetic.main.dialog_copy.*
 
 class CopyDialog(context: Context) : Dialog(context) {
+
+    private lateinit var binding: DialogCopyBinding
 
     private var title = "안내"
     private lateinit var listenerStore: View.OnClickListener
@@ -20,7 +23,9 @@ class CopyDialog(context: Context) : Dialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.dialog_copy)
+
+        binding = DataBindingUtil.inflate(layoutInflater, R.layout.dialog_copy, null, false)
+        setContentView(binding.root)
 
         val size = Point()
         window?.windowManager?.defaultDisplay?.getSize(size)
@@ -33,21 +38,21 @@ class CopyDialog(context: Context) : Dialog(context) {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
 
-        text_title.text = title
+        binding.textTitle.text = title
 
         if (::listenerStore.isInitialized) {
-            text_copy_store.setOnClickListener(listenerStore)
+            binding.textCopyStore.setOnClickListener(listenerStore)
         } else {
-            text_copy_store.setOnClickListener {
+            binding.textCopyStore.setOnClickListener {
                 context.toast(R.string.msg_copy_store_click)
                 dismiss()
             }
         }
 
         if (::listenerAddress.isInitialized) {
-            text_copy_address.setOnClickListener(listenerAddress)
+            binding.textCopyAddress.setOnClickListener(listenerAddress)
         } else {
-            text_copy_address.setOnClickListener {
+            binding.textCopyAddress.setOnClickListener {
                 context.toast(R.string.msg_copy_address_click)
                 dismiss()
             }
