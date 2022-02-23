@@ -1,6 +1,5 @@
 package com.imaec.hilotto.base
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +8,17 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.ktx.Firebase
 import com.imaec.hilotto.R
 import com.imaec.hilotto.ui.view.dialog.ProgressDialog
 import java.util.Random
@@ -27,7 +30,7 @@ abstract class BaseFragment<VDB : ViewDataBinding>(
     protected val TAG = this::class.java.simpleName
 
     protected lateinit var binding: VDB
-    private lateinit var interstitialAd: InterstitialAd
+    protected var interstitialAd: InterstitialAd? = null
 
     private val progressDialog: ProgressDialog by lazy { ProgressDialog(requireContext()) }
     private lateinit var firebaseAnalytics: FirebaseAnalytics
@@ -79,11 +82,6 @@ abstract class BaseFragment<VDB : ViewDataBinding>(
         FirebaseCrashlytics.getInstance().log("$TAG onDestroy")
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        FirebaseCrashlytics.getInstance().log("$TAG onActivityResult")
-    }
-
     protected fun showProgress() {
         if (!progressDialog.isShowing) progressDialog.show()
     }
@@ -97,51 +95,71 @@ abstract class BaseFragment<VDB : ViewDataBinding>(
     }
 
     private fun init() {
-        MobileAds.initialize(context) {}
-        firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
+        MobileAds.initialize(requireContext()) {}
+        firebaseAnalytics = Firebase.analytics
     }
 
-    private fun showAd(adId: Int, callback: () -> Unit) {
-        interstitialAd = InterstitialAd(context).apply {
-            adUnitId = getString(adId)
-            adListener = object : AdListener() {
-                override fun onAdLoaded() {
-                    interstitialAd.show()
-                }
-
-                override fun onAdFailedToLoad(p0: LoadAdError?) {
-                    super.onAdFailedToLoad(p0)
-                    callback()
-                }
-
-                override fun onAdClosed() {
-                    super.onAdClosed()
-                    callback()
-                }
-            }
-        }
-        interstitialAd.loadAd(AdRequest.Builder().build())
-    }
-
-    fun showAd(adId: Int, isRandom: Boolean = false, callback: () -> Unit) {
+    fun showAd(adId: Int, isRandom: Boolean, onLoaded: () -> Unit, onClosed: () -> Unit) {
         showProgress()
 
         if (isRandom) {
-            val ran = Random().nextInt(9) + 1
+            val ran = Random().nextInt(4) + 1
             if (ran == 1) {
-                showAd(adId) {
-                    hideProgress()
-                    callback()
-                }
+                showAd(
+                    adId = adId,
+                    onLoaded = {
+                        hideProgress()
+                        onLoaded()
+                    },
+                    onClosed = {
+                        hideProgress()
+                        onClosed()
+                    }
+                )
             } else {
                 hideProgress()
-                callback()
+                onClosed()
             }
         } else {
-            showAd(adId) {
-                hideProgress()
-                callback()
-            }
+            showAd(
+                adId = adId,
+                onLoaded = {
+                    hideProgress()
+                    onLoaded()
+                },
+                onClosed = {
+                    hideProgress()
+                    onClosed()
+                }
+            )
         }
+    }
+
+    private fun showAd(adId: Int, onLoaded: () -> Unit, onClosed: () -> Unit) {
+        InterstitialAd.load(
+            requireContext(), getString(adId), AdRequest.Builder().build(),
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    interstitialAd = null
+                }
+
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    this@BaseFragment.interstitialAd = interstitialAd
+                    this@BaseFragment.interstitialAd?.fullScreenContentCallback =
+                        object : FullScreenContentCallback() {
+                            override fun onAdDismissedFullScreenContent() {
+                                super.onAdDismissedFullScreenContent()
+                                onClosed()
+                            }
+
+                            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                                super.onAdFailedToShowFullScreenContent(p0)
+                                onClosed()
+                            }
+                        }
+                    onLoaded()
+                }
+            }
+        )
     }
 }

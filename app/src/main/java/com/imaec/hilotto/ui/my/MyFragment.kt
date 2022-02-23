@@ -81,14 +81,21 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
                 when (it) {
                     is MyState.OnClickNumber -> {
                         lottoViewModel.lottoList.value?.let { list ->
-                            showAd(R.string.ad_id_history_front, true) {
-                                startActivity<WinHistoryActivity>(
-                                    WinHistoryActivity.createBundle(
-                                        lottoList = list,
-                                        myNumber = it.myNumber
+                            showAd(
+                                adId = R.string.ad_id_history_front,
+                                isRandom = true,
+                                onLoaded = {
+                                    interstitialAd?.show(requireActivity())
+                                },
+                                onClosed = {
+                                    startActivity<WinHistoryActivity>(
+                                        WinHistoryActivity.createBundle(
+                                            lottoList = list,
+                                            myNumber = it.myNumber
+                                        )
                                     )
-                                )
-                            }
+                                }
+                            )
                         }
                     }
                     is MyState.OnLongClickNumber -> {

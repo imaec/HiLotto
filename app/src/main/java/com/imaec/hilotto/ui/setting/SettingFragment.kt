@@ -143,9 +143,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                 val result = viewModel.checkSettingRound(
                     edit_search.text.toString(),
                     SharedPreferenceUtil.getInt(
-                        context,
-                        SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO,
-                        1
+                        context = context,
+                        key = SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO,
+                        def = 1003
                     )
                 )
                 if (result == "OK") {

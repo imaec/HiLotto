@@ -99,15 +99,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         viewModel.state.observe(viewLifecycleOwner) {
             when (it) {
                 is HomeState.OnClickLately -> {
-                    showAd(R.string.ad_id_lately_front, true) {
-                        val position = it.lottoList.indexOf(it.lotto)
-                        startActivity<LatelyResultActivity>(
-                            LatelyResultActivity.createBundle(
-                                lottoList = it.lottoList,
-                                position = position
+                    showAd(
+                        adId = R.string.ad_id_lately_front,
+                        isRandom = true,
+                        onLoaded = {
+                            interstitialAd?.show(requireActivity())
+                        },
+                        onClosed = {
+                            val position = it.lottoList.indexOf(it.lotto)
+                            startActivity<LatelyResultActivity>(
+                                LatelyResultActivity.createBundle(
+                                    lottoList = it.lottoList,
+                                    position = position
+                                )
                             )
-                        )
-                    }
+                        }
+                    )
                 }
                 is HomeState.OnClickMore -> {
                     startActivity<LatelyResultActivity>(
