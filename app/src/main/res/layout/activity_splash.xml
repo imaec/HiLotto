@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.imaec.hilotto.ui.splash.SplashViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,6 +42,7 @@
 
         <ProgressBar
             android:id="@+id/pb_circular"
+            bindVisible="@{vm.progress == 0 || vm.progress == 100}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -50,20 +55,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="@string/loading"
+            android:text="@{vm.loadingText}"
             android:textSize="15sp"
             android:textColor="@color/gray"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/pb_horizontal"/>
+            app:layout_constraintBottom_toTopOf="@id/pb_horizontal"
+            tools:text="@string/loading"/>
 
         <ProgressBar
             style="@style/AppTheme.LoadingProgress"
             android:id="@+id/pb_horizontal"
+            bindVisible="@{vm.progress > 0 &amp;&amp; vm.progress &lt; 100}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.LoadingProgress"
-            android:progress="0"
+            android:progress="@{vm.progress}"
             android:max="100"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
