@@ -10,16 +10,13 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.gson.Gson
 import com.imaec.hilotto.R
-import com.imaec.hilotto.REQUEST_CREATE_FILE
-import com.imaec.hilotto.REQUEST_OPEN_DOCUMENT
-import com.imaec.hilotto.REQUEST_PERMISSION_EXPORT
-import com.imaec.hilotto.REQUEST_PERMISSION_IMPORT
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentSettingBinding
 import com.imaec.hilotto.room.entity.NumberEntity
@@ -46,63 +43,17 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
     private val viewModel by viewModels<SettingViewModel>()
     private val mainViewModel by activityViewModels<MainViewModel>()
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) {
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupBinding()
         setupData()
         setupObserver()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        when (requestCode) {
-            REQUEST_CREATE_FILE -> {
-                if (resultCode == RESULT_OK) {
-                    data?.data?.let {
-                        val result = export(viewModel.numberList, it)
-                        toast(result)
-                    } ?: run {
-                        toast(R.string.msg_unknown_error)
-                    }
-                }
-            }
-            REQUEST_OPEN_DOCUMENT -> {
-                if (resultCode == RESULT_OK) {
-                    data?.data?.let {
-                        val inputStream = requireContext().contentResolver.openInputStream(it)
-                        viewModel.import(inputStream)
-                    } ?: run {
-                        toast(R.string.msg_unknown_error)
-                    }
-                }
-            }
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        var grantResult = 0
-        grantResults.forEach {
-            if (it == 0) grantResult++
-        }
-        if (permissions.size == grantResult) {
-            when (requestCode) {
-                REQUEST_PERMISSION_EXPORT -> viewModel.export(
-                    "${Environment.getExternalStorageDirectory().absolutePath}/" +
-                        Environment.DIRECTORY_DOWNLOADS
-                )
-                REQUEST_PERMISSION_IMPORT -> {
-                    import()
-                }
-            }
-        }
     }
 
     private fun setupBinding() {
@@ -131,51 +82,44 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                     showInputDialog()
                 }
                 SettingState.OnClickExport -> {
-                    if (!checkPermission(REQUEST_PERMISSION_EXPORT)) return@observe
-
-                    CommonDialog(requireContext(), getString(R.string.msg_export_info)).apply {
-                        setTitle(getString(R.string.export_my_number))
-                        setOnOkClickListener {
-                            viewModel.export(
-                                "${Environment.getExternalStorageDirectory().absolutePath}/" +
-                                    Environment.DIRECTORY_DOWNLOADS
-                            )
-                            dismiss()
+                    if (checkPermission()) {
+                        CommonDialog(requireContext(), getString(R.string.msg_export_info)).apply {
+                            setTitle(getString(R.string.export_my_number))
+                            setOnOkClickListener {
+                                viewModel.export(
+                                    "${Environment.getExternalStorageDirectory().absolutePath}/" +
+                                        Environment.DIRECTORY_DOWNLOADS
+                                )
+                                dismiss()
+                            }
+                            show()
                         }
-                        show()
+                    } else {
+                        requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     }
                 }
                 SettingState.ExportStep2 -> {
-                    startActivityForResult(
-                        Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-                            type = "application/json"
-                            putExtra(Intent.EXTRA_TITLE, "myNumber.json")
-                        },
-                        REQUEST_CREATE_FILE
-                    )
+                    moveDocument(DocumentAction.CREATE)
                 }
                 SettingState.OnClickExportInfo -> {
                     showInfoDialog(getString(R.string.msg_export_description))
                 }
                 SettingState.OnClickImport -> {
-                    if (!checkPermission(REQUEST_PERMISSION_IMPORT)) return@observe
-
-                    CommonDialog(requireContext(), getString(R.string.msg_import_info)).apply {
-                        setTitle(getString(R.string.import_my_number))
-                        setOnOkClickListener {
-                            import()
-                            dismiss()
+                    if (checkPermission()) {
+                        CommonDialog(requireContext(), getString(R.string.msg_import_info)).apply {
+                            setTitle(getString(R.string.import_my_number))
+                            setOnOkClickListener {
+                                import()
+                                dismiss()
+                            }
+                            show()
                         }
-                        show()
+                    } else {
+                        requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     }
                 }
                 SettingState.ImportStep2 -> {
-                    startActivityForResult(
-                        Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                            type = "application/json"
-                        },
-                        REQUEST_OPEN_DOCUMENT
-                    )
+                    moveDocument(DocumentAction.OPEN)
                 }
                 SettingState.OnClickImportInfo -> {
                     showInfoDialog(getString(R.string.msg_import_description))
@@ -222,16 +166,11 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
         }
     }
 
-    private fun checkPermission(requestCode: Int): Boolean {
-        return if (
-            checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            true
-        } else {
-            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), requestCode)
-            false
-        }
+    private fun checkPermission(): Boolean {
+        return checkSelfPermission(
+            requireContext(),
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun export(numberList: List<NumberEntity>, uri: Uri): Int {
@@ -264,6 +203,45 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
         }
     }
 
+    private fun moveDocument(documentAction: DocumentAction) {
+        val action = when (documentAction) {
+            DocumentAction.OPEN -> Intent.ACTION_OPEN_DOCUMENT
+            DocumentAction.CREATE -> Intent.ACTION_CREATE_DOCUMENT
+        }
+        requireActivity().activityResultRegistry.register(
+            "",
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            when (documentAction) {
+                DocumentAction.OPEN -> {
+                    if (it.resultCode == RESULT_OK) {
+                        it.data?.data?.let { uri ->
+                            val inputStream = requireContext().contentResolver.openInputStream(uri)
+                            viewModel.import(inputStream)
+                        } ?: run {
+                            toast(R.string.msg_unknown_error)
+                        }
+                    }
+                }
+                DocumentAction.CREATE -> {
+                    if (it.resultCode == RESULT_OK) {
+                        it.data?.data?.let { uri ->
+                            val result = export(viewModel.numberList, uri)
+                            toast(result)
+                        } ?: run {
+                            toast(R.string.msg_unknown_error)
+                        }
+                    }
+                }
+            }
+        }.launch(
+            Intent(action).apply {
+                type = "application/json"
+                putExtra(Intent.EXTRA_TITLE, "myNumber.json")
+            }
+        )
+    }
+
     private fun share() {
         val templateId = getString(R.string.template_id_app).toLong()
         if (LinkClient.instance.isKakaoLinkAvailable(requireContext())) {
@@ -290,5 +268,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                 }
             }
         }
+    }
+
+    private enum class DocumentAction {
+        OPEN, CREATE
     }
 }

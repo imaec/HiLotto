@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.imaec.hilotto.room.entity.NumberEntity
@@ -31,10 +32,10 @@ interface NumberDao {
     @Query("SELECT * FROM numberEntity")
     fun selectAllList(): List<NumberEntity>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(entity: NumberEntity)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(entities: List<NumberEntity>)
 
     @Update

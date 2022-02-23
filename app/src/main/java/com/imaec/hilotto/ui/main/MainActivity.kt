@@ -2,6 +2,7 @@ package com.imaec.hilotto.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.R
@@ -16,11 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    companion object {
-        val isLoaded = MutableLiveData(false)
-        val progress = MutableLiveData(0)
-    }
-
     private val viewModel by viewModels<MainViewModel>()
     private val lottoViewModel by viewModels<LottoViewModel>()
 
@@ -30,7 +26,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         setStatusBarColor(R.color.white, true)
         super.onCreate(savedInstanceState)
 
-        startActivityForResult(Intent(this, SplashActivity::class.java), 0)
+        moveSplashActivity()
 
         setupBinding()
         setupLayout()
@@ -50,13 +46,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == RESULT_OK) {
-            interstitialAd.show()
-            isLoaded.value = false
-        }
+    private fun moveSplashActivity() {
+        activityResultRegistry.register(
+            KEY_SPLASH,
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == RESULT_OK) {
+                interstitialAd.show()
+                isLoaded.value = false
+            }
+        }.launch(Intent(this, SplashActivity::class.java))
     }
 
     private fun setupBinding() {
@@ -145,5 +144,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 value = it
             )
         }
+    }
+
+    companion object {
+        const val KEY_SPLASH = "splash"
+
+        val isLoaded = MutableLiveData(false)
+        val progress = MutableLiveData(0)
     }
 }

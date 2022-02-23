@@ -9,10 +9,10 @@ import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.domain.successOr
 import com.imaec.hilotto.domain.usecase.number.InsertAllUseCase
 import com.imaec.hilotto.domain.usecase.number.SelectAllListUseCase
-import com.imaec.hilotto.domain.usecase.number.SelectByNumbersUseCase
 import com.imaec.hilotto.room.entity.NumberEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.File
@@ -25,7 +25,6 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingViewModel @Inject constructor(
     private val selectAllListUseCase: SelectAllListUseCase,
-    private val selectByNumbersUseCase: SelectByNumbersUseCase,
     private val insertAllUseCase: InsertAllUseCase,
 ) : BaseViewModel() {
 
@@ -65,12 +64,13 @@ class SettingViewModel @Inject constructor(
     }
 
     fun export(path: String) {
-        _state.value = if (Build.VERSION.SDK_INT >= 30) {
-            SettingState.ExportStep2
-        } else {
-            val file = File(path)
-            if (numberList.isNotEmpty()) {
-                if (!file.exists()) file.mkdir()
+        _state.value = when {
+            numberList.isEmpty() -> SettingState.ShowToast("내 번호가 없습니다.")
+            Build.VERSION.SDK_INT >= 30 -> SettingState.ExportStep2
+            else -> {
+                val file = File(path).takeIf {
+                    !it.exists()
+                }?.mkdir()
 
                 try {
                     with(BufferedWriter(FileWriter("$file/myNumber.json", false))) {
@@ -84,8 +84,6 @@ class SettingViewModel @Inject constructor(
                         "내 번호 내보내기에 실패하였습니다.\n관리자에게 문의해주시기 바랍니다."
                     )
                 }
-            } else {
-                SettingState.ShowToast("내 번호가 없습니다.")
             }
         }
     }
@@ -114,17 +112,11 @@ class SettingViewModel @Inject constructor(
     }
 
     private fun saveNumbers(list: List<NumberEntity>) {
-        val listTemp = ArrayList<NumberEntity>().apply {
-            addAll(list)
-        }
+        if (list.isEmpty()) return
+
+        Timber.i("  ## list : $list")
         viewModelScope.launch {
-            list.forEach { entity ->
-                if (selectByNumbersUseCase(entity).successOr(0) > 0) {
-                    // ALREADY EXIST
-                    listTemp.remove(entity)
-                }
-            }
-            if (listTemp.size > 0) insertAllUseCase(listTemp)
+            insertAllUseCase(list)
         }
     }
 
