@@ -11,7 +11,7 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.FragmentContinuesBinding
-import com.imaec.hilotto.model.ContinueDTO
+import com.imaec.hilotto.model.ContinueVo
 import com.imaec.hilotto.ui.main.LottoViewModel
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 
@@ -37,13 +37,13 @@ class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragme
 
     private fun setupRecyclerView() {
         with(binding.rvContinues) {
-            val diffUtil = object : DiffUtil.ItemCallback<ContinueDTO>() {
-                override fun areItemsTheSame(oldItem: ContinueDTO, newItem: ContinueDTO): Boolean =
+            val diffUtil = object : DiffUtil.ItemCallback<ContinueVo>() {
+                override fun areItemsTheSame(oldItem: ContinueVo, newItem: ContinueVo): Boolean =
                     oldItem == newItem
 
                 override fun areContentsTheSame(
-                    oldItem: ContinueDTO,
-                    newItem: ContinueDTO
+                    oldItem: ContinueVo,
+                    newItem: ContinueVo
                 ): Boolean = oldItem == newItem
             }
 

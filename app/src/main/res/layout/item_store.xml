@@ -11,7 +11,7 @@
 
         <variable
             name="item"
-            type="com.imaec.hilotto.model.StoreDTO" />
+            type="com.imaec.hilotto.model.StoreVo" />
     </data>
 
     <androidx.cardview.widget.CardView

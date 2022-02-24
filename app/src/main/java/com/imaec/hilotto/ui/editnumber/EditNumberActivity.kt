@@ -12,7 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
 import com.imaec.hilotto.databinding.ActivityEditNumberBinding
-import com.imaec.hilotto.model.MyNumberDTO
+import com.imaec.hilotto.model.MyNumberVo
 import com.imaec.hilotto.utils.expand
 import com.imaec.hilotto.utils.hide
 import com.imaec.hilotto.utils.toast
@@ -129,7 +129,7 @@ class EditNumberActivity : BaseActivity<ActivityEditNumberBinding>(R.layout.acti
     companion object {
         const val MY_NUMBER = "myNumber"
 
-        fun createBundle(myNumber: MyNumberDTO): Bundle = bundleOf(
+        fun createBundle(myNumber: MyNumberVo): Bundle = bundleOf(
             MY_NUMBER to myNumber
         )
     }

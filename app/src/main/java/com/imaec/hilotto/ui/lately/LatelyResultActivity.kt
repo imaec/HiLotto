@@ -14,8 +14,8 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
 import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.ActivityLatelyResultBinding
-import com.imaec.hilotto.model.LatelyResultDTO
-import com.imaec.hilotto.model.LottoDTO
+import com.imaec.hilotto.model.LatelyResultVo
+import com.imaec.hilotto.model.LottoVo
 import com.imaec.hilotto.ui.view.dialog.InputDialog
 import com.imaec.hilotto.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,15 +50,15 @@ class LatelyResultActivity :
             val snapHelper = PagerSnapHelper()
             snapHelper.attachToRecyclerView(this)
 
-            val diffUtil = object : DiffUtil.ItemCallback<LatelyResultDTO>() {
+            val diffUtil = object : DiffUtil.ItemCallback<LatelyResultVo>() {
                 override fun areItemsTheSame(
-                    oldItem: LatelyResultDTO,
-                    newItem: LatelyResultDTO
+                    oldItem: LatelyResultVo,
+                    newItem: LatelyResultVo
                 ): Boolean = oldItem.round == newItem.round
 
                 override fun areContentsTheSame(
-                    oldItem: LatelyResultDTO,
-                    newItem: LatelyResultDTO
+                    oldItem: LatelyResultVo,
+                    newItem: LatelyResultVo
                 ): Boolean = oldItem == newItem
             }
 
@@ -117,7 +117,7 @@ class LatelyResultActivity :
         const val LOTTO_LIST = "lottoList"
         const val POSITION = "position"
 
-        fun createBundle(lottoList: List<LottoDTO>, position: Int = 0): Bundle = bundleOf(
+        fun createBundle(lottoList: List<LottoVo>, position: Int = 0): Bundle = bundleOf(
             LOTTO_LIST to lottoList,
             POSITION to position
         )

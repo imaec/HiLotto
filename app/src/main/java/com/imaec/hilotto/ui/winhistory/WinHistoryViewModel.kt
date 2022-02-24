@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.imaec.hilotto.base.BaseViewModel
-import com.imaec.hilotto.model.FitNumberDTO
-import com.imaec.hilotto.model.LottoDTO
-import com.imaec.hilotto.model.MyNumberDTO
+import com.imaec.hilotto.model.FitNumberVo
+import com.imaec.hilotto.model.LottoVo
+import com.imaec.hilotto.model.MyNumberVo
 import com.imaec.hilotto.ui.winhistory.WinHistoryActivity.Companion.LOTTO_LIST
 import com.imaec.hilotto.ui.winhistory.WinHistoryActivity.Companion.MY_NUMBER
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,17 +20,17 @@ class WinHistoryViewModel @Inject constructor(
     private val _state = MutableLiveData<WinHistoryState>()
     val state: LiveData<WinHistoryState> get() = _state
 
-    private val _lottoList = MutableLiveData<List<LottoDTO>>(savedStateHandle.get(LOTTO_LIST))
-    val lottoList: LiveData<List<LottoDTO>> get() = _lottoList
+    private val _lottoList = MutableLiveData<List<LottoVo>>(savedStateHandle.get(LOTTO_LIST))
+    val lottoList: LiveData<List<LottoVo>> get() = _lottoList
 
-    private val _myNumber = MutableLiveData<MyNumberDTO>(savedStateHandle.get(MY_NUMBER))
-    val myNumber: LiveData<MyNumberDTO> get() = _myNumber
+    private val _myNumber = MutableLiveData<MyNumberVo>(savedStateHandle.get(MY_NUMBER))
+    val myNumber: LiveData<MyNumberVo> get() = _myNumber
 
-    private val _winList = MutableLiveData<List<MyNumberDTO>>(emptyList())
-    val winList: LiveData<List<MyNumberDTO>> get() = _winList
+    private val _winList = MutableLiveData<List<MyNumberVo>>(emptyList())
+    val winList: LiveData<List<MyNumberVo>> get() = _winList
 
     fun checkWin() {
-        val listWinTemp = mutableListOf<MyNumberDTO>()
+        val listWinTemp = mutableListOf<MyNumberVo>()
         lottoList.value?.map {
             val winNumbers = arrayOf(
                 it.drwtNo1,
@@ -41,7 +41,7 @@ class WinHistoryViewModel @Inject constructor(
                 it.drwtNo6
             )
 
-            val fitNumberDTO = FitNumberDTO()
+            val fitNumber = FitNumberVo()
             val listTemp = arrayListOf<Int>()
             arrayOf(
                 myNumber.value?.number1,
@@ -57,11 +57,11 @@ class WinHistoryViewModel @Inject constructor(
                     }
                 }
                 if (it.bnusNo == myNumber) {
-                    fitNumberDTO.numberBonus = myNumber
+                    fitNumber.numberBonus = myNumber
                 }
             }
 
-            fitNumberDTO.apply {
+            fitNumber.apply {
                 listFitNumber.addAll(listTemp)
                 listFitNumber.forEach { fitNumber ->
                     if (myNumber.value?.number1 == fitNumber) isFitNo1 = true
@@ -81,9 +81,9 @@ class WinHistoryViewModel @Inject constructor(
                 ).forEach { number ->
                     listIsFitBonus.add(numberBonus == number)
                 }
-                rank = when (fitNumberDTO.listFitNumber.size) {
+                rank = when (fitNumber.listFitNumber.size) {
                     6 -> 1
-                    5 -> if (fitNumberDTO.numberBonus > 0) 2 else 3
+                    5 -> if (fitNumber.numberBonus > 0) 2 else 3
                     4 -> 4
                     3 -> 5
                     else -> 0
@@ -91,10 +91,10 @@ class WinHistoryViewModel @Inject constructor(
                 round = "${it.drwNo}회"
             }
 
-            if (fitNumberDTO.listFitNumber.size >= 3) {
+            if (fitNumber.listFitNumber.size >= 3) {
                 listWinTemp.add(
                     myNumber.value!!.copy(
-                        fitNumber = fitNumberDTO
+                        fitNumber = fitNumber
                     )
                 )
             }

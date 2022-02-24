@@ -1,12 +1,12 @@
 package com.imaec.hilotto.ui.store
 
-import com.imaec.hilotto.model.StoreDTO
+import com.imaec.hilotto.model.StoreVo
 
 sealed class StoreState {
 
     object OnClickSearch : StoreState()
 
-    data class OnClickStore(val store: StoreDTO) : StoreState()
+    data class OnClickStore(val store: StoreVo) : StoreState()
 
     data class SuccessCheck(val round: Int) : StoreState()
 

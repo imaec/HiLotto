@@ -12,15 +12,14 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.imaec.domain.model.MyNumberDto
 import com.imaec.hilotto.BR
-import com.imaec.hilotto.Event
 import com.imaec.hilotto.Lotto
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.FragmentRecommendBinding
-import com.imaec.hilotto.model.NumberDTO
-import com.imaec.hilotto.room.entity.NumberEntity
+import com.imaec.hilotto.model.NumberVo
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.ui.main.LottoViewModel
@@ -60,13 +59,13 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             bottomSheetBehavior = BottomSheetBehavior.from(llBottomSheet).hide()
 
             with(rvNotIncluded) {
-                val diffUtil = object : DiffUtil.ItemCallback<NumberDTO>() {
-                    override fun areItemsTheSame(oldItem: NumberDTO, newItem: NumberDTO): Boolean =
+                val diffUtil = object : DiffUtil.ItemCallback<NumberVo>() {
+                    override fun areItemsTheSame(oldItem: NumberVo, newItem: NumberVo): Boolean =
                         oldItem == newItem
 
                     override fun areContentsTheSame(
-                        oldItem: NumberDTO,
-                        newItem: NumberDTO
+                        oldItem: NumberVo,
+                        newItem: NumberVo
                     ): Boolean = oldItem == newItem
                 }
 
@@ -199,7 +198,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                     }
                     RecommendState.OnClickCreate -> {
                         if (binding.tvCreate.text == getString(R.string.create_numbers)) {
-                            logEvent(Event.CREATE_NUMBER, Bundle())
+                            logEvent(CREATE_NUMBER, Bundle())
                             var index = 0
                             lottoList.value?.let { listResult ->
                                 Lotto.setCount(getEmptyCount())
@@ -237,9 +236,9 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                         }
                         listIncludeNumber.value?.let { list ->
                             val sortedList = list.sortedBy { it.toInt() }
-                            logEvent(Event.SAVE_NUMBER, Bundle())
+                            logEvent(SAVE_NUMBER, Bundle())
                             saveNumber(
-                                NumberEntity(
+                                MyNumberDto(
                                     numberId = (
                                         sortedList[0] +
                                             sortedList[1] +
@@ -432,5 +431,10 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             tvNumber5.text = ""
             tvNumber6.text = ""
         }
+    }
+
+    companion object {
+        const val CREATE_NUMBER = "create_number"
+        const val SAVE_NUMBER = "save_number"
     }
 }

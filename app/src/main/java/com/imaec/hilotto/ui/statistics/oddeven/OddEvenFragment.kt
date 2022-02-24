@@ -11,7 +11,7 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.FragmentOddEvenBinding
-import com.imaec.hilotto.model.OddEvenDTO
+import com.imaec.hilotto.model.OddEvenVo
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.ui.main.LottoViewModel
 
@@ -37,13 +37,13 @@ class OddEvenFragment : BaseFragment<FragmentOddEvenBinding>(R.layout.fragment_o
 
     private fun setupRecyclerView() {
         with(binding.rvOddEven) {
-            val diffUtil = object : DiffUtil.ItemCallback<OddEvenDTO>() {
-                override fun areItemsTheSame(oldItem: OddEvenDTO, newItem: OddEvenDTO): Boolean =
+            val diffUtil = object : DiffUtil.ItemCallback<OddEvenVo>() {
+                override fun areItemsTheSame(oldItem: OddEvenVo, newItem: OddEvenVo): Boolean =
                     oldItem == newItem
 
                 override fun areContentsTheSame(
-                    oldItem: OddEvenDTO,
-                    newItem: OddEvenDTO
+                    oldItem: OddEvenVo,
+                    newItem: OddEvenVo
                 ): Boolean = oldItem == newItem
             }
 

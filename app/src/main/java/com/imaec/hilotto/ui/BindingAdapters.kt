@@ -11,7 +11,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseSingleViewAdapter
-import com.imaec.hilotto.model.FitNumberDTO
+import com.imaec.hilotto.model.FitNumberVo
 import java.text.DecimalFormat
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.roundToLong
@@ -54,7 +54,7 @@ fun View.bindBackgroundDot(isBonus: Boolean) {
 }
 
 @BindingAdapter(value = ["bindNumber", "bindFitNumber"], requireAll = false)
-fun TextView.bindFitNumber(number: Int, fitNumber: FitNumberDTO?) {
+fun TextView.bindFitNumber(number: Int, fitNumber: FitNumberVo?) {
     text = number.toString()
     setTextColor(ContextCompat.getColor(context, R.color.white))
     setBackgroundNumberCircle(number)
@@ -72,7 +72,7 @@ fun TextView.bindFitNumber(number: Int, fitNumber: FitNumberDTO?) {
 }
 
 @BindingAdapter("bindRank")
-fun TextView.bindRank(fitNumber: FitNumberDTO?) {
+fun TextView.bindRank(fitNumber: FitNumberVo?) {
     fitNumber ?: return
 
     setBackgroundResource(if (fitNumber.rank > 0) R.drawable.bg_triangle else 0)

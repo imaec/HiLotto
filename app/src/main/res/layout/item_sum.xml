@@ -11,7 +11,7 @@
 
         <variable
             name="item"
-            type="com.imaec.hilotto.model.SumDTO" />
+            type="com.imaec.hilotto.model.SumVo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

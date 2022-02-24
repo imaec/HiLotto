@@ -3,8 +3,8 @@ package com.imaec.hilotto.ui.statistics.oddeven
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.base.BaseViewModel
-import com.imaec.hilotto.model.LottoDTO
-import com.imaec.hilotto.model.OddEvenDTO
+import com.imaec.hilotto.model.LottoVo
+import com.imaec.hilotto.model.OddEvenVo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -14,17 +14,17 @@ class OddEvenViewModel @Inject constructor() : BaseViewModel() {
     private val _statisticsNo = MutableLiveData(20)
     val statisticsNo: LiveData<Int> get() = _statisticsNo
 
-    private val _oddEvenList = MutableLiveData<List<OddEvenDTO>>(ArrayList())
-    val oddEvenList: LiveData<List<OddEvenDTO>> get() = _oddEvenList
+    private val _oddEvenList = MutableLiveData<List<OddEvenVo>>(ArrayList())
+    val oddEvenList: LiveData<List<OddEvenVo>> get() = _oddEvenList
 
     fun setStatisticsNo(no: Int) {
         _statisticsNo.value = no
     }
 
-    fun setOddEven(lottoList: List<LottoDTO>?) {
+    fun setOddEven(lottoList: List<LottoVo>?) {
         lottoList ?: return
 
-        val tempList = ArrayList<OddEvenDTO>()
+        val tempList = ArrayList<OddEvenVo>()
         lottoList.subList(0, statisticsNo.value ?: 20).forEach {
             val listOdd =
                 getOdd(it.drwtNo1, it.drwtNo2, it.drwtNo3, it.drwtNo4, it.drwtNo5, it.drwtNo6)
@@ -36,7 +36,7 @@ class OddEvenViewModel @Inject constructor() : BaseViewModel() {
                 addAll(listEven)
             }
 
-            val dto = OddEvenDTO(
+            val dto = OddEvenVo(
                 no = "${it.drwNo}회",
                 oddList = listOdd,
                 evenList = listEven,

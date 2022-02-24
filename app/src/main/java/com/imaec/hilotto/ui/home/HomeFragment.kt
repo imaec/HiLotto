@@ -12,8 +12,8 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.FragmentHomeBinding
-import com.imaec.hilotto.model.LottoDTO
-import com.imaec.hilotto.model.StoreDTO
+import com.imaec.hilotto.model.LottoVo
+import com.imaec.hilotto.model.StoreVo
 import com.imaec.hilotto.ui.lately.LatelyResultActivity
 import com.imaec.hilotto.ui.store.StoreActivity
 import com.imaec.hilotto.utils.startActivity
@@ -48,11 +48,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun setupRecyclerView() {
         with(binding.rvLatelyResult) {
-            val diffUtil = object : DiffUtil.ItemCallback<LottoDTO>() {
-                override fun areItemsTheSame(oldItem: LottoDTO, newItem: LottoDTO): Boolean =
+            val diffUtil = object : DiffUtil.ItemCallback<LottoVo>() {
+                override fun areItemsTheSame(oldItem: LottoVo, newItem: LottoVo): Boolean =
                     oldItem.drwNo == newItem.drwNo
 
-                override fun areContentsTheSame(oldItem: LottoDTO, newItem: LottoDTO): Boolean =
+                override fun areContentsTheSame(oldItem: LottoVo, newItem: LottoVo): Boolean =
                     oldItem == newItem
             }
 
@@ -73,11 +73,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
 
         with(binding.rvStore) {
-            val diffUtil = object : DiffUtil.ItemCallback<StoreDTO>() {
-                override fun areItemsTheSame(oldItem: StoreDTO, newItem: StoreDTO): Boolean =
+            val diffUtil = object : DiffUtil.ItemCallback<StoreVo>() {
+                override fun areItemsTheSame(oldItem: StoreVo, newItem: StoreVo): Boolean =
                     oldItem == newItem
 
-                override fun areContentsTheSame(oldItem: StoreDTO, newItem: StoreDTO): Boolean =
+                override fun areContentsTheSame(oldItem: StoreVo, newItem: StoreVo): Boolean =
                     oldItem == newItem
             }
 

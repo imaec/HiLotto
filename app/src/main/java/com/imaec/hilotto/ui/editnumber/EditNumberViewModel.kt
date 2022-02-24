@@ -5,10 +5,11 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.imaec.domain.model.MyNumberDto
+import com.imaec.domain.successOr
 import com.imaec.hilotto.base.BaseViewModel
-import com.imaec.hilotto.domain.successOr
-import com.imaec.hilotto.domain.usecase.number.UpdateUseCase
-import com.imaec.hilotto.model.MyNumberDTO
+import com.imaec.domain.usecase.number.UpdateUseCase
+import com.imaec.hilotto.model.MyNumberVo
 import com.imaec.hilotto.ui.editnumber.EditNumberActivity.Companion.MY_NUMBER
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -26,8 +27,8 @@ class EditNumberViewModel @Inject constructor(
     private val _visibleBg = MutableLiveData(false)
     val visibleBg: LiveData<Boolean> get() = _visibleBg
 
-    private val _myNumber = MutableLiveData<MyNumberDTO>(savedStateHandle.get(MY_NUMBER))
-    val myNumber: LiveData<MyNumberDTO> get() = _myNumber
+    private val _myNumber = MutableLiveData<MyNumberVo>(savedStateHandle.get(MY_NUMBER))
+    val myNumber: LiveData<MyNumberVo> get() = _myNumber
 
     private val _number = MediatorLiveData<Number>().apply {
         addSource(myNumber) {
@@ -89,12 +90,24 @@ class EditNumberViewModel @Inject constructor(
         myNumber.value?.let { myNumber ->
             sortNumber(myNumber)
             viewModelScope.launch {
-                callback(updateUseCase(myNumber.toEntity()).successOr(false))
+                callback(
+                    updateUseCase(
+                        MyNumberDto(
+                            myNumber.numberId,
+                            myNumber.number1,
+                            myNumber.number2,
+                            myNumber.number3,
+                            myNumber.number4,
+                            myNumber.number5,
+                            myNumber.number6
+                        )
+                    ).successOr(false)
+                )
             }
         }
     }
 
-    private fun sortNumber(myNumber: MyNumberDTO) {
+    private fun sortNumber(myNumber: MyNumberVo) {
         val listTemp = mutableListOf(
             myNumber.number1,
             myNumber.number2,
@@ -103,7 +116,7 @@ class EditNumberViewModel @Inject constructor(
             myNumber.number5,
             myNumber.number6
         ).sorted()
-        _myNumber.value = MyNumberDTO(
+        _myNumber.value = MyNumberVo(
             myNumber.numberId,
             listTemp[0],
             listTemp[1],

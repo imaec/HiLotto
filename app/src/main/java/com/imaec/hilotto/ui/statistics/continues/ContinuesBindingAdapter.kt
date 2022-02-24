@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.imaec.hilotto.BR
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseSingleViewAdapter
-import com.imaec.hilotto.model.NumberDTO
+import com.imaec.hilotto.model.NumberVo
 import com.imaec.hilotto.ui.bindItemList
 
 @BindingAdapter(
@@ -21,15 +21,15 @@ fun RecyclerView.bindContinues(
     continuesNumbers: Array<ArrayList<Int>>
 ) {
     if (adapter == null) {
-        val diffUtil = object : DiffUtil.ItemCallback<NumberDTO>() {
+        val diffUtil = object : DiffUtil.ItemCallback<NumberVo>() {
             override fun areItemsTheSame(
-                oldItem: NumberDTO,
-                newItem: NumberDTO
+                oldItem: NumberVo,
+                newItem: NumberVo
             ): Boolean = oldItem.no == newItem.no
 
             override fun areContentsTheSame(
-                oldItem: NumberDTO,
-                newItem: NumberDTO
+                oldItem: NumberVo,
+                newItem: NumberVo
             ): Boolean = oldItem == newItem
         }
 
@@ -45,7 +45,7 @@ fun RecyclerView.bindContinues(
             }
         }
         val itemList = numberList.map {
-            NumberDTO(
+            NumberVo(
                 no = it,
                 isContinue = true,
                 continuesList = listTemp

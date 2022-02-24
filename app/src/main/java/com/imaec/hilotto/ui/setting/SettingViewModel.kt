@@ -5,11 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.imaec.domain.model.MyNumberDto
+import com.imaec.domain.successOr
 import com.imaec.hilotto.base.BaseViewModel
-import com.imaec.hilotto.domain.successOr
-import com.imaec.hilotto.domain.usecase.number.InsertAllUseCase
-import com.imaec.hilotto.domain.usecase.number.SelectAllListUseCase
-import com.imaec.hilotto.room.entity.NumberEntity
+import com.imaec.domain.usecase.number.InsertAllUseCase
+import com.imaec.domain.usecase.number.SelectAllListUseCase
+import com.imaec.hilotto.model.MyNumberVo
+import com.imaec.hilotto.model.MyNumberVo.Companion.dtoToVo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.BufferedReader
@@ -36,11 +38,11 @@ class SettingViewModel @Inject constructor(
     private val _settingStatistics = MutableLiveData("20회")
     val settingStatistics: LiveData<String> get() = _settingStatistics
 
-    var numberList = emptyList<NumberEntity>()
+    var numberList = emptyList<MyNumberVo>()
 
     init {
         viewModelScope.launch {
-            numberList = selectAllListUseCase().successOr(emptyList())
+            numberList = selectAllListUseCase().successOr(emptyList()).map(::dtoToVo)
         }
     }
 
@@ -100,7 +102,7 @@ class SettingViewModel @Inject constructor(
             while (bufferReader.readLine().also { line = it } != null) {
                 stringBuilder.append(line)
             }
-            val list = Gson().fromJson(stringBuilder.toString(), Array<NumberEntity>::class.java)
+            val list = Gson().fromJson(stringBuilder.toString(), Array<MyNumberVo>::class.java)
             saveNumbers(list.toList())
             SettingState.ShowToast("내 번호를 내부저장소에서 가져왔습니다.")
         } catch (e: IOException) {
@@ -110,11 +112,23 @@ class SettingViewModel @Inject constructor(
         }
     }
 
-    private fun saveNumbers(list: List<NumberEntity>) {
+    private fun saveNumbers(list: List<MyNumberVo>) {
         if (list.isEmpty()) return
 
         viewModelScope.launch {
-            insertAllUseCase(list)
+            insertAllUseCase(
+                list.map {
+                    MyNumberDto(
+                        numberId = it.numberId,
+                        number1 = it.number1,
+                        number2 = it.number2,
+                        number3 = it.number3,
+                        number4 = it.number4,
+                        number5 = it.number5,
+                        number6 = it.number6
+                    )
+                }
+            )
         }
     }
 

@@ -3,7 +3,7 @@ package com.imaec.hilotto.ui.statistics.pick
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.base.BaseViewModel
-import com.imaec.hilotto.model.LottoDTO
+import com.imaec.hilotto.model.LottoVo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -52,7 +52,7 @@ class PickViewModel @Inject constructor() : BaseViewModel() {
         _statisticsNo.value = no
     }
 
-    fun setPickedNum(lottoList: List<LottoDTO>?, isInclude: Boolean = false) {
+    fun setPickedNum(lottoList: List<LottoVo>?, isInclude: Boolean = false) {
         lottoList ?: return
 
         initRange()
@@ -116,7 +116,7 @@ class PickViewModel @Inject constructor() : BaseViewModel() {
         ).maxOf { it }
     }
 
-    fun setNoPickNum(lottoList: List<LottoDTO>?, isInclude: Boolean = false) {
+    fun setNoPickNum(lottoList: List<LottoVo>?, isInclude: Boolean = false) {
         lottoList ?: return
 
         initNoPickNum()

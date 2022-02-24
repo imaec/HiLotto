@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.imaec.hilotto.model.LatelyResultDTO" />
+            type="com.imaec.hilotto.model.LatelyResultVo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -5,8 +5,8 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.imaec.hilotto.base.BaseViewModel
-import com.imaec.hilotto.model.LatelyResultDTO
-import com.imaec.hilotto.model.LottoDTO
+import com.imaec.hilotto.model.LatelyResultVo
+import com.imaec.hilotto.model.LottoVo
 import com.imaec.hilotto.ui.lately.LatelyResultActivity.Companion.LOTTO_LIST
 import com.imaec.hilotto.ui.lately.LatelyResultActivity.Companion.POSITION
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,17 +20,17 @@ class LatelyResultViewModel @Inject constructor(
     private val _state = MutableLiveData<LatelyState>()
     val state: LiveData<LatelyState> get() = _state
 
-    private val _lottoList = MutableLiveData<List<LottoDTO>>(
+    private val _lottoList = MutableLiveData<List<LottoVo>>(
         savedStateHandle.get(LOTTO_LIST)
     )
-    val lottoList: LiveData<List<LottoDTO>> get() = _lottoList
+    val lottoList: LiveData<List<LottoVo>> get() = _lottoList
 
-    private val _latelyResultList = MediatorLiveData<List<LatelyResultDTO>>().apply {
+    private val _latelyResultList = MediatorLiveData<List<LatelyResultVo>>().apply {
         addSource(lottoList) { list ->
-            value = list.map { it.toLatelyResultDto() }
+            value = list.map { it.toLatelyResultVo() }
         }
     }
-    val latelyResultList: LiveData<List<LatelyResultDTO>> get() = _latelyResultList
+    val latelyResultList: LiveData<List<LatelyResultVo>> get() = _latelyResultList
 
     val position = savedStateHandle.get<Int>(POSITION) ?: 0
 

@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.imaec.hilotto.model.OddEvenDTO" />
+            type="com.imaec.hilotto.model.OddEvenVo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

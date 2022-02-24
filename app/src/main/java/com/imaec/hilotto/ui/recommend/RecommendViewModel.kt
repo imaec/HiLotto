@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.imaec.domain.model.MyNumberDto
+import com.imaec.domain.successOr
 import com.imaec.hilotto.base.BaseViewModel
-import com.imaec.hilotto.domain.successOr
-import com.imaec.hilotto.domain.usecase.number.InsertUseCase
-import com.imaec.hilotto.model.LottoDTO
-import com.imaec.hilotto.domain.usecase.number.SelectByNumbersUseCase
-import com.imaec.hilotto.model.NumberDTO
-import com.imaec.hilotto.room.entity.NumberEntity
+import com.imaec.domain.usecase.number.InsertUseCase
+import com.imaec.hilotto.model.LottoVo
+import com.imaec.domain.usecase.number.SelectByNumbersUseCase
+import com.imaec.hilotto.model.NumberVo
 import com.imaec.hilotto.utils.addSourceList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -40,11 +40,11 @@ class RecommendViewModel @Inject constructor(
     private val _listIncludeNumber = MutableLiveData(arrayListOf("", "", "", "", "", ""))
     val listIncludeNumber: LiveData<ArrayList<String>> get() = _listIncludeNumber
 
-    private val _listNotIncludeNumber = MutableLiveData<List<NumberDTO>>(emptyList())
-    val listNotIncludeNumber: LiveData<List<NumberDTO>> get() = _listNotIncludeNumber
+    private val _listNotIncludeNumber = MutableLiveData<List<NumberVo>>(emptyList())
+    val listNotIncludeNumber: LiveData<List<NumberVo>> get() = _listNotIncludeNumber
 
-    private val _lottoList = MutableLiveData<List<LottoDTO>>(ArrayList())
-    val lottoList: LiveData<List<LottoDTO>> get() = _lottoList
+    private val _lottoList = MutableLiveData<List<LottoVo>>(ArrayList())
+    val lottoList: LiveData<List<LottoVo>> get() = _lottoList
 
     fun changeAllChecked(allChecked: Boolean) {
         conditionSum.value = allChecked
@@ -77,7 +77,7 @@ class RecommendViewModel @Inject constructor(
         changeAllChecked(conditionAll.value ?: false)
     }
 
-    fun setLottoList(lottoList: List<LottoDTO>) {
+    fun setLottoList(lottoList: List<LottoVo>) {
         _lottoList.value = lottoList
     }
 
@@ -121,15 +121,15 @@ class RecommendViewModel @Inject constructor(
         listTemp.forEach {
             if (it.no == number) return
         }
-        listTemp.add(NumberDTO(no = number))
+        listTemp.add(NumberVo(no = number))
         _listNotIncludeNumber.value = listTemp
     }
 
     fun removeNotIncludeNumber(number: String) {
         val listTemp = _listNotIncludeNumber.value!!.toMutableList()
         var removeIndex = -1
-        listTemp.forEachIndexed { index, numberDto ->
-            if (numberDto.no == number) {
+        listTemp.forEachIndexed { index, NumberVo ->
+            if (NumberVo.no == number) {
                 removeIndex = index
                 return@forEachIndexed
             }
@@ -140,14 +140,14 @@ class RecommendViewModel @Inject constructor(
         _listNotIncludeNumber.value = listTemp
     }
 
-    fun saveNumber(entity: NumberEntity, callback: (Boolean) -> Unit) {
+    fun saveNumber(dto: MyNumberDto, callback: (Boolean) -> Unit) {
         viewModelScope.launch {
-            if (selectByNumbersUseCase(entity).successOr(0) > 0) {
+            if (selectByNumbersUseCase(dto).successOr(0) > 0) {
                 // ALREADY EXIST
                 callback(false)
                 return@launch
             }
-            insertUseCase(entity)
+            insertUseCase(dto)
             callback(true)
             _listIncludeNumber.value = arrayListOf("", "", "", "", "", "")
         }

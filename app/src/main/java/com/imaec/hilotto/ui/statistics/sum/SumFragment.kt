@@ -11,7 +11,7 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.FragmentSumBinding
-import com.imaec.hilotto.model.SumDTO
+import com.imaec.hilotto.model.SumVo
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.ui.main.LottoViewModel
 
@@ -38,11 +38,11 @@ class SumFragment : BaseFragment<FragmentSumBinding>(R.layout.fragment_sum) {
 
     private fun setupRecyclerView() {
         with(binding.rvSum) {
-            val diffUtil = object : DiffUtil.ItemCallback<SumDTO>() {
-                override fun areItemsTheSame(oldItem: SumDTO, newItem: SumDTO): Boolean =
+            val diffUtil = object : DiffUtil.ItemCallback<SumVo>() {
+                override fun areItemsTheSame(oldItem: SumVo, newItem: SumVo): Boolean =
                     oldItem.round == newItem.round
 
-                override fun areContentsTheSame(oldItem: SumDTO, newItem: SumDTO): Boolean =
+                override fun areContentsTheSame(oldItem: SumVo, newItem: SumVo): Boolean =
                     oldItem == newItem
             }
 

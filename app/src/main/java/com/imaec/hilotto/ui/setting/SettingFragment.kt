@@ -19,7 +19,7 @@ import com.google.gson.Gson
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentSettingBinding
-import com.imaec.hilotto.room.entity.NumberEntity
+import com.imaec.hilotto.model.MyNumberVo
 import com.imaec.hilotto.ui.main.MainViewModel
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
 import com.imaec.hilotto.ui.view.dialog.InputDialog
@@ -172,7 +172,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun export(numberList: List<NumberEntity>, uri: Uri): Int {
+    private fun export(numberList: List<MyNumberVo>, uri: Uri): Int {
         return try {
             val jsonString = Gson().toJson(numberList)
             val outputStream = requireContext().contentResolver.openOutputStream(uri)

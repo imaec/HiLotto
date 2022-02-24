@@ -4,10 +4,10 @@ import android.graphics.PorterDuff
 import android.widget.ProgressBar
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import com.imaec.hilotto.model.SumDTO
+import com.imaec.hilotto.model.SumVo
 
 @BindingAdapter(value = ["bindSumItem", "bindSumList"], requireAll = true)
-fun ProgressBar.bindProgressColor(item: SumDTO, sumList: List<SumDTO>) {
+fun ProgressBar.bindProgressColor(item: SumVo, sumList: List<SumVo>) {
     progressDrawable.setColorFilter(
         when (item.sum) {
             // 최대

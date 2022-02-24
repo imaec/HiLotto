@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.imaec.hilotto.base.BaseViewModel
-import com.imaec.hilotto.domain.usecase.number.DeleteByIdUseCase
-import com.imaec.hilotto.domain.usecase.number.SelectAllUseCase
-import com.imaec.hilotto.model.FitNumberDTO
-import com.imaec.hilotto.model.LottoDTO
-import com.imaec.hilotto.model.MyNumberDTO
+import com.imaec.domain.usecase.number.DeleteByIdUseCase
+import com.imaec.domain.usecase.number.SelectAllUseCase
+import com.imaec.hilotto.model.FitNumberVo
+import com.imaec.hilotto.model.LottoVo
+import com.imaec.hilotto.model.MyNumberVo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,16 +24,16 @@ class MyViewModel @Inject constructor(
 
     val numberEntityList = selectAllUseCase.execute()
 
-    private val _myNumberList = MutableLiveData<List<MyNumberDTO>>()
-    val myNumberList: LiveData<List<MyNumberDTO>> get() = _myNumberList
+    private val _myNumberList = MutableLiveData<List<MyNumberVo>>()
+    val myNumberList: LiveData<List<MyNumberVo>> get() = _myNumberList
 
-    fun deleteNumber(myNumber: MyNumberDTO) {
+    fun deleteNumber(myNumber: MyNumberVo) {
         viewModelScope.launch {
             deleteByIdUseCase(myNumber.numberId)
         }
     }
 
-    fun checkWin(result: LottoDTO) {
+    fun checkWin(result: LottoVo) {
         val winNumbers = arrayOf(
             result.drwtNo1,
             result.drwtNo2,
@@ -43,7 +43,7 @@ class MyViewModel @Inject constructor(
             result.drwtNo6
         )
         _myNumberList.value = numberEntityList.value?.map {
-            val fitNumberDTO = FitNumberDTO()
+            val fitNumber = FitNumberVo()
             val listTemp = arrayListOf<Int>()
             arrayOf(
                 it.number1,
@@ -59,10 +59,10 @@ class MyViewModel @Inject constructor(
                     }
                 }
                 if (result.bnusNo == myNumber) {
-                    fitNumberDTO.numberBonus = myNumber
+                    fitNumber.numberBonus = myNumber
                 }
             }
-            fitNumberDTO.apply {
+            fitNumber.apply {
                 listFitNumber.addAll(listTemp)
                 listFitNumber.forEach { fitNumber ->
                     if (it.number1 == fitNumber) isFitNo1 = true
@@ -82,15 +82,15 @@ class MyViewModel @Inject constructor(
                 ).forEach { number ->
                     listIsFitBonus.add(numberBonus == number)
                 }
-                rank = when (fitNumberDTO.listFitNumber.size) {
+                rank = when (fitNumber.listFitNumber.size) {
                     6 -> 1
-                    5 -> if (fitNumberDTO.numberBonus > 0) 2 else 3
+                    5 -> if (fitNumber.numberBonus > 0) 2 else 3
                     4 -> 4
                     3 -> 5
                     else -> 0
                 }
             }
-            MyNumberDTO(
+            MyNumberVo(
                 numberId = it.numberId,
                 number1 = it.number1,
                 number2 = it.number2,
@@ -98,16 +98,16 @@ class MyViewModel @Inject constructor(
                 number4 = it.number4,
                 number5 = it.number5,
                 number6 = it.number6,
-                fitNumber = fitNumberDTO
+                fitNumber = fitNumber
             )
         }
     }
 
-    fun onClickNumber(myNumber: MyNumberDTO) {
+    fun onClickNumber(myNumber: MyNumberVo) {
         _state.value = MyState.OnClickNumber(myNumber)
     }
 
-    fun onLongClickNumber(myNumber: MyNumberDTO): Boolean {
+    fun onLongClickNumber(myNumber: MyNumberVo): Boolean {
         _state.value = MyState.OnLongClickNumber(myNumber)
         return true
     }

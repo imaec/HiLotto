@@ -74,6 +74,9 @@ kapt {
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(project(":data"))
+    
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
 
     testImplementation(TestLibs.junit)

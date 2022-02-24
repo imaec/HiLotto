@@ -14,8 +14,8 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
 import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.ActivityStoreBinding
-import com.imaec.hilotto.model.LottoDTO
-import com.imaec.hilotto.model.StoreDTO
+import com.imaec.hilotto.model.LottoVo
+import com.imaec.hilotto.model.StoreVo
 import com.imaec.hilotto.ui.view.dialog.CopyDialog
 import com.imaec.hilotto.ui.view.dialog.InputDialog
 import com.imaec.hilotto.utils.toast
@@ -48,11 +48,11 @@ class StoreActivity : BaseActivity<ActivityStoreBinding>(R.layout.activity_store
 
     private fun setupRecyclerView() {
         with(binding.rvStore) {
-            val diffUtil = object : DiffUtil.ItemCallback<StoreDTO>() {
-                override fun areItemsTheSame(oldItem: StoreDTO, newItem: StoreDTO): Boolean =
+            val diffUtil = object : DiffUtil.ItemCallback<StoreVo>() {
+                override fun areItemsTheSame(oldItem: StoreVo, newItem: StoreVo): Boolean =
                     oldItem == newItem
 
-                override fun areContentsTheSame(oldItem: StoreDTO, newItem: StoreDTO): Boolean =
+                override fun areContentsTheSame(oldItem: StoreVo, newItem: StoreVo): Boolean =
                     oldItem == newItem
             }
 
@@ -121,8 +121,8 @@ class StoreActivity : BaseActivity<ActivityStoreBinding>(R.layout.activity_store
 
         fun createBundle(
             curDrwNo: Int,
-            storeList: List<StoreDTO>,
-            lottoList: List<LottoDTO>
+            storeList: List<StoreVo>,
+            lottoList: List<LottoVo>
         ): Bundle = bundleOf(
             CUR_DRW_NO to curDrwNo,
             STORE_LIST to storeList,

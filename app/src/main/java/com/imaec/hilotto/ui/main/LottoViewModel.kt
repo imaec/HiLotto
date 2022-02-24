@@ -3,16 +3,18 @@ package com.imaec.hilotto.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.imaec.domain.data
+import com.imaec.domain.model.LottoDto
 import com.imaec.hilotto.base.BaseViewModel
-import com.imaec.hilotto.domain.data
-import com.imaec.hilotto.model.LottoDTO
-import com.imaec.hilotto.model.StoreDTO
-import com.imaec.hilotto.domain.usecase.firebase.GetLottoListUseCase
-import com.imaec.hilotto.domain.usecase.firebase.SetLottoListUseCase
-import com.imaec.hilotto.domain.usecase.firebase.SetWeekUseCase
-import com.imaec.hilotto.domain.usecase.lotto.GetCurDrwNoUseCase
-import com.imaec.hilotto.domain.usecase.lotto.GetDataUseCase
-import com.imaec.hilotto.domain.usecase.lotto.GetStoreUseCase
+import com.imaec.hilotto.model.LottoVo
+import com.imaec.hilotto.model.StoreVo
+import com.imaec.domain.usecase.firebase.GetLottoListUseCase
+import com.imaec.domain.usecase.firebase.SetLottoListUseCase
+import com.imaec.domain.usecase.firebase.SetWeekUseCase
+import com.imaec.domain.usecase.lotto.GetCurDrwNoUseCase
+import com.imaec.domain.usecase.lotto.GetDataUseCase
+import com.imaec.domain.usecase.lotto.GetStoreUseCase
+import com.imaec.hilotto.model.LottoVo.Companion.dtoToVo
 import com.imaec.hilotto.utils.DateUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -31,8 +33,8 @@ class LottoViewModel @Inject constructor(
     private val _curDrwNo = MutableLiveData(1)
     val curDrwNo: LiveData<Int> get() = _curDrwNo
 
-    private val _lottoList = MutableLiveData<List<LottoDTO>>(ArrayList())
-    val lottoList: LiveData<List<LottoDTO>> get() = _lottoList
+    private val _lottoList = MutableLiveData<List<LottoVo>>(ArrayList())
+    val lottoList: LiveData<List<LottoVo>> get() = _lottoList
 
     private val _curNum1 = MutableLiveData(1)
     val curNum1: LiveData<Int> get() = _curNum1
@@ -64,10 +66,10 @@ class LottoViewModel @Inject constructor(
     private val _price = MutableLiveData<Long>(0)
     val price: LiveData<Long> get() = _price
 
-    private val _storeList = MutableLiveData<List<StoreDTO>>(ArrayList())
-    val storeList: LiveData<List<StoreDTO>> get() = _storeList
+    private val _storeList = MutableLiveData<List<StoreVo>>(ArrayList())
+    val storeList: LiveData<List<StoreVo>> get() = _storeList
 
-    private fun setCurData(dto: LottoDTO) {
+    private fun setCurData(dto: LottoVo) {
         dto.apply {
             _curDrwNo.value = drwNo
             _curNum1.value = drwtNo1
@@ -86,8 +88,9 @@ class LottoViewModel @Inject constructor(
     private fun getDatabaseData(callback: () -> Unit) {
         viewModelScope.launch {
             getLottoListUseCase {
-                _lottoList.value = it
-                setCurData(it[0])
+                val lottoList = it.map(::dtoToVo)
+                _lottoList.value = lottoList
+                setCurData(lottoList[0])
                 callback()
             }
         }
@@ -99,7 +102,7 @@ class LottoViewModel @Inject constructor(
         callback: (Boolean) -> Unit,
         callbackProgress: (Int) -> Unit
     ) {
-        val listTemp = ArrayList<LottoDTO>()
+        val listTemp = ArrayList<LottoVo>()
         val gap = curDrwNoReal - curDrwNo
         for (drwNo in (curDrwNo)..curDrwNoReal) {
             viewModelScope.launch {
@@ -107,7 +110,7 @@ class LottoViewModel @Inject constructor(
                     Triple(
                         drwNo,
                         {
-                            listTemp.add(it)
+                            listTemp.add(dtoToVo(it))
                             callbackProgress((listTemp.size * 100) / curDrwNoReal)
 
                             if (listTemp.size == gap + 1) {
@@ -136,10 +139,29 @@ class LottoViewModel @Inject constructor(
         }
     }
 
-    private fun saveLottoList(curDrwNoReal: Int, lottoList: List<LottoDTO>) {
+    private fun saveLottoList(curDrwNoReal: Int, lottoList: List<LottoVo>) {
         viewModelScope.launch {
             setWeekUseCase(curDrwNoReal)
-            setLottoListUseCase(lottoList)
+            setLottoListUseCase(
+                lottoList.map {
+                    LottoDto(
+                        bnusNo = it.bnusNo,
+                        drwNo = it.drwNo,
+                        drwNoDate = it.drwNoDate,
+                        drwtNo1 = it.drwtNo1,
+                        drwtNo2 = it.drwtNo2,
+                        drwtNo3 = it.drwtNo3,
+                        drwtNo4 = it.drwtNo4,
+                        drwtNo5 = it.drwtNo5,
+                        drwtNo6 = it.drwtNo6,
+                        firstAccumamnt = it.firstAccumamnt,
+                        firstPrzwnerCo = it.firstPrzwnerCo,
+                        firstWinamnt = it.firstWinamnt,
+                        returnValue = it.returnValue,
+                        totSellamnt = it.totSellamnt
+                    )
+                }
+            )
         }
     }
 
@@ -160,7 +182,7 @@ class LottoViewModel @Inject constructor(
 
     fun getStore(drwNo: Int) {
         viewModelScope.launch {
-            _storeList.value = getStoreUseCase(drwNo).data ?: emptyList()
+            _storeList.value = getStoreUseCase(drwNo).data?.map(StoreVo::dtoToVo) ?: emptyList()
         }
     }
 }

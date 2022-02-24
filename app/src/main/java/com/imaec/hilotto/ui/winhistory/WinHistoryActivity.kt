@@ -12,8 +12,8 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
 import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.ActivityWinHistoryBinding
-import com.imaec.hilotto.model.LottoDTO
-import com.imaec.hilotto.model.MyNumberDTO
+import com.imaec.hilotto.model.LottoVo
+import com.imaec.hilotto.model.MyNumberVo
 import dagger.hilt.android.AndroidEntryPoint
 
 @Suppress("UNCHECKED_CAST")
@@ -39,15 +39,15 @@ class WinHistoryActivity : BaseActivity<ActivityWinHistoryBinding>(R.layout.acti
 
     private fun setupRecyclerView() {
         with(binding.rvWinHistory) {
-            val diffUtil = object : DiffUtil.ItemCallback<MyNumberDTO>() {
+            val diffUtil = object : DiffUtil.ItemCallback<MyNumberVo>() {
                 override fun areItemsTheSame(
-                    oldItem: MyNumberDTO,
-                    newItem: MyNumberDTO
+                    oldItem: MyNumberVo,
+                    newItem: MyNumberVo
                 ): Boolean = oldItem.numberId == newItem.numberId
 
                 override fun areContentsTheSame(
-                    oldItem: MyNumberDTO,
-                    newItem: MyNumberDTO
+                    oldItem: MyNumberVo,
+                    newItem: MyNumberVo
                 ): Boolean = oldItem == newItem
             }
 
@@ -111,7 +111,7 @@ class WinHistoryActivity : BaseActivity<ActivityWinHistoryBinding>(R.layout.acti
         const val LOTTO_LIST = "lottoList"
         const val MY_NUMBER = "myNumber"
 
-        fun createBundle(lottoList: List<LottoDTO>, myNumber: MyNumberDTO): Bundle = bundleOf(
+        fun createBundle(lottoList: List<LottoVo>, myNumber: MyNumberVo): Bundle = bundleOf(
             LOTTO_LIST to lottoList,
             MY_NUMBER to myNumber
         )

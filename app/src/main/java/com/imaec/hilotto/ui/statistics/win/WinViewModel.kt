@@ -3,7 +3,7 @@ package com.imaec.hilotto.ui.statistics.win
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.base.BaseViewModel
-import com.imaec.hilotto.model.LottoDTO
+import com.imaec.hilotto.model.LottoVo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -48,7 +48,7 @@ class WinViewModel @Inject constructor() : BaseViewModel() {
         _winStatisticsTitle.value = "1등 당첨 통계 (${no}회)"
     }
 
-    fun setWinInfo(lottoList: List<LottoDTO>?) {
+    fun setWinInfo(lottoList: List<LottoVo>?) {
         lottoList ?: return
 
         val list = lottoList.subList(0, statisticsNo.value ?: 20)

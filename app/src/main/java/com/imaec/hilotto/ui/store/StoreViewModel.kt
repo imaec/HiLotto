@@ -4,11 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.imaec.domain.successOr
 import com.imaec.hilotto.base.BaseViewModel
-import com.imaec.hilotto.domain.successOr
-import com.imaec.hilotto.domain.usecase.lotto.GetStoreUseCase
-import com.imaec.hilotto.model.LottoDTO
-import com.imaec.hilotto.model.StoreDTO
+import com.imaec.domain.usecase.lotto.GetStoreUseCase
+import com.imaec.hilotto.model.LottoVo
+import com.imaec.hilotto.model.StoreVo
+import com.imaec.hilotto.model.StoreVo.Companion.dtoToVo
 import com.imaec.hilotto.ui.store.StoreActivity.Companion.CUR_DRW_NO
 import com.imaec.hilotto.ui.store.StoreActivity.Companion.LOTTO_LIST
 import com.imaec.hilotto.ui.store.StoreActivity.Companion.STORE_LIST
@@ -25,10 +26,10 @@ class StoreViewModel @Inject constructor(
     private val _state = MutableLiveData<StoreState>()
     val state: LiveData<StoreState> get() = _state
 
-    val lottoList = savedStateHandle.getLiveData<List<LottoDTO>>(LOTTO_LIST)
+    val lottoList = savedStateHandle.getLiveData<List<LottoVo>>(LOTTO_LIST)
 
-    private val _storeList = MutableLiveData<List<StoreDTO>>(savedStateHandle.get(STORE_LIST))
-    val storeList: LiveData<List<StoreDTO>> get() = _storeList
+    private val _storeList = MutableLiveData<List<StoreVo>>(savedStateHandle.get(STORE_LIST))
+    val storeList: LiveData<List<StoreVo>> get() = _storeList
 
     private val _round = MutableLiveData("<${savedStateHandle.get<Int>(CUR_DRW_NO) ?: 0}회>")
     val round: LiveData<String> get() = _round
@@ -37,7 +38,7 @@ class StoreViewModel @Inject constructor(
         _state.value = StoreState.OnClickSearch
     }
 
-    fun onClickStore(store: StoreDTO) {
+    fun onClickStore(store: StoreVo) {
         _state.value = StoreState.OnClickStore(store)
     }
 
@@ -57,7 +58,7 @@ class StoreViewModel @Inject constructor(
         viewModelScope.launch {
             getStoreUseCase(drwNo).successOr(null)?.let {
                 _round.value = "<${drwNo}회>"
-                _storeList.value = it
+                _storeList.value = it.map(::dtoToVo)
             }
         }
     }

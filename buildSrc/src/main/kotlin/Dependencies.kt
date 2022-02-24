@@ -12,7 +12,7 @@ object Versions {
 
     const val google_services = "4.3.10"
     const val crashlytics = "2.8.1"
-    const val ktlint = "9.4.1"
+    const val ktlint = "10.0.0"
 
     const val multidex = "2.0.1"
     const val gradle = "4.0.1"

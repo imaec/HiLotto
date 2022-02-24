@@ -1,6 +1,6 @@
 package com.imaec.hilotto
 
-import com.imaec.hilotto.model.LottoDTO
+import com.imaec.hilotto.model.LottoVo
 import java.util.Random
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -12,15 +12,15 @@ object Lotto {
     private var maxRange = 25
     private var count = 6
 
-    private fun getSumMin(list: List<LottoDTO>): Int {
+    private fun getSumMin(list: List<LottoVo>): Int {
         return getSumAvg(list) - minRange
     }
 
-    private fun getSumMax(list: List<LottoDTO>): Int {
+    private fun getSumMax(list: List<LottoVo>): Int {
         return getSumAvg(list) + maxRange
     }
 
-    private fun getWeight(list: List<LottoDTO>): HashMap<Int, Int> {
+    private fun getWeight(list: List<LottoVo>): HashMap<Int, Int> {
         val w = HashMap<Int, Int>()
         val countSum = ArrayList<Int>().apply {
             (0..44).forEach { _ ->
@@ -55,7 +55,7 @@ object Lotto {
         return w
     }
 
-    private fun getWeightedRandom(list: List<LottoDTO>): Int {
+    private fun getWeightedRandom(list: List<LottoVo>): Int {
         val map = getWeight(list)
         val listNumber = Array(45) { 0 }
         val listWeight = Array(45) { 0 }
@@ -95,7 +95,7 @@ object Lotto {
         return Random().nextInt(45) + 1
     }
 
-    private fun getRanNumbers(list: List<LottoDTO>, condPick: Boolean): ArrayList<Int> {
+    private fun getRanNumbers(list: List<LottoVo>, condPick: Boolean): ArrayList<Int> {
         val result = arrayListOf<Int>()
         var isContinue = true
         while (isContinue) {
@@ -115,7 +115,7 @@ object Lotto {
         return result
     }
 
-    fun getSumAvg(list: List<LottoDTO>): Int {
+    fun getSumAvg(list: List<LottoVo>): Int {
         var sum = 0
         list.map {
             it.drwtNo1 + it.drwtNo2 + it.drwtNo3 + it.drwtNo4 + it.drwtNo5 + it.drwtNo6
@@ -142,7 +142,7 @@ object Lotto {
     }
 
     fun getNumbers(
-        list: List<LottoDTO>,
+        list: List<LottoVo>,
         listInclude: List<String>,
         listNotInclude: List<String>,
         condSum: Boolean = true,

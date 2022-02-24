@@ -12,7 +12,7 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.FragmentMyBinding
-import com.imaec.hilotto.model.MyNumberDTO
+import com.imaec.hilotto.model.MyNumberVo
 import com.imaec.hilotto.ui.editnumber.EditNumberActivity
 import com.imaec.hilotto.ui.winhistory.WinHistoryActivity
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
@@ -48,15 +48,15 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
 
     private fun setupRecyclerView() {
         with(binding.rvMyNumbers) {
-            val diffUtil = object : DiffUtil.ItemCallback<MyNumberDTO>() {
+            val diffUtil = object : DiffUtil.ItemCallback<MyNumberVo>() {
                 override fun areItemsTheSame(
-                    oldItem: MyNumberDTO,
-                    newItem: MyNumberDTO
+                    oldItem: MyNumberVo,
+                    newItem: MyNumberVo
                 ): Boolean = oldItem.numberId == newItem.numberId
 
                 override fun areContentsTheSame(
-                    oldItem: MyNumberDTO,
-                    newItem: MyNumberDTO
+                    oldItem: MyNumberVo,
+                    newItem: MyNumberVo
                 ): Boolean = oldItem == newItem
             }
 

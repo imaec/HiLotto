@@ -15,7 +15,7 @@
 
         <variable
             name="item"
-            type="com.imaec.hilotto.model.LottoDTO" />
+            type="com.imaec.hilotto.model.LottoVo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

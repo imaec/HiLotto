@@ -7,21 +7,21 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.imaec.hilotto.BR
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseSingleViewAdapter
-import com.imaec.hilotto.model.NumberDTO
+import com.imaec.hilotto.model.NumberVo
 import com.imaec.hilotto.ui.bindItemList
 
 @BindingAdapter("bindOddEvenList")
 fun RecyclerView.bindOddEven(numberList: List<String>) {
     if (adapter == null) {
-        val diffUtil = object : DiffUtil.ItemCallback<NumberDTO>() {
+        val diffUtil = object : DiffUtil.ItemCallback<NumberVo>() {
             override fun areItemsTheSame(
-                oldItem: NumberDTO,
-                newItem: NumberDTO
+                oldItem: NumberVo,
+                newItem: NumberVo
             ): Boolean = oldItem.no == newItem.no
 
             override fun areContentsTheSame(
-                oldItem: NumberDTO,
-                newItem: NumberDTO
+                oldItem: NumberVo,
+                newItem: NumberVo
             ): Boolean = oldItem == newItem
         }
 
@@ -31,7 +31,7 @@ fun RecyclerView.bindOddEven(numberList: List<String>) {
         }
 
         val itemList = numberList.map {
-            NumberDTO(no = it)
+            NumberVo(no = it)
         }
 
         adapter = BaseSingleViewAdapter(

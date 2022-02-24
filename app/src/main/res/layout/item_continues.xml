@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.imaec.hilotto.model.ContinueDTO" />
+            type="com.imaec.hilotto.model.ContinueVo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
