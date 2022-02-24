@@ -17,7 +17,7 @@ import com.imaec.hilotto.databinding.ActivityStoreBinding
 import com.imaec.hilotto.model.LottoVo
 import com.imaec.hilotto.model.StoreVo
 import com.imaec.hilotto.ui.view.dialog.CopyDialog
-import com.imaec.hilotto.ui.view.dialog.InputDialog
+import com.imaec.hilotto.ui.view.dialog.SearchDialog
 import com.imaec.hilotto.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -74,29 +74,25 @@ class StoreActivity : BaseActivity<ActivityStoreBinding>(R.layout.activity_store
         viewModel.state.observe(this) {
             when (it) {
                 StoreState.OnClickSearch -> {
-                    InputDialog(this@StoreActivity).apply {
-                        setTitle(getString(R.string.search_round))
-                        setHint(getString(R.string.msg_search_hint_round))
-                        setOnSearchClickListener { keyword ->
+                    SearchDialog(
+                        context = this,
+                        title = getString(R.string.search_round),
+                        hint = getString(R.string.msg_search_hint_round),
+                        searchCallback = { keyword ->
                             viewModel.checkSearchRound(keyword)
-                            dismiss()
                         }
-                        show()
-                    }
+                    ).show()
                 }
                 is StoreState.OnClickStore -> {
-                    CopyDialog(this@StoreActivity).apply {
-                        setTitle(getString(R.string.copy))
-                        setOnCopyStoreClickListener { _ ->
+                    CopyDialog(
+                        context = this,
+                        copyStoreCallback = {
                             copy(getString(R.string.store), it.store.storeName)
-                            dismiss()
-                        }
-                        setOnCopyAddressClickListener { _ ->
+                        },
+                        copyAddressCallback = {
                             copy(getString(R.string.store_address), it.store.address)
-                            dismiss()
                         }
-                        show()
-                    }
+                    ).show()
                 }
                 is StoreState.SuccessCheck -> {
                     viewModel.getStore(it.round)

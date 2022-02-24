@@ -16,7 +16,7 @@ import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.ActivityLatelyResultBinding
 import com.imaec.hilotto.model.LatelyResultVo
 import com.imaec.hilotto.model.LottoVo
-import com.imaec.hilotto.ui.view.dialog.InputDialog
+import com.imaec.hilotto.ui.view.dialog.SearchDialog
 import com.imaec.hilotto.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -82,15 +82,14 @@ class LatelyResultActivity :
             state.observe(owner) {
                 when (it) {
                     LatelyState.OnClickSearch -> {
-                        InputDialog(this@LatelyResultActivity).apply {
-                            setTitle(getString(R.string.search_round))
-                            setHint(getString(R.string.msg_search_hint_round))
-                            setOnSearchClickListener { keyword ->
+                        SearchDialog(
+                            context = this@LatelyResultActivity,
+                            title = getString(R.string.search_round),
+                            hint = getString(R.string.msg_search_hint_round),
+                            searchCallback = { keyword ->
                                 viewModel.checkSearchRound(keyword)
-                                dismiss()
                             }
-                            show()
-                        }
+                        ).show()
                     }
                     is LatelyState.SuccessCheck -> {
                         binding.rvLatelyResult.scrollToPosition(it.position)

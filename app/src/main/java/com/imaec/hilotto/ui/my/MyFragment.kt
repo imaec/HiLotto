@@ -99,29 +99,23 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
                         }
                     }
                     is MyState.OnLongClickNumber -> {
-                        EditDialog(requireContext()).apply {
-                            setTitle(context.getString(R.string.edit))
-                            setOnEditClickListener { _ ->
-                                dismiss()
+                        EditDialog(
+                            context = requireContext(),
+                            editCallback = {
                                 this@MyFragment.startActivity<EditNumberActivity>(
                                     EditNumberActivity.createBundle(it.myNumber)
                                 )
-                            }
-                            setOnDeleteClickListener { _ ->
-                                dismiss()
+                            },
+                            deleteCallback = {
                                 CommonDialog(
-                                    context,
-                                    context.getString(R.string.msg_remove_number)
-                                ).apply {
-                                    setOnOkClickListener { _ ->
+                                    context = requireContext(),
+                                    message = getString(R.string.msg_remove_number),
+                                    positiveCallback = {
                                         viewModel.deleteNumber(it.myNumber)
-                                        dismiss()
                                     }
-                                    show()
-                                }
+                                ).show()
                             }
-                            show()
-                        }
+                        ).show()
                     }
                 }
             }

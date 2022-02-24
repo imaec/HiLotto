@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -10,7 +11,7 @@
         android:background="@drawable/bg_dialog">
 
         <TextView
-            android:id="@+id/text_title"
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
@@ -20,10 +21,11 @@
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/search_round"/>
 
         <EditText
-            android:id="@+id/edit_search"
+            android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -40,10 +42,11 @@
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_title"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:hint="@string/msg_search_hint_round"/>
 
         <TextView
-            android:id="@+id/text_cancel"
+            android:id="@+id/tv_cancel"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginLeft="16dp"
@@ -59,11 +62,11 @@
             android:textSize="16sp"
             android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/text_search"
-            app:layout_constraintTop_toBottomOf="@id/edit_search"/>
+            app:layout_constraintRight_toLeftOf="@id/tv_search"
+            app:layout_constraintTop_toBottomOf="@id/et_search"/>
 
         <TextView
-            android:id="@+id/text_search"
+            android:id="@+id/tv_search"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginLeft="6dp"
@@ -78,8 +81,8 @@
             android:text="@string/search"
             android:textSize="16sp"
             android:textColor="@color/white"
-            app:layout_constraintLeft_toRightOf="@id/text_cancel"
+            app:layout_constraintLeft_toRightOf="@id/tv_cancel"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_search"/>
+            app:layout_constraintTop_toBottomOf="@id/et_search"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

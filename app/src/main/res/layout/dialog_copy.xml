@@ -10,11 +10,12 @@
         android:background="@drawable/bg_dialog">
 
         <TextView
-            android:id="@+id/text_title"
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:gravity="center"
+            android:text="@string/copy"
             android:textSize="16sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -23,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/text_copy_store"
+            android:id="@+id/tv_copy_store"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
@@ -35,10 +36,10 @@
             android:foreground="?attr/selectableItemBackground"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_title"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_title"/>
 
         <TextView
-            android:id="@+id/text_copy_address"
+            android:id="@+id/tv_copy_address"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
@@ -50,6 +51,6 @@
             android:foreground="?attr/selectableItemBackground"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_copy_store"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_copy_store"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

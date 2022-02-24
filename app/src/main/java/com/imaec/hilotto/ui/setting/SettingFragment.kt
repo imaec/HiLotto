@@ -22,7 +22,7 @@ import com.imaec.hilotto.databinding.FragmentSettingBinding
 import com.imaec.hilotto.model.MyNumberVo
 import com.imaec.hilotto.ui.main.MainViewModel
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
-import com.imaec.hilotto.ui.view.dialog.InputDialog
+import com.imaec.hilotto.ui.view.dialog.SearchDialog
 import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.utils.getVersion
 import com.imaec.hilotto.utils.showInfoDialog
@@ -78,21 +78,20 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
         viewModel.state.observe(this) {
             when (it) {
                 SettingState.OnClickSettingStatistics -> {
-                    showInputDialog()
+                    showSearchDialog()
                 }
                 SettingState.OnClickExport -> {
                     if (checkPermission()) {
-                        CommonDialog(requireContext(), getString(R.string.msg_export_info)).apply {
-                            setTitle(getString(R.string.export_my_number))
-                            setOnOkClickListener {
+                        CommonDialog(
+                            context = requireContext(),
+                            message = getString(R.string.msg_export_info),
+                            positiveCallback = {
                                 viewModel.export(
                                     "${Environment.getExternalStorageDirectory().absolutePath}/" +
                                         Environment.DIRECTORY_DOWNLOADS
                                 )
-                                dismiss()
                             }
-                            show()
-                        }
+                        ).show()
                     } else {
                         requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     }
@@ -105,14 +104,13 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                 }
                 SettingState.OnClickImport -> {
                     if (checkPermission()) {
-                        CommonDialog(requireContext(), getString(R.string.msg_import_info)).apply {
-                            setTitle(getString(R.string.import_my_number))
-                            setOnOkClickListener {
+                        CommonDialog(
+                            context = requireContext(),
+                            message = getString(R.string.msg_import_info),
+                            positiveCallback = {
                                 import()
-                                dismiss()
                             }
-                            show()
-                        }
+                        ).show()
                     } else {
                         requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     }
@@ -133,23 +131,24 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
         }
     }
 
-    private fun showInputDialog() {
-        InputDialog(requireContext()).apply {
-            setTitle(getString(R.string.setting_statistics))
-            setHint(getString(R.string.msg_setting_statistics_hint))
-            setSearch(getString(R.string.setting))
-            setOnSearchClickListener { keyword ->
+    private fun showSearchDialog() {
+        SearchDialog(
+            context = requireContext(),
+            title = getString(R.string.setting_statistics),
+            hint = getString(R.string.msg_setting_statistics_hint),
+            search = getString(R.string.setting),
+            searchCallback = { keyword ->
                 val result = viewModel.checkSettingRound(
                     keyword,
                     SharedPreferenceUtil.getInt(
-                        context = context,
+                        context = requireContext(),
                         key = SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO,
                         def = 1003
                     )
                 )
                 if (result == "OK") {
                     SharedPreferenceUtil.putValue(
-                        context,
+                        requireContext(),
                         SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
                         keyword.toInt()
                     )
@@ -159,10 +158,8 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                 } else {
                     toast(result)
                 }
-                dismiss()
             }
-            show()
-        }
+        ).show()
     }
 
     private fun checkPermission(): Boolean {

@@ -163,15 +163,12 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                             showPicker()
                         } else {
                             CommonDialog(
-                                requireContext(),
-                                getString(R.string.msg_remove_number)
-                            ).apply {
-                                setOnOkClickListener { _ ->
+                                context = requireContext(),
+                                message = getString(R.string.msg_remove_number),
+                                positiveCallback = {
                                     removeIncludeNumber(it.index)
-                                    dismiss()
                                 }
-                                show()
-                            }
+                            ).show()
                         }
                     }
                     RecommendState.OnClickOk -> {
@@ -216,17 +213,14 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                             }
                         } else {
                             CommonDialog(
-                                requireContext(),
-                                getString(R.string.msg_remove_number)
-                            ).apply {
-                                setOnOkClickListener {
+                                context = requireContext(),
+                                message = getString(R.string.msg_remove_number),
+                                positiveCallback = {
                                     (0..5).forEach { index ->
                                         setIncludeNumber(index, "")
                                     }
-                                    dismiss()
                                 }
-                                show()
-                            }
+                            ).show()
                         }
                     }
                     RecommendState.OnClickSave -> {
@@ -276,14 +270,11 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                     is RecommendState.OnClickRemoveNotIncludeNumber -> {
                         CommonDialog(
                             requireContext(),
-                            getString(R.string.msg_remove_number)
-                        ).apply {
-                            setOnOkClickListener { _ ->
+                            getString(R.string.msg_remove_number),
+                            positiveCallback = {
                                 removeNotIncludeNumber(it.notIncludeNumb)
-                                dismiss()
                             }
-                            show()
-                        }
+                        ).show()
                     }
                 }
             }

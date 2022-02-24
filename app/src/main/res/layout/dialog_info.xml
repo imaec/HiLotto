@@ -10,7 +10,7 @@
         android:background="@drawable/bg_dialog">
 
         <TextView
-            android:id="@+id/text_message"
+            android:id="@+id/tv_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/text_ok"
+            android:id="@+id/tv_ok"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_margin="16dp"
@@ -37,6 +37,6 @@
             android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_message"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_message"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
