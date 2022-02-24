@@ -9,7 +9,6 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseActivity
 import com.imaec.hilotto.databinding.ActivityMainBinding
 import com.imaec.hilotto.ui.splash.SplashActivity
-import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.utils.setStatusBarColor
 import com.imaec.hilotto.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -105,14 +104,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun setupData() {
         showProgress()
-        val curDrwNo = SharedPreferenceUtil.getInt(
-            context = this,
-            key = SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO,
-            def = 1003
-        )
         with(lottoViewModel) {
             getLotto(
-                curDrwNo = curDrwNo,
                 callback = { isSuccess ->
                     hideProgress()
                     if (isSuccess) {
@@ -126,7 +119,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     progress.value = it
                 }
             )
-            getStore(curDrwNo)
+            getStore()
         }
     }
 
@@ -136,13 +129,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 setupData()
                 viewModel.init()
             }
-        }
-        lottoViewModel.curDrwNo.observe(this) {
-            SharedPreferenceUtil.putValue(
-                context = this@MainActivity,
-                key = SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO,
-                value = it
-            )
         }
     }
 

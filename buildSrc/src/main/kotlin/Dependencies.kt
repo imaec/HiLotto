@@ -30,6 +30,7 @@ object Versions {
     const val coroutine = "1.5.2"
 
     const val room = "2.4.1"
+    const val datastore = "1.0.0"
 
     const val junit = "4.13.1"
     const val junit_ext = "1.1.1"
@@ -84,6 +85,9 @@ object Libs {
     const val room_runtime = "androidx.room:room-runtime:${Versions.room}"
     const val room_ktx = "androidx.room:room-ktx:${Versions.room}"
     const val room_compiler = "androidx.room:room-compiler:${Versions.room}"
+    // Datastore
+    const val datastore = "androidx.datastore:datastore-preferences:${Versions.datastore}"
+    const val datastore_core = "androidx.datastore:datastore-preferences-core:${Versions.datastore}"
     // Jsoup
     const val jsoup = "org.jsoup:jsoup:${Versions.jsoup}"
     // Admob

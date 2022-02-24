@@ -10,8 +10,7 @@ import javax.inject.Inject
 class GetDataUseCase @Inject constructor(
     private val repository: LottoRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
-) : UseCase<Triple<Int, (LottoDto) -> Unit, () -> Unit>, Unit>(coroutineDispatcher = dispatcher) {
+) : UseCase<Int, LottoDto>(coroutineDispatcher = dispatcher) {
 
-    override suspend fun execute(parameters: Triple<Int, (LottoDto) -> Unit, () -> Unit>) =
-        repository.getData(parameters.first, parameters.second, parameters.third)
+    override suspend fun execute(parameters: Int) = repository.getData(parameters)
 }

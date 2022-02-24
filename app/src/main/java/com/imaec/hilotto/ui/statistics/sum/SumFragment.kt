@@ -12,7 +12,6 @@ import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.FragmentSumBinding
 import com.imaec.hilotto.model.SumVo
-import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.ui.main.LottoViewModel
 
 class SumFragment : BaseFragment<FragmentSumBinding>(R.layout.fragment_sum) {
@@ -68,13 +67,7 @@ class SumFragment : BaseFragment<FragmentSumBinding>(R.layout.fragment_sum) {
 
     private fun setupObserver() {
         lottoViewModel.lottoList.observe(viewLifecycleOwner) {
-            viewModel.setStatisticsNo(
-                SharedPreferenceUtil.getInt(
-                    context = requireContext(),
-                    key = SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
-                    def = 20
-                )
-            )
+            viewModel.setStatisticsNo(lottoViewModel.statisticsNo.value ?: 20)
             viewModel.setSumList(it)
         }
     }

@@ -20,10 +20,10 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentSettingBinding
 import com.imaec.hilotto.model.MyNumberVo
+import com.imaec.hilotto.ui.main.LottoViewModel
 import com.imaec.hilotto.ui.main.MainViewModel
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
 import com.imaec.hilotto.ui.view.dialog.SearchDialog
-import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.utils.getVersion
 import com.imaec.hilotto.utils.showInfoDialog
 import com.imaec.hilotto.utils.toast
@@ -41,6 +41,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
 
     private val viewModel by viewModels<SettingViewModel>()
     private val mainViewModel by activityViewModels<MainViewModel>()
+    private val lottoViewModel by activityViewModels<LottoViewModel>()
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -63,13 +64,6 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
 
     private fun setupData() {
         with(viewModel) {
-            setSettingStatistics(
-                SharedPreferenceUtil.getInt(
-                    context = requireContext(),
-                    key = SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
-                    def = 20
-                )
-            )
             setAppVersion(getVersion())
         }
     }
@@ -139,19 +133,10 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
             search = getString(R.string.setting),
             searchCallback = { keyword ->
                 val result = viewModel.checkSettingRound(
-                    keyword,
-                    SharedPreferenceUtil.getInt(
-                        context = requireContext(),
-                        key = SharedPreferenceUtil.KEY.PREF_CUR_DRW_NO,
-                        def = 1003
-                    )
+                    keyword = keyword,
+                    curDrwNo = lottoViewModel.curDrwNo.value ?: 1003
                 )
                 if (result == "OK") {
-                    SharedPreferenceUtil.putValue(
-                        requireContext(),
-                        SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
-                        keyword.toInt()
-                    )
                     viewModel.setSettingStatistics(keyword.toInt())
                     mainViewModel.changeSetting(true)
                     toast(R.string.msg_success_save_setting_statistics)

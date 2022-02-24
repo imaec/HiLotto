@@ -11,7 +11,6 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.FragmentPickBinding
-import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.ui.main.LottoViewModel
 
 class PickFragment : BaseFragment<FragmentPickBinding>(R.layout.fragment_pick) {
@@ -70,13 +69,7 @@ class PickFragment : BaseFragment<FragmentPickBinding>(R.layout.fragment_pick) {
 
     private fun setupObserver() {
         lottoViewModel.lottoList.observe(viewLifecycleOwner) {
-            viewModel.setStatisticsNo(
-                SharedPreferenceUtil.getInt(
-                    context = requireContext(),
-                    key = SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
-                    def = 20
-                )
-            )
+            viewModel.setStatisticsNo(lottoViewModel.statisticsNo.value ?: 20)
             viewModel.setPickedNum(it)
             viewModel.setNoPickNum(it)
         }

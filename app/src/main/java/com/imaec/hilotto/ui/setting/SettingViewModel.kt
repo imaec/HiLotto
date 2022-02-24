@@ -10,6 +10,8 @@ import com.imaec.domain.successOr
 import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.domain.usecase.number.InsertAllUseCase
 import com.imaec.domain.usecase.number.SelectAllListUseCase
+import com.imaec.domain.usecase.preferences.GetStatisticsRoundUserCase
+import com.imaec.domain.usecase.preferences.SetStatisticsRoundUserCase
 import com.imaec.hilotto.model.MyNumberVo
 import com.imaec.hilotto.model.MyNumberVo.Companion.dtoToVo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,6 +29,8 @@ import javax.inject.Inject
 class SettingViewModel @Inject constructor(
     private val selectAllListUseCase: SelectAllListUseCase,
     private val insertAllUseCase: InsertAllUseCase,
+    private val getStatisticsRoundUserCase: GetStatisticsRoundUserCase,
+    private val setStatisticsRoundUserCase: SetStatisticsRoundUserCase
 ) : BaseViewModel() {
 
     private val _state = MutableLiveData<SettingState>()
@@ -42,6 +46,7 @@ class SettingViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            _settingStatistics.value = "${getStatisticsRoundUserCase()}회"
             numberList = selectAllListUseCase().successOr(emptyList()).map(::dtoToVo)
         }
     }
@@ -51,6 +56,9 @@ class SettingViewModel @Inject constructor(
     }
 
     fun setSettingStatistics(settingStatistics: Int) {
+        viewModelScope.launch {
+            setStatisticsRoundUserCase(settingStatistics)
+        }
         _settingStatistics.value = "${settingStatistics}회"
     }
 

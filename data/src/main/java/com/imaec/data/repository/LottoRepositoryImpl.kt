@@ -1,7 +1,6 @@
 package com.imaec.data.repository
 
 import com.imaec.data.api.LottoService
-import com.imaec.domain.model.LottoDto
 import com.imaec.domain.model.StoreDto
 import com.imaec.domain.repository.LottoRepository
 import org.jsoup.Jsoup
@@ -22,22 +21,7 @@ class LottoRepositoryImpl(private val service: LottoService) : LottoRepository {
         }
     }
 
-    override fun getData(drwNo: Int, onResponse: (LottoDto) -> Unit, onFailure: () -> Unit) {
-        onResponse(service.callLottoNumber(drwNo).toDto())
-//        callLottoNumber.clone().enqueue(object : Callback<LottoDto> {
-//            override fun onResponse(call: Call<LottoDto>, response: Response<LottoDto>) {
-//                response.body()?.let {
-//                    onResponse(it)
-//                } ?: run {
-//                    onFailure()
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<LottoDto>, t: Throwable) {
-//                onFailure()
-//            }
-//        })
-    }
+    override fun getData(drwNo: Int) = service.callLottoNumber(drwNo).toDto()
 
     override suspend fun getStore(drwNo: Int): List<StoreDto> {
         val listStore = mutableListOf<StoreDto>()

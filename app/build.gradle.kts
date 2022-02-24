@@ -76,7 +76,7 @@ kapt {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
-    
+
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
 
     testImplementation(TestLibs.junit)
@@ -111,6 +111,8 @@ dependencies {
     implementation(Libs.room_runtime)
     implementation(Libs.room_ktx)
     kapt(Libs.room_compiler)
+    implementation(Libs.datastore)
+    implementation(Libs.datastore_core)
 
     implementation(Libs.jsoup)
     implementation(Libs.admob)

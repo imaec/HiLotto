@@ -63,6 +63,8 @@ dependencies {
     implementation(Libs.room_runtime)
     implementation(Libs.room_ktx)
     kapt(Libs.room_compiler)
+    implementation(Libs.datastore)
+    implementation(Libs.datastore_core)
 
     implementation(Libs.jsoup)
     implementation(platform(Libs.firebase_bom))

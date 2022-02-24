@@ -10,6 +10,14 @@ import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.domain.usecase.number.InsertUseCase
 import com.imaec.hilotto.model.LottoVo
 import com.imaec.domain.usecase.number.SelectByNumbersUseCase
+import com.imaec.domain.usecase.preferences.GetRecommendAllCheckUseCase
+import com.imaec.domain.usecase.preferences.GetRecommendOddEvenCheckUseCase
+import com.imaec.domain.usecase.preferences.GetRecommendPickCheckUseCase
+import com.imaec.domain.usecase.preferences.GetRecommendSumCheckUseCase
+import com.imaec.domain.usecase.preferences.SetRecommendAllCheckUseCase
+import com.imaec.domain.usecase.preferences.SetRecommendOddEvenCheckUseCase
+import com.imaec.domain.usecase.preferences.SetRecommendPickCheckUseCase
+import com.imaec.domain.usecase.preferences.SetRecommendSumCheckUseCase
 import com.imaec.hilotto.model.NumberVo
 import com.imaec.hilotto.utils.addSourceList
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +27,15 @@ import javax.inject.Inject
 @HiltViewModel
 class RecommendViewModel @Inject constructor(
     private val selectByNumbersUseCase: SelectByNumbersUseCase,
-    private val insertUseCase: InsertUseCase
+    private val insertUseCase: InsertUseCase,
+    private val getRecommendSumCheckUseCase: GetRecommendSumCheckUseCase,
+    private val setRecommendSumCheckUseCase: SetRecommendSumCheckUseCase,
+    private val getRecommendPickCheckUseCase: GetRecommendPickCheckUseCase,
+    private val setRecommendPickCheckUseCase: SetRecommendPickCheckUseCase,
+    private val getRecommendOddEvenCheckUseCase: GetRecommendOddEvenCheckUseCase,
+    private val setRecommendOddEvenCheckUseCase: SetRecommendOddEvenCheckUseCase,
+    private val getRecommendAllCheckUseCase: GetRecommendAllCheckUseCase,
+    private val setRecommendAllCheckUseCase: SetRecommendAllCheckUseCase
 ) : BaseViewModel() {
 
     private val _state = MutableLiveData<RecommendState>()
@@ -46,35 +62,57 @@ class RecommendViewModel @Inject constructor(
     private val _lottoList = MutableLiveData<List<LottoVo>>(ArrayList())
     val lottoList: LiveData<List<LottoVo>> get() = _lottoList
 
-    fun changeAllChecked(allChecked: Boolean) {
-        conditionSum.value = allChecked
-        conditionPick.value = allChecked
-        conditionOddEven.value = allChecked
-
-        setAllCheck()
-    }
-
-    fun setAllCheck(): Boolean {
+    private fun setAllCheck(): Boolean {
         conditionAll.value = conditionSum.value == true &&
             conditionPick.value == true &&
             conditionOddEven.value == true
         return conditionAll.value ?: false
     }
 
-    fun setCondition(
-        isSumCheck: Boolean,
-        isPickCheck: Boolean,
-        isOddEvenCheck: Boolean,
-        isAllCheck: Boolean
-    ) {
-        conditionSum.value = if (isAllCheck) true else isSumCheck
-        conditionPick.value = if (isAllCheck) true else isPickCheck
-        conditionOddEven.value = if (isAllCheck) true else isOddEvenCheck
-        conditionAll.value = if (isAllCheck) true else isAllCheck
+    fun fetchCondition() {
+        viewModelScope.launch {
+            val isAllCheck = getRecommendAllCheckUseCase()
+            val isSumCheck = getRecommendSumCheckUseCase()
+            val isPickCheck = getRecommendPickCheckUseCase()
+            val isOddEventCheck = getRecommendOddEvenCheckUseCase()
+            conditionSum.value = if (isAllCheck) true else getRecommendSumCheckUseCase()
+            conditionPick.value = if (isAllCheck) true else getRecommendPickCheckUseCase()
+            conditionOddEven.value = if (isAllCheck) true else getRecommendOddEvenCheckUseCase()
+            conditionAll.value = if (isAllCheck) true else isAllCheck
+        }
     }
 
     fun onClickConditionAll() {
-        changeAllChecked(conditionAll.value ?: false)
+        val isAllCheck = conditionAll.value ?: false
+        conditionSum.value = isAllCheck
+        conditionPick.value = isAllCheck
+        conditionOddEven.value = isAllCheck
+
+        setAllCheck()
+    }
+
+    fun setSumCondition(isCheck: Boolean) {
+        viewModelScope.launch {
+            setRecommendSumCheckUseCase(isCheck)
+        }
+    }
+
+    fun setPickCondition(isCheck: Boolean) {
+        viewModelScope.launch {
+            setRecommendPickCheckUseCase(isCheck)
+        }
+    }
+
+    fun setOddEvenCondition(isCheck: Boolean) {
+        viewModelScope.launch {
+            setRecommendOddEvenCheckUseCase(isCheck)
+        }
+    }
+
+    fun setAllCondition(isCheck: Boolean) {
+        viewModelScope.launch {
+            setRecommendAllCheckUseCase(isCheck)
+        }
     }
 
     fun setLottoList(lottoList: List<LottoVo>) {

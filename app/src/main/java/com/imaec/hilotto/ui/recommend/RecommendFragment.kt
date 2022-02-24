@@ -21,7 +21,6 @@ import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.FragmentRecommendBinding
 import com.imaec.hilotto.model.NumberVo
 import com.imaec.hilotto.ui.view.dialog.CommonDialog
-import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.ui.main.LottoViewModel
 import com.imaec.hilotto.utils.expand
 import com.imaec.hilotto.utils.hide
@@ -116,28 +115,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     }
 
     private fun setupData() {
-        viewModel.setCondition(
-            isSumCheck = SharedPreferenceUtil.getBool(
-                context = requireContext(),
-                key = SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_SUM,
-                def = true
-            ),
-            isPickCheck = SharedPreferenceUtil.getBool(
-                context = requireContext(),
-                key = SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_PICK,
-                def = true
-            ),
-            isOddEvenCheck = SharedPreferenceUtil.getBool(
-                context = requireContext(),
-                key = SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_ODD_EVEN,
-                def = true
-            ),
-            isAllCheck = SharedPreferenceUtil.getBool(
-                context = requireContext(),
-                key = SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_ALL,
-                def = true
-            )
-        )
+        viewModel.fetchCondition()
     }
 
     private fun setupObserver() {
@@ -279,32 +257,16 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                 }
             }
             conditionSum.observe(owner) {
-                SharedPreferenceUtil.putValue(
-                    context = requireContext(),
-                    key = SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_SUM,
-                    value = it
-                )
+                viewModel.setSumCondition(it)
             }
             conditionPick.observe(owner) {
-                SharedPreferenceUtil.putValue(
-                    context = requireContext(),
-                    key = SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_PICK,
-                    value = it
-                )
+                viewModel.setPickCondition(it)
             }
             conditionOddEven.observe(owner) {
-                SharedPreferenceUtil.putValue(
-                    context = requireContext(),
-                    key = SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_ODD_EVEN,
-                    value = it
-                )
+                viewModel.setOddEvenCondition(it)
             }
             conditionAll.observe(owner) {
-                SharedPreferenceUtil.putValue(
-                    context = requireContext(),
-                    key = SharedPreferenceUtil.KEY.PREF_RECOMMEND_CONDITION_ALL,
-                    value = it
-                )
+                viewModel.setAllCondition(it)
             }
         }
 

@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentWinBinding
-import com.imaec.hilotto.utils.SharedPreferenceUtil
 import com.imaec.hilotto.ui.main.LottoViewModel
 
 class WinFragment : BaseFragment<FragmentWinBinding>(R.layout.fragment_win) {
@@ -31,13 +30,7 @@ class WinFragment : BaseFragment<FragmentWinBinding>(R.layout.fragment_win) {
 
     private fun setupObserver() {
         lottoViewModel.lottoList.observe(viewLifecycleOwner) {
-            viewModel.setStatisticsNo(
-                SharedPreferenceUtil.getInt(
-                    context = requireContext(),
-                    key = SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
-                    def = 20
-                )
-            )
+            viewModel.setStatisticsNo(lottoViewModel.statisticsNo.value ?: 20)
             viewModel.setWinInfo(it)
         }
     }

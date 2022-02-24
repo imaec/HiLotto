@@ -13,7 +13,6 @@ import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.FragmentContinuesBinding
 import com.imaec.hilotto.model.ContinueVo
 import com.imaec.hilotto.ui.main.LottoViewModel
-import com.imaec.hilotto.utils.SharedPreferenceUtil
 
 class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragment_continues) {
 
@@ -63,13 +62,7 @@ class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragme
 
     private fun setupObserver() {
         lottoViewModel.lottoList.observe(viewLifecycleOwner) {
-            viewModel.setStatisticsNo(
-                SharedPreferenceUtil.getInt(
-                    context = requireContext(),
-                    key = SharedPreferenceUtil.KEY.PREF_SETTING_STATISTICS,
-                    def = 20
-                )
-            )
+            viewModel.setStatisticsNo(lottoViewModel.statisticsNo.value ?: 20)
             viewModel.setPickedNum(it)
         }
     }
