@@ -3,20 +3,20 @@ package com.imaec.data.entity
 import com.imaec.domain.model.LottoDto
 
 data class LottoEntity(
-    var bnusNo: Int = 0,
-    var drwNo: Int = 0,
-    var drwNoDate: String = "",
-    var drwtNo1: Int = 0,
-    var drwtNo2: Int = 0,
-    var drwtNo3: Int = 0,
-    var drwtNo4: Int = 0,
-    var drwtNo5: Int = 0,
-    var drwtNo6: Int = 0,
-    var firstAccumamnt: Long = 0,
-    var firstPrzwnerCo: Int = 0,
-    var firstWinamnt: Long = 0,
-    var returnValue: String = "",
-    var totSellamnt: Long = 0
+    val bnusNo: Int = 0,
+    val drwNo: Int = 0,
+    val drwNoDate: String = "",
+    val drwtNo1: Int = 0,
+    val drwtNo2: Int = 0,
+    val drwtNo3: Int = 0,
+    val drwtNo4: Int = 0,
+    val drwtNo5: Int = 0,
+    val drwtNo6: Int = 0,
+    val firstAccumamnt: Long = 0,
+    val firstPrzwnerCo: Int = 0,
+    val firstWinamnt: Long = 0,
+    val returnValue: String = "",
+    val totSellamnt: Long = 0
 ) {
     fun toDto() = LottoDto(
         bnusNo = bnusNo,

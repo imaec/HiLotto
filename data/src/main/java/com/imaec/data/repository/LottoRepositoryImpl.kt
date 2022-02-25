@@ -21,7 +21,7 @@ class LottoRepositoryImpl(private val service: LottoService) : LottoRepository {
         }
     }
 
-    override fun getData(drwNo: Int) = service.callLottoNumber(drwNo).toDto()
+    override suspend fun getLottoNumber(drwNo: Int) = service.getLottoNumber(drwNo).toDto()
 
     override suspend fun getStore(drwNo: Int): List<StoreDto> {
         val listStore = mutableListOf<StoreDto>()

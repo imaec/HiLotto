@@ -36,20 +36,20 @@ class FirebaseRepositoryImpl(
                     for (item in listItem) {
                         item?.let { map ->
                             val hashMap = map as HashMap<*, *>
-                            val lotto = LottoDto().apply {
-                                drwNo = hashMap["no"].toString().toInt()
-                                drwtNo1 = hashMap["no1"].toString().toInt()
-                                drwtNo2 = hashMap["no2"].toString().toInt()
-                                drwtNo3 = hashMap["no3"].toString().toInt()
-                                drwtNo4 = hashMap["no4"].toString().toInt()
-                                drwtNo5 = hashMap["no5"].toString().toInt()
-                                drwtNo6 = hashMap["no6"].toString().toInt()
-                                bnusNo = hashMap["bonusNo"].toString().toInt()
-                                firstAccumamnt = hashMap["winnerTotal"].toString().toLong()
-                                firstWinamnt = hashMap["winnerReward"].toString().toLong()
-                                firstPrzwnerCo = hashMap["winnerCount"].toString().toInt()
+                            val lotto = LottoDto(
+                                drwNo = hashMap["no"].toString().toInt(),
+                                drwtNo1 = hashMap["no1"].toString().toInt(),
+                                drwtNo2 = hashMap["no2"].toString().toInt(),
+                                drwtNo3 = hashMap["no3"].toString().toInt(),
+                                drwtNo4 = hashMap["no4"].toString().toInt(),
+                                drwtNo5 = hashMap["no5"].toString().toInt(),
+                                drwtNo6 = hashMap["no6"].toString().toInt(),
+                                bnusNo = hashMap["bonusNo"].toString().toInt(),
+                                firstAccumamnt = hashMap["winnerTotal"].toString().toLong(),
+                                firstWinamnt = hashMap["winnerReward"].toString().toLong(),
+                                firstPrzwnerCo = hashMap["winnerCount"].toString().toInt(),
                                 drwNoDate = hashMap["date"].toString()
-                            }
+                            )
                             listCurrent.add(lotto)
                         }
                     }
