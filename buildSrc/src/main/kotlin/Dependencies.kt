@@ -2,8 +2,8 @@ object Apps {
     const val compileSdk = 31
     const val minSdk = 23
     const val targetSdk = 31
-    const val versionCode = 106
-    const val versionName = "1.0.6"
+    const val versionCode = 107
+    const val versionName = "1.0.7"
     const val build_tools = "31.0.0"
 }
 
@@ -41,6 +41,7 @@ object Versions {
 
     const val retrofit = "2.9.0"
     const val okHttp3 = "4.9.1"
+    const val conscrypt = "2.4.0"
 
     const val jsoup = "1.11.3"
 
@@ -80,7 +81,7 @@ object Libs {
     const val retrofit_converter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     const val okhttp3 = "com.squareup.okhttp3:okhttp:${Versions.okHttp3}"
     const val okhttp3_interceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp3}"
-    const val conscrypt = "org.conscrypt:conscrypt-android:2.4.0"
+    const val conscrypt = "org.conscrypt:conscrypt-android:${Versions.conscrypt}"
     // Room
     const val room_runtime = "androidx.room:room-runtime:${Versions.room}"
     const val room_ktx = "androidx.room:room-ktx:${Versions.room}"

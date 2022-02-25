@@ -13,7 +13,7 @@ import com.imaec.domain.usecase.firebase.GetLottoListUseCase
 import com.imaec.domain.usecase.firebase.SetLottoListUseCase
 import com.imaec.domain.usecase.firebase.SetWeekUseCase
 import com.imaec.domain.usecase.lotto.GetCurDrwNoUseCase
-import com.imaec.domain.usecase.lotto.GetDataUseCase
+import com.imaec.domain.usecase.lotto.GetLottoNumberDataUseCase
 import com.imaec.domain.usecase.lotto.GetStoreUseCase
 import com.imaec.domain.usecase.preferences.GetLocalCurDrwNoUserCase
 import com.imaec.domain.usecase.preferences.GetStatisticsRoundUserCase
@@ -26,7 +26,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LottoViewModel @Inject constructor(
-    private val getDataUseCase: GetDataUseCase,
+    private val getLottoNumberDataUseCase: GetLottoNumberDataUseCase,
     private val getLocalCurDrwNoUserCase: GetLocalCurDrwNoUserCase,
     private val setLocalCurDrwNoUserCase: SetLocalCurDrwNoUserCase,
     private val getCurDrwNoUseCase: GetCurDrwNoUseCase,
@@ -117,7 +117,7 @@ class LottoViewModel @Inject constructor(
         val gap = curDrwNoReal - curDrwNo
         for (drwNo in (curDrwNo)..curDrwNoReal) {
             viewModelScope.launch {
-                getDataUseCase(drwNo).successOr(null)?.let {
+                getLottoNumberDataUseCase(drwNo).successOr(null)?.let {
                     listTemp.add(dtoToVo(it))
                     callbackProgress((listTemp.size * 100) / curDrwNoReal)
 
@@ -140,34 +140,6 @@ class LottoViewModel @Inject constructor(
                 } ?: run {
                     callback(false)
                 }
-//                    Triple(
-//                        drwNo,
-//                        {
-//                            listTemp.add(dtoToVo(it))
-//                            callbackProgress((listTemp.size * 100) / curDrwNoReal)
-//
-//                            if (listTemp.size == gap + 1) {
-//                                // 모든 리스트 DB에 저장
-//                                saveLottoList(
-//                                    curDrwNoReal,
-//                                    listTemp.sortedBy { dto -> dto.drwNo }
-//                                )
-//
-//                                _lottoList.value =
-//                                    listTemp.sortedByDescending { dto -> dto.drwNo }
-//                                setCurData(listTemp.sortedByDescending { dto -> dto.drwNo }[0])
-//                                callback(true)
-//
-//                                getDatabaseData {
-//                                    callback(true)
-//                                }
-//                            }
-//                        },
-//                        {
-//                            callback(false)
-//                        }
-//                    )
-//                )
             }
         }
     }
