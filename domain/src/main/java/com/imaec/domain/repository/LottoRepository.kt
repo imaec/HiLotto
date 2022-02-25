@@ -7,7 +7,7 @@ interface LottoRepository {
 
     suspend fun getCurDrwNo(): Int
 
-    suspend fun getLottoNumber(drwNo: Int): LottoDto
+    fun getData(drwNo: Int): LottoDto
 
     suspend fun getStore(drwNo: Int): List<StoreDto>
 }

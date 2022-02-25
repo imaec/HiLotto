@@ -59,7 +59,6 @@ dependencies {
     implementation(Libs.retrofit_converter)
     implementation(Libs.okhttp3)
     implementation(Libs.okhttp3_interceptor)
-    implementation(Libs.conscrypt)
 
     implementation(Libs.room_runtime)
     implementation(Libs.room_ktx)

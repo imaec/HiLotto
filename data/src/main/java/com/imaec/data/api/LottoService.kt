@@ -7,7 +7,7 @@ import retrofit2.http.Query
 interface LottoService {
 
     @GET("common.do")
-    suspend fun getLottoNumber(
+    fun callLottoNumber(
         @Query("drwNo") drwNo: Int,
         @Query("method") method: String = "getLottoNumber"
     ): LottoEntity
