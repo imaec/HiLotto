@@ -119,7 +119,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     progress.value = it
                 }
             )
-            getStore()
         }
     }
 

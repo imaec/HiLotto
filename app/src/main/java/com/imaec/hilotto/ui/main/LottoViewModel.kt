@@ -184,13 +184,9 @@ class LottoViewModel @Inject constructor(
             } else if (realCurDrwNo > curDrwNo) {
                 getLottoSiteData(realCurDrwNo, curDrwNo, callback, callbackProgress)
             }
-        }
-    }
 
-    fun getStore() {
-        viewModelScope.launch {
-            val drwNo = getLocalCurDrwNoUserCase()
-            _storeList.value = getStoreUseCase(drwNo).data?.map(StoreVo::dtoToVo) ?: emptyList()
+            _storeList.value =
+                getStoreUseCase(realCurDrwNo).data?.map(StoreVo::dtoToVo) ?: emptyList()
         }
     }
 }
