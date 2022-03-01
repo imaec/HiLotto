@@ -18,7 +18,6 @@ class WinFragment : BaseFragment<FragmentWinBinding>(R.layout.fragment_win) {
         super.onViewCreated(view, savedInstanceState)
 
         setupBinding()
-        setupLoadingObserver(viewModel, lottoViewModel)
         setupObserver()
     }
 

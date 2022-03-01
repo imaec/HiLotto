@@ -5,10 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.imaec.hilotto.base.BaseViewModel
 import com.imaec.hilotto.model.LottoVo
 import com.imaec.hilotto.model.StoreVo
-import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-@HiltViewModel
 class HomeViewModel @Inject constructor() : BaseViewModel() {
 
     private val _state = MutableLiveData<HomeState>()

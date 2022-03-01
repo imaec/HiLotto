@@ -26,7 +26,6 @@ class WinHistoryActivity : BaseActivity<ActivityWinHistoryBinding>(R.layout.acti
         super.onCreate(savedInstanceState)
 
         setupBinding()
-        setupLoadingObserver(viewModel)
         setupRecyclerView()
         setupData()
         setupObserver()

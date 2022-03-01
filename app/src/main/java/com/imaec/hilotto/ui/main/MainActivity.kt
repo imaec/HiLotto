@@ -28,7 +28,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         moveSplashActivity()
 
         setupBinding()
-        setupLoadingObserver(viewModel, lottoViewModel)
         setupLayout()
         setupAd()
         setupData()
@@ -95,7 +94,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         showAd(
             adId = R.string.ad_id_main_front,
             isRandom = false,
-            showLoading = false,
             onLoaded = {
                 loadedCount++
                 if (loadedCount == 2) isLoaded.value = true
@@ -105,11 +103,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun setupData() {
-        showLoading()
+        showProgress()
         with(lottoViewModel) {
             getLotto(
                 callback = { isSuccess ->
-                    this@MainActivity.hideLoading()
+                    hideProgress()
                     if (isSuccess) {
                         loadedCount++
                         if (loadedCount == 2) isLoaded.value = true

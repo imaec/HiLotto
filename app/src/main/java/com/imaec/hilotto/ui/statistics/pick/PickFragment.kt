@@ -22,7 +22,6 @@ class PickFragment : BaseFragment<FragmentPickBinding>(R.layout.fragment_pick) {
         super.onViewCreated(view, savedInstanceState)
 
         setupBinding()
-        setupLoadingObserver(viewModel, lottoViewModel)
         setupRecyclerView()
         setupListener()
         setupObserver()
