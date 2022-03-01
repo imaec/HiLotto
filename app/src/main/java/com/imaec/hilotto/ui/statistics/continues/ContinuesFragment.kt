@@ -23,7 +23,6 @@ class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragme
         super.onViewCreated(view, savedInstanceState)
 
         setupBinding()
-        setupLoadingObserver(viewModel, lottoViewModel)
         setupRecyclerView()
         setupObserver()
     }

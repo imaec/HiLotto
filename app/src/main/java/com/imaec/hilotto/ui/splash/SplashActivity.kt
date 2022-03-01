@@ -22,7 +22,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         super.onCreate(savedInstanceState)
 
         setupBinding()
-        setupLoadingObserver(viewModel)
         setupObserver()
     }
 

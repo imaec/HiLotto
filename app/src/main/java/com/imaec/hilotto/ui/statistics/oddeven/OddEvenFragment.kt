@@ -23,7 +23,6 @@ class OddEvenFragment : BaseFragment<FragmentOddEvenBinding>(R.layout.fragment_o
         super.onViewCreated(view, savedInstanceState)
 
         setupBinding()
-        setupLoadingObserver(viewModel, lottoViewModel)
         setupRecyclerView()
         setupObserver()
     }

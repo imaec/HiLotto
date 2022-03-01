@@ -5,7 +5,6 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -13,25 +12,25 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.ktx.Firebase
 import com.imaec.hilotto.R
 import com.imaec.hilotto.ui.view.dialog.ProgressDialog
 import java.util.Random
-import java.util.Stack
 
 abstract class BaseActivity<VDB : ViewDataBinding>(
     @LayoutRes private val layoutResId: Int
-) : AppCompatActivity(), BaseInterface {
+) : AppCompatActivity() {
 
-    private val TAG = this::class.java.simpleName
+    protected val TAG = this::class.java.simpleName
 
     protected lateinit var binding: VDB
     protected var interstitialAd: InterstitialAd? = null
 
-    private val loadingDialog: ProgressDialog by lazy { ProgressDialog(this) }
-    private var loadingStack = Stack<Int>()
+    private val progressDialog: ProgressDialog by lazy { ProgressDialog(this) }
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,89 +39,76 @@ abstract class BaseActivity<VDB : ViewDataBinding>(
             lifecycleOwner = this@BaseActivity
         }
 
-        MobileAds.initialize(this)
+        init()
 
-        Firebase.crashlytics.log("$TAG onCreate")
-        Firebase.crashlytics.setCustomKey(getString(R.string.key_activity), TAG)
+        FirebaseCrashlytics.getInstance().log("$TAG onCreate")
+        FirebaseCrashlytics.getInstance().setCustomKey(getString(R.string.key_activity), TAG)
     }
 
     override fun onResume() {
         super.onResume()
-        Firebase.crashlytics.log("$TAG onResume")
+        FirebaseCrashlytics.getInstance().log("$TAG onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        Firebase.crashlytics.log("$TAG onPause")
+        FirebaseCrashlytics.getInstance().log("$TAG onPause")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Firebase.crashlytics.log("$TAG onDestroy")
+        FirebaseCrashlytics.getInstance().log("$TAG onDestroy")
     }
 
-    override fun loadingState(isShow: Boolean) {
-        if (isShow) showLoading() else hideLoading()
+    protected fun showProgress() {
+        if (!progressDialog.isShowing) progressDialog.show()
     }
 
-    override fun closeAllLoading() {
-        while (loadingStack.isNotEmpty()) {
-            hideLoading()
-        }
-    }
-
-    protected open fun showLoading() {
-        if (!loadingDialog.isShowing && !isFinishing) {
-            loadingDialog.show()
-        }
-
-        loadingStack.push(0)
-    }
-
-    protected open fun hideLoading() {
-        if (!loadingStack.isEmpty()) loadingStack.pop()
-        if (loadingStack.isEmpty()) loadingDialog.dismiss()
-    }
-
-    fun setupLoadingObserver(vararg viewModels: BaseViewModel) {
-        lifecycleScope.launchWhenStarted {
-            viewModels.forEach { viewModel ->
-                viewModel.loadingState.loading.observe(this@BaseActivity) {
-                    if (it) showLoading() else hideLoading()
-                }
-            }
-        }
+    protected fun hideProgress() {
+        if (progressDialog.isShowing) progressDialog.dismiss()
     }
 
     protected fun logEvent(key: String, bundle: Bundle) {
-        Firebase.analytics.logEvent(key, bundle)
+        firebaseAnalytics.logEvent(key, bundle)
     }
 
-    fun showAd(
-        adId: Int,
-        isRandom: Boolean,
-        showLoading: Boolean = true,
-        onLoaded: () -> Unit,
-        onClosed: () -> Unit
-    ) {
-        if (showLoading) showLoading()
+    private fun init() {
+        MobileAds.initialize(this) {}
+        firebaseAnalytics = Firebase.analytics
+    }
 
-        val ran = Random().nextInt(4) + 1
-        if (!isRandom || (isRandom && ran == 1)) {
+    fun showAd(adId: Int, isRandom: Boolean, onLoaded: () -> Unit, onClosed: () -> Unit) {
+        showProgress()
+
+        if (isRandom) {
+            val ran = Random().nextInt(4) + 1
+            if (ran == 1) {
+                showAd(
+                    adId = adId,
+                    onLoaded = {
+                        hideProgress()
+                    },
+                    onClosed = {
+                        hideProgress()
+                        onClosed()
+                    }
+                )
+            } else {
+                hideProgress()
+                onClosed()
+            }
+        } else {
             showAd(
                 adId = adId,
                 onLoaded = {
-                    hideLoading()
+                    hideProgress()
                     onLoaded()
                 },
                 onClosed = {
-                    hideLoading()
+                    hideProgress()
                     onClosed()
                 }
             )
-        } else {
-            hideLoading()
-            onClosed()
         }
     }
 

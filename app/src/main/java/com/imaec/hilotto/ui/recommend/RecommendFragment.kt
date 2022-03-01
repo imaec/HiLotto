@@ -41,7 +41,6 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
         super.onViewCreated(view, savedInstanceState)
 
         setupBinding()
-        setupLoadingObserver(viewModel, lottoViewModel)
         setupLayout()
         setupListener()
         setupData()

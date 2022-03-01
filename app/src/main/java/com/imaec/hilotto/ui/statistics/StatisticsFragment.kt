@@ -18,7 +18,6 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>(R.layout.frag
         super.onViewCreated(view, savedInstanceState)
 
         setupBinding()
-        setupLoadingObserver(viewModel)
         setupLayout()
     }
 
