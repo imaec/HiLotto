@@ -23,6 +23,7 @@ class SumFragment : BaseFragment<FragmentSumBinding>(R.layout.fragment_sum) {
         super.onViewCreated(view, savedInstanceState)
 
         setupBinding()
+        setupLoadingObserver(viewModel, lottoViewModel)
         setupRecyclerView()
         setupListener()
         setupObserver()

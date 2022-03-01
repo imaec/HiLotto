@@ -31,6 +31,7 @@ class StoreActivity : BaseActivity<ActivityStoreBinding>(R.layout.activity_store
         super.onCreate(savedInstanceState)
 
         setupBinding()
+        setupLoadingObserver(viewModel)
         setupAd()
         setupRecyclerView()
         setupObserver()

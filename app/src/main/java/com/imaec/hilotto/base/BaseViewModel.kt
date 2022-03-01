@@ -7,5 +7,10 @@ import javax.inject.Inject
 @HiltViewModel
 open class BaseViewModel @Inject constructor() : ViewModel() {
 
-    lateinit var adapter: BaseAdapter
+    @Inject
+    lateinit var loadingState: LoadingState
+
+    fun showLoading() = loadingState.showLoading()
+
+    fun hideLoading() = loadingState.hideLoading()
 }

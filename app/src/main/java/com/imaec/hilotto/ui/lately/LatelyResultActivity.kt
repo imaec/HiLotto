@@ -30,6 +30,7 @@ class LatelyResultActivity :
         super.onCreate(savedInstanceState)
 
         setupBinding()
+        setupLoadingObserver(viewModel)
         setupAd()
         setupRecyclerView()
         setupObserver()
