@@ -31,6 +31,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
         super.onViewCreated(view, savedInstanceState)
 
         setupBinding()
+        setupLoadingObserver(viewModel, lottoViewModel)
         setupAd()
         setupRecyclerView()
         setupObserver()

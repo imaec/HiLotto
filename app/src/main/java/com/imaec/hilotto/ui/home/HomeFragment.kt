@@ -30,6 +30,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         setupBinding()
+        setupLoadingObserver(viewModel, lottoViewModel)
         setupAd()
         setupRecyclerView()
         setupObserver()
@@ -99,27 +100,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         viewModel.state.observe(viewLifecycleOwner) {
             when (it) {
                 is HomeState.OnClickLately -> {
-                    showAd(
-                        adId = R.string.ad_id_lately_front,
-                        isRandom = true,
-                        onLoaded = {
-                            interstitialAd?.show(requireActivity())
-                        },
-                        onClosed = {
-                            val position = it.lottoList.indexOf(it.lotto)
-                            startActivity<LatelyResultActivity>(
-                                LatelyResultActivity.createBundle(
-                                    lottoList = it.lottoList,
-                                    position = position
-                                )
-                            )
-                        }
-                    )
+                    val position = it.lottoList.indexOf(it.lotto)
+                    moveToLatelyResultActivity(position, it.lottoList)
                 }
                 is HomeState.OnClickMore -> {
-                    startActivity<LatelyResultActivity>(
-                        LatelyResultActivity.createBundle(it.lottoList)
-                    )
+                    moveToLatelyResultActivity(0, it.lottoList)
                 }
                 is HomeState.OnClickStore -> {
                     startActivity<StoreActivity>(
@@ -135,5 +120,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         lottoViewModel.lottoList.observe(viewLifecycleOwner) {
             viewModel.setListLatelyResult(it)
         }
+    }
+
+    private fun moveToLatelyResultActivity(position: Int, lottoList: List<LottoVo>) {
+        showAd(
+            adId = R.string.ad_id_lately_front,
+            isRandom = true,
+            onLoaded = {
+                interstitialAd?.show(requireActivity())
+            },
+            onClosed = {
+                startActivity<LatelyResultActivity>(
+                    LatelyResultActivity.createBundle(
+                        lottoList = lottoList,
+                        position = position
+                    )
+                )
+            }
+        )
     }
 }
