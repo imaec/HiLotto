@@ -13,7 +13,9 @@ import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.FragmentSumBinding
 import com.imaec.hilotto.model.SumVo
 import com.imaec.hilotto.ui.main.LottoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SumFragment : BaseFragment<FragmentSumBinding>(R.layout.fragment_sum) {
 
     private val viewModel by viewModels<SumViewModel>()

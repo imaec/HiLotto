@@ -13,7 +13,9 @@ import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.FragmentContinuesBinding
 import com.imaec.hilotto.model.ContinueVo
 import com.imaec.hilotto.ui.main.LottoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ContinuesFragment : BaseFragment<FragmentContinuesBinding>(R.layout.fragment_continues) {
 
     private val viewModel by viewModels<ContinuesViewModel>()

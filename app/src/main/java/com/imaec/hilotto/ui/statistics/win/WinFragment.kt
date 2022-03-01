@@ -8,7 +8,9 @@ import com.imaec.hilotto.R
 import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.databinding.FragmentWinBinding
 import com.imaec.hilotto.ui.main.LottoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WinFragment : BaseFragment<FragmentWinBinding>(R.layout.fragment_win) {
 
     private val viewModel by viewModels<WinViewModel>()

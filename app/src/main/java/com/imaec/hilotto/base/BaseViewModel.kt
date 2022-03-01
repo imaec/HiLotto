@@ -7,6 +7,8 @@ import javax.inject.Inject
 @HiltViewModel
 open class BaseViewModel @Inject constructor() : ViewModel() {
 
+    val TAG = this::class.java.simpleName
+
     @Inject
     lateinit var loadingState: LoadingState
 

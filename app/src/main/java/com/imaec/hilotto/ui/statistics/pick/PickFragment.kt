@@ -12,7 +12,9 @@ import com.imaec.hilotto.base.BaseFragment
 import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.FragmentPickBinding
 import com.imaec.hilotto.ui.main.LottoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PickFragment : BaseFragment<FragmentPickBinding>(R.layout.fragment_pick) {
 
     private val viewModel by viewModels<PickViewModel>()

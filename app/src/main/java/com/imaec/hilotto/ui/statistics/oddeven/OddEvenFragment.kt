@@ -13,7 +13,9 @@ import com.imaec.hilotto.base.BaseSingleViewAdapter
 import com.imaec.hilotto.databinding.FragmentOddEvenBinding
 import com.imaec.hilotto.model.OddEvenVo
 import com.imaec.hilotto.ui.main.LottoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OddEvenFragment : BaseFragment<FragmentOddEvenBinding>(R.layout.fragment_odd_even) {
 
     private val viewModel by viewModels<OddEvenViewModel>()
