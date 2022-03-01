@@ -17,6 +17,14 @@ inline fun <reified T : Activity> Fragment.startActivityWithFinish(bundle: Bundl
     requireActivity().startActivityWithFinish<T>(bundle)
 }
 
+fun Fragment.toast(msg: CharSequence) {
+    requireContext().toast(msg)
+}
+
+fun Fragment.toast(strRes: Int) {
+    requireContext().toast(strRes)
+}
+
 fun Fragment.showInfoDialog(msg: String) {
     InfoDialog(requireContext(), msg).show()
 }

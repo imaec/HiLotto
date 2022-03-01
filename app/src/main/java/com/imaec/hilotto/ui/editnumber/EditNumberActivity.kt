@@ -28,6 +28,7 @@ class EditNumberActivity : BaseActivity<ActivityEditNumberBinding>(R.layout.acti
         super.onCreate(savedInstanceState)
 
         setupBinding()
+        setupLoadingObserver(viewModel)
         setupBottomSheetBehavior()
         setupListener()
         setupObserver()
