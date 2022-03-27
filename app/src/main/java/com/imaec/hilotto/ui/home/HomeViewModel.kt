@@ -19,7 +19,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
 
     fun setListLatelyResult(lottoList: List<LottoVo>) {
         lottoList.takeIf { it.isNotEmpty() }?.let {
-            _latelyResultList.value = lottoList.subList(1, 10)
+            _latelyResultList.value = lottoList.subList(1, if (it.size >= 10) 10 else it.size)
         }
     }
 

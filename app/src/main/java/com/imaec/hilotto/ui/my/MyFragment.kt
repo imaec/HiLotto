@@ -120,9 +120,9 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
                     }
                 }
             }
-            numberEntityList.observe(owner) {
-                lottoViewModel.lottoList.value?.let {
-                    checkWin(it[0])
+            lottoViewModel.lottoList.observe(owner) { lottoList ->
+                numberEntityList.observe(owner) {
+                    checkWin(lottoList[0])
                 }
             }
         }
