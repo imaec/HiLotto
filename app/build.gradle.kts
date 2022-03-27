@@ -10,6 +10,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("/Users/imaec/work_android/z_res/HiLotto/hilotto.jks")
+            storePassword = "imaec23"
+            keyAlias = "hilotto"
+            keyPassword = "imaec23"
+        }
+    }
     compileSdk = Apps.compileSdk
     buildToolsVersion = Apps.build_tools
     defaultConfig {

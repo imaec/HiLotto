@@ -2,8 +2,8 @@ object Apps {
     const val compileSdk = 31
     const val minSdk = 23
     const val targetSdk = 31
-    const val versionCode = 108
-    const val versionName = "1.0.8"
+    const val versionCode = 109
+    const val versionName = "1.0.9"
     const val build_tools = "31.0.0"
 }
 
@@ -19,7 +19,7 @@ object Versions {
     const val kotlin = "1.6.10"
     const val appcompat = "1.4.1"
     const val core_ktx = "1.7.0"
-    const val constraint_layout = "2.1.3"
+    const val constraint_layout = "2.1.3"ㅏ
     const val material = "1.6.0-alpha02"
     const val activity_ktx = "1.4.0"
     const val fragment_ktx = "1.4.1"
