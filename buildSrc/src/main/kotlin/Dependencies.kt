@@ -19,7 +19,7 @@ object Versions {
     const val kotlin = "1.6.10"
     const val appcompat = "1.4.1"
     const val core_ktx = "1.7.0"
-    const val constraint_layout = "2.1.3"ㅏ
+    const val constraint_layout = "2.1.3"
     const val material = "1.6.0-alpha02"
     const val activity_ktx = "1.4.0"
     const val fragment_ktx = "1.4.1"
