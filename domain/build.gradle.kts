@@ -10,10 +10,10 @@ plugins {
 }
 
 android {
-    compileSdk = Apps.compileSdk
+    compileSdk = Apps.COMPILE_SDK
     defaultConfig {
-        minSdk = Apps.minSdk
-        targetSdk = Apps.targetSdk
+        minSdk = Apps.MIN_SDK
+        targetSdk = Apps.TARGET_SDK
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
@@ -43,29 +43,36 @@ android {
 }
 
 dependencies {
-    implementation(Libs.kotlin)
+    implementation(Android.KOTLIN)
 
-    implementation(Libs.coroutine_core)
-    implementation(Libs.coroutine_android)
+    implementation(Coroutines.COROUTINES_CORE)
+    implementation(Coroutines.COROUTINES_ANDROID)
 
-    implementation(Libs.dagger_hilt_android)
-    kapt(Libs.dagger_hilt_compiler)
-    implementation(Libs.hilt_common)
-    kapt(Libs.hilt_compiler)
+    implementation(Hilt.DAGGER_HILT_ANDROID)
+    kapt(Hilt.DAGGER_HILT_COMPILER)
+    implementation(Hilt.HILT_COMMON)
+    kapt(Hilt.HILT_COMPILER)
 
-    implementation(Libs.retrofit)
-    implementation(Libs.retrofit_converter)
-    implementation(Libs.okhttp3)
-    implementation(Libs.okhttp3_interceptor)
+    implementation(Retrofit.RETROFIT)
+    implementation(Retrofit.RETROFIT_CONVERTER)
+    implementation(OkHttp.OKHTTP)
+    implementation(OkHttp.OKHTTP_INTERCEPTOR)
 
-    implementation(Libs.room_runtime)
-    implementation(Libs.room_ktx)
-    kapt(Libs.room_compiler)
+    implementation(Room.ROOM_RUNTIME)
+    implementation(Room.ROOM_KTX)
+    kapt(Room.ROOM_COMPILER)
+    implementation(Datastore.DATASTORE)
+    implementation(Datastore.DATASTORE_CORE)
 
-    implementation(Libs.jsoup)
-    implementation(platform(Libs.firebase_bom))
-    implementation(Libs.firebase_database)
-    implementation(Libs.firebase_analytics)
-    implementation(Libs.firebase_crashlytics)
-    implementation(Libs.timber)
+    implementation(Room.ROOM_RUNTIME)
+    implementation(Room.ROOM_KTX)
+    kapt(Room.ROOM_COMPILER)
+
+    implementation(platform(Firebase.FIREBASE_BOM))
+    implementation(Firebase.FIREBASE_DATABASE)
+    implementation(Firebase.FIREBASE_ANALYTICS)
+    implementation(Firebase.FIREBASE_CRASHLYTICS)
+
+    implementation(Jsoup.JSOUP)
+    implementation(Timber.TIMBER)
 }

@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 buildscript {
     repositories {
         google()
-        jcenter()
         mavenCentral()
         maven {
             setUrl("https://jitpack.io")
@@ -19,19 +18,19 @@ buildscript {
         }
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
-        classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.dagger_hilt}")
-        classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}")
-        classpath("com.google.gms:google-services:${Versions.google_services}")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:${Versions.crashlytics}")
-        classpath("org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktlint}")
+        classpath("com.android.tools.build:gradle:${Versions.GRADLE}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN}")
+        classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.KOTLIN}")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.DAGGER_HILT}")
+        classpath("com.google.gms:google-services:${Versions.GOOGLE_SERVICES}")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:${Versions.CRASHLYTICS}")
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:${Versions.KTLINT}")
     }
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
         mavenCentral()
         maven {
             setUrl("https://jitpack.io")
@@ -48,7 +47,7 @@ allprojects {
     }
 
     tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = Versions.java_version
+        kotlinOptions.jvmTarget = Versions.JAVA
         kotlinOptions.freeCompilerArgs = listOf("-Xallow-result-return-type")
     }
 }

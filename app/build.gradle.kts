@@ -1,12 +1,12 @@
 plugins {
     id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
-    id("kotlin-parcelize")
-    id("dagger.hilt.android.plugin")
-    id("org.jlleitschuh.gradle.ktlint")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("dagger.hilt.android.plugin")
+    id("org.jlleitschuh.gradle.ktlint")
+    id("kotlin-parcelize")
+    kotlin("android")
+    kotlin("kapt")
 }
 
 android {
@@ -18,13 +18,13 @@ android {
             keyPassword = "imaec23"
         }
     }
-    compileSdk = Apps.compileSdk
-    buildToolsVersion = Apps.build_tools
+    compileSdk = Apps.COMPILE_SDK
+    buildToolsVersion = Apps.BUILD_TOOLS
     defaultConfig {
-        minSdk = Apps.minSdk
-        targetSdk = Apps.targetSdk
-        versionCode = Apps.versionCode
-        versionName = Apps.versionName
+        minSdk = Apps.MIN_SDK
+        targetSdk = Apps.TARGET_SDK
+        versionCode = Apps.VERSION_CODE
+        versionName = Apps.VERSION_NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -77,9 +77,9 @@ android {
     }
 }
 
-kapt {
-    useBuildCache = true
-}
+//kapt {
+//    useBuildCache = true
+//}
 
 dependencies {
     implementation(project(":domain"))
@@ -87,49 +87,50 @@ dependencies {
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
 
-    testImplementation(TestLibs.junit)
-    androidTestImplementation(TestLibs.junit_ext)
-    androidTestImplementation(TestLibs.espresso)
+    testImplementation(TestLibs.JUNIT)
+    androidTestImplementation(TestLibs.JUNIT_EXT)
+    androidTestImplementation(TestLibs.ESPRESSO)
 
-    implementation(Libs.kotlin)
-    implementation(Libs.appcompat)
-    implementation(Libs.core_ktx)
-    implementation(Libs.material)
-    implementation(Libs.constraint_layout)
-    implementation(Libs.activity_ktx)
-    implementation(Libs.fragment_ktx)
+    implementation(Android.KOTLIN)
+    implementation(Android.APPCOMPAT)
+    implementation(Android.CORE_KTX)
+    implementation(Android.MATERIAL)
+    implementation(Android.CONSTRAINT_LAYOUT)
+    implementation(Android.ACTIVITY_KTX)
+    implementation(Android.FRAGMENT_KTX)
 
-    implementation(Libs.lifecycle_viewmodel_ktx)
-    implementation(Libs.lifecycle_livedata_ktx)
-    implementation(Libs.lifecycle_extensions)
+    implementation(Android.LIFECYCLE_VIEWMODEL_KTX)
+    implementation(Android.LIFECYCLE_LIVEDATA_KTX)
+    implementation(Android.LIFECYCLE_EXTENSIONS)
 
-    implementation(Libs.coroutine_core)
-    implementation(Libs.coroutine_android)
+    implementation(Coroutines.COROUTINES_CORE)
+    implementation(Coroutines.COROUTINES_ANDROID)
 
-    implementation(Libs.dagger_hilt_android)
-    kapt(Libs.dagger_hilt_compiler)
-    implementation(Libs.hilt_common)
-    kapt(Libs.hilt_compiler)
+    implementation(Hilt.DAGGER_HILT_ANDROID)
+    kapt(Hilt.DAGGER_HILT_COMPILER)
+    implementation(Hilt.HILT_COMMON)
+    kapt(Hilt.HILT_COMPILER)
 
-    implementation(Libs.retrofit)
-    implementation(Libs.retrofit_converter)
-    implementation(Libs.okhttp3)
-    implementation(Libs.okhttp3_interceptor)
+    implementation(Retrofit.RETROFIT)
+    implementation(Retrofit.RETROFIT_CONVERTER)
+    implementation(OkHttp.OKHTTP)
+    implementation(OkHttp.OKHTTP_INTERCEPTOR)
 
-    implementation(Libs.room_runtime)
-    implementation(Libs.room_ktx)
-    kapt(Libs.room_compiler)
-    implementation(Libs.datastore)
-    implementation(Libs.datastore_core)
+    implementation(Room.ROOM_RUNTIME)
+    implementation(Room.ROOM_KTX)
+    kapt(Room.ROOM_COMPILER)
+    implementation(Datastore.DATASTORE)
+    implementation(Datastore.DATASTORE_CORE)
 
-    implementation(Libs.jsoup)
-    implementation(Libs.admob)
-    implementation(platform(Libs.firebase_bom))
-    implementation(Libs.firebase_database)
-    implementation(Libs.firebase_analytics)
-    implementation(Libs.firebase_crashlytics)
-    implementation(Libs.kakao_link)
-    implementation(Libs.timber)
+    implementation(platform(Firebase.FIREBASE_BOM))
+    implementation(Firebase.FIREBASE_DATABASE)
+    implementation(Firebase.FIREBASE_ANALYTICS)
+    implementation(Firebase.FIREBASE_CRASHLYTICS)
+
+    implementation(Jsoup.JSOUP)
+    implementation(Admob.ADMOB)
+    implementation(Kakao.KAKAO_LINK)
+    implementation(Timber.TIMBER)
 }
 
 ktlint {
