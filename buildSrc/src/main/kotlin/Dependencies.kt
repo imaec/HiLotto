@@ -33,6 +33,7 @@ object Coroutines {
 }
 
 object Hilt {
+    const val DAGGER_HILT_CORE = "com.google.dagger:hilt-core:${Versions.DAGGER_HILT}"
     const val DAGGER_HILT_ANDROID = "com.google.dagger:hilt-android:${Versions.DAGGER_HILT}"
     const val DAGGER_HILT_COMPILER = "com.google.dagger:hilt-android-compiler:${Versions.DAGGER_HILT}"
     const val HILT_COMMON = "androidx.hilt:hilt-common:${Versions.HILT}"

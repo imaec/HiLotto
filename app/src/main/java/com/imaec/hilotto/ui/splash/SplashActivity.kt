@@ -10,7 +10,7 @@ import com.imaec.hilotto.ui.main.MainActivity
 import com.imaec.hilotto.utils.setStatusBarColor
 import dagger.hilt.android.AndroidEntryPoint
 
-@SuppressLint("SetTextI18n")
+@SuppressLint("SetTextI18n", "CustomSplashScreen")
 @Suppress("REDUNDANT_LABEL_WARNING")
 @AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {

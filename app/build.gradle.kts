@@ -77,9 +77,9 @@ android {
     }
 }
 
-//kapt {
-//    useBuildCache = true
-//}
+kapt {
+    useBuildCache = true
+}
 
 dependencies {
     implementation(project(":domain"))
@@ -91,41 +91,58 @@ dependencies {
     androidTestImplementation(TestLibs.JUNIT_EXT)
     androidTestImplementation(TestLibs.ESPRESSO)
 
-    implementation(Android.KOTLIN)
-    implementation(Android.APPCOMPAT)
-    implementation(Android.CORE_KTX)
-    implementation(Android.MATERIAL)
-    implementation(Android.CONSTRAINT_LAYOUT)
-    implementation(Android.ACTIVITY_KTX)
-    implementation(Android.FRAGMENT_KTX)
+    Android.run {
+        implementation(KOTLIN)
+        implementation(APPCOMPAT)
+        implementation(CORE_KTX)
+        implementation(MATERIAL)
+        implementation(CONSTRAINT_LAYOUT)
+        implementation(ACTIVITY_KTX)
+        implementation(FRAGMENT_KTX)
+        implementation(LIFECYCLE_VIEWMODEL_KTX)
+        implementation(LIFECYCLE_LIVEDATA_KTX)
+        implementation(LIFECYCLE_EXTENSIONS)
+    }
 
-    implementation(Android.LIFECYCLE_VIEWMODEL_KTX)
-    implementation(Android.LIFECYCLE_LIVEDATA_KTX)
-    implementation(Android.LIFECYCLE_EXTENSIONS)
+    Coroutines.run {
+        implementation(COROUTINES_CORE)
+        implementation(COROUTINES_ANDROID)
+    }
 
-    implementation(Coroutines.COROUTINES_CORE)
-    implementation(Coroutines.COROUTINES_ANDROID)
+    Hilt.run {
+        implementation(DAGGER_HILT_ANDROID)
+        kapt(DAGGER_HILT_COMPILER)
+        implementation(HILT_COMMON)
+        kapt(HILT_COMPILER)
+    }
 
-    implementation(Hilt.DAGGER_HILT_ANDROID)
-    kapt(Hilt.DAGGER_HILT_COMPILER)
-    implementation(Hilt.HILT_COMMON)
-    kapt(Hilt.HILT_COMPILER)
+    Retrofit.run {
+        implementation(RETROFIT)
+        implementation(RETROFIT_CONVERTER)
+    }
 
-    implementation(Retrofit.RETROFIT)
-    implementation(Retrofit.RETROFIT_CONVERTER)
-    implementation(OkHttp.OKHTTP)
-    implementation(OkHttp.OKHTTP_INTERCEPTOR)
+    OkHttp.run {
+        implementation(OKHTTP)
+        implementation(OKHTTP_INTERCEPTOR)
+    }
 
-    implementation(Room.ROOM_RUNTIME)
-    implementation(Room.ROOM_KTX)
-    kapt(Room.ROOM_COMPILER)
-    implementation(Datastore.DATASTORE)
-    implementation(Datastore.DATASTORE_CORE)
+    Room.run {
+        implementation(ROOM_RUNTIME)
+        implementation(ROOM_KTX)
+        kapt(ROOM_COMPILER)
+    }
 
-    implementation(platform(Firebase.FIREBASE_BOM))
-    implementation(Firebase.FIREBASE_DATABASE)
-    implementation(Firebase.FIREBASE_ANALYTICS)
-    implementation(Firebase.FIREBASE_CRASHLYTICS)
+    Datastore.run {
+        implementation(DATASTORE)
+        implementation(DATASTORE_CORE)
+    }
+
+    Firebase.run {
+        implementation(platform(FIREBASE_BOM))
+        implementation(FIREBASE_DATABASE)
+        implementation(FIREBASE_ANALYTICS)
+        implementation(FIREBASE_CRASHLYTICS)
+    }
 
     implementation(Jsoup.JSOUP)
     implementation(Admob.ADMOB)

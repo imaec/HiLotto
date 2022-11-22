@@ -1,12 +1,12 @@
 plugins {
     id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
-    id("kotlin-parcelize")
-    id("dagger.hilt.android.plugin")
-    id("org.jlleitschuh.gradle.ktlint")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("dagger.hilt.android.plugin")
+    id("org.jlleitschuh.gradle.ktlint")
+    id("kotlin-parcelize")
+    kotlin("android")
+    kotlin("kapt")
 }
 
 android {
@@ -45,32 +45,51 @@ android {
 dependencies {
     implementation(project(":domain"))
 
-    implementation(Android.KOTLIN)
+    Android.run {
+        implementation(KOTLIN)
+    }
 
-    implementation(Coroutines.COROUTINES_CORE)
-    implementation(Coroutines.COROUTINES_ANDROID)
+    Coroutines.run {
+        implementation(COROUTINES_CORE)
+        implementation(COROUTINES_ANDROID)
+    }
 
-    implementation(Hilt.DAGGER_HILT_ANDROID)
-    kapt(Hilt.DAGGER_HILT_COMPILER)
-    implementation(Hilt.HILT_COMMON)
-    kapt(Hilt.HILT_COMPILER)
+    Hilt.run {
+        implementation(DAGGER_HILT_ANDROID)
+        kapt(DAGGER_HILT_COMPILER)
+        implementation(HILT_COMMON)
+        kapt(HILT_COMPILER)
+    }
 
-    implementation(Retrofit.RETROFIT)
-    implementation(Retrofit.RETROFIT_CONVERTER)
-    implementation(OkHttp.OKHTTP)
-    implementation(OkHttp.OKHTTP_INTERCEPTOR)
+    Retrofit.run {
+        implementation(RETROFIT)
+        implementation(RETROFIT_CONVERTER)
+    }
 
-    implementation(Room.ROOM_RUNTIME)
-    implementation(Room.ROOM_KTX)
-    kapt(Room.ROOM_COMPILER)
-    implementation(Datastore.DATASTORE)
-    implementation(Datastore.DATASTORE_CORE)
+    OkHttp.run {
+        implementation(OKHTTP)
+        implementation(OKHTTP_INTERCEPTOR)
+    }
 
-    implementation(platform(Firebase.FIREBASE_BOM))
-    implementation(Firebase.FIREBASE_DATABASE)
-    implementation(Firebase.FIREBASE_ANALYTICS)
-    implementation(Firebase.FIREBASE_CRASHLYTICS)
+    Room.run {
+        implementation(ROOM_RUNTIME)
+        implementation(ROOM_KTX)
+        kapt(ROOM_COMPILER)
+    }
 
+    Datastore.run {
+        implementation(DATASTORE)
+        implementation(DATASTORE_CORE)
+    }
+
+    Firebase.run {
+        implementation(platform(FIREBASE_BOM))
+        implementation(FIREBASE_DATABASE)
+        implementation(FIREBASE_ANALYTICS)
+        implementation(FIREBASE_CRASHLYTICS)
+    }
+
+    // Etc.
     implementation(Jsoup.JSOUP)
     implementation(Timber.TIMBER)
 }

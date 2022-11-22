@@ -1,12 +1,12 @@
 plugins {
     id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
-    id("kotlin-parcelize")
-    id("dagger.hilt.android.plugin")
-    id("org.jlleitschuh.gradle.ktlint")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("dagger.hilt.android.plugin")
+    id("org.jlleitschuh.gradle.ktlint")
+    id("kotlin-parcelize")
+    kotlin("android")
+    kotlin("kapt")
 }
 
 android {
@@ -43,36 +43,18 @@ android {
 }
 
 dependencies {
-    implementation(Android.KOTLIN)
+    Android.run {
+        implementation(KOTLIN)
+    }
 
-    implementation(Coroutines.COROUTINES_CORE)
-    implementation(Coroutines.COROUTINES_ANDROID)
+    Coroutines.run {
+        implementation(COROUTINES_CORE)
+    }
 
-    implementation(Hilt.DAGGER_HILT_ANDROID)
-    kapt(Hilt.DAGGER_HILT_COMPILER)
-    implementation(Hilt.HILT_COMMON)
-    kapt(Hilt.HILT_COMPILER)
+    Hilt.run {
+        implementation(DAGGER_HILT_ANDROID)
+        kapt(DAGGER_HILT_COMPILER)
+    }
 
-    implementation(Retrofit.RETROFIT)
-    implementation(Retrofit.RETROFIT_CONVERTER)
-    implementation(OkHttp.OKHTTP)
-    implementation(OkHttp.OKHTTP_INTERCEPTOR)
-
-    implementation(Room.ROOM_RUNTIME)
-    implementation(Room.ROOM_KTX)
-    kapt(Room.ROOM_COMPILER)
-    implementation(Datastore.DATASTORE)
-    implementation(Datastore.DATASTORE_CORE)
-
-    implementation(Room.ROOM_RUNTIME)
-    implementation(Room.ROOM_KTX)
-    kapt(Room.ROOM_COMPILER)
-
-    implementation(platform(Firebase.FIREBASE_BOM))
-    implementation(Firebase.FIREBASE_DATABASE)
-    implementation(Firebase.FIREBASE_ANALYTICS)
-    implementation(Firebase.FIREBASE_CRASHLYTICS)
-
-    implementation(Jsoup.JSOUP)
     implementation(Timber.TIMBER)
 }
