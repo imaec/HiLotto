@@ -1,0 +1,51 @@
+import config.BuildDebugConfig
+import config.BuildProdConfig
+
+android {
+    compileSdkVersion Apps.COMPILE_SDK
+
+    defaultConfig {
+        minSdkVersion Apps.MIN_SDK
+        targetSdkVersion Apps.TARGET_SDK
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        dev {
+            flavorDimensions BuildDebugConfig.DIMENSIONS_NAME
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        prod {
+            flavorDimensions BuildProdConfig.DIMENSIONS_NAME
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android.variantFilter { variant ->
+        def buildName = variant.buildType.name
+        def flavorName = variant.getFlavors().get(0).name
+
+        if (flavorName == 'dev' && buildName == 'release'
+                || flavorName == 'prod' && buildName == 'debug') {
+            variant.setIgnore(true)
+        }
+    }
+}

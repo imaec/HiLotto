@@ -20,25 +20,34 @@
         android:requestLegacyExternalStorage="true"
         tools:targetApi="q">
 
-        <activity android:name=".ui.main.MainActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"
+        <activity
+            android:name=".ui.main.compose.ComposeMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:host="@string/kakaolink_host"
-                    android:scheme="@string/kakao_scheme" />
-            </intent-filter>
         </activity>
+<!--        <activity android:name=".ui.main.MainActivity"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:launchMode="singleTask"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--                <category android:name="android.intent.category.BROWSABLE" />-->
+
+<!--                <data android:host="@string/kakaolink_host"-->
+<!--                    android:scheme="@string/kakao_scheme" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
 
         <activity android:name=".ui.splash.SplashActivity"
             android:screenOrientation="portrait"

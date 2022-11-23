@@ -71,7 +71,16 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.COMPOSE_COMPILER
+    }
+
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+
     buildFeatures {
+        compose = true
         dataBinding = true
         viewBinding = true
     }
@@ -82,6 +91,7 @@ kapt {
 }
 
 dependencies {
+    implementation(project(":components"))
     implementation(project(":domain"))
     implementation(project(":data"))
 
@@ -100,8 +110,13 @@ dependencies {
         implementation(ACTIVITY_KTX)
         implementation(FRAGMENT_KTX)
         implementation(LIFECYCLE_VIEWMODEL_KTX)
+        implementation(LIFECYCLE_VIEWMODEL_COMPOSE)
         implementation(LIFECYCLE_LIVEDATA_KTX)
         implementation(LIFECYCLE_EXTENSIONS)
+    }
+
+    Compose.run {
+        implementation(COMPOSE_MATERIAL3)
     }
 
     Coroutines.run {
@@ -114,6 +129,7 @@ dependencies {
         kapt(DAGGER_HILT_COMPILER)
         implementation(HILT_COMMON)
         kapt(HILT_COMPILER)
+        implementation(HILT_NAVIGATION_COMPOSE)
     }
 
     Retrofit.run {

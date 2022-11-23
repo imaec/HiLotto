@@ -15,6 +15,22 @@ object Versions {
     const val ACTIVITY_KTX = "1.4.0"
     const val FRAGMENT_KTX = "1.5.2"
 
+    // compose
+    const val COMPOSE = "1.3.0"
+    const val COMPOSE_MATERIAL3 = "1.1.0-alpha01"
+    const val COMPOSE_COMPILER = "1.3.2"
+    const val COMPOSE_CONSTRAINT = "1.0.1"
+    const val COMPOSE_COIL = "1.4.0"
+    const val COMPOSE_VIEW_BINDING = "1.0.5"
+    const val COMPOSE_ACTIVITY = "1.4.0"
+    const val COMPOSE_SWIPE_REFRESH = "0.23.0"
+    const val COMPOSE_PERMISSIONS = "0.24.5-alpha"
+    const val COMPOSE_CUSTOM_VIEW = "1.2.0-alpha01"
+    const val COMPOSE_CUSTOM_VIEW_POOLING_CONTAINER = "1.0.0-alpha01"
+    const val COMPOSE_LIFECYCLE = "2.6.0-alpha01"
+    const val COMPOSE_NAVIGATION = "2.5.2"
+    const val ACCOMPANIST = "0.25.1"
+
     const val LIFECYCLE = "2.4.1"
     const val LIFECYCLE_EXTENSION = "2.2.0"
 
