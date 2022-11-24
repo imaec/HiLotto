@@ -1,5 +1,7 @@
 package com.imaec.hilotto.ui.main.compose
 
+import White
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.consumedWindowInsets
@@ -11,12 +13,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -25,7 +32,24 @@ import com.imaec.hilotto.ui.main.MainViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun MainNavGraph(viewModel: MainViewModel) {
+fun MainNavGraph(
+    viewModel: MainViewModel
+//    windowSizeClass: WindowSizeClass,
+//    networkMonitor: NetworkMonitor,
+//    appState: HlAppState = rememberNiaAppState(
+//    networkMonitor = networkMonitor,
+//    windowSizeClass = windowSizeClass
+//    )
+) {
+//    val background: @Composable (@Composable () -> Unit) -> Unit =
+//        when (appState.currentTopLevelDestination) {
+//            TopLevelDestination.HOME -> { content ->
+//                HiGradientBackground(content = content)
+//            }
+//            else -> { content -> HiBackground(content = content) }
+//        }
+
+    val snackbarHostState = remember { SnackbarHostState() }
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
@@ -38,47 +62,50 @@ fun MainNavGraph(viewModel: MainViewModel) {
                     TopLevelDestination.SETTING
                 ),
                 onNavigateToDestination = {
-                    navController.navigate(
-                        when (it) {
-                            TopLevelDestination.HOME -> "home"
-                            TopLevelDestination.STATISTICS -> "statistics"
-                            TopLevelDestination.RECOMMEND -> "recommend"
-                            TopLevelDestination.MY -> "my"
-                            TopLevelDestination.SETTING -> "setting"
-                        }
-                    )
+                    navController.navigate(it.route)
                 },
                 currentDestination = null
             )
         }
     ) { padding ->
-        NavHost(
+        HlNavHost(
+            modifier = Modifier
+                .padding(padding)
+                .consumedWindowInsets(padding),
             navController = navController,
-            startDestination = "home",
-            modifier = Modifier.padding(padding).consumedWindowInsets(padding)
-        ) {
-            composable(route = "home") {
-                Text(text = "home")
-            }
-            composable(route = "statistics") {
-                Text(text = "statistics")
-            }
-            composable(route = "recommend") {
-                Text(text = "recommend")
-            }
-            composable(route = "my") {
-                Text(text = "my")
-            }
-            composable(route = "setting") {
-                Text(text = "setting")
-            }
+            onBackClick = {}
+        )
+    }
+}
+
+@Composable
+fun HlNavHost(
+    navController: NavHostController,
+    onBackClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    startDestination: String = "home"
+) {
+    NavHost(
+        navController = navController,
+        startDestination = startDestination,
+        modifier = modifier
+    ) {
+        composable(route = "home") {
+            Text(text = "home")
+        }
+        composable(route = "statistics") {
+            Text(text = "statistics")
+        }
+        composable(route = "recommend") {
+            Text(text = "recommend")
+        }
+        composable(route = "my") {
+            Text(text = "my")
+        }
+        composable(route = "setting") {
+            Text(text = "setting")
         }
     }
-//    HlNavHost(
-//        navController = navController,
-//        onBackClick = {},
-//        modifier = Modifier.padding(padding).consumedWindowInsets(padding)
-//    )
 }
 
 @Composable
@@ -88,7 +115,7 @@ private fun HlBottomBar(
     currentDestination: NavDestination?
 ) {
     NavigationBar(
-        tonalElevation = 0.dp
+        containerColor = White
     ) {
         destinations.forEach { destination ->
             val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
@@ -114,10 +141,10 @@ private fun HlBottomBar(
 
 @Composable
 fun RowScope.HlNavigationBarItem(
+    modifier: Modifier = Modifier,
     selected: Boolean,
     onClick: () -> Unit,
     icon: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
     selectedIcon: @Composable () -> Unit = icon,
     enabled: Boolean = true,
     label: @Composable (() -> Unit)? = null,
@@ -145,3 +172,33 @@ private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLev
     this?.hierarchy?.any {
         it.route?.contains(destination.name, true) ?: false
     } ?: false
+
+@OptIn(ExperimentalLayoutApi::class)
+@Preview(showBackground = true)
+@Composable
+fun MainNavGraphPreview() {
+    val navController = rememberNavController()
+    Scaffold(
+        bottomBar = {
+            HlBottomBar(
+                destinations = listOf(
+                    TopLevelDestination.HOME,
+                    TopLevelDestination.STATISTICS,
+                    TopLevelDestination.RECOMMEND,
+                    TopLevelDestination.MY,
+                    TopLevelDestination.SETTING
+                ),
+                onNavigateToDestination = {},
+                currentDestination = null
+            )
+        }
+    ) { padding ->
+        HlNavHost(
+            modifier = Modifier
+                .padding(padding)
+                .consumedWindowInsets(padding),
+            navController = navController,
+            onBackClick = {}
+        )
+    }
+}

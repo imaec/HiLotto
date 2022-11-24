@@ -18,36 +18,42 @@ enum class TopLevelDestination(
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
     val iconTextId: Int,
-    val titleTextId: Int
+    val titleTextId: Int,
+    val route: String
 ) {
     HOME(
         selectedIcon = Icons.Filled.Home,
         unselectedIcon = Icons.Outlined.Home,
         iconTextId = R.string.home,
-        titleTextId = R.string.home
+        titleTextId = R.string.home,
+        route = "home"
     ),
     STATISTICS(
         selectedIcon = Icons.Filled.AutoGraph,
         unselectedIcon = Icons.Outlined.AutoGraph,
         iconTextId = R.string.statistics,
-        titleTextId = R.string.statistics
+        titleTextId = R.string.statistics,
+        route = "statistics"
     ),
     RECOMMEND(
         selectedIcon = Icons.Filled.Recommend,
         unselectedIcon = Icons.Outlined.Recommend,
         iconTextId = R.string.recommend,
-        titleTextId = R.string.recommend
+        titleTextId = R.string.recommend,
+        route = "recommend"
     ),
     MY(
         selectedIcon = Icons.Filled.People,
         unselectedIcon = Icons.Outlined.People,
         iconTextId = R.string.my,
-        titleTextId = R.string.my
+        titleTextId = R.string.my,
+        route = "my"
     ),
     SETTING(
         selectedIcon = Icons.Filled.Settings,
         unselectedIcon = Icons.Outlined.Settings,
         iconTextId = R.string.setting,
-        titleTextId = R.string.setting
+        titleTextId = R.string.setting,
+        route = "setting"
     )
 }

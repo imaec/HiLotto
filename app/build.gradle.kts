@@ -9,83 +9,10 @@ plugins {
     kotlin("kapt")
 }
 
+apply(from = "../config.gradle")
 android {
-    signingConfigs {
-        getByName("debug") {
-            storeFile = file("/Users/imaec/work_android/z_res/HiLotto/hilotto.jks")
-            storePassword = "imaec23"
-            keyAlias = "hilotto"
-            keyPassword = "imaec23"
-        }
-    }
-    compileSdk = Apps.COMPILE_SDK
-    buildToolsVersion = Apps.BUILD_TOOLS
-    defaultConfig {
-        minSdk = Apps.MIN_SDK
-        targetSdk = Apps.TARGET_SDK
-        versionCode = Apps.VERSION_CODE
-        versionName = Apps.VERSION_NAME
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
-        multiDexEnabled = true
-    }
-    buildTypes {
-        getByName("debug") {
-            isMinifyEnabled = false
-            isDebuggable = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-            resValue("string", "admob_app_id", "ca-app-pub-3940256099942544~3347511713")
-            resValue("string", "ad_id_main_front", "ca-app-pub-3940256099942544/1033173712")
-            resValue("string", "ad_id_recommend_front", "ca-app-pub-3940256099942544/1033173712")
-            resValue("string", "ad_id_lately_front", "ca-app-pub-3940256099942544/1033173712")
-            resValue("string", "ad_id_history_front", "ca-app-pub-3940256099942544/1033173712")
-            resValue("string", "ad_id_home_banner", "ca-app-pub-3940256099942544/6300978111")
-            resValue("string", "ad_id_my_banner", "ca-app-pub-3940256099942544/6300978111")
-            resValue("string", "ad_id_lately_banner", "ca-app-pub-3940256099942544/6300978111")
-            resValue("string", "ad_id_store_banner", "ca-app-pub-3940256099942544/6300978111")
-        }
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-            resValue("string", "admob_app_id", "ca-app-pub-7147836151485354~9585074380")
-            resValue("string", "ad_id_main_front", "ca-app-pub-7147836151485354/4133243636")
-            resValue("string", "ad_id_recommend_front", "ca-app-pub-7147836151485354/5035261765")
-            resValue("string", "ad_id_lately_front", "ca-app-pub-7147836151485354/3774344500")
-            resValue("string", "ad_id_history_front", "ca-app-pub-7147836151485354/2078119459")
-            resValue("string", "ad_id_home_banner", "ca-app-pub-7147836151485354/6923058507")
-            resValue("string", "ad_id_my_banner", "ca-app-pub-7147836151485354/3530608409")
-            resValue("string", "ad_id_lately_banner", "ca-app-pub-7147836151485354/8835099498")
-            resValue("string", "ad_id_store_banner", "ca-app-pub-7147836151485354/7149007957")
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.COMPOSE_COMPILER
-    }
-
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-
-    buildFeatures {
-        compose = true
-        dataBinding = true
-        viewBinding = true
-    }
+    namespace = "com.imaec.hilotto"
 }
-
 kapt {
     useBuildCache = true
 }
