@@ -28,6 +28,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.imaec.hilotto.navigation.TopLevelDestination
+import com.imaec.hilotto.ui.home.homeNavigationRoute
+import com.imaec.hilotto.ui.home.homeScreen
 import com.imaec.hilotto.ui.main.MainViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -83,16 +85,14 @@ fun HlNavHost(
     navController: NavHostController,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
-    startDestination: String = "home"
+    startDestination: String = homeNavigationRoute
 ) {
     NavHost(
         navController = navController,
         startDestination = startDestination,
         modifier = modifier
     ) {
-        composable(route = "home") {
-            Text(text = "home")
-        }
+        homeScreen()
         composable(route = "statistics") {
             Text(text = "statistics")
         }

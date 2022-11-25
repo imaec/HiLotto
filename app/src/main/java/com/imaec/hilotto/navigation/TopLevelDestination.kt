@@ -13,6 +13,7 @@ import androidx.compose.material.icons.outlined.Recommend
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.imaec.hilotto.R
+import com.imaec.hilotto.ui.home.homeNavigationRoute
 
 enum class TopLevelDestination(
     val selectedIcon: ImageVector,
@@ -26,7 +27,7 @@ enum class TopLevelDestination(
         unselectedIcon = Icons.Outlined.Home,
         iconTextId = R.string.home,
         titleTextId = R.string.home,
-        route = "home"
+        route = homeNavigationRoute
     ),
     STATISTICS(
         selectedIcon = Icons.Filled.AutoGraph,

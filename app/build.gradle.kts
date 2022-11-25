@@ -43,6 +43,7 @@ dependencies {
     }
 
     Compose.run {
+        implementation(COMPOSE_NAVIGATION)
         implementation(COMPOSE_MATERIAL3)
     }
 
