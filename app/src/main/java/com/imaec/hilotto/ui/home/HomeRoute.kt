@@ -2,6 +2,7 @@ package com.imaec.hilotto.ui.home
 
 import White
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,7 +23,7 @@ internal fun HomeRoute(
         modifier = modifier.fillMaxSize()
     ) { padding ->
         HomeScreen(modifier = Modifier
-            .fillMaxSize()
+            .fillMaxHeight()
             .padding(padding)
             .background(White)
         )
@@ -38,6 +39,7 @@ internal fun HomeScreen(modifier: Modifier) {
         item {
             HomeLatelyRoundResult()
         }
+        homeStore()
     }
 }
 
