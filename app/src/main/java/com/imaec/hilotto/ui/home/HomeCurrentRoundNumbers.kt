@@ -35,7 +35,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.imaec.components.component.ui.Number
+import com.imaec.components.component.ui.NumberCircle
 
 @Composable
 internal fun HomeCurrentRoundNumber() {
@@ -68,12 +68,12 @@ internal fun HomeCurrentRoundNumber() {
                 textAlign = TextAlign.Center
             )
             Row(Modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp)) {
-                Number(modifier = Modifier.weight(1f), text = "1")
-                Number(modifier = Modifier.weight(1f), text = "2")
-                Number(modifier = Modifier.weight(1f), text = "3")
-                Number(modifier = Modifier.weight(1f), text = "4")
-                Number(modifier = Modifier.weight(1f), text = "5")
-                Number(modifier = Modifier.weight(1f), text = "6")
+                NumberCircle(modifier = Modifier.weight(1f), text = "1")
+                NumberCircle(modifier = Modifier.weight(1f), text = "2")
+                NumberCircle(modifier = Modifier.weight(1f), text = "3")
+                NumberCircle(modifier = Modifier.weight(1f), text = "4")
+                NumberCircle(modifier = Modifier.weight(1f), text = "5")
+                NumberCircle(modifier = Modifier.weight(1f), text = "6")
             }
             Row(Modifier.padding(top = 12.dp, start = 16.dp, end = 16.dp)) {
                 Box(
@@ -98,12 +98,12 @@ internal fun HomeCurrentRoundNumber() {
                             )
                         ),
                         color = Gray700,
-                        fontSize =12.sp,
+                        fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.End
                     )
                 }
-                Number(modifier = Modifier.weight(1f), text = "7")
+                NumberCircle(modifier = Modifier.weight(1f), text = "7")
             }
             Row(
                 modifier = Modifier
@@ -126,7 +126,7 @@ internal fun HomeCurrentRoundNumber() {
             }
             Row(
                 modifier = Modifier
-                    .padding(bottom = 24.dp)
+                    .padding(bottom = 32.dp)
                     .fillMaxWidth()
                     .height(40.dp)
                     .padding(top = 4.dp, end = 16.dp),

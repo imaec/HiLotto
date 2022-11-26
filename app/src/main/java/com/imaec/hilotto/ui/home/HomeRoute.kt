@@ -35,6 +35,9 @@ internal fun HomeScreen(modifier: Modifier) {
         item {
             HomeCurrentRoundNumber()
         }
+        item {
+            HomeLatelyRoundResult()
+        }
     }
 }
 
