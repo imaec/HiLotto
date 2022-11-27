@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 
 private val LightThemeColors = lightColors(
     primary = Primary500,
-    secondary = Gray900,
+    secondary = Gray33,
     error = Red900
 )
 

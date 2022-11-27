@@ -22,9 +22,15 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -39,13 +45,13 @@ android {
         }
     }
 
-    android.variantFilter { variant ->
-        def buildName = variant.buildType.name
-        def flavorName = variant.getFlavors().get(0).name
-
-        if (flavorName == 'dev' && buildName == 'release'
-                || flavorName == 'prod' && buildName == 'debug') {
-            variant.setIgnore(true)
-        }
-    }
+//    android.variantFilter { variant ->
+//        def buildName = variant.buildType.name
+//        def flavorName = variant.getFlavors().get(0).name
+//
+//        if (flavorName == 'dev' && buildName == 'release'
+//            || flavorName == 'prod' && buildName == 'debug') {
+//            variant.setIgnore(true)
+//        }
+//    }
 }

@@ -1,7 +1,6 @@
 package com.imaec.hilotto.ui.main.compose
 
 import White
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.consumedWindowInsets
@@ -17,10 +16,8 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
@@ -31,6 +28,7 @@ import com.imaec.hilotto.navigation.TopLevelDestination
 import com.imaec.hilotto.ui.home.homeNavigationRoute
 import com.imaec.hilotto.ui.home.homeScreen
 import com.imaec.hilotto.ui.main.MainViewModel
+import com.imaec.hilotto.ui.statistics.statisticsScreen
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -93,9 +91,7 @@ fun HlNavHost(
         modifier = modifier
     ) {
         homeScreen()
-        composable(route = "statistics") {
-            Text(text = "statistics")
-        }
+        statisticsScreen()
         composable(route = "recommend") {
             Text(text = "recommend")
         }

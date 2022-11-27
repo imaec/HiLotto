@@ -1,10 +1,10 @@
 package com.imaec.hilotto.ui.home
 
 import Gray200
+import Gray33
 import Gray400
 import Gray500
 import Gray700
-import Gray900
 import White
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -155,7 +155,7 @@ internal fun HomeCurrentRoundNumber() {
                                     bottomStart = 5.dp
                                 )
                             )
-                            .background(Gray900),
+                            .background(Gray33),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(

@@ -15,17 +15,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun HomeRoute(
-    modifier: Modifier = Modifier
-) {
+internal fun HomeRoute() {
     val viewModel: HomeViewModel = hiltViewModel()
     Scaffold(
-        modifier = modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) { padding ->
-        HomeScreen(modifier = Modifier
-            .fillMaxHeight()
-            .padding(padding)
-            .background(White)
+        HomeScreen(
+            modifier = Modifier
+                .fillMaxHeight()
+                .padding(padding)
+                .background(White)
         )
     }
 }

@@ -28,6 +28,7 @@ dependencies {
         api(COMPOSE_FOUNDATION)
         api(COMPOSE_LIVEDATA)
         api(COMPOSE_RXJAVA)
+        api(COMPOSE_MATERIAL3)
         api(COMPOSE_MATERIAL)
         api(COMPOSE_MATERIAL_CORE)
         api(COMPOSE_MATERIAL_ICON)
