@@ -30,7 +30,7 @@ class StatisticsViewModel @Inject constructor() : BaseViewModel() {
 //    }
 }
 
-//data class StatisticsTabState(
+// data class StatisticsTabState(
 //    val titles: List<Int>,
 //    val currentIndex: Int
-//)
+// )

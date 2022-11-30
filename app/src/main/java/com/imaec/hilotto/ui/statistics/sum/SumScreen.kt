@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun SumScreen() {
+internal fun SumScreen() {
     Column(modifier = Modifier.background(Gray200)) {
         Card(
             modifier = Modifier.padding(bottom = 8.dp),
@@ -112,7 +112,7 @@ fun SumScreen() {
 }
 
 @Composable
-internal fun SumItem() {
+private fun SumItem() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -143,6 +143,6 @@ internal fun SumItem() {
 
 @Preview
 @Composable
-fun SumScreenPreview() {
+private fun SumScreenPreview() {
     SumScreen()
 }

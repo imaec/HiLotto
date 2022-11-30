@@ -19,6 +19,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import com.imaec.components.component.ui.HlSlideTab
+import com.imaec.hilotto.ui.statistics.pick.PickScreen
 import com.imaec.hilotto.ui.statistics.sum.SumScreen
 import kotlinx.coroutines.launch
 
@@ -68,10 +69,7 @@ fun StatisticsPager(pagerState: PagerState) {
     HorizontalPager(count = 5, state = pagerState) { page ->
         when (page) {
             0 -> SumScreen()
-            1 -> {
-                // PickContent
-                Text(text = "$page")
-            }
+            1 -> PickScreen()
             2 -> {
                 // ContinuesContent
                 Text(text = "$page")

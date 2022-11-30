@@ -23,17 +23,19 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
 fun NumberCircle(
     modifier: Modifier = Modifier,
-    text: String
+    text: String,
+    fontSize: TextUnit = 20.sp,
+    fontWeight: FontWeight = FontWeight.Bold
 ) {
     Surface(
         modifier = modifier
-            .padding(horizontal = 4.dp)
             .aspectRatio(1f)
             .background(
                 color = Color01_10,
@@ -53,8 +55,8 @@ fun NumberCircle(
                     )
                 ),
                 color = White,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
+                fontSize = fontSize,
+                fontWeight = fontWeight,
                 textAlign = TextAlign.Center
             )
         }

@@ -68,12 +68,12 @@ internal fun HomeCurrentRoundNumber() {
                 textAlign = TextAlign.Center
             )
             Row(Modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp)) {
-                NumberCircle(modifier = Modifier.weight(1f), text = "1")
-                NumberCircle(modifier = Modifier.weight(1f), text = "2")
-                NumberCircle(modifier = Modifier.weight(1f), text = "3")
-                NumberCircle(modifier = Modifier.weight(1f), text = "4")
-                NumberCircle(modifier = Modifier.weight(1f), text = "5")
-                NumberCircle(modifier = Modifier.weight(1f), text = "6")
+                NumberCircle(modifier = Modifier.weight(1f).padding(horizontal = 4.dp), text = "1")
+                NumberCircle(modifier = Modifier.weight(1f).padding(horizontal = 4.dp), text = "2")
+                NumberCircle(modifier = Modifier.weight(1f).padding(horizontal = 4.dp), text = "3")
+                NumberCircle(modifier = Modifier.weight(1f).padding(horizontal = 4.dp), text = "4")
+                NumberCircle(modifier = Modifier.weight(1f).padding(horizontal = 4.dp), text = "5")
+                NumberCircle(modifier = Modifier.weight(1f).padding(horizontal = 4.dp), text = "6")
             }
             Row(Modifier.padding(top = 12.dp, start = 16.dp, end = 16.dp)) {
                 Box(
@@ -103,7 +103,7 @@ internal fun HomeCurrentRoundNumber() {
                         textAlign = TextAlign.End
                     )
                 }
-                NumberCircle(modifier = Modifier.weight(1f), text = "7")
+                NumberCircle(modifier = Modifier.weight(1f).padding(horizontal = 4.dp), text = "7")
             }
             Row(
                 modifier = Modifier
