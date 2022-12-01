@@ -176,7 +176,7 @@ private fun NoPickItem() {
             color = Gray33,
             fontSize = 15.sp
         )
-        LazyRow {
+        LazyRow(userScrollEnabled = false) {
             items(7) {
                 NumberCircle(
                     modifier = Modifier

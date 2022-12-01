@@ -19,6 +19,8 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import com.imaec.components.component.ui.HlSlideTab
+import com.imaec.hilotto.ui.statistics.continues.ContinuesScreen
+import com.imaec.hilotto.ui.statistics.oddeven.OddEvenScreen
 import com.imaec.hilotto.ui.statistics.pick.PickScreen
 import com.imaec.hilotto.ui.statistics.sum.SumScreen
 import kotlinx.coroutines.launch
@@ -70,14 +72,8 @@ fun StatisticsPager(pagerState: PagerState) {
         when (page) {
             0 -> SumScreen()
             1 -> PickScreen()
-            2 -> {
-                // ContinuesContent
-                Text(text = "$page")
-            }
-            3 -> {
-                // OddEvenContent
-                Text(text = "$page")
-            }
+            2 -> ContinuesScreen()
+            3 -> OddEvenScreen()
             4 -> {
                 // WinContent
                 Text(text = "$page")
