@@ -23,6 +23,7 @@ import com.imaec.hilotto.ui.statistics.continues.ContinuesScreen
 import com.imaec.hilotto.ui.statistics.oddeven.OddEvenScreen
 import com.imaec.hilotto.ui.statistics.pick.PickScreen
 import com.imaec.hilotto.ui.statistics.sum.SumScreen
+import com.imaec.hilotto.ui.statistics.win.WinScreen
 import kotlinx.coroutines.launch
 
 @OptIn(
@@ -74,10 +75,7 @@ fun StatisticsPager(pagerState: PagerState) {
             1 -> PickScreen()
             2 -> ContinuesScreen()
             3 -> OddEvenScreen()
-            4 -> {
-                // WinContent
-                Text(text = "$page")
-            }
+            4 -> WinScreen()
         }
     }
 }
